@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026福岡(距離行程開始: 計算中...)</title>
+    <style>
+        :root {
+            --bg-color: #f5f5f7;
+            --card-bg: #ffffff;
+            --text-main: #1d1d1f;
+            --text-secondary: #86868b;
+            --apple-blue: #0066cc;
+            --apple-orange: #ff9500;
+            --apple-red: #ff3b30;
+            --border-color: #d2d2d7;
+            --nav-bg: rgba(22, 22, 23, 0.8);
+            --banner-bg: #e8e8ed;
+        }
+
+        body.dark-theme {
+            --bg-color: #000000;
+            --card-bg: #1c1c1e;
+            --text-main: #f5f5f7;
+            --text-secondary: #86868b;
+            --border-color: #3a3a3c;
+            --nav-bg: rgba(29, 29, 31, 0.8);
+            --banner-bg: #2c2c2e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, "Microsoft JhengHei", "微軟正黑體", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding-top: 64px;
+            padding-bottom: 60px;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 48px;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: 1440px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px;
+        }
+
+        .nav-logo {
+            color: #f5f5f7;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .nav-controls-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .view-mode-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #f5f5f7;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .apple-switch {
+            position: relative;
+            display: inline-block;
+            width: 42px;
+            height: 24px;
+        }
+
+        .apple-switch input { opacity: 0; width: 0; height: 0; }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #3a3a3c;
+            transition: .3s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px; width: 18px;
+            left: 3px; bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider { background-color: var(--apple-blue); }
+        input:checked + .slider:before { transform: translateX(18px); }
+
+        .live-weather-widget {
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.4;
+            text-align: right;
+        }
+
+        .sub-nav {
+            position: sticky;
+            top: 48px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 999;
+            overflow-x: auto;
+            white-space: nowrap;
+            margin-bottom: 24px;
+        }
+        body.dark-theme .sub-nav { background: rgba(28, 28, 30, 0.8); }
+
+        .tabs-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: flex-start;
+            gap: 12px;
+            padding: 12px 24px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 14px;
+            cursor: pointer;
+            padding: 6px 16px;
+            border-radius: 14px;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .tab-btn span {
+            display: block;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-top: 2px;
+        }
+
+        .tab-btn:hover { color: var(--apple-blue); }
+        
+        .tab-btn.active {
+            background-color: var(--text-main) !important;
+            color: var(--bg-color) !important;
+        }
+        .tab-btn.active span { color: var(--bg-color) !important; }
+        
+        .tab-btn.special-tab { border: 1px solid var(--border-color); background-color: rgba(0,0,0,0.02); }
+        body.dark-theme .tab-btn.special-tab { background-color: rgba(255,255,255,0.02); }
+
+        .main-container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .view-panel { display: none; animation: fadeIn 0.4s ease-in-out forwards; }
+        .view-panel.active { display: block; }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
+        }
+
+        .metric-card.large { grid-column: span 2; }
+        .metric-label { font-size: 13px; font-weight: 600; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 6px; letter-spacing: 0.05em; }
+        .metric-value { font-size: 26px; font-weight: 600; }
+        .metric-sub { font-size: 15px; color: var(--text-secondary); margin-top: 4px; line-height: 1.4; }
+
+        .opt-plan-banner {
+            background: var(--banner-bg);
+            padding: 16px 24px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+            border: 1px solid var(--border-color);
+        }
+
+        .opt-btn {
+            background-color: var(--apple-blue);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .opt-btn:hover { opacity: 0.85; }
+        .opt-btn.reset-btn { background-color: var(--text-main); color: var(--bg-color); }
+
+        .timeline-section {
+            background: var(--card-bg);
+            border-radius: 22px;
+            padding: 32px 40px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 190px 1fr;
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border-color);
+            align-items: flex-start;
+        }
+        .timeline-item:last-child { border-bottom: none; }
+        .time-box { font-size: 24px; font-weight: 600; color: var(--text-main); padding-right: 15px; }
+
+        .content-box {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center; 
+            gap: 24px;
+            width: 100%;
+        }
+
+        .text-block { flex: 1; }
+        .text-block h3 { font-size: 27px; font-weight: 600; margin-bottom: 6px; letter-spacing: -0.01em; }
+        .text-block p { font-size: 22px; color: var(--text-main); line-height: 1.5; white-space: pre-line; }
+
+        .text-block a { color: var(--apple-blue); text-decoration: none; }
+        .text-block a:hover { text-decoration: underline; }
+
+        .text-block .sub-item {
+            color: var(--text-main);
+            padding-left: 20px;
+            margin-top: 18px; 
+            font-size: 22px;  
+            line-height: 1.8; 
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* 擁有小項的大項標題配置：移除粗體、移除放大，與內文 22px 一致 */
+        .accordion-trigger {
+            font-size: 22px !important;
+            font-weight: normal !important;
+            cursor: pointer;
+            transition: color 0.15s ease;
+            margin-bottom: 0 !important;
+        }
+        .accordion-trigger:hover { color: var(--apple-blue); }
+        .accordion-trigger::after {
+            content: " ▾";
+            font-size: 18px;
+            color: var(--text-secondary);
+            vertical-align: middle;
+        }
+
+        /* 核心穩定切換架構 Pure CSS State Machine */
+        .timeline-item.plan-normal, .timeline-item.plan-optional { display: none !important; }
+        body:not(.show-d3-opt) .timeline-item.plan-normal.d3-node,
+        body.show-d3-opt .timeline-item.plan-optional.d3-node { display: grid !important; }
+        body:not(.show-d6-opt) .timeline-item.plan-normal.d6-node,
+        body.show-d6-opt .timeline-item.plan-optional.d6-node { display: grid !important; }
+
+        .timeline-left-img-container {
+            width: 110px;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent; 
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: none; 
+        }
+
+        .timeline-left-img-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        
+        .inline-sub-logo { max-height: 65px; max-width: 200px; object-fit: contain; vertical-align: middle; display: inline-block; margin-left: 16px; }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+            padding-left: 20px;
+            border-left: 3px solid var(--border-color);
+            margin-top: 8px;
+        }
+        .accordion-content.expanded { max-height: 2500px; margin-bottom: 8px; }
+
+        .shopping-tag-list { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+        .shopping-tag { background: #f5f5f7; padding: 6px 14px; border-radius: 8px; font-size: 16px; color: var(--text-main); font-weight: 500; }
+        .shopping-tag.alert { background: #fff3cd; color: #644d03; border: 1px solid #ffe69c; }
+        body.dark-theme .shopping-tag { background: #2c2c2e; color: #f5f5f7; }
+
+        .weather-table { width: 100%; border-collapse: collapse; }
+        .weather-table th, .weather-table td { text-align: left; padding: 16px; border-bottom: 1px solid var(--border-color); font-size: 17px; }
+        .weather-table th { color: var(--text-secondary); font-weight: 500; }
+
+        .store-group-container { background: var(--card-bg); border-radius: 22px; padding: 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.03); margin-bottom: 24px; border: 1px solid var(--border-color); }
+        .store-title { font-size: 22px; font-weight: 600; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; }
+        .store-logo-icon { max-height: 36px; max-width: 140px; object-fit: contain; }
+
+        .wishlist-item-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 12px; border-bottom: 1px solid var(--border-color); transition: opacity 0.25s ease; }
+        .wishlist-item-row:last-child { border-bottom: none; }
+        .wishlist-item-left { display: flex; align-items: center; gap: 18px; flex: 1; }
+        .item-checkbox { width: 22px; height: 22px; cursor: pointer; accent-color: var(--apple-blue); }
+        .wishlist-item-row:has(.item-checkbox:checked) { opacity: 0.35; }
+        .wishlist-item-row:has(.item-checkbox:checked) .item-text-content { text-decoration: line-through; }
+
+        .item-text-content h4 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+        .item-text-content p { font-size: 16px; color: var(--text-secondary); }
+        .wishlist-row-img-frame { width: 110px; height: 75px; display: flex; align-items: center; justify-content: center; background: #fafafa; border-radius: 10px; padding: 6px; margin-left: 20px; }
+        body.dark-theme .wishlist-row-img-frame { background: #2c2c2e; }
+        .wishlist-row-img-frame img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+        body.forced-mobile-mode .main-container { max-width: 480px; }
+        body.forced-mobile-mode .dashboard-grid { grid-template-columns: 1fr; }
+        body.forced-mobile-mode .metric-card.large { grid-column: span 1; }
+        body.forced-mobile-mode .timeline-item { grid-template-columns: 1fr; gap: 12px; }
+        body.forced-mobile-mode .content-box { flex-direction: column; align-items: flex-start; gap: 14px; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 1024px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .metric-card.large { grid-column: span 1; }
+            .timeline-item { grid-template-columns: 1fr; gap: 10px; }
+            .time-box { padding-right: 0; }
+            .content-box { flex-direction: column; align-items: flex-start; gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo" id="nav-header-title">2026福岡(距離行程開始: --日)</div>
+            <div class="nav-controls-right">
+                <button id="view-emulator-btn" class="view-mode-btn" onclick="toggleViewMode()">切換至手機版版面</button>
+                <div class="toggle-container">
+                    <span class="switch-label" onclick="document.getElementById('theme-slider-check').click()">深色模式</span>
+                    <label class="apple-switch">
+                        <input type="checkbox" id="theme-slider-check" onchange="toggleDarkTheme(this.checked)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div id="hakata-weather" class="live-weather-widget">博多即時 (JMA): ☀️ 讀取中...</div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="sub-nav">
+        <div class="tabs-container">
+            <button class="tab-btn active" onclick="switchView(0)">9/8 (日)<span>D1</span></button>
+            <button class="tab-btn" onclick="switchView(1)">10/8 (月)<span>D2</span></button>
+            <button class="tab-btn" onclick="switchView(2)">11/8 (火)<span>D3</span></button>
+            <button class="tab-btn" onclick="switchView(3)">12/8 (水)<span>D4</span></button>
+            <button class="tab-btn" onclick="switchView(4)">13/8 (木)<span>D5</span></button>
+            <button class="tab-btn" onclick="switchView(5)">14/8 (金)<span>D6</span></button>
+            <button class="tab-btn" onclick="switchView(6)">15/8 (土)<span>D7</span></button>
+            <button class="tab-btn special-tab" onclick="switchView(7)">🌤️<span>天氣預報</span></button>
+            <button class="tab-btn special-tab" onclick="switchView(8)">🛍️<span>願望清單</span></button>
+        </div>
+    </div>
+
+    <div class="main-container">
+
+        <div id="view-0" class="view-panel active">
+            <div class="dashboard-grid">
+                <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value" style="color:var(--text-secondary);">N/A</div></div>
+                <div class="metric-card"><div class="metric-label">2.離開酒店</div><div class="metric-value" style="color:var(--text-secondary);">N/A</div></div>
+                <div class="metric-card"><div class="metric-label">3.便利店時間</div><div class="metric-value">20:41 - 21:10</div></div>
+                <div class="metric-card"><div class="metric-label">4.回到酒店</div><div class="metric-value">21:10</div></div>
+                <div class="metric-card large"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">2h 50m</div><div class="metric-sub">未多於 3 小時，不執行續攤</div></div>
+                <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">00:00</div></div>
+                <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">00:30</div></div>
+            </div>
+            <div class="timeline-section">
+                <div class="timeline-item"><div class="time-box">06:55 - 07:53</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/HongKongCitybus.svg/960px-HongKongCitybus.svg.png" alt="Citybus"></div><div class="text-block"><p>A26 彩虹邨丹鳳樓, 龍翔道 → 機場 (1 號客運大樓)</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">08:00 - 10:45</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://www.mysmarttraveller.com/getattachment/19d282ba-cb5e-4a04-a8e3-193abb56aa3c/PPF-Logo.png" alt="Plaza Premium First"></div><div class="text-block">
+                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d1-airport')">香港國際機場</h3>
+                    <div id="acc-d1-airport" class="accordion-content">
+                        <p class="sub-item">- Plaza Premium First Hong Kong</p>
+                    </div>
+                </div></div></div>
+                <div class="timeline-item"><div class="time-box">11:00 - 15:30</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://logos-world.net/wp-content/uploads/2023/02/Cathay-Pacific-Logo.jpg" alt="Cathay Pacific"></div><div class="text-block"><p>CX588 香港 → 福岡 (11:00-15:30JST)</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">15:30 - 16:30</div><div class="content-box"><div class="text-block"><p>福岡空港</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">16:30 - 16:50</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://go.goinc.jp/ogp_go.png" alt="Go Taxi"></div><div class="text-block"><p>Taxi (Go Taxi)</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">16:50 - 17:10</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">17:11 - 17:13</div><div class="content-box"><div class="text-block"><p>櫛田神社前 → 天神南</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">17:13 - 19:00</div><div class="content-box"><div class="text-block">
+                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d1-1')">天神</h3>
+                    <div id="acc-d1-1" class="accordion-content">
+                        <p class="sub-item">- <a href="https://www.kaneko-optical.co.jp/shop_detail/73" target="_blank">金子眼鏡店 天神VIORO店</a> <img class="inline-sub-logo" src="https://www.puyi.cn/pub/media/amasty/shopby/option_images/slider/Logo_KANEKO_OPTICAL_1.png" alt="Kaneko"></p>
+                        <div class="shopping-tag-list" style="margin-top: 14px;"><div class="shopping-tag alert" style="font-size:16px;">⚠️ 蔡司 1.67 BlueGuard 定制鏡片可能有工期限制</div></div>
+                    </div>
+                </div></div></div>
+                <div class="timeline-item"><div class="time-box">19:00 - 20:30</div><div class="content-box"><div class="text-block"><p><a href="https://tabelog.com/fukuoka/A4001/A400103/40005186/" target="_blank">力飯店</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">20:39 - 20:41</div><div class="content-box"><div class="text-block"><p>天神南 → 櫛田神社前</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">21:10 回到酒店</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
+            </div>
+        </div>
+
+        <div id="view-1" class="view-panel">
+            <div class="dashboard-grid">
+                <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">07:30</div></div>
+                <div class="metric-card"><div class="metric-label">2.離開酒店</div><div class="metric-value">08:00</div></div>
+                <div class="metric-card"><div class="metric-label">3.便利店時間</div><div class="metric-value">21:06 - 21:35</div></div>
+                <div class="metric-card"><div class="metric-label">4.回到酒店</div><div class="metric-value">21:35</div></div>
+                <div class="metric-card large"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">3h 55m</div><div class="metric-sub" style="color:var(--apple-blue);">🟢 多於 3 小時，符合續攤標準</div></div>
+                <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">01:30</div></div>
+                <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">02:00</div></div>
+            </div>
+            <div class="timeline-section">
+                <div class="timeline-item"><div class="time-box">08:00 離開</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">08:10 - 08:40</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://companieslogo.com/img/orig/2702.T-5e777f36.png?t=1745945261" alt="McDonald"></div><div class="text-block"><p>マクドナルドキャナルシティ博多店</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">08:47 - 09:29</div><div class="content-box"><div class="text-block"><p>櫛田神社前 → 太宰府</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">09:30 - 11:50</div><div class="content-box"><div class="text-block">
+                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d2-tazaifu')">太宰府</h3>
+                    <div id="acc-d2-tazaifu" class="accordion-content">
+                        <p class="sub-item">- 太宰府天滿宮</p>
+                        <p class="sub-item">- スターバックスコーヒー太宰府天滿宮表參道店 <img class="inline-sub-logo" src="https://p7.hiclipart.com/preview/228/114/421/cafe-starbucks-tea-coffee-starbucks.jpg" alt="Starbucks"></p>
+                        <p class="sub-item">- 筑紫庵 本店</p>
+                        <p class="sub-item">- <a href="https://www.beams.co.jp/shop/jdz" target="_blank">BEAMS JAPAN太宰府</a> <img class="inline-sub-logo" src="https://w7.pngwing.com/pngs/872/747/png-transparent-beams-japan-hd-logo.png" alt="Beams Japan"></p>
+                    </div>
+                </div></div></div>
+                <div class="timeline-item"><div class="time-box">11:52 - 12:00</div><div class="content-box"><div class="text-block"><p>西鉄太宰府駅 → 内山［竈門神社前］</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">12:00 - 12:45</div><div class="content-box"><div class="text-block"><p>寶滿宮竈門神社</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">13:00 - 14:30</div><div class="content-box"><div class="text-block"><p><a href="https://s.tabelog.com/fukuoka/A4003/A400301/40047981/" target="_blank">炭焼地鶏 山蔵</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">14:40 - 14:49</div><div class="content-box"><div class="text-block"><p>内山［竈門神社前］ → 西鉄太宰府駅</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">15:03 - 15:37</div><div class="content-box"><div class="text-block"><p>太宰府 → 西鉄福岡［天神］</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">15:48 - 15:52</div><div class="content-box"><div class="text-block"><p>天神 → 大濠公園</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">16:00 - 19:30</div><div class="content-box"><div class="text-block">
+                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d2-ohori')">大濠公園</h3>
+                    <div id="acc-d2-ohori" class="accordion-content">
+                        <p class="sub-item">- 福岡城</p>
+                        <p class="sub-item">- 舞鶴公園</p>
+                        <p class="sub-item">- <a href="https://tabelog.com/fukuoka/A4001/A400105/40035537/" target="_blank">橙</a> (18:00-19:30)</p>
+                    </div>
+                </div></div></div>
+                <div class="timeline-item"><div class="time-box">19:31 - 19:34</div><div class="content-box"><div class="text-block"><p>大濠公園 → 天神</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">20:00 - 20:45</div><div class="content-box"><div class="text-block"><p><a href="https://s.tabelog.com/fukuoka/A4001/A400104/40056247/" target="_blank">夜パフェ専門店 Parfaiteria beL 福岡</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">21:04 - 21:06</div><div class="content-box"><div class="text-block"><p>天神南 → 櫛田神社前</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">21:35 回到酒店</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
+            </div>
+        </div>
+
+        <div id="view-2" class="view-panel">
+            <div class="dashboard-grid">
+                <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">09:00</div></div>
+                <div class="metric-card"><div class="metric-label">2.離開酒店</div><div class="metric-value">09:30</div></div>
+                <div class="metric-card"><div class="metric-label">3.便利店時間</div><div class="metric-value">20:12 - 20:45</div></div>
+                <div class="metric-card"><div class="metric-label">4.回到酒店</div><div class="metric-value">20:45</div></div>
+                <div class="metric-card large"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">3h 10m</div><div class="metric-sub" style="color:var(--apple-blue);">🟢 多於 3 小時，符合續攤標準</div></div>
+                <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">23:55</div></div>
+                <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">00:25</div></div>
+            </div>
+
+            <div class="opt-plan-banner">
+                <div><strong>深夜續攤方案選擇：</strong> <span id="d3-plan-status" style="color:var(--apple-blue); font-weight:600;">原定普通方案</span></div>
+                <button id="d3-toggle-btn" class="opt-btn" onclick="toggleD3State()">切換至選配 Optional Plan (屋台續攤)</button>
+            </div>
+
+            <div class="timeline-section">
+                <div class="timeline-item"><div class="time-box">09:30 離開</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">09:36 - 09:38</div><div class="content-box"><div class="text-block"><p>櫛田神社前 → 天神南</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">09:45 - 20:00</div><div class="content-box"><div class="text-block">
+                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d3-main-node')">天神</h3>
+                    <div id="acc-d3-main-node" class="accordion-content">
+                        <p class="sub-item">- <a href="https://tabelog.com/fukuoka/A4001/A400103/40062177/" target="_blank">I'm donut? 福岡店</a> <img class="inline-sub-logo" src="https://fathom-design.jp/wp/wp-content/uploads/2022/06/logo-1.jpg" alt="I'm Donut"></p>
+                        <p class="sub-item">- 大丸福岡天神店 <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/1/16/Daimaru_Logo_full.svg" alt="Daimaru"></p>
+                        <p class="sub-item">    - 無印良品 大丸福岡天神 <img class="inline-sub-logo" src="https://kiti-coltd.com/wp-content/uploads/2024/06/muji-logo.png" alt="Muji"></p>
+                        <p class="sub-item">- 天神地下街</p>
+                        <p class="sub-item">    - <a href="https://www.yoshidakaban.com/zh-CHT/shopinfo/kurachika/fukuoka/" target="_blank">KURA CHIKA by PORTER FUKUOKA</a> <img class="inline-sub-logo" src="https://hansengarmentsstore.com/cdn/shop/collections/download.webp?v=1692634430" alt="Porter"></p>
+                        <p class="sub-item">    - ビックカメラ天神1號館 <img class="inline-sub-logo" src="https://www.cubicplaza.com/wp-content/uploads/2019/08/logo-2597.png" alt="Bic"></p>
+                        <p class="sub-item">- 田中田式海鮮食堂 魚忠(12:30-13:30)</p>
+                        <p class="sub-item">- 天神地下街</p>
+                        <p class="sub-item">    - PRESS BUTTER SAND 天神地下街店 <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS"></p>
+                        <p class="sub-item">- 福岡PARCO</p>
+                        <p class="sub-item">    - AZUMA 旗艦店 unshop <img class="inline-sub-logo" src="https://www.azumabag.jp/cdn/shop/files/azuma_logo1.png?v=1689419564&width=600" alt="Azuma"></p>
+                        <p class="sub-item">- 天神地下街</p>
+                        <p class="sub-item">    - TRUFFLE Bakery 天神地下街店 <img class="inline-sub-logo" src="https://ifc.com.hk/tc/media/TruffleBAKERY_03.png" alt="Truffle"></p>
+                        <p class="sub-item">- Mina 天神</p>
+                        <p class="sub-item">    - 3COINS +plus ミーナ天神店 <img class="inline-sub-logo" src="https://mitsui-shopping-park.com/lalaport/tokyo-bay/shopguide/2359593/image1.jpg" alt="3Coins"></p>
+                        <p class="sub-item">    - <a href="https://map.uniqlo.com/jp/ja/detail/10101803" target="_blank">ユニクロ 天神店</a> <img class="inline-sub-logo" src="https://e7.pngegg.com/pngimages/503/276/png-clipart-nex-singapore-regent-street-uniqlo-retail-clothing-nike-miscellaneous-text-thumbnail.png" alt="Uniqlo"></p>
+                        <p class="sub-item">    - Seria ミーナ天神店</p>
+                        <p class="sub-item">- ONE FUKUOKA BLDG.</p>
+                        <p class="sub-item">    - <a href="https://store.tsite.jp/fukuoka-tenjin/" target="_blank">福岡天神 蔦屋書店</a> <img class="inline-sub-logo" src="https://store.tsite.jp/static_contents/site/tsite/portal/img/og.jpg" alt="Tsutaya"></p>
+                        <p class="sub-item">- Nike Fukuoka Tenjin <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1280px-Logo_NIKE.svg.png" alt="Nike"></p>
+                        <div class="shopping-tag-list" style="margin-top: 14px;"><div class="shopping-tag alert" style="font-size:16px;">⚠️ 當日為日本公眾假期「山之日」，人潮預計大幅增加</div></div>
+                    </div>
+                </div></div></div>
+                <div class="timeline-item plan-normal d3-node"><div class="time-box">19:00 - 20:00</div><div class="content-box"><div class="text-block"><p>レミさんち</p></div></div></div>
+                <div class="timeline-item plan-normal d3-node"><div class="time-box">20:10 - 20:12</div><div class="content-box"><div class="text-block"><p>天神南 → 櫛田神社前</p></div></div></div>
+                
+                <div class="timeline-item plan-optional d3-node" style="background-color:rgba(0,102,204,0.04);"><div class="time-box">18:30 - 19:30</div><div class="content-box"><div class="text-block"><p style="color:var(--apple-blue); font-weight:600;">[選配方案] レミさんち</p></div></div></div>
+                <div class="timeline-item plan-optional d3-node" style="background-color:rgba(0,102,204,0.04);"><div class="time-box">19:45 - 20:15</div><div class="content-box"><div class="text-block"><p style="color:var(--apple-blue); font-weight:600;">[選配方案] <a href="https://tabelog.com/fukuoka/A4001/A400103/40064513" target="_blank">やまちゃん 中洲 屋台/ やまちゃん 中洲店</a></p></div></div></div>
+                
+                <div class="timeline-item"><div class="time-box">20:45 回到酒店</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
+            </div>
+        </div>
+
+        <div id="view-3" class="view-panel">
+            <div class="dashboard-grid">
+                <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">07:25</div></div>
+                <div class="metric-card"><div class="metric-label">2.離開酒店</div><div class="metric-value">07:55</div></div>
+                <div class="metric-card"><div class="metric-label">3.便利店時間</div><div class="metric-value">19:46 - 20:15</div></div>
+                <div class="metric-card"><div class="metric-label">4.回到酒店</div><div class="metric-value">20:15</div></div>
+                <div class="metric-card large"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">3h 00m</div><div class="metric-sub">未多於 3 小時，不執行續攤</div></div>
+                <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">23:15</div></div>
+                <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">23:45</div></div>
+            </div>
+            <div class="timeline-section">
+                <div class="timeline-item"><div class="time-box">07:55 離開</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">08:01 - 08:03</div><div class="content-box"><div class="text-block"><p>櫛田神社前 → 博多</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">08:10 - 09:10</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://cdn.shopify.com/s/files/1/0583/9359/1989/files/header_logo.png?v=1626167317" alt="DACOMECCA"></div><div class="text-block"><p>DACOMECCA</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">09:23 - 09:38</div><div class="content-box"><div class="text-block"><p>博多 → 小倉</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">09:45 - 09:59</div><div class="content-box"><div class="text-block"><p>小倉 → 門司港</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">10:00 - 15:59</div><div class="content-box"><div class="text-block">
+                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d4-mojiko')">門司港</h3>
+                    <div id="acc-d4-mojiko" class="accordion-content">
+                        <p class="sub-item">- 九州鐵道紀念館</p>
+                        <p class="sub-item">- 伽哩本舗 門司港レトロ店(13:00-14:00)</p>
+                    </div>
+                </div></div></div>
+                <div class="timeline-item"><div class="time-box">14:59 - 15:51</div><div class="content-box"><div class="text-block"><p>門司港 → 博多</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">15:51 - 18:04</div><div class="content-box"><div class="text-block">
+                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d4-mall')">博多</h3>
+                    <div id="acc-d4-mall" class="accordion-content">
+                        <p class="sub-item">- 博多阪急</p>
+                        <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">IM MEN 博多阪急</a> <img class="inline-sub-logo" src="https://uk.isseymiyake.com/cdn/shop/t/106/assets/exp-immen_logobox.png?v=6638328696964336641775124216" alt="IM MEN"></p>
+                        <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">HOMME PLISSÉ ISSEY MIYAKE 博多阪急</a> <img class="inline-sub-logo" src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg?v=1743185807" alt="Homme Plisse"></p>
+                        <p class="sub-item">- AMU PLAZA博多</p>
+                        <p class="sub-item">    - Nintendo FUKUOKA <img class="inline-sub-logo" src="https://www.jrhakatacity.com.t.bv.hp.transer.com/uploads/images/resized/390x390/jrhakatacity/000002/000002/7a6e2c01.png" alt="Nintendo FUKUOKA"></p>
+                        <p class="sub-item">- KITTE博多</p>
+                    </div>
+                </div></div></div>
+                <div class="timeline-item"><div class="time-box">18:04 - 18:12</div><div class="content-box"><div class="text-block"><p>博多 → 赤坂</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">18:30 - 19:30</div><div class="content-box"><div class="text-block"><p><a href="https://tabelog.com/fukuoka/A4001/A400105/40050552/" target="_blank">タンテール富士</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">19:33 - 19:46</div><div class="content-box"><div class="text-block"><p>警固町 → キャナルシティ博多前［櫛田］[西鉄バス]６［博多駅～福岡塔］(博多駅中心大樓前Ｅ行)</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">20:15 回到酒店</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
+            </div>
+        </div>
+
+        <div id="view-4" class="view-panel">
+            <div class="dashboard-grid">
+                <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">06:45</div></div>
+                <div class="metric-card"><div class="metric-label">2.離開酒店</div><div class="metric-value">07:15</div></div>
+                <div class="metric-card"><div class="metric-label">3.便利店時間</div><div class="metric-value">20:36 - 21:00</div></div>
+                <div class="metric-card"><div class="metric-label">4.回到酒店</div><div class="metric-value">21:00</div></div>
+                <div class="metric-card large"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">3h 45m</div><div class="metric-sub" style="color:var(--apple-blue);">🟢 多於 3 小時，符合續攤標準</div></div>
+                <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">00:45</div></div>
+                <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">01:15</div></div>
+            </div>
+            <div class="timeline-section">
+                <div class="timeline-item"><div class="time-box">07:15 離開</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">07:20 - 07:45</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://upload.wikimedia.org/wikipedia/zh/thumb/2/25/Matsuya_Foods.svg/250px-Matsuya_Foods.svg.png" alt="Matsuya"></div><div class="text-block"><p>松屋 博多駅前通り店</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">07:50 - 08:26</div><div class="content-box"><div class="text-block"><p>櫛田神社前 → 福工大前</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">08:36 - 08:46</div><div class="content-box"><div class="text-block"><p>福工大前駅 → 新宮港</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">09:20 - 09:37</div><div class="content-box"><div class="text-block"><p>新宮 → 相島</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">09:37 - 13:50</div><div class="content-box"><div class="text-block">
+                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d5-aijima')">相島</h3>
+                    <div id="acc-d5-aijima" class="accordion-content">
+                        <p class="sub-item">- 丸山食堂(12:00-13:00)</p>
+                    </div>
+                </div></div></div>
+                <div class="timeline-item"><div class="time-box">13:50 - 14:07</div><div class="content-box"><div class="text-block"><p>相島 → 新宮</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">14:29 - 14:40</div><div class="content-box"><div class="text-block"><p>新宮港 → 福工大前駅</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">14:48 - 14:57</div><div class="content-box"><div class="text-block"><p>福工大前 → 福間</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">15:20 - 15:26</div><div class="content-box"><div class="text-block"><p>福間駅前 → 宮地嶽神社前</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">15:26 - 15:59</div><div class="content-box"><div class="text-block"><p>宮地嶽神社</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">15:59 - 16:06</div><div class="content-box"><div class="text-block"><p>宮地嶽神社前 → 福間駅前</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">16:17 - 17:00</div><div class="content-box"><div class="text-block"><p>福間 → 天神</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">17:00 - 20:30</div><div class="content-box"><div class="text-block">
+                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d5-1')">天神</h3>
+                    <div id="acc-d5-1" class="accordion-content">
+                        <p class="sub-item">- Standard Products ラシック福岡天神店 <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw6XiKxMXKhlyP6ddl40RAPSsodG5tBJw0gQ&s" alt="Standard Products"></p>
+                        <p class="sub-item">- <a href="https://www.tablecheck.com/ja/shops/yakitori-koto/reserve" target="_blank">焼き鳥 こと</a> (18:00-19:30)</p>
+                        <p class="sub-item">- ビックカメラ天神2號館 <img class="inline-sub-logo" src="https://www.cubicplaza.com/wp-content/uploads/2019/08/logo-2597.png" alt="Bic Camera"></p>
+                    </div>
+                </div></div></div>
+                <div class="timeline-item"><div class="time-box">20:34 - 20:36</div><div class="content-box"><div class="text-block"><p>天神南 → 櫛田神社前</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">21:00 回到酒店</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
+            </div>
+        </div>
+
+        <div id="view-5" class="view-panel">
+            <div class="dashboard-grid">
+                <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">08:15</div></div>
+                <div class="metric-card"><div class="metric-label">2.離開酒店</div><div class="metric-value">08:45</div></div>
+                <div class="metric-card"><div class="metric-label">3.便利店時間</div><div class="metric-value">20:43 - 21:10</div></div>
+                <div class="metric-card"><div class="metric-label">4.回到酒店</div><div class="metric-value">21:10</div></div>
+                <div class="metric-card large"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">4h 00m</div><div class="metric-sub" style="color:var(--apple-blue);">🟢 多於 3 小時，符合續攤標準</div></div>
+                <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">01:10</div></div>
+                <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">01:40</div></div>
+            </div>
+
+            <div class="opt-plan-banner">
+                <div><strong>深夜續攤方案選擇：</strong> <span id="d6-plan-status" style="color:var(--apple-blue); font-weight:600;">原定普通方案</span></div>
+                <button id="d6-toggle-btn" class="opt-btn" onclick="toggleD6State()">切換至選配 Optional Plan (やまちゃん)</button>
+            </div>
+
+            <div class="timeline-section">
+                <div class="timeline-item"><div class="time-box">08:45 離開</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">09:00 - 10:00</div><div class="content-box"><div class="text-block"><p><a href="https://www.tablecheck.com/ja/shokudou-owan/reserve/message" target="_blank">食堂 おわん</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">10:07 - 10:10</div><div class="content-box"><div class="text-block"><p>呉服町 → 天神</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">10:10 - 15:00</div><div class="content-box"><div class="text-block">
+                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d6-main-inner-node')">天神</h3>
+                    <div id="acc-d6-main-inner-node" class="accordion-content">
+                        <p class="sub-item">- <a href="https://www.kaneko-optical.co.jp/shop_detail/73" target="_blank">金子眼鏡店 天神VIORO店</a> <img class="inline-sub-logo" src="https://www.puyi.cn/pub/media/amasty/shopby/option_images/slider/Logo_KANEKO_OPTICAL_1.png" alt="Kaneko"></p>
+                        <p class="sub-item">- 岩田屋本店</p>
+                        <p class="sub-item">    - SHIRO 岩田屋店 <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKOjmIF-kBiCpkKlF1eeSETaH0M_e9EZ-MwA&s" alt="SHIRO"></p>
+                        <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">ISSEY MIYAKE 岩田屋本店</a> <img class="inline-sub-logo" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="Issey Miyake"></p>
+                        <p class="sub-item">- 元祖赤のれん 節ちゃんラーメン 天神本店(12:00-13:00)</p>
+                        <p class="sub-item">- <a href="https://www.humanmade.jp/dealers.html" target="_blank">HUMAN MADE FUKUOKA</a> <img class="inline-sub-logo" src="https://images.seeklogo.com/logo-png/48/1/humanmade-heart-logo-png_seeklogo-486066.png" alt="Human Made"></p>
+                        <p class="sub-item">- 猫カフェMOCHA 天神大名店</p>
+                        <p class="sub-item">- スウォッチストア福岡</p>
+                        <p class="sub-item">- <a href="https://www.sskamo.co.jp/company/store/fukuoka.html" target="_blank">KAMO 福岡店</a> <img class="inline-sub-logo" src="https://play-lh.googleusercontent.com/y28KofIBZHz9cx_3ffn3pmuYob1sHgXcL2hX5hTTvdf4XYc-wI1I52Rx-zx0-Mfs5OAb" alt="KAMO"></p>
+                        <p class="sub-item">- dacō 福岡店</p>
+                        <div class="shopping-tag-list" style="margin-top: 14px;"><div class="shopping-tag alert" style="font-size:16px;">⚠️ 元祖赤のれん老店可能因盂蘭盆節休業，若關門可轉戰大丸商圈</div></div>
+                    </div>
+                </div></div></div>
+                <div class="timeline-item"><div class="time-box">15:01 - 15:02</div><div class="content-box"><div class="text-block"><p>天神南 → 櫛田神社前</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">15:05 - 15:30</div><div class="content-box"><div class="text-block"><p>櫛田神社</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">15:30 - 18:00</div><div class="content-box"><div class="text-block">
+                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d6-canal')">博多運河城</h3>
+                    <div id="acc-d6-canal" class="accordion-content">
+                        <p class="sub-item">- The Full Full Hakata</p>
+                    </div>
+                </div></div></div>
+                <div class="timeline-item"><div class="time-box">18:01 - 18:02</div><div class="content-box"><div class="text-block"><p>櫛田神社前 → 天神南</p></div></div></div>
+                
+                <div class="timeline-item"><div class="time-box">18:02 - 20:30</div><div class="content-box"><div class="text-block">
+                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d6-sushisho')">天神</h3>
+                    <div id="acc-d6-sushisho" class="accordion-content">
+                        <p class="sub-item">- <a href="https://tabelog.com/fukuoka/A4001/A400103/40064513" target="_blank">すし笑 福岡店</a>(19:00-20:30)</p>
+                    </div>
+                </div></div></div>
+                
+                <div class="timeline-item plan-normal d6-node"><div class="time-box">20:42 - 20:43</div><div class="content-box"><div class="text-block"><p>天神南 → 櫛田神社前</p></div></div></div>
+                <div class="timeline-item plan-normal d6-node"><div class="time-box">21:10 回到酒店</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
+                
+                <div class="timeline-item plan-optional d6-node" style="background-color:rgba(0,102,204,0.04);"><div class="time-box">20:35 - 21:05</div><div class="content-box"><div class="text-block"><p style="color:var(--apple-blue); font-weight:600;">[選配方案] <a href="https://tabelog.com/fukuoka/A4001/A400103/40064513" target="_blank">やまちゃん 中洲 屋台/ やまちゃん 中洲店</a></p></div></div></div>
+                <div class="timeline-item plan-optional d6-node" style="background-color:rgba(0,102,204,0.04);"><div class="time-box">21:25 回到酒店</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p style="color:var(--apple-blue); font-weight:600;"><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
+            </div>
+        </div>
+
+        <div id="view-6" class="view-panel">
+            <div class="dashboard-grid">
+                <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">08:40</div></div>
+                <div class="metric-card"><div class="metric-label">2.離開酒店</div><div class="metric-value">09:10</div></div>
+                <div class="metric-card"><div class="metric-label">3.便利店時間</div><div class="metric-value" style="color:var(--text-secondary);">N/A</div></div>
+                <div class="metric-card"><div class="metric-label">4.回到酒店</div><div class="metric-value" style="color:var(--text-secondary);">N/A</div></div>
+                <div class="metric-card large"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value" style="color:var(--text-secondary);">N/A</div></div>
+                <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">00:00</div></div>
+                <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">00:30</div></div>
+            </div>
+            <div class="timeline-section">
+                <div class="timeline-item"><div class="time-box">09:10 離開</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">09:18 - 09:20</div><div class="content-box"><div class="text-block"><p>櫛田神社前 → 博多</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">09:20 - 11:35</div><div class="content-box"><div class="text-block">
+                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d7-1')">博多</h3>
+                    <div id="acc-d7-1" class="accordion-content">
+                        <p class="sub-item">- <a href="https://www.tablecheck.com/ja/shops/menya-ishii/reserve" target="_blank">麺屋いしヰ</a></p>
+                        <p class="sub-item">- 博多阪急</p>
+                    </div>
+                </div></div></div>
+                <div class="timeline-item"><div class="time-box">11:45 - 12:45</div><div class="content-box"><div class="text-block"><p>博多一雙 博多駅東本店</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">12:58 - 12:59</div><div class="content-box"><div class="text-block"><p>博多 → 櫛田神社前</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">13:20</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">13:40 - 16:40</div><div class="content-box"><div class="text-block">
+                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d7-airport')">福岡空港</h3>
+                    <div id="acc-d7-airport" class="accordion-content">
+                        <p class="sub-item">- <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">ISSEY MIYAKE 福岡空港 国際線ターミナル</a> <img class="inline-sub-logo" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="Issey Miyake"></p>
+                    </div>
+                </div></div></div>
+                <div class="timeline-item"><div class="time-box">16:40 - 19:25</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://logos-world.net/wp-content/uploads/2023/02/Cathay-Pacific-Logo.jpg" alt="Cathay Pacific"></div><div class="text-block"><p>CX589 福岡 → 香港 (16:40-19:25HKT)</p></div></div></div>
+            </div>
+        </div>
+
+        <div id="view-7" class="view-panel">
+            <div class="dashboard-grid">
+                <div class="metric-card"><div class="metric-label">歷史平均高溫</div><div class="metric-value">34.5°C</div><div class="metric-sub">盛夏副熱帶高壓脊特徵</div></div>
+                <div class="metric-card"><div class="metric-label">歷史夜間低溫</div><div class="metric-value">26.2°C</div><div class="metric-sub">悶熱潮濕和風環境</div></div>
+                <div class="metric-card"><div class="metric-label">紫外線系數</div><div class="metric-value" style="color:var(--apple-orange);">11+ 級</div><div class="metric-sub">JMA定義極危強對流曬傷</div></div>
+                <div class="metric-card"><div class="metric-label">典型對流降雨率</div><div class="metric-value">38%</div><div class="metric-sub">好發盛夏局部夕立雨動態</div></div>
+            </div>
+            <div class="timeline-section">
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:14px; margin-bottom:18px;">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <img style="max-height:50px; object-fit:contain;" src="https://ds.data.jma.go.jp/wmc/images/jma_logo.svg" alt="JMA">
+                        <h3 style="font-weight:600; font-size: 20px;">日本氣象廳觀測矩陣</h3>
+                    </div>
+                    <div style="font-size:12px; color:var(--text-secondary); background:#e8e8ed; padding:4px 8px; border-radius:6px; font-weight:600;">遠期統計模式 (JMA 歷史大數據觀測)</div>
+                </div>
+                <table class="weather-table">
+                    <thead><tr><th>日期</th><th>預報配置形態</th><th>基準溫度區間</th><th>氣象廳活動指南</th></tr></thead>
+                    <tbody>
+                        <tr><td>8月9日 (日)</td><td>☀️ 晴朗酷熱 / 局部午後多雲</td><td>27°C - 34°C</td><td>首日天神商圈室內購物，注意冷氣房內外溫差</td></tr>
+                        <tr><td>8月10日 (月)</td><td>☀️ 烈日強襲 / 全天曝曬極熱</td><td>26°C - 34°C</td><td>太宰府與大濠公園全程空曠，必須攜帶防曬陽傘</td></tr>
+                        <tr><td>8月11日 (火)</td><td>⛅ 多雲時晴 / 濕度悶熱感重</td><td>27°C - 35°C</td><td>山之日連假，商場溫差大，室內備薄背心</td></tr>
+                        <tr><td>8月12日 (水)</td><td>☀️ 港灣大晴 / 紫外線強烈反射</td><td>26°C - 33°C</td><td>門司港海風大，戴好偏光太陽眼鏡防眩光</td></tr>
+                        <tr><td>8月13日 (木)</td><td>☀️ 副高軸線核心 / 無雲高熱</td><td>26°C - 34°C</td><td>相島貓島完全暴露日照，務必補充足量水分</td></tr>
+                        <tr><td>8月14日 (金)</td><td>🌦️ 多雲偏悶 / 午後有局部強雷雨</td><td>27°C - 34°C</td><td>大名購物段隨身備妥摺疊傘以防局部夕立</td></tr>
+                        <tr><td>8月15日 (土)</td><td>⛅ 炎熱有雲</td><td>27°C - 34°C</td><td>離境搭機日，建議穿著寬鬆透氣服裝</td></tr>
+                    </tbody>
+                </table>
+                <div style="margin-top: 24px; font-size:15px; color:var(--text-secondary); text-align:center; line-height:1.6;">
+                    綜合氣象大數據多軌來源：日本氣象廳 (JMA) | 
+                    <a href="https://www.japan.travel/hk/weather/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">JNTO 日本國家旅遊局</a> | 
+                    <a href="https://weather.yahoo.co.jp/weather/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">Yahoo! JAPAN 天氣資訊</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-8" class="view-panel">
+            <div class="store-group-container">
+                <div class="store-title">
+                    <img class="store-logo-icon" src="https://www.puyi.cn/pub/media/amasty/shopby/option_images/slider/Logo_KANEKO_OPTICAL_1.png" alt="Kaneko">
+                    <span>金子眼鏡店 天神VIORO店</span>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox">
+                        <div class="item-text-content">
+                            <h4>蔡司 Clear View BlueGuard 1.67 鏡片</h4>
+                            <p>加購 DuraVision Gold 鍍膜，為大阪購入的 PANT III 鏡框配專用鏡面</p>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame"><img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Zeiss_logo.svg" alt="Zeiss"></div>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox">
+                        <div class="item-text-content">
+                            <h4>金子眼鏡店 Lens Anti Fog 防霧劑</h4>
+                            <p>官方專用高效防霧保養塗層</p>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame"><img src="https://www.puyi.cn/pub/media/amasty/shopby/option_images/slider/Logo_KANEKO_OPTICAL_1.png" alt="Kaneko"></div>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox">
+                        <div class="item-text-content">
+                            <h4>金子眼鏡店 Lens Cleaner 清潔液</h4>
+                            <p>官方光學鏡片去污專用保養噴霧</p>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame"><img src="https://www.puyi.cn/pub/media/amasty/shopby/option_images/slider/Logo_KANEKO_OPTICAL_1.png" alt="Kaneko"></div>
+                </div>
+            </div>
+
+            <div class="store-group-container">
+                <div class="store-title">
+                    <span>スウォッチストア福岡</span>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox">
+                        <div class="item-text-content">
+                            <h4><a href="https://www.swatch.com/ja-jp/orenji-hachi-ssx03l103n/SSX03L103N.html" target="_blank">ROYAL POP ORENJI HACHI 機械時計</a></h4>
+                            <p>型號：SSX03L103N。愛彼風格聯名，SISTEM51 機芯，每人每日限購 1 支。</p>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame"><img src="https://static.swatch.com/images/product/SSX03L103N/sa000/SSX03L103N_sa000_er003m.png" alt="Swatch ORENJI"></div>
+                </div>
+            </div>
+
+            <div class="store-group-container">
+                <div class="store-title">
+                    <img class="store-logo-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS">
+                    <span>天神地下街伴手禮</span>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox">
+                        <div class="item-text-content">
+                            <h4>PRESS BUTTER SAND 明太子芝士餅</h4>
+                            <p>九州區域極具人氣的限定焦糖奶油夾心餅乾</p>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            content.classList.toggle('expanded');
+        }
+
+        function switchView(index) {
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach((btn, idx) => {
+                if(idx === index) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+            const panels = document.querySelectorAll('.view-panel');
+            panels.forEach((panel, idx) => {
+                if(idx === index) panel.classList.add('active');
+                else panel.classList.remove('active');
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleDarkTheme(isDark) {
+            if(isDark) document.body.classList.add('dark-theme');
+            else document.body.classList.remove('dark-theme');
+        }
+
+        function toggleViewMode() {
+            const body = document.body;
+            const btn = document.getElementById('view-emulator-btn');
+            body.classList.toggle('forced-mobile-mode');
+            btn.innerText = body.classList.contains('forced-mobile-mode') ? "切換至電腦版版面" : "切換至手機版版面";
+        }
+
+        function toggleD3State() {
+            document.body.classList.toggle('show-d3-opt');
+            const btn = document.getElementById('d3-toggle-btn');
+            const status = document.getElementById('d3-plan-status');
+            if(document.body.classList.contains('show-d3-opt')) {
+                btn.innerText = "返回原本普通行程";
+                btn.classList.add('reset-btn');
+                status.innerText = "選配 Optional Plan 運作中";
+            } else {
+                btn.innerText = "切換至選配 Optional Plan (屋台續攤)";
+                btn.classList.remove('reset-btn');
+                status.innerText = "原定普通方案";
+            }
+        }
+
+        function toggleD6State() {
+            document.body.classList.toggle('show-d6-opt');
+            const btn = document.getElementById('d6-toggle-btn');
+            const status = document.getElementById('d6-plan-status');
+            if(document.body.classList.contains('show-d6-opt')) {
+                btn.innerText = "返回原本普通行程";
+                btn.classList.add('reset-btn');
+                status.innerText = "選配 Optional Plan 運作中";
+            } else {
+                btn.innerText = "切換至選配 Optional Plan (やまちゃん)";
+                btn.classList.remove('reset-btn');
+                status.innerText = "原定普通方案";
+            }
+        }
+
+        async function fetchLiveHakataWeather() {
+            let finalized = false;
+            const fallbackTimeout = setTimeout(() => {
+                injectDefaultWeatherMetrics();
+                finalized = true;
+            }, 400);
+
+            try {
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=33.5902&longitude=130.4207&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FTokyo');
+                const data = await res.json();
+                if(!finalized) {
+                    clearTimeout(fallbackTimeout);
+                    const temp = Math.round(data.current.temperature_2m);
+                    const maxTemp = Math.round(data.daily.temperature_2m_max[0]);
+                    const minTemp = Math.round(data.daily.temperature_2m_min[0]);
+                    const rainProb = data.daily.precipitation_probability_max[0];
+                    const wCode = data.current.weather_code;
+                    let emoji = "☀️";
+                    if(wCode >= 1 && wCode <= 3) emoji = "⛅";
+                    else if(wCode >= 51 && wCode <= 67) emoji = "🌧️";
+                    document.getElementById('hakata-weather').innerHTML = `博多即時 (JMA): ${emoji} ${temp}°C<br>最高: ${maxTemp}°C 最低: ${minTemp}°C | 降雨: ${rainProb}%`;
+                }
+            } catch (e) {
+                if(!finalized) {
+                    clearTimeout(fallbackTimeout);
+                    injectDefaultWeatherMetrics();
+                }
+            }
+        }
+
+        function injectDefaultWeatherMetrics() {
+            document.getElementById('hakata-weather').innerHTML = `博多即時 (JMA): ☀️ 29°C<br>最高: 34°C 最低: 26°C | 降雨: 10%`;
+        }
+
+        function calculateTripCountdown() {
+            const targetDate = new Date('2026-08-09T00:00:00');
+            const currentDate = new Date();
+            targetDate.setHours(0,0,0,0);
+            currentDate.setHours(0,0,0,0);
+            const delta = targetDate - currentDate;
+            const remainingDays = Math.ceil(delta / (1000 * 60 * 60 * 24));
+            
+            const titleString = `2026福岡(距離行程開始: ${remainingDays}日)`;
+            document.title = titleString;
+            document.getElementById('nav-header-title').innerText = titleString;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            calculateTripCountdown();
+            fetchLiveHakataWeather();
+        });
+    </script>
+</body>
+</html>
