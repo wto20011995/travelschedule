@@ -177,7 +177,10 @@
             border-radius: 14px;
             text-align: center;
             min-width: 80px;
-            white-space: nowrap;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .tab-btn span {
@@ -187,6 +190,11 @@
             color: var(--text-main);
             margin-top: 2px;
             white-space: nowrap;
+        }
+        
+        /* 特殊按鈕專用微調 */
+        .tab-btn.special-tab span {
+            font-size: 16px;
         }
 
         .tab-btn:hover { color: var(--apple-blue); }
@@ -397,6 +405,12 @@
             .live-weather-widget { width: 100%; text-align: center; white-space: normal; line-height: 1.6; }
             body { padding-top: 140px; }
             .sub-nav { top: 125px; }
+            
+            /* Responsive Buttons text adjustment */
+            .tab-btn { min-width: 70px; padding: 6px 10px; }
+            .tab-btn span { font-size: 15px; }
+            .tab-btn.special-tab span { font-size: 13px; }
+            
             .dashboard-grid { grid-template-columns: 1fr; }
             .metric-card.large { grid-column: span 1; }
             .timeline-item { grid-template-columns: 1fr; gap: 10px; }
@@ -434,7 +448,6 @@
             <button class="tab-btn" onclick="switchView(5)">14/8 (金)<span>D6</span></button>
             <button class="tab-btn" onclick="switchView(6)">15/8 (土)<span>D7</span></button>
             <button class="tab-btn special-tab" onclick="switchView(7)">🌤️<span>天氣預報</span></button>
-            <!-- 嚴格鎖定名稱：願望清單 -->
             <button class="tab-btn special-tab" onclick="switchView(8)">🛍️<span>願望清單</span></button>
         </div>
     </div>
@@ -466,8 +479,8 @@
                 <div class="timeline-item"><div class="time-box">16:50 - 17:10</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
                 <div class="timeline-item"><div class="time-box">17:11 - 17:13</div><div class="content-box"><div class="text-block"><p>櫛田神社前 → 天神南</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">17:13 - 19:00</div><div class="content-box"><div class="text-block">
-                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d1-kaneko')">天神</h3>
-                    <div id="acc-d1-kaneko" class="accordion-content">
+                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d1-1')">天神</h3>
+                    <div id="acc-d1-1" class="accordion-content">
                         <p class="sub-item">- <a href="https://www.kaneko-optical.co.jp/shop_detail/73" target="_blank">金子眼鏡店 天神VIORO店</a> <img class="inline-sub-logo" src="https://www.puyi.cn/pub/media/amasty/shopby/option_images/slider/Logo_KANEKO_OPTICAL_1.png" alt="Kaneko"></p>
                         <div class="shopping-tag-list" style="margin-top: 14px;"><div class="shopping-tag alert" style="font-size:16px;">⚠️ 蔡司 1.67 BlueGuard 定制鏡片可能有工期限制</div></div>
                     </div>
@@ -491,14 +504,14 @@
             </div>
             <div class="timeline-section">
                 <div class="timeline-item"><div class="time-box">08:00 離開</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
-                <div class="timeline-item"><div class="time-box">08:10 - 08:40</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://companieslogo.com/img/orig/2702.T-5e777f36.png?t=1745945261" alt="McDonald"></div><div class="text-block"><p>マクドナルドキャナルシティ博多店</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">08:10 - 08:40</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://companieslogo.com/img/orig/2702.T-5e777f36.png?t=1745945261" alt="McDonald"></div><div class="text-block"><p><a href="https://map.mcdonalds.co.jp/map/40644" target="_blank">マクドナルドキャナルシティ博多店</a></p></div></div></div>
                 <div class="timeline-item"><div class="time-box">08:47 - 09:29</div><div class="content-box"><div class="text-block"><p>櫛田神社前 → 太宰府</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">09:30 - 11:50</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d2-tazaifu')">太宰府</h3>
                     <div id="acc-d2-tazaifu" class="accordion-content">
                         <p class="sub-item">- 太宰府天滿宮</p>
-                        <p class="sub-item">- スターバックスコーヒー太宰府天滿宮表參道店 <img class="inline-sub-logo" src="https://p7.hiclipart.com/preview/228/114/421/cafe-starbucks-tea-coffee-starbucks.jpg" alt="Starbucks"></p>
-                        <p class="sub-item">- 筑紫庵 本店</p>
+                        <p class="sub-item">- <a href="https://store.starbucks.co.jp/detail-1058/" target="_blank">スターバックスコーヒー太宰府天満宮表参道店</a> <img class="inline-sub-logo" src="https://p7.hiclipart.com/preview/228/114/421/cafe-starbucks-tea-coffee-starbucks.jpg" alt="Starbucks"></p>
+                        <p class="sub-item">- <a href="https://tabelog.com/tw/fukuoka/A4003/A400301/40005385/" target="_blank">筑紫庵 本店</a></p>
                         <p class="sub-item">- <a href="https://www.beams.co.jp/shop/jdz" target="_blank">BEAMS JAPAN太宰府</a> <img class="inline-sub-logo" src="https://w7.pngwing.com/pngs/872/747/png-transparent-beams-japan-hd-logo.png" alt="Beams Japan"></p>
                     </div>
                 </div></div></div>
@@ -561,16 +574,16 @@
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://kiti-coltd.com/wp-content/uploads/2024/06/muji-logo.png" target="_blank">無印良品 大丸福岡天神</a> <img class="inline-sub-logo" src="https://kiti-coltd.com/wp-content/uploads/2024/06/muji-logo.png" alt="Muji"></p>
                         <p class="sub-item">- 天神地下街</p>
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://www.yoshidakaban.com/zh-CHT/shopinfo/kurachika/fukuoka/" target="_blank">KURA CHIKA by PORTER FUKUOKA</a> <img class="inline-sub-logo" src="https://hansengarmentsstore.com/cdn/shop/collections/download.webp?v=1692634430" alt="Porter"></p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- ビックカメラ天神1號館 <img class="inline-sub-logo" src="https://www.cubicplaza.com/wp-content/uploads/2019/08/logo-2597.png" alt="Bic"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://www.biccamera.com/bc/i/shop/shoplist/shop026.jsp" target="_blank">ビックカメラ天神1號館</a> <img class="inline-sub-logo" src="https://www.cubicplaza.com/wp-content/uploads/2019/08/logo-2597.png" alt="Bic"></p>
                         <p class="sub-item">- 田中田式海鮮食堂 魚忠(12:30-13:30)</p>
                         <p class="sub-item">- 天神地下街</p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- PRESS BUTTER SAND 天神地下街店 <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://buttersand.com/store/list/?area[]=kyushu" target="_blank">PRESS BUTTER SAND 天神地下街店</a> <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS"></p>
                         <p class="sub-item">- 福岡PARCO</p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- AZUMA 旗艦店 unshop <img class="inline-sub-logo" src="https://www.azumabag.jp/cdn/shop/files/azuma_logo1.png?v=1689419564&width=600" alt="Azuma"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- AZUMA 旗艦店 unshop</p>
                         <p class="sub-item">- 天神地下街</p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- TRUFFLE Bakery 天神地下街店 <img class="inline-sub-logo" src="https://ifc.com.hk/tc/media/TruffleBAKERY_03.png" alt="Truffle"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- TRUFFLE Bakery 天神地下街店</p>
                         <p class="sub-item">- Mina 天神</p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- 3COINS +plus ミーナ天神店 <img class="inline-sub-logo" src="https://mitsui-shopping-park.com/lalaport/tokyo-bay/shopguide/2359593/image1.jpg" alt="3Coins"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- 3COINS +plus ミーナ天神店</p>
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://map.uniqlo.com/jp/ja/detail/10101803" target="_blank">ユニクロ 天神店</a> <img class="inline-sub-logo" src="https://e7.pngegg.com/pngimages/503/276/png-clipart-nex-singapore-regent-street-uniqlo-retail-clothing-nike-miscellaneous-text-thumbnail.png" alt="Uniqlo"></p>
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- Seria ミーナ天神店</p>
                         <p class="sub-item">- ONE FUKUOKA BLDG.</p>
@@ -664,8 +677,8 @@
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d5-1')">天神</h3>
                     <div id="acc-d5-1" class="accordion-content">
                         <p class="sub-item">- Standard Products 專櫃店 <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw6XiKxMXKhlyP6ddl40RAPSsodG5tBJw0gQ&s" alt="Standard Products"></p>
-                        <p class="sub-item">- <a href="https://www.tablecheck.com/ja/shops/yakitori-koto/reserve" target="_blank">焼き鳥 こと(18:00-19:30)</a></p>
-                        <p class="sub-item">- ビックカメラ天神2號館 <img class="inline-sub-logo" src="https://www.cubicplaza.com/wp-content/uploads/2019/08/logo-2597.png" alt="Bic Camera"></p>
+                        <p class="sub-item">- <a href="https://www.tablecheck.com/ja/shops/yakitori-koto/reserve" target="_blank">焼き鳥 こと</a> (18:00-19:30)</p>
+                        <p class="sub-item">- ビ克カメラ天神2號館 <img class="inline-sub-logo" src="https://www.cubicplaza.com/wp-content/uploads/2019/08/logo-2597.png" alt="Bic Camera"></p>
                     </div>
                 </div></div></div>
                 <div class="timeline-item"><div class="time-box">20:34 - 20:36</div><div class="content-box"><div class="text-block"><p>天神南 → 櫛田神社前</p></div></div></div>
@@ -738,10 +751,11 @@
                     </div>
                 </div></div></div>
                 <div class="timeline-item"><div class="time-box">18:01 - 18:02</div><div class="content-box"><div class="text-block"><p>櫛田神社前 → 天神南</p></div></div></div>
+                
                 <div class="timeline-item"><div class="time-box">18:02 - 20:30</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d6-sushisho')">天神</h3>
                     <div id="acc-d6-sushisho" class="accordion-content">
-                        <p class="sub-item">- <a href="https://tabelog.com/fukuoka/A4001/A400103/40064513" target="_blank">すし笑 福岡店(19:00-20:30)</a></p>
+                        <p class="sub-item">- <a href="https://tabelog.com/fukuoka/A4001/A400103/40064513" target="_blank">すし笑 福岡店</a>(19:00-20:30)</p>
                     </div>
                 </div></div></div>
                 
@@ -763,7 +777,7 @@
                 <div class="metric-card"><div class="metric-label">4.回到酒店</div><div class="metric-value" style="color:var(--text-secondary);">N/A</div></div>
                 <div class="metric-card large"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value" style="color:var(--text-secondary);">N/A</div></div>
                 <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">00:00</div></div>
-                <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value" style="color:var(--text-secondary);">N/A</div></div>
+                <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">00:30</div></div>
             </div>
             <div class="timeline-section">
                 <div class="timeline-item"><div class="time-box">09:10 離開</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
@@ -863,6 +877,64 @@
                 </div>
             </div>
 
+            <!-- 全新 ISSEY MIYAKE 專區 -->
+            <div class="store-group-container">
+                <div class="store-title">
+                    <img class="store-logo-icon" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="ISSEY MIYAKE">
+                    <span>ISSEY MIYAKE (岩田屋本店 / 博多阪急)</span>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox">
+                        <div class="item-text-content">
+                            <h4><a href="https://www.isseymiyake.com/products/la53fj233?_pos=8&_sid=a5d190f91&_ss=r&variant=46920227160282" target="_blank">IM MEN 服飾 (LA53FJ233)</a></h4>
+                            <p>品牌指定購物清單款式</p>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame"><img src="https://uk.isseymiyake.com/cdn/shop/t/106/assets/exp-immen_logobox.png?v=6638328696964336641775124216" alt="IM MEN"></div>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox">
+                        <div class="item-text-content">
+                            <h4><a href="https://www.isseymiyake.com/products/hp61jf153?_pos=6&_sid=a5d190f91&_ss=r&variant=47542102851802" target="_blank">HOMME PLISSÉ 經典褶皺服飾 (HP61JF153)</a></h4>
+                            <p>品牌指定購物清單款式</p>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame"><img src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg" alt="Homme Plisse"></div>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox">
+                        <div class="item-text-content">
+                            <h4><a href="https://www.isseymiyake.com/products/hp61jk063?_pos=1&_sid=a5d190f91&_ss=r&variant=47918812332250" target="_blank">HOMME PLISSÉ 經典褶皺服飾 (HP61JK063)</a></h4>
+                            <p>品牌指定購物清單款式</p>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame"><img src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg" alt="Homme Plisse"></div>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox">
+                        <div class="item-text-content">
+                            <h4><a href="https://www.isseymiyake.com/products/la61fj116?_pos=5&_sid=a5d190f91&_ss=r&variant=47542104654042" target="_blank">IM MEN 服飾 (LA61FJ116)</a></h4>
+                            <p>品牌指定購物清單款式</p>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame"><img src="https://uk.isseymiyake.com/cdn/shop/t/106/assets/exp-immen_logobox.png?v=6638328696964336641775124216" alt="IM MEN"></div>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox">
+                        <div class="item-text-content">
+                            <h4><a href="https://www.isseymiyake.com/products/hp61ff183?_pos=4&_sid=a5d190f91&_ss=r&variant=47624398012634" target="_blank">HOMME PLISSÉ 經典褶皺服飾 (HP61FF183)</a></h4>
+                            <p>品牌指定購物清單款式</p>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame"><img src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg" alt="Homme Plisse"></div>
+                </div>
+            </div>
+
             <div class="store-group-container">
                 <div class="store-title">
                     <span>スウォッチストア福岡</span>
@@ -888,7 +960,7 @@
                     <div class="wishlist-item-left">
                         <input type="checkbox" class="item-checkbox">
                         <div class="item-text-content">
-                            <h4>PRESS BUTTER SAND 明太子芝士餅</h4>
+                            <h4><a href="https://buttersand.com/store/list/?area[]=kyushu" target="_blank">PRESS BUTTER SAND 明太子芝士餅</a></h4>
                             <p>九州區域極具人氣的限定焦糖奶油夾心餅乾</p>
                         </div>
                     </div>
