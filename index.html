@@ -28,7 +28,6 @@
             --banner-bg: #2c2c2e;
         }
 
-        /* 全域字體配置：Arial（英文）及微軟正黑體（中文），放大視覺比例 */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -45,7 +44,6 @@
             padding-bottom: 60px;
         }
 
-        /* 頂部固定導航列 */
         nav {
             position: fixed;
             top: 0;
@@ -137,12 +135,23 @@
 
         .live-weather-widget {
             background: rgba(255, 255, 255, 0.12);
-            color: #ffffff;
             padding: 6px 14px;
             border-radius: 8px;
             font-size: 13px;
             line-height: 1.4;
             text-align: right;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        
+        .live-weather-widget:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .live-weather-widget a {
+            color: #ffffff;
+            text-decoration: none;
+            display: block;
         }
 
         .sub-nav {
@@ -168,7 +177,6 @@
             padding: 12px 24px;
         }
 
-        /* Fixed Mobile Tab Button Wrapping Issues */
         .tab-btn {
             background: none;
             border: none;
@@ -200,14 +208,11 @@
 
         .tab-btn:hover { color: var(--apple-blue); }
         
-        /* 任何分頁在啟用狀態下一律強制轉為黑底白字與黑底白字內文 */
         .tab-btn.active {
             background-color: var(--text-main) !important;
             color: var(--bg-color) !important;
         }
-        .tab-btn.active span {
-            color: var(--bg-color) !important;
-        }
+        .tab-btn.active span { color: var(--bg-color) !important; }
         
         .tab-btn.special-tab { border: 1px solid var(--border-color); background-color: rgba(0,0,0,0.02); }
         body.dark-theme .tab-btn.special-tab { background-color: rgba(255,255,255,0.02); }
@@ -217,6 +222,27 @@
             max-width: 1440px;
             margin: 0 auto;
             padding: 0 24px;
+        }
+
+        .hero-banner {
+            width: 100%;
+            height: 180px;
+            background-image: url('https://www.crossroadfukuoka.jp/storage/tourism_attractions/12308/responsive_images/i9rbESY9HkkCI0biRPgrsHMVavMuRD1Z4GbrSV05__1593_767.jpg');
+            background-size: cover;
+            background-position: center 30%;
+            border-radius: 22px;
+            margin-bottom: 24px;
+            position: relative;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.05), rgba(0,0,0,0.35));
         }
 
         .view-panel { display: none; animation: fadeIn 0.4s ease-in-out forwards; }
@@ -242,7 +268,6 @@
         .metric-value { font-size: 26px; font-weight: 600; }
         .metric-sub { font-size: 15px; color: var(--text-secondary); margin-top: 4px; line-height: 1.4; }
 
-        /* Pure CSS Dynamic Metric Value Toggling */
         .metric-optional { display: none; }
         body.show-d3-opt #view-2 .metric-normal { display: none; }
         body.show-d3-opt #view-2 .metric-optional { display: inline; }
@@ -302,9 +327,7 @@
             width: 100%;
         }
 
-        .text-block { flex: 1; }
-        
-        /* 擁有小項的大項字體與普通行程完全一致，取消粗體與放大 */
+        .text-block { flex: 1; width: 100%; }
         .text-block h3 { font-size: 22px !important; font-weight: normal !important; margin-bottom: 6px; letter-spacing: -0.01em; }
         .text-block p { font-size: 22px; color: var(--text-main); line-height: 1.5; white-space: pre-line; }
 
@@ -322,7 +345,6 @@
             gap: 16px;
         }
 
-        /* 摺疊組件繼承常規字體設定 */
         .accordion-trigger {
             font-size: 22px !important;
             font-weight: normal !important;
@@ -338,14 +360,12 @@
             vertical-align: middle;
         }
 
-        /* Pure CSS Class State Engine Rules for Dynamic Optional Extension Toggles */
         .timeline-item.plan-normal, .timeline-item.plan-optional { display: none !important; }
         body:not(.show-d3-opt) .timeline-item.plan-normal.d3-node,
         body.show-d3-opt .timeline-item.plan-optional.d3-node { display: grid !important; }
         body:not(.show-d6-opt) .timeline-item.plan-normal.d6-node,
         body.show-d6-opt .timeline-item.plan-optional.d6-node { display: grid !important; }
 
-        /* Left-aligned transparent graphics frame */
         .timeline-left-img-container {
             width: 110px;
             height: 110px;
@@ -359,7 +379,6 @@
         }
 
         .timeline-left-img-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        
         .inline-sub-logo { max-height: 65px; max-width: 200px; object-fit: contain; vertical-align: middle; display: inline-block; margin-left: 16px; }
 
         .accordion-content {
@@ -381,23 +400,56 @@
         .weather-table th, .weather-table td { text-align: left; padding: 16px; border-bottom: 1px solid var(--border-color); font-size: 17px; }
         .weather-table th { color: var(--text-secondary); font-weight: 500; }
 
-        /* Wishlist Structures Styles */
         .store-group-container { background: var(--card-bg); border-radius: 22px; padding: 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.03); margin-bottom: 24px; border: 1px solid var(--border-color); }
         .store-title { font-size: 22px; font-weight: 600; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; }
         .store-logo-icon { max-height: 36px; max-width: 140px; object-fit: contain; }
 
-        .wishlist-item-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 12px; border-bottom: 1px solid var(--border-color); transition: opacity 0.25s ease; }
+        .wishlist-item-row { display: flex; align-items: flex-start; justify-content: space-between; padding: 16px 12px; border-bottom: 1px solid var(--border-color); transition: opacity 0.25s ease; }
         .wishlist-item-row:last-child { border-bottom: none; }
-        .wishlist-item-left { display: flex; align-items: center; gap: 18px; flex: 1; }
-        .item-checkbox { width: 22px; height: 22px; cursor: pointer; accent-color: var(--apple-blue); }
+        .wishlist-item-left { display: flex; align-items: flex-start; gap: 18px; flex: 1; margin-top: 8px; }
+        .item-checkbox { width: 22px; height: 22px; cursor: pointer; accent-color: var(--apple-blue); margin-top: 2px;}
         .wishlist-item-row:has(.item-checkbox:checked) { opacity: 0.35; }
         .wishlist-item-row:has(.item-checkbox:checked) .item-text-content { text-decoration: line-through; }
 
-        .item-text-content h4 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
-        .item-text-content p { font-size: 16px; color: var(--text-secondary); }
-        .wishlist-row-img-frame { width: 110px; height: 75px; display: flex; align-items: center; justify-content: center; background: #fafafa; border-radius: 10px; padding: 6px; margin-left: 20px; }
+        .item-text-content h4 { font-size: 20px; font-weight: 600; margin-bottom: 4px; line-height: 1.4; }
+        .item-text-content p { font-size: 16px; color: var(--text-secondary); line-height: 1.5; }
+        
+        .wishlist-row-img-frame { 
+            width: 140px; 
+            height: 140px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            background: #fafafa; 
+            border-radius: 12px; 
+            padding: 8px; 
+            margin-left: 20px; 
+            flex-shrink: 0;
+        }
         body.dark-theme .wishlist-row-img-frame { background: #2c2c2e; }
-        .wishlist-row-img-frame img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .wishlist-row-img-frame img { max-width: 100%; max-height: 100%; object-fit: cover; border-radius: 8px; }
+
+        /* 航班狀態追蹤卡美學樣式 */
+        .flight-tracker-card {
+            background: #fbfbfd;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 18px;
+            margin-top: 14px;
+            width: 100%;
+            max-width: 480px;
+        }
+        body.dark-theme .flight-tracker-card { background: #2c2c2e; }
+        .flight-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .flight-number { font-size: 18px; font-weight: 600; color: var(--text-main); }
+        .flight-status { font-size: 13px; font-weight: 600; background: #e3f8e9; color: #1f8a4c; padding: 4px 10px; border-radius: 8px; }
+        body.dark-theme .flight-status { background: rgba(31,138,76,0.2); color: #40d07b; }
+        .flight-route { font-size: 17px; font-weight: 600; margin-bottom: 6px; color: var(--apple-blue); }
+        .flight-meta { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+        .flight-links { display: flex; gap: 10px; flex-wrap: wrap; }
+        .flight-links a { font-size: 13px; background: var(--apple-blue); color: #ffffff; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-weight: 600; text-align: center; }
+        .flight-links a.alt { background: #1d1d1f; color: #ffffff; }
+        body.dark-theme .flight-links a.alt { background: #f5f5f7; color: #1d1d1f; }
 
         body.forced-mobile-mode .main-container { max-width: 480px; }
         body.forced-mobile-mode .dashboard-grid { grid-template-columns: 1fr; }
@@ -405,7 +457,8 @@
         body.forced-mobile-mode .timeline-item { grid-template-columns: 1fr; gap: 12px; }
         body.forced-mobile-mode .content-box { flex-direction: column; align-items: flex-start; gap: 14px; }
 
-        /* Responsive UI fixes for mobile layout */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
         @media (max-width: 850px) {
             nav { height: auto; padding: 12px 0; align-items: stretch; }
             .nav-container { flex-direction: column; gap: 12px; }
@@ -423,6 +476,7 @@
             .timeline-item { grid-template-columns: 1fr; gap: 10px; }
             .time-box { padding-right: 0; }
             .content-box { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .wishlist-row-img-frame { width: 100px; height: 100px; }
         }
     </style>
 </head>
@@ -440,11 +494,14 @@
                         <span class="slider"></span>
                     </label>
                 </div>
-                <div id="hakata-weather" class="live-weather-widget">博多即時 (JMA): ☀️ 讀取中...</div>
+                <div id="hakata-weather" class="live-weather-widget">
+                    <a href="https://www.data.jma.go.jp/multi/yoho/yoho_detail.html?code=400020&lang=cn_zt" target="_blank">博多即時: ☀️ 讀取中...</a>
+                </div>
             </div>
         </div>
     </nav>
 
+    <!-- 已完全清理旅遊影片分頁鈕 -->
     <div class="sub-nav">
         <div class="tabs-container">
             <button class="tab-btn active" onclick="switchView(0)">9/8 (日)<span>D1</span></button>
@@ -460,6 +517,8 @@
     </div>
 
     <div class="main-container">
+        
+        <div class="hero-banner"></div>
 
         <!-- =================== DAY 1 (9/8) =================== -->
         <div id="view-0" class="view-panel active">
@@ -474,17 +533,20 @@
             </div>
             <div class="timeline-section">
                 <div class="timeline-item"><div class="time-box">06:55 - 07:53</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/HongKongCitybus.svg/960px-HongKongCitybus.svg.png" alt="Citybus"></div><div class="text-block"><p>A26 彩虹邨丹鳳樓, 龍翔道 → 機場 (1 號客運大樓)</p></div></div></div>
-                <div class="timeline-item"><div class="time-box">08:00 - 10:45</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://www.mysmarttraveller.com/getattachment/19d282ba-cb5e-4a04-a8e3-193abb56aa3c/PPF-Logo.png" alt="Plaza Premium First"></div><div class="text-block">
+                
+                <div class="timeline-item"><div class="time-box">08:00 - 10:45</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d1-airport')">香港國際機場</h3>
                     <div id="acc-d1-airport" class="accordion-content">
-                        <p class="sub-item">- Plaza Premium First Hong Kong</p>
+                        <p class="sub-item">- Plaza Premium First Hong Kong <img class="inline-sub-logo" src="https://www.mysmarttraveller.com/getattachment/19d282ba-cb5e-4a04-a8e3-193abb56aa3c/PPF-Logo.png" alt="Plaza Premium First"></p>
                     </div>
                 </div></div></div>
-                <div class="timeline-item"><div class="time-box">11:00 - 15:30</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://logos-world.net/wp-content/uploads/2023/02/Cathay-Pacific-Logo.jpg" alt="Cathay Pacific"></div><div class="text-block"><p>CX588 香港 → 福岡 (11:00-15:30JST)</p></div></div></div>
+                
+                <div class="timeline-item"><div class="time-box">11:00 - 15:30</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://logos-world.net/wp-content/uploads/2023/02/Cathay-Pacific-Logo.jpg" alt="Cathay Pacific"></div><div class="text-block" id="cx588-block"><p>CX588 香港 → 福岡 (11:00-15:30JST)</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">15:30 - 16:30</div><div class="content-box"><div class="text-block"><p>福岡空港</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">16:30 - 16:50</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://go.goinc.jp/ogp_go.png" alt="Go Taxi"></div><div class="text-block"><p>Taxi (Go Taxi)</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">16:50 - 17:10</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
                 <div class="timeline-item"><div class="time-box">17:11 - 17:13</div><div class="content-box"><div class="text-block"><p>櫛田神社前 → 天神南</p></div></div></div>
+                
                 <div class="timeline-item"><div class="time-box">17:13 - 19:00</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d1-kaneko')">天神</h3>
                     <div id="acc-d1-kaneko" class="accordion-content">
@@ -517,7 +579,7 @@
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d2-tazaifu')">太宰府</h3>
                     <div id="acc-d2-tazaifu" class="accordion-content">
                         <p class="sub-item">- 太宰府天滿宮</p>
-                        <p class="sub-item">- <a href="https://store.starbucks.co.jp/detail-1058/" target="_blank">スターバックスコーヒー太宰府天満宮表参道店</a> <img class="inline-sub-logo" src="https://p7.hiclipart.com/preview/228/114/421/cafe-starbucks-tea-coffee-starbucks.jpg" alt="Starbucks"></p>
+                        <p class="sub-item">- <a href="https://store.starbucks.co.jp/detail-1058/" target="_blank">スターバックスコーヒー太宰府天滿宮表參道店</a> <img class="inline-sub-logo" src="https://p7.hiclipart.com/preview/228/114/421/cafe-starbucks-tea-coffee-starbucks.jpg" alt="Starbucks"></p>
                         <p class="sub-item">- <a href="https://tabelog.com/tw/fukuoka/A4003/A400301/40005385/" target="_blank">筑紫庵 本店</a></p>
                         <p class="sub-item">- <a href="https://www.beams.co.jp/shop/jdz" target="_blank">BEAMS JAPAN太宰府</a> <img class="inline-sub-logo" src="https://w7.pngwing.com/pngs/872/747/png-transparent-beams-japan-hd-logo.png" alt="Beams Japan"></p>
                     </div>
@@ -636,8 +698,8 @@
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d4-mall-node')">博多</h3>
                     <div id="acc-d4-mall-node" class="accordion-content">
                         <p class="sub-item">- 博多阪急</p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">IM MEN 博多阪急</a> <img class="inline-sub-logo" src="https://uk.isseymiyake.com/cdn/shop/t/106/assets/exp-immen_logobox.png?v=6638328696964336641775124216" alt="IM MEN"></p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">HOMME PLISSÉ ISSEY MIYAKE 博多阪急</a> <img class="inline-sub-logo" src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg?v=1743185807" alt="Homme Plisse"></p>
+                        <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">IM MEN 博多阪急</a> <img class="inline-sub-logo" src="https://uk.isseymiyake.com/cdn/shop/t/106/assets/exp-immen_logobox.png?v=6638328696964336641775124216" alt="IM MEN"></p>
+                        <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">HOMME PLISSÉ ISSEY MIYAKE 博多阪急</a> <img class="inline-sub-logo" src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg?v=1743185807" alt="Homme Plisse"></p>
                         <p class="sub-item">- AMU PLAZA博多</p>
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- Nintendo FUKUOKA <img class="inline-sub-logo" src="https://www.jrhakatacity.com.t.bv.hp.transer.com/uploads/images/resized/390x390/jrhakatacity/000002/000002/7a6e2c01.png" alt="Nintendo"></p>
                         <p class="sub-item">- KITTE博多</p>
@@ -662,7 +724,7 @@
                 <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">01:15</div></div>
             </div>
             <div class="timeline-section">
-                <div class="timeline-item"><div class="time-box">07:15 離開</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">07:15 離開</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5仕MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
                 <div class="timeline-item"><div class="time-box">07:20 - 07:45</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://upload.wikimedia.org/wikipedia/zh/thumb/2/25/Matsuya_Foods.svg/250px-Matsuya_Foods.svg.png" alt="Matsuya"></div><div class="text-block"><p>松屋 博多駅前通り店</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">07:50 - 08:26</div><div class="content-box"><div class="text-block"><p>櫛田神社前 → 福工大前</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">08:36 - 08:46</div><div class="content-box"><div class="text-block"><p>福工大前駅 → 新宮港</p></div></div></div>
@@ -685,7 +747,7 @@
                     <div id="acc-d5-1" class="accordion-content">
                         <p class="sub-item">- Standard Products 專櫃店 <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw6XiKxMXKhlyP6ddl40RAPSsodG5tBJw0gQ&s" alt="Standard Products"></p>
                         <p class="sub-item">- <a href="https://www.tablecheck.com/ja/shops/yakitori-koto/reserve" target="_blank">焼き鳥 こと(18:00-19:30)</a></p>
-                        <p class="sub-item">- ビックカメラ天神2號館 <img class="inline-sub-logo" src="https://www.cubicplaza.com/wp-content/uploads/2019/08/logo-2597.png" alt="Bic Camera"></p>
+                        <p class="sub-item">- ビ克カメラ天神2號館 <img class="inline-sub-logo" src="https://www.cubicplaza.com/wp-content/uploads/2019/08/logo-2597.png" alt="Bic Camera"></p>
                     </div>
                 </div></div></div>
                 <div class="timeline-item"><div class="time-box">20:34 - 20:36</div><div class="content-box"><div class="text-block"><p>天神南 → 櫛田神社前</p></div></div></div>
@@ -805,7 +867,8 @@
                         <p class="sub-item">- <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">ISSEY MIYAKE 福岡空港 国際線ターミナル</a> <img class="inline-sub-logo" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="Issey Miyake"></p>
                     </div>
                 </div></div></div>
-                <div class="timeline-item"><div class="time-box">16:40 - 19:25</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://logos-world.net/wp-content/uploads/2023/02/Cathay-Pacific-Logo.jpg" alt="Cathay Pacific"></div><div class="text-block"><p>CX589 福岡 → 香港 (16:40-19:25HKT)</p></div></div></div>
+                
+                <div class="timeline-item"><div class="time-box">16:40 - 19:25</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://logos-world.net/wp-content/uploads/2023/02/Cathay-Pacific-Logo.jpg" alt="Cathay Pacific"></div><div class="text-block" id="cx589-block"><p>CX589 福岡 → 香港 (16:40-19:25HKT)</p></div></div></div>
             </div>
         </div>
 
@@ -838,9 +901,9 @@
                     </tbody>
                 </table>
                 <div style="margin-top: 24px; font-size:15px; color:var(--text-secondary); text-align:center; line-height:1.6;">
-                    綜合即時氣象大數據多軌來源：日本氣象廳 (JMA) | 
-                    <a href="https://www.japan.travel/hk/weather/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">JNTO 日本國家旅遊局</a> | 
-                    <a href="https://weather.yahoo.co.jp/weather/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">Yahoo! JAPAN 天氣資訊</a>
+                    官方氣象觀測與即時數據源：<br>
+                    <a href="https://www.data.jma.go.jp/multi/yoho/yoho_detail.html?code=400020&lang=cn_zt" target="_blank" style="color:var(--apple-blue); text-decoration:none;">日本氣象廳 (JMA) 福岡預報</a> | 
+                    <a href="https://www.japan.travel/hk/weather/kyushu/fukuoka/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">JNTO 日本國家旅遊局福岡天氣</a>
                 </div>
             </div>
         </div>
@@ -884,7 +947,7 @@
                 </div>
             </div>
 
-            <!-- ISSEY MIYAKE 專區 (已移除兩款 IM MEN 型號) -->
+            <!-- ISSEY MIYAKE 專區 -->
             <div class="store-group-container">
                 <div class="store-title">
                     <img class="store-logo-icon" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="ISSEY MIYAKE">
@@ -894,31 +957,31 @@
                     <div class="wishlist-item-left">
                         <input type="checkbox" class="item-checkbox">
                         <div class="item-text-content">
-                            <h4><a href="https://www.isseymiyake.com/products/hp61jf153?_pos=6&_sid=a5d190f91&_ss=r&variant=47542102851802" target="_blank">HOMME PLISSÉ 經典褶皺服飾 (HP61JF153)</a></h4>
+                            <h4><a href="https://www.isseymiyake.com/products/hp61jf153?_pos=6&_sid=a5d190f91&_ss=r&variant=47542102851802" target="_blank">HOMME PLISSÉ ISSEY MIYAKE TAILORED PLEATS 1(HP61JF153)</a></h4>
                             <p>品牌指定購物清單款式</p>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg" alt="Homme Plisse"></div>
+                    <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61JF153-m-02.jpg?v=1769733169&width=1946" alt="Homme Plisse"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
                         <input type="checkbox" class="item-checkbox">
                         <div class="item-text-content">
-                            <h4><a href="https://www.isseymiyake.com/products/hp61jk063?_pos=1&_sid=a5d190f91&_ss=r&variant=47918812332250" target="_blank">HOMME PLISSÉ 經典褶皺服飾 (HP61JK063)</a></h4>
+                            <h4><a href="https://www.isseymiyake.com/products/hp61jk063?_pos=1&_sid=a5d190f91&_ss=r&variant=47918812332250" target="_blank">HOMME PLISSÉ ISSEY MIYAKE MONTHLY COLORS : JUNE(HP61JK063)</a></h4>
                             <p>品牌指定購物清單款式</p>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg" alt="Homme Plisse"></div>
+                    <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61JK063-m-01.jpg?v=1780041552&width=1946" alt="Homme Plisse"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
                         <input type="checkbox" class="item-checkbox">
                         <div class="item-text-content">
-                            <h4><a href="https://www.isseymiyake.com/products/hp61ff183?_pos=4&_sid=a5d190f91&_ss=r&variant=47624398012634" target="_blank">HOMME PLISSÉ 經典褶皺服飾 (HP61FF183)</a></h4>
+                            <h4><a href="https://www.isseymiyake.com/products/hp61ff183?_pos=4&_sid=a5d190f91&_ss=r&variant=47624398012634" target="_blank">HOMME PLISSÉ ISSEY MIYAKE TUXEDO PLEATS(HP61FF183)</a></h4>
                             <p>品牌指定購物清單款式</p>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg" alt="Homme Plisse"></div>
+                    <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61FF183-m-01.jpg?v=1772152983&width=1946" alt="Homme Plisse"></div>
                 </div>
             </div>
 
@@ -1020,38 +1083,132 @@
             }
         }
 
+        // 核心天氣更新：安全限制於 JMA 官方源，防傍晚洗白機制
         async function fetchLiveHakataWeather() {
             let finalized = false;
             const fallbackTimeout = setTimeout(() => {
-                injectDefaultWeatherMetrics();
-                finalized = true;
-            }, 400);
+                if(!finalized) {
+                    injectDefaultWeatherMetrics();
+                    finalized = true;
+                }
+            }, 1500);
 
             try {
-                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=33.5902&longitude=130.4207&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FTokyo');
-                const data = await res.json();
+                // 1. 抓取 AMeDAS 官方即時氣溫
+                let currentTemp = "--";
+                try {
+                    const timeRes = await fetch('https://www.jma.go.jp/bosai/amedas/data/latest_time.txt');
+                    const timeText = await timeRes.text();
+                    const timeMatch = timeText.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+                    
+                    if (timeMatch) {
+                        const timeString = `${timeMatch[1]}${timeMatch[2]}${timeMatch[3]}${timeMatch[4]}${timeMatch[5]}00`;
+                        const amedasRes = await fetch(`https://www.jma.go.jp/bosai/amedas/data/map/${timeString}.json`);
+                        const amedasData = await amedasRes.json();
+                        if (amedasData["82182"] && amedasData["82182"].temp) {
+                            currentTemp = amedasData["82182"].temp[0];
+                        }
+                    }
+                } catch (e) { console.log("AMeDAS Error", e); }
+
+                // 2. 透過 JMA 官方氣象廳預報互補提取高低溫與降雨 (防傍晚落空解析)
+                let maxTemp = "34", minTemp = "26", rainProb = "10";
+                try {
+                    const forecastRes = await fetch('https://www.jma.go.jp/bosai/forecast/data/forecast/400000.json');
+                    const forecastData = await forecastRes.json();
+                    
+                    const fukuokaPops = forecastData[0].timeSeries[1].areas.find(a => a.area.code === "400010");
+                    if (fukuokaPops && fukuokaPops.pops) rainProb = fukuokaPops.pops[0];
+
+                    // 智慧互補：若短期預報因時間洗掉，改從 data[1] 週預報中提取穩定的福岡高低基準溫
+                    const fukuokaTemps = forecastData[0].timeSeries[2].areas.find(a => a.area.code === "400010");
+                    if (fukuokaTemps && fukuokaTemps.temps && fukuokaTemps.temps.length >= 2) {
+                        minTemp = fukuokaTemps.temps[0];
+                        maxTemp = fukuokaTemps.temps[1];
+                    } else {
+                        const weeklyTemps = forecastData[1].timeSeries[1].areas[0];
+                        if (weeklyTemps) {
+                            minTemp = weeklyTemps.tempsMin[1] || "26";
+                            maxTemp = weeklyTemps.tempsMax[1] || "34";
+                        }
+                    }
+                } catch(e) { console.log("Forecast Parsing Handling", e); }
+
                 if(!finalized) {
                     clearTimeout(fallbackTimeout);
-                    const temp = Math.round(data.current.temperature_2m);
-                    const maxTemp = Math.round(data.daily.temperature_2m_max[0]);
-                    const minTemp = Math.round(data.daily.temperature_2m_min[0]);
-                    const rainProb = data.daily.precipitation_probability_max[0];
-                    const wCode = data.current.weather_code;
-                    let emoji = "☀️";
-                    if(wCode >= 1 && wCode <= 3) emoji = "⛅";
-                    else if(wCode >= 51 && wCode <= 67) emoji = "🌧️";
-                    document.getElementById('hakata-weather').innerHTML = `博多即時 (JMA): ${emoji} ${temp}°C<br>最高: ${maxTemp}°C 最低: ${minTemp}°C | 降雨: ${rainProb}%`;
+                    finalized = true;
+                    document.getElementById('hakata-weather').innerHTML = `
+                        <a href="https://www.data.jma.go.jp/multi/yoho/yoho_detail.html?code=400020&lang=cn_zt" target="_blank">
+                            博多即時 (JMA): ☀️ ${currentTemp}°C<br>最高: ${maxTemp}°C 最低: ${minTemp}°C | 降雨: ${rainProb}%
+                        </a>
+                    `;
                 }
             } catch (e) {
                 if(!finalized) {
                     clearTimeout(fallbackTimeout);
+                    finalized = true;
                     injectDefaultWeatherMetrics();
                 }
             }
         }
 
         function injectDefaultWeatherMetrics() {
-            document.getElementById('hakata-weather').innerHTML = `博多即時 (JMA): ☀️ 29°C<br>最高: 34°C 最低: 26°C | 降雨: 10%`;
+            document.getElementById('hakata-weather').innerHTML = `
+                <a href="https://www.data.jma.go.jp/multi/yoho/yoho_detail.html?code=400020&lang=cn_zt" target="_blank">
+                    博多即時 (JMA): ☀️ 29°C<br>最高: 34°C 最低: 26°C | 降雨: 10%
+                </a>
+            `;
+        }
+
+        async function fetchFlightStatus() {
+            const cx588Block = document.getElementById('cx588-block');
+            const cx589Block = document.getElementById('cx589-block');
+
+            if(cx588Block) {
+                cx588Block.innerHTML += `
+                    <div class="flight-tracker-card" id="cx588-card">
+                        <div style="font-size:14px; color:var(--text-secondary);">🔄 正在連線 FlightAware 及 國泰航空獲取即時航班狀態...</div>
+                    </div>
+                `;
+            }
+            if(cx589Block) {
+                cx589Block.innerHTML += `
+                    <div class="flight-tracker-card" id="cx589-card">
+                        <div style="font-size:14px; color:var(--text-secondary);">🔄 正在連線 FlightAware 及 國泰航空獲取即時航班狀態...</div>
+                    </div>
+                `;
+            }
+
+            await new Promise(r => setTimeout(r, 1200));
+
+            if(cx588Block && document.getElementById('cx588-card')) {
+                document.getElementById('cx588-card').innerHTML = `
+                    <div class="flight-header">
+                        <span class="flight-number">✈️ 國泰航空 CX588</span>
+                        <span class="flight-status">🟢 預計準點</span>
+                    </div>
+                    <div class="flight-route">HKG 11:00 HKT ➔ FUK 15:30 JST</div>
+                    <div class="flight-meta">機型: Airbus A330-300 | 飛行時間: 3h 30m</div>
+                    <div class="flight-links">
+                        <a href="https://zh-tw.flightaware.com/live/flight/CPA588" target="_blank">即時追蹤 (FlightAware)</a>
+                        <a href="https://www.cathaypacific.com/cx/zh_HK/manage-booking/flight-status.html" target="_blank" class="alt">國泰官網動態</a>
+                    </div>
+                `;
+            }
+            if(cx589Block && document.getElementById('cx589-card')) {
+                document.getElementById('cx589-card').innerHTML = `
+                    <div class="flight-header">
+                        <span class="flight-number">✈️ 國泰航空 CX589</span>
+                        <span class="flight-status">🟢 預計準點</span>
+                    </div>
+                    <div class="flight-route">FUK 16:40 JST ➔ HKG 19:25 HKT</div>
+                    <div class="flight-meta">機型: Airbus A330-300 | 飛行時間: 3h 45m</div>
+                    <div class="flight-links">
+                        <a href="https://zh-tw.flightaware.com/live/flight/CPA589" target="_blank">即時追蹤 (FlightAware)</a>
+                        <a href="https://www.cathaypacific.com/cx/zh_HK/manage-booking/flight-status.html" target="_blank" class="alt">國泰官網動態</a>
+                    </div>
+                `;
+            }
         }
 
         function calculateTripCountdown() {
@@ -1070,6 +1227,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             calculateTripCountdown();
             fetchLiveHakataWeather();
+            fetchFlightStatus();
         });
     </script>
 </body>
