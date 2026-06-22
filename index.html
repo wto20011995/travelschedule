@@ -400,6 +400,20 @@
         .weather-table th, .weather-table td { text-align: left; padding: 16px; border-bottom: 1px solid var(--border-color); font-size: 17px; }
         .weather-table th { color: var(--text-secondary); font-weight: 500; }
 
+        /* Wishlist Structures Styles */
+        .wishlist-section-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            margin-top: 40px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border-color);
+            color: var(--text-main);
+        }
+        .wishlist-section-title:first-child {
+            margin-top: 0;
+        }
+
         .store-group-container { background: var(--card-bg); border-radius: 22px; padding: 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.03); margin-bottom: 24px; border: 1px solid var(--border-color); }
         .store-title { font-size: 22px; font-weight: 600; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; }
         .store-logo-icon { max-height: 36px; max-width: 140px; object-fit: contain; }
@@ -472,7 +486,6 @@
                         <span class="slider"></span>
                     </label>
                 </div>
-                <!-- 已精確切換回 JMA 官方源，並正名為「博多區即時 (JMA)」 -->
                 <div id="hakata-weather" class="live-weather-widget">
                     <a href="https://www.data.jma.go.jp/multi/yoho/yoho_detail.html?code=400020&lang=cn_zt" target="_blank">博多區即時 (JMA): ☀️ 讀取中...</a>
                 </div>
@@ -523,7 +536,7 @@
                 
                 <div class="timeline-item"><div class="time-box">15:30 - 16:30</div><div class="content-box"><div class="text-block"><p>福岡空港</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">16:30 - 16:50</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://go.goinc.jp/ogp_go.png" alt="Go Taxi"></div><div class="text-block"><p>Taxi (Go Taxi)</p></div></div></div>
-                <div class="timeline-item"><div class="time-box">16:50 - 17:10</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly/ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">16:50 - 17:10</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
                 <div class="timeline-item"><div class="time-box">17:11 - 17:13</div><div class="content-box"><div class="text-block"><p>櫛田神社前 → 天神南</p></div></div></div>
                 
                 <div class="timeline-item"><div class="time-box">17:13 - 19:00</div><div class="content-box"><div class="text-block">
@@ -558,7 +571,7 @@
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d2-tazaifu')">太宰府</h3>
                     <div id="acc-d2-tazaifu" class="accordion-content">
                         <p class="sub-item">- 太宰府天滿宮</p>
-                        <p class="sub-item">- <a href="https://store.starbucks.co.jp/detail-1058/" target="_blank">スターバックスコーヒー太宰府天滿宮表參道店</a> <img class="inline-sub-logo" src="https://p7.hiclipart.com/preview/228/114/421/cafe-starbucks-tea-coffee-starbucks.jpg" alt="Starbucks"></p>
+                        <p class="sub-item">- <a href="https://store.starbucks.co.jp/detail-1058/" target="_blank">スターバックスコーヒー太宰府天満宮表參道店</a> <img class="inline-sub-logo" src="https://p7.hiclipart.com/preview/228/114/421/cafe-starbucks-tea-coffee-starbucks.jpg" alt="Starbucks"></p>
                         <p class="sub-item">- <a href="https://tabelog.com/tw/fukuoka/A4003/A400301/40005385/" target="_blank">筑紫庵 本店</a></p>
                         <p class="sub-item">- <a href="https://www.beams.co.jp/shop/jdz" target="_blank">BEAMS JAPAN太宰府</a> <img class="inline-sub-logo" src="https://w7.pngwing.com/pngs/872/747/png-transparent-beams-japan-hd-logo.png" alt="Beams Japan"></p>
                     </div>
@@ -680,7 +693,7 @@
                         <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">IM MEN 博多阪急</a> <img class="inline-sub-logo" src="https://uk.isseymiyake.com/cdn/shop/t/106/assets/exp-immen_logobox.png?v=6638328696964336641775124216" alt="IM MEN"></p>
                         <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">HOMME PLISSÉ ISSEY MIYAKE 博多阪急</a> <img class="inline-sub-logo" src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg?v=1743185807" alt="Homme Plisse"></p>
                         <p class="sub-item">- AMU PLAZA博多</p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- Nintendo FUKUOKA <img class="inline-sub-logo" src="https://www.jrhakatacity.com.t.bv.hp.transer.com/uploads/images/resized/390x390/jrhakatacity/000002/000002/7a6e2c01.png" alt="Nintendo"></p>
+                        <p class="sub-item">    - Nintendo FUKUOKA <img class="inline-sub-logo" src="https://www.jrhakatacity.com.t.bv.hp.transer.com/uploads/images/resized/390x390/jrhakatacity/000002/000002/7a6e2c01.png" alt="Nintendo"></p>
                         <p class="sub-item">- KITTE博多</p>
                     </div>
                 </div></div></div>
@@ -698,12 +711,12 @@
                 <div class="metric-card"><div class="metric-label">2.離開酒店</div><div class="metric-value">07:15</div></div>
                 <div class="metric-card"><div class="metric-label">3.便利店時間</div><div class="metric-value">20:36 - 21:00</div></div>
                 <div class="metric-card"><div class="metric-label">4.回到酒店</div><div class="metric-value">21:00</div></div>
-                <div class="metric-card large"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">3h 45m</div><div class="metric-sub">多於 3 小時，符合續攤標準</div></div>
+                <div class="metric-card large"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">3h 45m</div><div class="metric-sub" style="color:var(--apple-blue);">🟢 多於 3 小時，符合續攤標準</div></div>
                 <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">00:45</div></div>
                 <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">01:15</div></div>
             </div>
             <div class="timeline-section">
-                <div class="timeline-item"><div class="time-box">07:15 離開</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9kb3JteS1ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lY3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">07:15 離開</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9kb3JteS1ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
                 <div class="timeline-item"><div class="time-box">07:20 - 07:45</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://upload.wikimedia.org/wikipedia/zh/thumb/2/25/Matsuya_Foods.svg/250px-Matsuya_Foods.svg.png" alt="Matsuya"></div><div class="text-block"><p>松屋 博多駅前通り店</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">07:50 - 08:26</div><div class="content-box"><div class="text-block"><p>櫛田神社前 → 福工大前</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">08:36 - 08:46</div><div class="content-box"><div class="text-block"><p>福工大前駅 → 新宮港</p></div></div></div>
@@ -779,13 +792,13 @@
                     <div id="acc-d6-main-inner-node" class="accordion-content">
                         <p class="sub-item">- <a href="https://www.kaneko-optical.co.jp/shop_detail/73" target="_blank">金子眼鏡店 天神VIORO店</a> <img class="inline-sub-logo" src="https://www.puyi.cn/pub/media/amasty/shopby/option_images/slider/Logo_KANEKO_OPTICAL_1.png" alt="Kaneko"></p>
                         <p class="sub-item">- 岩田屋本店</p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- SHIRO 岩田屋店 <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKOjmIF-kBiCpkKlF1eeSETaH0M_e9EZ-MwA&s" alt="SHIRO"></p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">ISSEY MIYAKE 岩田屋本店</a> <img class="inline-sub-logo" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="Issey Miyake"></p>
+                        <p class="sub-item">    - SHIRO 岩田屋店 <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKOjmIF-kBiCpkKlF1eeSETaH0M_e9EZ-MwA&s" alt="SHIRO"></p>
+                        <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">ISSEY MIYAKE 岩田屋本店</a> <img class="inline-sub-logo" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="Issey Miyake"></p>
                         <p class="sub-item">- 元祖赤のれん 節ちゃんラーメン 天神本店(12:00-13:00)</p>
                         <p class="sub-item">- <a href="https://www.humanmade.jp/dealers.html" target="_blank">HUMAN MADE FUKUOKA</a> <img class="inline-sub-logo" src="https://images.seeklogo.com/logo-png/48/1/humanmade-heart-logo-png_seeklogo-486066.png" alt="Human Made"></p>
                         <p class="sub-item">- 猫カフェMOCHA 天神大名店</p>
-                        <p class="sub-item">- Swatch 專賣店</p>
-                        <p class="sub-item">- <a href="https://www.sskamo.co.jp/company/store/fukuoka.html" target="_blank">KAMO 福岡店</a> <img class="inline-sub-logo" src="https://play-lh.googleusercontent.com/y28KofIBZHz9cx_3ffn3pmuYob1sHgXcL2hX5hTTvdf4XYc-wI1I52Rx-zx0-Mfs5OAb" alt="KAMO"></p>
+                        <p class="sub-item">- スウォッチストア福岡</p>
+                        <p class="sub-item">- <a href="https://www.sskamo.co.jp/company/store/fukuoka.html" target="_blank">KAMO 福岡店</a> <img class="inline-sub-logo" src="https://play-lh.googleusercontent.com/y28KofIBZHz9cx_3ffn3pmuYob1sHgXcL2hTTvdf4XYc-wI1I52Rx-zx0-Mfs5OAb" alt="KAMO"></p>
                         <p class="sub-item">- dacō 福岡店</p>
                         <div class="shopping-tag-list" style="margin-top: 14px;"><div class="shopping-tag alert" style="font-size:16px;">⚠️ 元祖赤のれん老店可能因盂蘭盆節休業，若關門可轉戰大丸商圈</div></div>
                     </div>
@@ -843,10 +856,9 @@
                 <div class="timeline-item"><div class="time-box">13:40 - 16:40</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d7-airport')">福岡空港</h3>
                     <div id="acc-d7-airport" class="accordion-content">
-                        <p class="sub-item">- <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">ISSEY MIYAKE 福岡空港 國際線航廈</a> <img class="inline-sub-logo" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="Issey Miyake"></p>
+                        <p class="sub-item">- <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">ISSEY MIYAKE 福岡空港 国際線ターミナル</a> <img class="inline-sub-logo" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="Issey Miyake"></p>
                     </div>
                 </div></div></div>
-                
                 <div class="timeline-item"><div class="time-box">16:40 - 19:25</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://logos-world.net/wp-content/uploads/2023/02/Cathay-Pacific-Logo.jpg" alt="Cathay Pacific"></div><div class="text-block"><p>CX589 福岡 → 香港 (16:40-19:25HKT)</p></div></div></div>
             </div>
         </div>
@@ -881,13 +893,19 @@
                 </table>
                 <div style="margin-top: 24px; font-size:15px; color:var(--text-secondary); text-align:center; line-height:1.6;">
                     官方氣象觀測與即時數據源：<br>
-                    日本氣象廳 (JMA) 福岡預報 | JNTO 日本國家旅遊局福岡天氣 | tenki.jp 福岡市地區預報
+                    <a href="https://www.data.jma.go.jp/multi/yoho/yoho_detail.html?code=400020&lang=cn_zt" target="_blank" style="color:var(--apple-blue); text-decoration:none;">日本氣象廳 (JMA) 福岡預報</a> | 
+                    <a href="https://www.japan.travel/hk/weather/kyushu/fukuoka/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">JNTO 日本國家旅遊局福岡天氣</a> | 
+                    <a href="https://tenki.jp/forecast/9/43/8210/40130/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">tenki.jp 福岡市地區預報</a>
                 </div>
             </div>
         </div>
 
-        <!-- =================== 🛍️ WISHLIST PANELS =================== -->
+        <!-- =================== 🛍️ WISHLIST PANELS (雙軌智能分類) =================== -->
         <div id="view-8" class="view-panel">
+            
+            <!-- 大類別一：購物清單 -->
+            <h2 class="wishlist-section-title">🛒 購物清單</h2>
+            
             <div class="store-group-container">
                 <div class="store-title">
                     <img class="store-logo-icon" src="https://www.puyi.cn/pub/media/amasty/shopby/option_images/slider/Logo_KANEKO_OPTICAL_1.png" alt="Kaneko">
@@ -925,7 +943,26 @@
                 </div>
             </div>
 
-            <!-- ISSEY MIYAKE 專區 -->
+            <div class="store-group-container">
+                <div class="store-title">
+                    <img class="store-logo-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS">
+                    <span>天神地下街伴手禮</span>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox">
+                        <div class="item-text-content">
+                            <h4><a href="https://buttersand.com/store/list/?area[]=kyushu" target="_blank">PRESS BUTTER SAND 明太子芝士餅</a></h4>
+                            <p>九州區域極具人氣的限定焦糖奶油夾心餅乾</p>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS"></div>
+                </div>
+            </div>
+
+            <!-- 大類別二：留意清單 -->
+            <h2 class="wishlist-section-title">👀 留意清單</h2>
+
             <div class="store-group-container">
                 <div class="store-title">
                     <img class="store-logo-icon" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="ISSEY MIYAKE">
@@ -979,22 +1016,6 @@
                 </div>
             </div>
 
-            <div class="store-group-container">
-                <div class="store-title">
-                    <img class="store-logo-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS">
-                    <span>天神地下街伴手禮</span>
-                </div>
-                <div class="wishlist-item-row">
-                    <div class="wishlist-item-left">
-                        <input type="checkbox" class="item-checkbox">
-                        <div class="item-text-content">
-                            <h4><a href="https://buttersand.com/store/list/?area[]=kyushu" target="_blank">PRESS BUTTER SAND 明太子芝士餅</a></h4>
-                            <p>九州區域極具人氣的限定焦糖奶油夾心餅乾</p>
-                        </div>
-                    </div>
-                    <div class="wishlist-row-img-frame"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS"></div>
-                </div>
-            </div>
         </div>
 
     </div>
@@ -1031,7 +1052,37 @@
             btn.innerText = body.classList.contains('forced-mobile-mode') ? "切換至電腦版版面" : "切換至手機版版面";
         }
 
-        // 優化防洗白即時氣象運算引擎（AMeDAS 實時追蹤 + 氣象廳數據回溯互補）
+        function toggleD3State() {
+            document.body.classList.toggle('show-d3-opt');
+            const btn = document.getElementById('d3-toggle-btn');
+            const status = document.getElementById('d3-plan-status');
+            if(document.body.classList.contains('show-d3-opt')) {
+                btn.innerText = "返回原本普通行程";
+                btn.classList.add('reset-btn');
+                status.innerText = "選配 Optional Plan 運作中";
+            } else {
+                btn.innerText = "切換至選配 Optional Plan (屋台續攤)";
+                btn.classList.remove('reset-btn');
+                status.innerText = "原定普通方案";
+            }
+        }
+
+        function toggleD6State() {
+            document.body.classList.toggle('show-d6-opt');
+            const btn = document.getElementById('d6-toggle-btn');
+            const status = document.getElementById('d6-plan-status');
+            if(document.body.classList.contains('show-d6-opt')) {
+                btn.innerText = "返回原本普通行程";
+                btn.classList.add('reset-btn');
+                status.innerText = "選配 Optional Plan 運作中";
+            } else {
+                btn.innerText = "切換至選配 Optional Plan (やまちゃん)";
+                btn.classList.remove('reset-btn');
+                status.innerText = "原定普通方案";
+            }
+        }
+
+        // 終極防護氣象引擎：JMA 官方源，全域多維度兜底防護
         async function fetchLiveHakataWeather() {
             let finalized = false;
             const fallbackTimeout = setTimeout(() => {
@@ -1039,10 +1090,10 @@
                     injectDefaultWeatherMetrics();
                     finalized = true;
                 }
-            }, 2500);
+            }, 3000); // 放寬至 3 秒避免網路波動誤判
 
             try {
-                // 1. 抓取 AMeDAS 官方實時氣溫 (福岡 82182 核心觀測站)
+                // 1. 抓取 AMeDAS 官方即時氣溫 (福岡核心觀測站 82182)
                 let currentTemp = "29"; 
                 try {
                     const timeRes = await fetch('https://www.jma.go.jp/bosai/amedas/data/latest_time.txt');
@@ -1092,6 +1143,7 @@
                 if(!finalized) {
                     clearTimeout(fallbackTimeout);
                     finalized = true;
+                    // 將標題正名為「博多區即時 (JMA)」
                     document.getElementById('hakata-weather').innerHTML = `
                         <a href="https://www.data.jma.go.jp/multi/yoho/yoho_detail.html?code=400020&lang=cn_zt" target="_blank">
                             博多區即時 (JMA): ☀️ ${currentTemp}°C<br>最高: ${maxTemp}°C 最低: ${minTemp}°C | 降雨: ${rainProb}%
