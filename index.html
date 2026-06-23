@@ -400,6 +400,20 @@
         .weather-table th, .weather-table td { text-align: left; padding: 16px; border-bottom: 1px solid var(--border-color); font-size: 17px; }
         .weather-table th { color: var(--text-secondary); font-weight: 500; }
 
+        /* Wishlist Structures Styles */
+        .wishlist-section-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            margin-top: 40px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border-color);
+            color: var(--text-main);
+        }
+        .wishlist-section-title:first-child {
+            margin-top: 0;
+        }
+
         .store-group-container { background: var(--card-bg); border-radius: 22px; padding: 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.03); margin-bottom: 24px; border: 1px solid var(--border-color); }
         .store-title { font-size: 22px; font-weight: 600; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; }
         .store-logo-icon { max-height: 36px; max-width: 140px; object-fit: contain; }
@@ -519,7 +533,6 @@
                 </div></div></div>
                 
                 <div class="timeline-item"><div class="time-box">11:00 - 15:30</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://logos-world.net/wp-content/uploads/2023/02/Cathay-Pacific-Logo.jpg" alt="Cathay Pacific"></div><div class="text-block"><p>CX588 香港 → 福岡 (11:00-15:30JST)</p></div></div></div>
-                
                 <div class="timeline-item"><div class="time-box">15:30 - 16:30</div><div class="content-box"><div class="text-block"><p>福岡空港</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">16:30 - 16:50</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://go.goinc.jp/ogp_go.png" alt="Go Taxi"></div><div class="text-block"><p>Taxi (Go Taxi)</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">16:50 - 17:10</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
@@ -676,10 +689,10 @@
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d4-mall-node')">博多</h3>
                     <div id="acc-d4-mall-node" class="accordion-content">
                         <p class="sub-item">- 博多阪急</p>
-                        <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">IM MEN 博多阪急</a> <img class="inline-sub-logo" src="https://uk.isseymiyake.com/cdn/shop/t/106/assets/exp-immen_logobox.png?v=6638328696964336641775124216" alt="IM MEN"></p>
-                        <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">HOMME PLISSÉ ISSEY MIYAKE 博多阪急</a> <img class="inline-sub-logo" src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg?v=1743185807" alt="Homme Plisse"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">IM MEN 博多阪急</a> <img class="inline-sub-logo" src="https://uk.isseymiyake.com/cdn/shop/t/106/assets/exp-immen_logobox.png?v=6638328696964336641775124216" alt="IM MEN"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">HOMME PLISSÉ ISSEY MIYAKE 博多阪急</a> <img class="inline-sub-logo" src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg?v=1743185807" alt="Homme Plisse"></p>
                         <p class="sub-item">- AMU PLAZA博多</p>
-                        <p class="sub-item">    - Nintendo FUKUOKA <img class="inline-sub-logo" src="https://www.jrhakatacity.com.t.bv.hp.transer.com/uploads/images/resized/390x390/jrhakatacity/000002/000002/7a6e2c01.png" alt="Nintendo"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- Nintendo FUKUOKA <img class="inline-sub-logo" src="https://www.jrhakatacity.com.t.bv.hp.transer.com/uploads/images/resized/390x390/jrhakatacity/000002/000002/7a6e2c01.png" alt="Nintendo"></p>
                         <p class="sub-item">- KITTE博多</p>
                     </div>
                 </div></div></div>
@@ -725,7 +738,7 @@
                     <div id="acc-d5-1" class="accordion-content">
                         <p class="sub-item">- Standard Products 專櫃店 <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw6XiKxMXKhlyP6ddl40RAPSsodG5tBJw0gQ&s" alt="Standard Products"></p>
                         <p class="sub-item">- <a href="https://www.tablecheck.com/ja/shops/yakitori-koto/reserve" target="_blank">焼き鳥 こと(18:00-19:30)</a></p>
-                        <p class="sub-item">- ビ克カメラ天神2號館 <img class="inline-sub-logo" src="https://www.cubicplaza.com/wp-content/uploads/2019/08/logo-2597.png" alt="Bic Camera"></p>
+                        <p class="sub-item">- ビックカメラ天神2號館 <img class="inline-sub-logo" src="https://www.cubicplaza.com/wp-content/uploads/2019/08/logo-2597.png" alt="Bic Camera"></p>
                     </div>
                 </div></div></div>
                 <div class="timeline-item"><div class="time-box">20:34 - 20:36</div><div class="content-box"><div class="text-block"><p>天神南 → 櫛田神社前</p></div></div></div>
@@ -861,9 +874,9 @@
                 <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:14px; margin-bottom:18px;">
                     <div style="display:flex; align-items:center; gap:12px;">
                         <img style="max-height:50px; object-fit:contain;" src="https://ds.data.jma.go.jp/wmc/images/jma_logo.svg" alt="JMA">
-                        <h3 style="font-weight:600; font-size: 20px;">日本權威氣象預報資料矩陣</h3>
+                        <h3 style="font-weight:600; font-size: 20px;">日本天氣預報觀測矩陣</h3>
                     </div>
-                    <div style="font-size:12px; color:var(--text-secondary); background:#e8e8ed; padding:4px 8px; border-radius:6px; font-weight:600;">遠期統計模式 (JMA 歷史大數據觀測)</div>
+                    <div id="weather-source-badge" style="font-size:12px; color:var(--text-secondary); background:#e8e8ed; padding:4px 8px; border-radius:6px; font-weight:600;">預報模式計算中...</div>
                 </div>
                 <table class="weather-table">
                     <thead><tr><th>日期</th><th>預報配置形態</th><th>基準溫度區間</th><th>氣象廳活動指南</th></tr></thead>
@@ -877,21 +890,18 @@
                         <tr><td>8月15日 (土)</td><td>⛅ 炎熱有雲</td><td>27°C - 34°C</td><td>離境搭機日，建議穿著寬鬆透氣服裝</td></tr>
                     </tbody>
                 </table>
-                <div style="margin-top: 24px; font-size:15px; color:var(--text-secondary); text-align:center; line-height:1.6;">
-                    官方氣象觀測與即時數據源：<br>
-                    <a href="https://www.data.jma.go.jp/multi/yoho/yoho_detail.html?code=400020&lang=cn_zt" target="_blank" style="color:var(--apple-blue); text-decoration:none;">日本氣象廳 (JMA)</a> | 
-                    <a href="https://www.japan.travel/hk/weather/kyushu/fukuoka/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">JNTO 國家旅遊局</a> | 
-                    <a href="https://tenki.jp/forecast/9/43/8210/40130/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">tenki.jp</a> | 
-                    <a href="https://weather.tsukumijima.net/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">Tsukumijima API</a><br>
-                    <a href="https://weather.yahoo.co.jp/weather/jp/40/8210.html" target="_blank" style="color:var(--apple-blue); text-decoration:none;">Yahoo! JAPAN 天氣</a> | 
-                    <a href="https://news.web.nhk/kishou-saigai/weather/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">NHK 氣象與災害</a>
+                <div id="weather-source-links" style="margin-top: 24px; font-size:15px; color:var(--text-secondary); text-align:center; line-height:1.6;">
+                    <!-- 動態載入天氣來源 -->
                 </div>
             </div>
         </div>
 
         <!-- =================== 🛍️ WISHLIST PANELS (雙軌智能分類) =================== -->
-        <!-- =================== 🛍️ WISHLIST PANELS =================== -->
         <div id="view-8" class="view-panel">
+            
+            <!-- 大類別一：購物清單 -->
+            <h2 class="wishlist-section-title">🛒 購物清單</h2>
+            
             <div class="store-group-container">
                 <div class="store-title">
                     <img class="store-logo-icon" src="https://www.puyi.cn/pub/media/amasty/shopby/option_images/slider/Logo_KANEKO_OPTICAL_1.png" alt="Kaneko">
@@ -929,7 +939,26 @@
                 </div>
             </div>
 
-            <!-- ISSEY MIYAKE 專區 -->
+            <div class="store-group-container">
+                <div class="store-title">
+                    <img class="store-logo-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS">
+                    <span>天神地下街伴手禮</span>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox">
+                        <div class="item-text-content">
+                            <h4><a href="https://buttersand.com/store/list/?area[]=kyushu" target="_blank">PRESS BUTTER SAND 明太子芝士餅</a></h4>
+                            <p>九州區域極具人氣的限定焦糖奶油夾心餅乾</p>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS"></div>
+                </div>
+            </div>
+
+            <!-- 大類別二：留意清單 -->
+            <h2 class="wishlist-section-title">👀 留意清單</h2>
+
             <div class="store-group-container">
                 <div class="store-title">
                     <img class="store-logo-icon" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="ISSEY MIYAKE">
@@ -983,22 +1012,6 @@
                 </div>
             </div>
 
-            <div class="store-group-container">
-                <div class="store-title">
-                    <img class="store-logo-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS">
-                    <span>天神地下街伴手禮</span>
-                </div>
-                <div class="wishlist-item-row">
-                    <div class="wishlist-item-left">
-                        <input type="checkbox" class="item-checkbox">
-                        <div class="item-text-content">
-                            <h4><a href="https://buttersand.com/store/list/?area[]=kyushu" target="_blank">PRESS BUTTER SAND 明太子芝士餅</a></h4>
-                            <p>九州區域極具人氣的限定焦糖奶油夾心餅乾</p>
-                        </div>
-                    </div>
-                    <div class="wishlist-row-img-frame"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS"></div>
-                </div>
-            </div>
         </div>
 
     </div>
@@ -1161,6 +1174,37 @@
             const titleString = `2026福岡(距離行程開始: ${remainingDays}日)`;
             document.title = titleString;
             document.getElementById('nav-header-title').innerText = titleString;
+
+            // 根據倒數天數智能切換天氣預報來源
+            const badge = document.getElementById('weather-source-badge');
+            const linksContainer = document.getElementById('weather-source-links');
+            
+            if (badge && linksContainer) {
+                let activeMode = "";
+                let sourceDesc = "";
+                
+                const jmaLink = '<a href="https://www.data.jma.go.jp/multi/yoho/yoho_detail.html?code=400020&lang=cn_zt" target="_blank" style="color:var(--apple-blue); text-decoration:none;">日本氣象廳 (JMA) 歷史大數據</a>';
+                const tenki14Link = '<a href="https://tenki.jp/forecast/9/43/8210/40130/10days.html" target="_blank" style="color:var(--apple-blue); text-decoration:none;">tenki.jp「2週間天気」</a>';
+                const yahooLink = '<a href="https://weather.yahoo.co.jp/weather/jp/40/8210.html" target="_blank" style="color:var(--apple-blue); text-decoration:none;">Yahoo! JAPAN 天氣「週間天気」</a>';
+                
+                const jntoLink = '<a href="https://www.japan.travel/hk/weather/kyushu/fukuoka/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">JNTO 國家旅遊局</a>';
+                const tsuLink = '<a href="https://weather.tsukumijima.net/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">Tsukumijima API</a>';
+                const nhkLink = '<a href="https://news.web.nhk/kishou-saigai/weather/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">NHK 氣象與災害</a>';
+
+                if (remainingDays > 14) {
+                    activeMode = "遠期預報 (JMA 歷史大數據)";
+                    sourceDesc = `<strong>✅ 當前預報啟用來源 (距行程大於14天)：</strong><br>${jmaLink}<br><br><span style="font-size:13px;">備用與其他觀測源：<br>${tenki14Link} | ${yahooLink}<br>${jntoLink} | ${tsuLink} | ${nhkLink}</span>`;
+                } else if (remainingDays >= 7 && remainingDays <= 14) {
+                    activeMode = "中期預報 (tenki.jp 2週間天気)";
+                    sourceDesc = `<strong>✅ 當前預報啟用來源 (距行程7至14天)：</strong><br>${tenki14Link}<br><br><span style="font-size:13px;">備用與其他觀測源：<br>${jmaLink} | ${yahooLink}<br>${jntoLink} | ${tsuLink} | ${nhkLink}</span>`;
+                } else {
+                    activeMode = "近期精確預報 (Yahoo! 週間天気)";
+                    sourceDesc = `<strong>✅ 當前預報啟用來源 (距行程小於7天)：</strong><br>${yahooLink}<br><br><span style="font-size:13px;">備用與其他觀測源：<br>${jmaLink} | ${tenki14Link}<br>${jntoLink} | ${tsuLink} | ${nhkLink}</span>`;
+                }
+
+                badge.innerText = activeMode;
+                linksContainer.innerHTML = sourceDesc;
+            }
         }
 
         document.addEventListener("DOMContentLoaded", function() {
