@@ -443,6 +443,31 @@
         body.dark-theme .wishlist-row-img-frame { background: #2c2c2e; }
         .wishlist-row-img-frame img { max-width: 100%; max-height: 100%; object-fit: cover; border-radius: 8px; }
 
+        /* */
+        /* YouTube Videos Single Column Layout with Large Display Area */
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-top: 16px;
+        }
+        .video-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
+            aspect-ratio: 16 / 9;
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        .video-card iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         body.forced-mobile-mode .main-container { max-width: 480px; }
         body.forced-mobile-mode .dashboard-grid { grid-template-columns: 1fr; }
         body.forced-mobile-mode .metric-card.large { grid-column: span 1; }
@@ -504,6 +529,7 @@
             <button class="tab-btn" onclick="switchView(6)">15/8 (土)<span>D7</span></button>
             <button class="tab-btn special-tab" onclick="switchView(7)">🌤️<span>天氣預報</span></button>
             <button class="tab-btn special-tab" onclick="switchView(8)">🛍️<span>願望清單</span></button>
+            <button class="tab-btn special-tab" onclick="switchView(9)">📺<span>旅遊影片</span></button>
         </div>
     </div>
 
@@ -533,6 +559,7 @@
                 </div></div></div>
                 
                 <div class="timeline-item"><div class="time-box">11:00 - 15:30</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://logos-world.net/wp-content/uploads/2023/02/Cathay-Pacific-Logo.jpg" alt="Cathay Pacific"></div><div class="text-block"><p>CX588 香港 → 福岡 (11:00-15:30JST)</p></div></div></div>
+                
                 <div class="timeline-item"><div class="time-box">15:30 - 16:30</div><div class="content-box"><div class="text-block"><p>福岡空港</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">16:30 - 16:50</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://go.goinc.jp/ogp_go.png" alt="Go Taxi"></div><div class="text-block"><p>Taxi (Go Taxi)</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">16:50 - 17:10</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
@@ -855,7 +882,7 @@
                 <div class="timeline-item"><div class="time-box">13:40 - 16:40</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d7-airport')">福岡空港</h3>
                     <div id="acc-d7-airport" class="accordion-content">
-                        <p class="sub-item">- <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">ISSEY MIYAKE 福岡空港 国際線ターミナル</a> <img class="inline-sub-logo" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="Issey Miyake"></p>
+                        <p class="sub-item">- <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">ISSEY MIYAKE 福岡空港 國際線航廈</a> <img class="inline-sub-logo" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="Issey Miyake"></p>
                     </div>
                 </div></div></div>
                 <div class="timeline-item"><div class="time-box">16:40 - 19:25</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://logos-world.net/wp-content/uploads/2023/02/Cathay-Pacific-Logo.jpg" alt="Cathay Pacific"></div><div class="text-block"><p>CX589 福岡 → 香港 (16:40-19:25HKT)</p></div></div></div>
@@ -874,9 +901,9 @@
                 <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:14px; margin-bottom:18px;">
                     <div style="display:flex; align-items:center; gap:12px;">
                         <img style="max-height:50px; object-fit:contain;" src="https://ds.data.jma.go.jp/wmc/images/jma_logo.svg" alt="JMA">
-                        <h3 style="font-weight:600; font-size: 20px;">日本天氣預報觀測矩陣</h3>
+                        <h3 style="font-weight:600; font-size: 20px;">日本氣象廳與多主軌觀測矩陣</h3>
                     </div>
-                    <div id="weather-source-badge" style="font-size:12px; color:var(--text-secondary); background:#e8e8ed; padding:4px 8px; border-radius:6px; font-weight:600;">預報模式計算中...</div>
+                    <div id="weather-source-badge" style="font-size:12px; color:var(--text-secondary); background:#e8e8ed; padding:4px 8px; border-radius:6px; font-weight:600;">遠期統計模式 (JMA 歷史大數據觀測)</div>
                 </div>
                 <table class="weather-table">
                     <thead><tr><th>日期</th><th>預報配置形態</th><th>基準溫度區間</th><th>氣象廳活動指南</th></tr></thead>
@@ -891,7 +918,13 @@
                     </tbody>
                 </table>
                 <div id="weather-source-links" style="margin-top: 24px; font-size:15px; color:var(--text-secondary); text-align:center; line-height:1.6;">
-                    <!-- 動態載入天氣來源 -->
+                    官方氣象觀測與即時數據源：<br>
+                    <a href="https://www.data.jma.go.jp/multi/yoho/yoho_detail.html?code=400020&lang=cn_zt" target="_blank" style="color:var(--apple-blue); text-decoration:none;">日本氣象廳 (JMA)</a> | 
+                    <a href="https://www.japan.travel/hk/weather/kyushu/fukuoka/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">JNTO 國家旅遊局</a> | 
+                    <a href="https://tenki.jp/forecast/9/43/8210/40130/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">tenki.jp</a> | 
+                    <a href="https://weather.tsukumijima.net/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">Tsukumijima API</a><br>
+                    <a href="https://weather.yahoo.co.jp/weather/jp/40/8210.html" target="_blank" style="color:var(--apple-blue); text-decoration:none;">Yahoo! JAPAN 天氣</a> | 
+                    <a href="https://news.web.nhk/kishou-saigai/weather/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">NHK 氣象與災害</a>
                 </div>
             </div>
         </div>
@@ -1012,6 +1045,16 @@
                 </div>
             </div>
 
+        </div>
+
+        <!-- =================== 📺 旅遊影片 PANELS =================== -->
+        <div id="view-9" class="view-panel">
+            <h2 class="wishlist-section-title">📺 旅遊影片</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/BWwDUgfk8yg?si=Bf_CqOrTyPPfW9pa" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -1184,26 +1227,26 @@
                 let sourceDesc = "";
                 
                 const jmaLink = '<a href="https://www.data.jma.go.jp/multi/yoho/yoho_detail.html?code=400020&lang=cn_zt" target="_blank" style="color:var(--apple-blue); text-decoration:none;">日本氣象廳 (JMA) 歷史大數據</a>';
-                const tenki14Link = '<a href="https://tenki.jp/forecast/9/43/8210/40130/10days.html" target="_blank" style="color:var(--apple-blue); text-decoration:none;">tenki.jp「2週間天気」</a>';
-                const yahooLink = '<a href="https://weather.yahoo.co.jp/weather/jp/40/8210.html" target="_blank" style="color:var(--apple-blue); text-decoration:none;">Yahoo! JAPAN 天氣「週間天気」</a>';
+                const tenkiLink = '<a href="https://tenki.jp/forecast/9/43/8210/40130/10days.html" target="_blank" style="color:var(--apple-blue); text-decoration:none;">tenki.jp「2週間天氣」</a>';
+                const yahooLink = '<a href="https://weather.yahoo.co.jp/weather/jp/40/8210.html" target="_blank" style="color:var(--apple-blue); text-decoration:none;">Yahoo! JAPAN 天氣「週間天氣」</a>';
                 
-                const jntoLink = '<a href="https://www.japan.travel/hk/weather/kyushu/fukuoka/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">JNTO 國家旅遊局</a>';
+                const jntoLink = '<a href="https://www.japan.travel/hk/weather/kyushu/fukuoka/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">JNTO 日本國家旅遊局福岡天氣</a>';
                 const tsuLink = '<a href="https://weather.tsukumijima.net/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">Tsukumijima API</a>';
                 const nhkLink = '<a href="https://news.web.nhk/kishou-saigai/weather/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">NHK 氣象與災害</a>';
 
                 if (remainingDays > 14) {
-                    activeMode = "遠期預報 (JMA 歷史大數據)";
-                    sourceDesc = `<strong>✅ 當前預報啟用來源 (距行程大於14天)：</strong><br>${jmaLink}<br><br><span style="font-size:13px;">備用與其他觀測源：<br>${tenki14Link} | ${yahooLink}<br>${jntoLink} | ${tsuLink} | ${nhkLink}</span>`;
+                    activeMode = "遠期統計模式 (JMA 歷史大數據觀測)";
+                    sourceDesc = `<strong>✅ 當前預報主來源 (距行程大於14天)：</strong><br>${jmaLink}<br><br><span style="font-size:13px;">其他備用與觀測源：<br>${tenkiLink} | ${yahooLink}<br>${jntoLink} | ${tsuLink} | ${nhkLink}</span>`;
                 } else if (remainingDays >= 7 && remainingDays <= 14) {
-                    activeMode = "中期預報 (tenki.jp 2週間天気)";
-                    sourceDesc = `<strong>✅ 當前預報啟用來源 (距行程7至14天)：</strong><br>${tenki14Link}<br><br><span style="font-size:13px;">備用與其他觀測源：<br>${jmaLink} | ${yahooLink}<br>${jntoLink} | ${tsuLink} | ${nhkLink}</span>`;
+                    activeMode = "中期預測模式 (tenki.jp 2週間天氣)";
+                    sourceDesc = `<strong>✅ 當前預報主來源 (距行程7至14天)：</strong><br>${tenkiLink}<br><br><span style="font-size:13px;">其他備用與觀測源：<br>${jmaLink} | ${yahooLink}<br>${jntoLink} | ${tsuLink} | ${nhkLink}</span>`;
                 } else {
-                    activeMode = "近期精確預報 (Yahoo! 週間天気)";
-                    sourceDesc = `<strong>✅ 當前預報啟用來源 (距行程小於7天)：</strong><br>${yahooLink}<br><br><span style="font-size:13px;">備用與其他觀測源：<br>${jmaLink} | ${tenki14Link}<br>${jntoLink} | ${tsuLink} | ${nhkLink}</span>`;
+                    activeMode = "近期精確模式 (Yahoo! 週間天氣)";
+                    sourceDesc = `<strong>✅ 當前預報主來源 (距行程小於7天)：</strong><br>${yahooLink}<br><br><span style="font-size:13px;">其他備用與觀測源：<br>${jmaLink} | ${tenkiLink}<br>${jntoLink} | ${tsuLink} | ${nhkLink}</span>`;
                 }
 
                 badge.innerText = activeMode;
-                linksContainer.innerHTML = sourceDesc;
+                linksContainer.innerHTML = `官方氣象觀測與即時數據源：<br><br>${sourceDesc}`;
             }
         }
 
