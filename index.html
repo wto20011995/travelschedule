@@ -324,6 +324,8 @@
         .wishlist-row-img-frame { width: 140px; height: 140px; display: flex; align-items: center; justify-content: center; background: #fafafa; border-radius: 12px; padding: 8px; margin-left: 20px; flex-shrink: 0; }
         body.dark-theme .wishlist-row-img-frame { background: #2c2c2e; }
         .wishlist-row-img-frame img { max-width: 100%; max-height: 100%; object-fit: cover; border-radius: 8px; }
+        
+        .wishlist-row-img-frame.enlarge-20 { width: 168px; height: 168px; }
 
         /* 物品清單專用 Grid */
         .packing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; background: var(--card-bg); padding: 28px; border-radius: 22px; border: 1px solid var(--border-color); box-shadow: 0 4px 24px rgba(0,0,0,0.03); margin-bottom: 24px;}
@@ -376,20 +378,18 @@
         body.forced-mobile-mode .weather-header-left h3 { font-size: 17px !important; white-space: normal; line-height: 1.3; }
 
         body.forced-mobile-mode nav { height: auto; padding: 8px 0; }
-        body.forced-mobile-mode .nav-container { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; padding: 0 12px; }
-        body.forced-mobile-mode .nav-item.clocks { margin: 0; }
+        body.forced-mobile-mode .nav-container { display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: 8px 0; padding: 8px 12px; }
+        body.forced-mobile-mode .nav-item.clocks { flex: 0 0 auto; margin: 0; z-index: 2; }
         body.forced-mobile-mode .nav-clocks { flex-direction: column; align-items: flex-start; gap: 2px;}
-        body.forced-mobile-mode .nav-item.center-title { position: static; transform: none; margin: 0; }
-        body.forced-mobile-mode .nav-center-title { font-size: 14px; white-space: normal; text-align: left; }
+        body.forced-mobile-mode .nav-item.center-title { position: absolute; left: 50%; transform: translateX(-50%); top: 12px; margin: 0; z-index: 1; }
+        body.forced-mobile-mode .nav-center-title { font-size: 14px; white-space: nowrap; text-align: center; }
         body.forced-mobile-mode .nav-item.break { display: block; flex-basis: 100%; height: 0; margin: 0; padding: 0;}
-        body.forced-mobile-mode .nav-item.view-mode { margin: 0; }
-        body.forced-mobile-mode .nav-item.toggle-mode { margin: 0; }
-        body.forced-mobile-mode .nav-item.weather { margin: 0; }
+        body.forced-mobile-mode .nav-item.view-mode { flex: 0 0 auto; margin: 0; }
+        body.forced-mobile-mode .nav-item.toggle-mode { flex: 0 0 auto; margin-left: auto; margin-right: 12px; }
+        body.forced-mobile-mode .nav-item.weather { flex: 0 0 auto; margin: 0; }
         body.forced-mobile-mode .live-weather-widget { padding: 0 8px 0 0; height: 36px; }
-        body.forced-mobile-mode .weather-text-group { font-size: 11px; }
-        body.forced-mobile-mode .weather-yahoo-img { height: 36px; border-radius: 6px 0 0 6px;}
-        body.forced-mobile-mode .view-mode-btn { height: 28px; font-size: 11px; padding: 0 10px;}
-        body.forced-mobile-mode .toggle-container { font-size: 11px; }
+        
+        body.forced-mobile-mode .wishlist-row-img-frame.enlarge-20 { width: 96px !important; height: 96px !important; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -399,20 +399,22 @@
             .weather-header-left h3 { font-size: 17px !important; white-space: normal; line-height: 1.3; }
 
             nav { height: auto; padding: 8px 0; }
-            .nav-container { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; padding: 0 12px; }
-            .nav-item.clocks { margin: 0; }
+            .nav-container { display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: 8px 0; padding: 8px 12px; }
+            .nav-item.clocks { flex: 0 0 auto; margin: 0; z-index: 2; }
             .nav-clocks { flex-direction: column; align-items: flex-start; gap: 2px;}
-            .nav-item.center-title { position: static; transform: none; margin: 0; }
-            .nav-center-title { font-size: 14px; white-space: normal; text-align: left; }
+            .nav-item.center-title { position: absolute; left: 50%; transform: translateX(-50%); top: 12px; margin: 0; z-index: 1; }
+            .nav-center-title { font-size: 14px; white-space: nowrap; text-align: center; }
             .nav-item.break { display: block; flex-basis: 100%; height: 0; margin: 0; padding: 0;}
-            .nav-item.view-mode { margin: 0; }
-            .nav-item.toggle-mode { margin: 0; }
-            .nav-item.weather { margin: 0; }
+            .nav-item.view-mode { flex: 0 0 auto; margin: 0; }
+            .nav-item.toggle-mode { flex: 0 0 auto; margin-left: auto; margin-right: 12px; }
+            .nav-item.weather { flex: 0 0 auto; margin: 0; }
             .live-weather-widget { padding: 0 8px 0 0; height: 36px; }
             .weather-text-group { font-size: 11px; }
             .weather-yahoo-img { height: 36px; border-radius: 6px 0 0 6px;}
             .view-mode-btn { height: 28px; font-size: 11px; padding: 0 10px;}
             .toggle-container { font-size: 11px; }
+            
+            .wishlist-row-img-frame.enlarge-20 { width: 96px !important; height: 96px !important; }
 
             body { padding-top: 150px; }
             .sub-nav { top: 135px; }
@@ -574,7 +576,7 @@
             </div>
             <div class="timeline-section">
                 <div class="timeline-item"><div class="time-box">08:00 離開</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
-                <div class="timeline-item"><div class="time-box">08:10 - 08:40</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://companieslogo.com/img/orig/2702.T-5e777f36.png?t=1745945261" alt="McDonald"></div><div class="text-block"><p><a href="https://map.mcdonalds.co.jp/map/40644" target="_blank">マクドナルドキャナルシティ博多店</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">08:10 - 08:40</div><div class="content-box"><div class="timeline-left-img-container" style="width: 88px; height: 88px;"><img src="https://companieslogo.com/img/orig/2702.T-5e777f36.png?t=1745945261" alt="McDonald"></div><div class="text-block"><p><a href="https://map.mcdonalds.co.jp/map/40644" target="_blank">マクドナルドキャナルシティ博多店</a></p></div></div></div>
                 <div class="timeline-item"><div class="time-box">08:47 - 09:29</div><div class="content-box"><div class="text-block"><p>櫛田神社前 → 太宰府</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">09:30 - 11:50</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d2-tazaifu')">太宰府</h3>
@@ -582,7 +584,7 @@
                         <p class="sub-item">- 太宰府天滿宮</p>
                         <p class="sub-item">- <a href="https://store.starbucks.co.jp/detail-1058/" target="_blank">スターバックスコーヒー太宰府天満宮表參道店</a> <img class="inline-sub-logo" src="https://p7.hiclipart.com/preview/228/114/421/cafe-starbucks-tea-coffee-starbucks.jpg" alt="Starbucks"></p>
                         <p class="sub-item">- <a href="https://tabelog.com/tw/fukuoka/A4003/A400301/40005385/" target="_blank">筑紫庵 本店</a></p>
-                        <p class="sub-item">- <a href="https://www.beams.co.jp/shop/jdz" target="_blank">BEAMS JAPAN太宰府</a> <img class="inline-sub-logo" src="https://w7.pngwing.com/pngs/872/747/png-transparent-beams-japan-hd-logo.png" alt="Beams Japan"></p>
+                        <p class="sub-item">- <a href="https://www.beams.co.jp/shop/jdz" target="_blank">BEAMS JAPAN太宰府</a> <img class="inline-sub-logo" style="max-height: 52px; max-width: 160px;" src="https://w7.pngwing.com/pngs/872/747/png-transparent-beams-japan-hd-logo.png" alt="Beams Japan"></p>
                     </div>
                 </div></div></div>
                 <div class="timeline-item"><div class="time-box">11:52 - 12:00</div><div class="content-box"><div class="text-block"><p>西鉄太宰府駅 → 内山［竈門神社前］</p></div></div></div>
@@ -647,7 +649,7 @@
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://www.biccamera.com/bc/i/shop/shoplist/shop026.jsp" target="_blank">ビックカメラ天神1號館</a> <img class="inline-sub-logo" src="https://www.cubicplaza.com/wp-content/uploads/2019/08/logo-2597.png" alt="Bic"></p>
                         <p class="sub-item">- 田中田式海鮮食堂 魚忠(12:30-13:30)</p>
                         <p class="sub-item">- 天神地下街</p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://buttersand.com/store/list/?area[]=kyushu" target="_blank">PRESS BUTTER SAND 天神地下街店</a> <img class="inline-sub-logo" src="https://marukoblog.tw/wp-content/uploads/2019/11/PRESS-BUTTER-SAND-_2.jpg" alt="PBS"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://buttersand.com/store/list/?area[]=kyushu" target="_blank">PRESS BUTTER SAND 天神地下街店</a> <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS"></p>
                         <p class="sub-item">- 福岡PARCO</p>
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- AZUMA 旗艦店 unshop <img class="inline-sub-logo" src="https://www.azumabag.jp/cdn/shop/files/azuma_logo1.png?v=1689419564&width=600" alt="Azuma"></p>
                         <p class="sub-item">- 天神地下街</p>
@@ -658,7 +660,7 @@
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- Seria ミーナ天神店</p>
                         <p class="sub-item">- ONE FUKUOKA BLDG.</p>
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://store.tsite.jp/fukuoka-tenjin/" target="_blank">福岡天神 蔦屋書店</a> <img class="inline-sub-logo" src="https://store.tsite.jp/static_contents/site/tsite/portal/img/og.jpg" alt="Tsutaya"></p>
-                        <p class="sub-item">- Nike Fukuoka Tenjin <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1280px-Logo_NIKE.svg.png" alt="Nike"></p>
+                        <p class="sub-item">- Nike Fukuoka Tenjin <img class="inline-sub-logo" style="max-height: 52px; max-width: 160px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1280px-Logo_NIKE.svg.png" alt="Nike"></p>
                         <div class="shopping-tag-list" style="margin-top: 14px;"><div class="shopping-tag alert" style="font-size:16px;">⚠️ 當日為日本公眾假期「山之日」，人潮預計大幅增加</div></div>
                     </div>
                 </div></div></div>
@@ -699,10 +701,10 @@
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d4-mall-node')">博多</h3>
                     <div id="acc-d4-mall-node" class="accordion-content">
                         <p class="sub-item">- 博多阪急</p>
-                        <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">IM MEN 博多阪急</a> <img class="inline-sub-logo" src="https://uk.isseymiyake.com/cdn/shop/t/106/assets/exp-immen_logobox.png?v=6638328696964336641775124216" alt="IM MEN"></p>
-                        <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">HOMME PLISSÉ ISSEY MIYAKE 博多阪急</a> <img class="inline-sub-logo" src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg?v=1743185807" alt="Homme Plisse"></p>
+                        <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">IM MEN 博多阪急</a> <img class="inline-sub-logo" style="max-height: 85px; max-width: 260px;" src="https://uk.isseymiyake.com/cdn/shop/t/106/assets/exp-immen_logobox.png?v=6638328696964336641775124216" alt="IM MEN"></p>
+                        <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">HOMME PLISSÉ ISSEY MIYAKE 博多阪急</a> <img class="inline-sub-logo" style="max-height: 85px; max-width: 260px;" src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg?v=1743185807" alt="Homme Plisse"></p>
                         <p class="sub-item">- AMU PLAZA博多</p>
-                        <p class="sub-item">    - Nintendo FUKUOKA <img class="inline-sub-logo" src="https://www.jrhakatacity.com.t.bv.hp.transer.com/uploads/images/resized/390x390/jrhakatacity/000002/000002/7a6e2c01.png" alt="Nintendo"></p>
+                        <p class="sub-item">    - Nintendo FUKUOKA <img class="inline-sub-logo" style="max-height: 85px; max-width: 260px;" src="https://www.jrhakatacity.com.t.bv.hp.transer.com/uploads/images/resized/390x390/jrhakatacity/000002/000002/7a6e2c01.png" alt="Nintendo"></p>
                         <p class="sub-item">- KITTE博多</p>
                         <p class="sub-item">- ヨドバシカメラ マルチメディア博多 <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Yodobashi-Camera_logo.png" alt="Yodobashi"></p>
                     </div>
@@ -747,7 +749,7 @@
                 <div class="timeline-item"><div class="time-box">17:00 - 20:30</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d5-1')">天神</h3>
                     <div id="acc-d5-1" class="accordion-content">
-                        <p class="sub-item">- Standard Products 專櫃店 <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw6XiKxMXKhlyP6ddl40RAPSsodG5tBJw0gQ&s" alt="Standard Products"></p>
+                        <p class="sub-item">- <a href="https://standardproducts.jp/pages/store?id=001656" target="_blank">Standard Products ラシック福岡天神店</a> <img class="inline-sub-logo" style="max-height: 85px; max-width: 260px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw6XiKxMXKhlyP6ddl40RAPSsodG5tBJw0gQ&s" alt="Standard Products"></p>
                         <p class="sub-item">- <a href="https://www.tablecheck.com/ja/shops/yakitori-koto/reserve" target="_blank">焼き鳥 こと(18:00-19:30)</a></p>
                         <p class="sub-item">- ビ克カメラ天神2號館 <img class="inline-sub-logo" src="https://www.cubicplaza.com/wp-content/uploads/2019/08/logo-2597.png" alt="Bic Camera"></p>
                     </div>
@@ -808,7 +810,7 @@
                         <p class="sub-item">- <a href="https://www.humanmade.jp/dealers.html" target="_blank">HUMAN MADE FUKUOKA</a> <img class="inline-sub-logo" src="https://images.seeklogo.com/logo-png/48/1/humanmade-heart-logo-png_seeklogo-486066.png" alt="Human Made"></p>
                         <p class="sub-item">- 猫カフェMOCHA 天神大名店</p>
                         <p class="sub-item">- <a href="https://www.swatch.com/ja-jp/storedetails?sid=R312353" target="_blank">スウォッチストア福岡</a> <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Swatch_Logo.svg/1280px-Swatch_Logo.svg.png" alt="Swatch"></p>
-                        <p class="sub-item">- <a href="https://www.sskamo.co.jp/company/store/fukuoka.html" target="_blank">KAMO 福岡店</a> <img class="inline-sub-logo" style="border-radius:6px;" src="https://www.sskamo.co.jp/company/store/images/fukuoka/fukuoka_img01.jpg" alt="KAMO"></p>
+                        <p class="sub-item">- <a href="https://www.sskamo.co.jp/company/store/fukuoka.html" target="_blank">KAMO 福岡店</a> <img class="inline-sub-logo" style="border-radius:6px;" src="https://image.parco.jp/SCCWEB/image/sapporo/store/storage/w750/shop_kamo_newlogo.jpg" alt="KAMO"></p>
                         <p class="sub-item">- dacō 福岡店</p>
                         <div class="shopping-tag-list" style="margin-top: 14px;"><div class="shopping-tag alert" style="font-size:16px;">⚠️ 元祖赤のれん老店可能因盂蘭盆節休業，若關門可轉戰大丸商圈</div></div>
                     </div>
@@ -1019,7 +1021,7 @@
             <div class="store-group-container">
                 <div class="store-title">
                     <img class="store-logo-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS">
-                    <span>天神地下街伴手禮</span>
+                    <span>PRESS BUTTER SAND 天神地下街店</span>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
@@ -1037,7 +1039,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://marukoblog.tw/wp-content/uploads/2019/11/PRESS-BUTTER-SAND-_2.jpg" alt="PBS"></div>
+                    <div class="wishlist-row-img-frame enlarge-20"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS"></div>
                 </div>
             </div>
 
