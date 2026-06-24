@@ -2,7 +2,17 @@
 <html lang="zh-HK">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" id="viewport-meta" content="width=device-width, initial-scale=1.0">
+    <script>
+        // 瞬間硬體偵測：如果是手機或平板，預設強迫顯示為手機版
+        window.isMobileDevice = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+        window.currentMode = window.isMobileDevice ? 'mobile' : 'desktop';
+        if (window.currentMode === 'desktop') {
+            document.getElementById('viewport-meta').setAttribute('content', 'width=1280');
+        } else {
+            document.getElementById('viewport-meta').setAttribute('content', 'width=device-width, initial-scale=1.0');
+        }
+    </script>
     <title>2026福岡(距離行程開始: 計算中...)</title>
     <style>
         :root {
@@ -313,24 +323,31 @@
         .view-panel.active { display: block; }
 
         .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 12px;
             margin-bottom: 24px;
+            overflow-x: auto;
+            padding-bottom: 8px;
         }
 
         .metric-card {
             background: var(--card-bg);
-            border-radius: 18px;
-            padding: 22px;
+            border-radius: 14px;
+            padding: 16px 20px;
             box-shadow: 0 4px 24px rgba(0,0,0,0.04);
             border: 1px solid var(--border-color);
+            flex: 1;
+            min-width: 130px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .metric-card.large { grid-column: span 2; }
-        .metric-label { font-size: 13px; font-weight: 600; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 6px; letter-spacing: 0.05em; }
-        .metric-value { font-size: 26px; font-weight: 600; }
-        .metric-sub { font-size: 15px; color: var(--text-secondary); margin-top: 4px; line-height: 1.4; }
+        .metric-card.large { flex: 1.5; min-width: 220px; }
+        .metric-label { font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 4px; letter-spacing: 0.05em; }
+        .metric-value { font-size: 20px; font-weight: 600; }
+        .metric-sub { font-size: 13px; color: var(--text-secondary); margin-top: 4px; line-height: 1.3; }
 
         .metric-optional { display: none; }
         body.show-d3-opt #view-2 .metric-normal { display: none; }
@@ -484,13 +501,52 @@
         .wishlist-item-row { display: flex; align-items: flex-start; justify-content: space-between; padding: 16px 12px; border-bottom: 1px solid var(--border-color); transition: opacity 0.25s ease; }
         .wishlist-item-row:last-child { border-bottom: none; }
         .wishlist-item-left { display: flex; align-items: flex-start; gap: 18px; flex: 1; margin-top: 8px; }
-        .item-checkbox { width: 22px; height: 22px; cursor: pointer; accent-color: var(--apple-blue); margin-top: 2px;}
-        .wishlist-item-row:has(.item-checkbox:checked) { opacity: 0.35; }
-        .wishlist-item-row:has(.item-checkbox:checked) .item-text-content { text-decoration: line-through; }
+        .item-checkbox { width: 22px; height: 22px; cursor: pointer; accent-color: var(--apple-blue); margin-top: 4px; flex-shrink: 0;}
+        
+        .wishlist-item-row:has(.item-checkbox:checked) { opacity: 0.55; }
+        .wishlist-item-row:has(.item-checkbox:checked) h4,
+        .wishlist-item-row:has(.item-checkbox:checked) p { text-decoration: line-through; }
 
         .item-text-content h4 { font-size: 20px; font-weight: 600; margin-bottom: 4px; line-height: 1.4; }
         .item-text-content p { font-size: 16px; color: var(--text-secondary); line-height: 1.5; }
         
+        .item-price-row { display: flex; align-items: center; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
+        .price-tag { font-size: 18px; font-weight: 600; color: var(--apple-blue); }
+        .qty-control { display: flex; align-items: center; background: var(--bg-color); border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; }
+        .qty-btn { background: transparent; border: none; width: 32px; height: 32px; font-size: 18px; cursor: pointer; color: var(--text-main); display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+        .qty-btn:hover { background: rgba(0,0,0,0.05); }
+        body.dark-theme .qty-btn:hover { background: rgba(255,255,255,0.1); }
+        .qty-input { width: 40px; height: 32px; border: none; text-align: center; font-size: 15px; font-weight: 600; background: transparent; color: var(--text-main); -moz-appearance: textfield; }
+        .qty-input::-webkit-outer-spin-button, .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+        .wishlist-calculator {
+            position: sticky;
+            bottom: 24px;
+            background: rgba(22, 22, 23, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            z-index: 100;
+            margin-top: 32px;
+            transition: all 0.3s ease;
+        }
+        body.dark-theme .wishlist-calculator { background: rgba(44, 44, 46, 0.9); border-color: rgba(255, 255, 255, 0.05); }
+        .calc-info { display: flex; flex-direction: column; gap: 4px; }
+        .calc-count-text { font-size: 13px; color: rgba(255, 255, 255, 0.7); }
+        .calc-total-text { font-size: 26px; font-weight: 600; color: #fff; display: flex; align-items: baseline; gap: 8px;}
+        .calc-tax-label { font-size: 14px; font-weight: 500; color: rgba(255, 255, 255, 0.7); }
+        .calc-toggle-btn {
+            background: rgba(255, 255, 255, 0.15); color: white; border: 1px solid rgba(255,255,255,0.1); padding: 10px 16px; border-radius: 12px; cursor: pointer; font-size: 14px; font-weight: 600; transition: background 0.2s;
+        }
+        .calc-toggle-btn:hover { background: rgba(255, 255, 255, 0.25); }
+
         .wishlist-row-img-frame { 
             width: 140px; 
             height: 140px; 
@@ -506,20 +562,49 @@
         body.dark-theme .wishlist-row-img-frame { background: #2c2c2e; }
         .wishlist-row-img-frame img { max-width: 100%; max-height: 100%; object-fit: cover; border-radius: 8px; }
 
-        body.forced-mobile-mode .main-container { max-width: 480px; }
-        body.forced-mobile-mode .dashboard-grid { grid-template-columns: 1fr; }
-        body.forced-mobile-mode .metric-card.large { grid-column: span 1; }
-        body.forced-mobile-mode .timeline-item { grid-template-columns: 1fr; gap: 12px; align-items: flex-start; }
-        body.forced-mobile-mode .content-box { flex-direction: column; align-items: flex-start; gap: 14px; }
+        /* ================= 防分行與優化排版 - 強制手機版 ================= */
+        body.forced-mobile-mode .main-container { max-width: 600px; margin: 0 auto; }
+        body.forced-mobile-mode .dashboard-grid { flex-direction: column; }
+        
+        body.forced-mobile-mode .time-box { font-size: 16px !important; padding-right: 8px !important; }
+        body.forced-mobile-mode .timeline-item { grid-template-columns: 85px 1fr !important; gap: 8px !important; align-items: center; }
+        body.forced-mobile-mode .content-box { flex-direction: row !important; align-items: center !important; gap: 12px !important; }
+        body.forced-mobile-mode .timeline-left-img-container { width: 60px !important; height: 60px !important; }
+        body.forced-mobile-mode .text-block h3 { font-size: 18px !important; margin-bottom: 4px !important; }
+        body.forced-mobile-mode .text-block p { font-size: 16px !important; }
+        body.forced-mobile-mode .text-block .sub-item { font-size: 15px !important; margin-top: 8px !important; padding-left: 12px !important; }
+        body.forced-mobile-mode .accordion-trigger { font-size: 18px !important; }
+        body.forced-mobile-mode .accordion-trigger::after { font-size: 14px !important; }
+        
+        body.forced-mobile-mode .metric-value { font-size: 20px !important; }
+        body.forced-mobile-mode .metric-label { font-size: 11px !important; }
+        body.forced-mobile-mode .metric-sub { font-size: 13px !important; }
+        
+        body.forced-mobile-mode .wishlist-section-title { font-size: 22px !important; margin-top: 24px !important; margin-bottom: 16px !important; }
+        body.forced-mobile-mode .store-title { font-size: 18px !important; margin-bottom: 12px !important; flex-wrap: wrap;}
+        body.forced-mobile-mode .store-group-container { padding: 16px !important; }
+        body.forced-mobile-mode .item-text-content h4 { font-size: 16px !important; }
+        body.forced-mobile-mode .item-text-content p { font-size: 14px !important; }
+        body.forced-mobile-mode .wishlist-item-left { gap: 12px !important; }
+        body.forced-mobile-mode .wishlist-row-img-frame { width: 80px !important; height: 80px !important; margin-left: 10px !important; }
+        body.forced-mobile-mode .price-tag { font-size: 15px !important; }
+        body.forced-mobile-mode .wishlist-calculator { flex-direction: column; gap: 16px; align-items: stretch; bottom: 12px;}
+        body.forced-mobile-mode .calc-toggle-btn { text-align: center; }
+        
+        body.forced-mobile-mode .shopping-tag { font-size: 13px !important; padding: 4px 8px !important; }
+        body.forced-mobile-mode .inline-sub-logo { max-height: 24px !important; }
+        
+        body.forced-mobile-mode .weather-table th, body.forced-mobile-mode .weather-table td { font-size: 14px !important; padding: 8px 6px !important; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* ================= 防分行與優化排版 - 原生手機版 @media ================= */
         @media (max-width: 850px) {
             nav { height: auto; padding: 12px 0; align-items: stretch; }
             .nav-container { flex-direction: column; gap: 12px; position: relative; align-items: center; }
-            .nav-center-title { position: static; transform: none; white-space: normal; text-align: center; }
+            .nav-center-title { position: static; transform: none; white-space: normal; text-align: center; margin: 4px 0;}
             
-            .nav-left-section { flex-direction: row; justify-content: center; width: 100%; gap: 16px; margin: 4px 0; }
+            .nav-left-section { flex-direction: row; justify-content: center; width: 100%; gap: 16px; }
             .nav-clocks { align-items: center; }
             
             .nav-controls-right { flex-wrap: wrap; justify-content: center; width: 100%; gap: 12px; }
@@ -532,12 +617,37 @@
             
             .hero-banner { height: 180px; }
 
-            .dashboard-grid { grid-template-columns: 1fr; }
-            .metric-card.large { grid-column: span 1; }
-            .timeline-item { grid-template-columns: 1fr; gap: 10px; align-items: flex-start; } 
-            .time-box { padding-right: 0; }
-            .content-box { flex-direction: column; align-items: flex-start; gap: 12px; }
-            .wishlist-row-img-frame { width: 100px; height: 100px; }
+            .dashboard-grid { flex-direction: column; }
+            
+            .time-box { font-size: 16px !important; padding-right: 8px !important; }
+            .timeline-item { grid-template-columns: 85px 1fr !important; gap: 8px !important; align-items: center; }
+            .content-box { flex-direction: row !important; align-items: center !important; gap: 12px !important; }
+            .timeline-left-img-container { width: 60px !important; height: 60px !important; }
+            .text-block h3 { font-size: 18px !important; margin-bottom: 4px !important; }
+            .text-block p { font-size: 16px !important; }
+            .text-block .sub-item { font-size: 15px !important; margin-top: 8px !important; padding-left: 12px !important; }
+            .accordion-trigger { font-size: 18px !important; }
+            .accordion-trigger::after { font-size: 14px !important; }
+            
+            .metric-value { font-size: 20px !important; }
+            .metric-label { font-size: 11px !important; }
+            .metric-sub { font-size: 13px !important; }
+            
+            .wishlist-section-title { font-size: 22px !important; margin-top: 24px !important; margin-bottom: 16px !important; }
+            .store-title { font-size: 18px !important; margin-bottom: 12px !important; flex-wrap: wrap;}
+            .store-group-container { padding: 16px !important; }
+            .item-text-content h4 { font-size: 16px !important; }
+            .item-text-content p { font-size: 14px !important; }
+            .wishlist-item-left { gap: 12px !important; }
+            .wishlist-row-img-frame { width: 80px !important; height: 80px !important; margin-left: 10px !important; }
+            .price-tag { font-size: 15px !important; }
+            .wishlist-calculator { flex-direction: column; gap: 16px; align-items: stretch; bottom: 12px;}
+            .calc-toggle-btn { text-align: center; }
+            
+            .shopping-tag { font-size: 13px !important; padding: 4px 8px !important; }
+            .inline-sub-logo { max-height: 24px !important; }
+            
+            .weather-table th, .weather-table td { font-size: 14px !important; padding: 8px 6px !important; }
         }
     </style>
 </head>
@@ -550,7 +660,7 @@
                     <div class="time-badge"><span class="time-label">HKT</span><span id="clock-hkg">--:--:--</span></div>
                     <div class="time-badge"><span class="time-label">JST</span><span id="clock-jpn">--:--:--</span></div>
                 </div>
-                <button id="view-emulator-btn" class="view-mode-btn" onclick="toggleViewMode()">切換至手機版版面</button>
+                <button id="view-emulator-btn" class="view-mode-btn" onclick="toggleViewMode()">手機版</button>
             </div>
             
             <div class="nav-center-title" id="nav-header-title">2026福岡(距離行程開始: --日)</div>
@@ -640,7 +750,7 @@
                 <div class="metric-card"><div class="metric-label">2.離開酒店</div><div class="metric-value">08:00</div></div>
                 <div class="metric-card"><div class="metric-label">3.便利店時間</div><div class="metric-value">21:06 - 21:35</div></div>
                 <div class="metric-card"><div class="metric-label">4.回到酒店</div><div class="metric-value">21:35</div></div>
-                <div class="metric-card large"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">3h 55m</div><div class="metric-sub" style="color:var(--apple-blue);">🟢 多於 3 小時，符合續攤標準</div></div>
+                <div class="metric-card large"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">3h 55m</div><div class="metric-sub" style="color:var(--apple-blue);">☑ 多於 3 小時，符合續攤標準</div></div>
                 <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">01:30</div></div>
                 <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">02:00</div></div>
             </div>
@@ -694,7 +804,7 @@
                 <div class="metric-card large">
                     <div class="metric-label">5.每晚上床前在酒店的時間及長度</div>
                     <div class="metric-value">3h 10m</div>
-                    <div class="metric-sub" style="color:var(--apple-blue);">🟢 多於 3 小時，符合續攤標準</div>
+                    <div class="metric-sub" style="color:var(--apple-blue);">☑ 多於 3 小時，符合續攤標準</div>
                 </div>
                 <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">23:55</div></div>
                 <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">00:25</div></div>
@@ -711,7 +821,7 @@
                 <div class="timeline-item"><div class="time-box">09:45 - 20:00</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d3-main-inner-node')">天神</h3>
                     <div id="acc-d3-main-inner-node" class="accordion-content">
-                        <p class="sub-item">- <a href="https://tabelog.com/fukuoka/A4001/A400103/40062177/" target="_blank">I'm donut? 福岡店</a> <img class="inline-sub-logo" src="https://fathom-design.jp/wp/wp-content/uploads/2022/06/logo-1.jpg" alt="I'm Donut"></p>
+                        <p class="sub-item">- <a href="https://tabelog.com/fukuoka/A4001/A400103/40062177/" target="_blank">I'm donut? 福岡店</a> <img class="inline-sub-logo" style="max-height: 130px; max-width: 400px;" src="https://fathom-design.jp/wp/wp-content/uploads/2022/06/logo-1.jpg" alt="I'm Donut"></p>
                         <p class="sub-item">- 大丸福岡天神店 <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/1/16/Daimaru_Logo_full.svg" alt="Daimaru"></p>
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://kiti-coltd.com/wp-content/uploads/2024/06/muji-logo.png" target="_blank">無印良品 大丸福岡天神</a> <img class="inline-sub-logo" src="https://kiti-coltd.com/wp-content/uploads/2024/06/muji-logo.png" alt="Muji"></p>
                         <p class="sub-item">- 天神地下街</p>
@@ -776,6 +886,7 @@
                         <p class="sub-item">- AMU PLAZA博多</p>
                         <p class="sub-item">    - Nintendo FUKUOKA <img class="inline-sub-logo" src="https://www.jrhakatacity.com.t.bv.hp.transer.com/uploads/images/resized/390x390/jrhakatacity/000002/000002/7a6e2c01.png" alt="Nintendo"></p>
                         <p class="sub-item">- KITTE博多</p>
+                        <p class="sub-item">- ヨドバシカメラ マルチメディア博多 <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Yodobashi-Camera_logo.png" alt="Yodobashi"></p>
                     </div>
                 </div></div></div>
                 <div class="timeline-item"><div class="time-box">18:04 - 18:12</div><div class="content-box"><div class="text-block"><p>博多 → 赤坂</p></div></div></div>
@@ -792,12 +903,12 @@
                 <div class="metric-card"><div class="metric-label">2.離開酒店</div><div class="metric-value">07:15</div></div>
                 <div class="metric-card"><div class="metric-label">3.便利店時間</div><div class="metric-value">20:36 - 21:00</div></div>
                 <div class="metric-card"><div class="metric-label">4.回到酒店</div><div class="metric-value">21:00</div></div>
-                <div class="metric-card large"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">3h 45m</div><div class="metric-sub" style="color:var(--apple-blue);">🟢 多於 3 小時，符合續攤標準</div></div>
+                <div class="metric-card large"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">3h 45m</div><div class="metric-sub" style="color:var(--apple-blue);">☑ 多於 3 小時，符合續攤標準</div></div>
                 <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">00:45</div></div>
                 <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">01:15</div></div>
             </div>
             <div class="timeline-section">
-                <div class="timeline-item"><div class="time-box">07:15 離開</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9kb3JteS1ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">07:15 離開</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
                 <div class="timeline-item"><div class="time-box">07:20 - 07:45</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://upload.wikimedia.org/wikipedia/zh/thumb/2/25/Matsuya_Foods.svg/250px-Matsuya_Foods.svg.png" alt="Matsuya"></div><div class="text-block"><p>松屋 博多駅前通り店</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">07:50 - 08:26</div><div class="content-box"><div class="text-block"><p>櫛田神社前 → 福工大前</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">08:36 - 08:46</div><div class="content-box"><div class="text-block"><p>福工大前駅 → 新宮港</p></div></div></div>
@@ -853,7 +964,7 @@
                         <span class="metric-normal">4h 00m</span>
                         <span class="metric-optional">3h 45m</span>
                     </div>
-                    <div class="metric-sub" style="color:var(--apple-blue);">🟢 多於 3 小時，符合續攤標準</div>
+                    <div class="metric-sub" style="color:var(--apple-blue);">☑ 多於 3 小時，符合續攤標準</div>
                 </div>
                 <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">01:10</div></div>
                 <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">01:40</div></div>
@@ -873,13 +984,13 @@
                     <div id="acc-d6-main-inner-node" class="accordion-content">
                         <p class="sub-item">- <a href="https://www.kaneko-optical.co.jp/shop_detail/73" target="_blank">金子眼鏡店 天神VIORO店</a> <img class="inline-sub-logo" src="https://www.puyi.cn/pub/media/amasty/shopby/option_images/slider/Logo_KANEKO_OPTICAL_1.png" alt="Kaneko"></p>
                         <p class="sub-item">- 岩田屋本店</p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- SHIRO 岩田屋店 <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKOjmIF-kBiCpkKlF1eeSETaH0M_e9EZ-MwA&s" alt="SHIRO"></p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">ISSEY MIYAKE 岩田屋本店</a> <img class="inline-sub-logo" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="Issey Miyake"></p>
+                        <p class="sub-item">    - SHIRO 岩田屋店 <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKOjmIF-kBiCpkKlF1eeSETaH0M_e9EZ-MwA&s" alt="SHIRO"></p>
+                        <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">ISSEY MIYAKE 岩田屋本店</a> <img class="inline-sub-logo" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="Issey Miyake"></p>
                         <p class="sub-item">- 元祖赤のれん 節ちゃんラーメン 天神本店(12:00-13:00)</p>
                         <p class="sub-item">- <a href="https://www.humanmade.jp/dealers.html" target="_blank">HUMAN MADE FUKUOKA</a> <img class="inline-sub-logo" src="https://images.seeklogo.com/logo-png/48/1/humanmade-heart-logo-png_seeklogo-486066.png" alt="Human Made"></p>
                         <p class="sub-item">- 猫カフェMOCHA 天神大名店</p>
                         <p class="sub-item">- スウォッチストア福岡</p>
-                        <p class="sub-item">- <a href="https://www.sskamo.co.jp/company/store/fukuoka.html" target="_blank">KAMO 福岡店</a> <img class="inline-sub-logo" src="https://play-lh.googleusercontent.com/y28KofIBZHz9cx_3ffn3pmuYob1sHgXcL2hX5hTTvdf4XYc-wI1I52Rx-zx0-Mfs5OAb" alt="KAMO"></p>
+                        <p class="sub-item">- <a href="https://www.sskamo.co.jp/company/store/fukuoka.html" target="_blank">KAMO 福岡店</a> <img class="inline-sub-logo" src="https://play-lh.googleusercontent.com/y28KofIBZHz9cx_3ffn3pmuYob1sHgXcL2hTTvdf4XYc-wI1I52Rx-zx0-Mfs5OAb" alt="KAMO"></p>
                         <p class="sub-item">- dacō 福岡店</p>
                         <div class="shopping-tag-list" style="margin-top: 14px;"><div class="shopping-tag alert" style="font-size:16px;">⚠️ 元祖赤のれん老店可能因盂蘭盆節休業，若關門可轉戰大丸商圈</div></div>
                     </div>
@@ -946,12 +1057,6 @@
 
         <!-- =================== 🌤️ LIVE WEATHER ENGINE PANELS =================== -->
         <div id="view-7" class="view-panel">
-            <div class="dashboard-grid">
-                <div class="metric-card"><div class="metric-label">歷史平均高溫</div><div class="metric-value">34.5°C</div><div class="metric-sub">盛夏副熱帶高壓脊特徵</div></div>
-                <div class="metric-card"><div class="metric-label">歷史夜間低溫</div><div class="metric-value">26.2°C</div><div class="metric-sub">悶熱潮濕和風環境</div></div>
-                <div class="metric-card"><div class="metric-label">紫外線系數</div><div class="metric-value" style="color:var(--apple-orange);">11+ 級</div><div class="metric-sub">JMA定義極危強對流曬傷</div></div>
-                <div class="metric-card"><div class="metric-label">典型對流降雨率</div><div class="metric-value">38%</div><div class="metric-sub">好發盛夏局部夕立雨動態</div></div>
-            </div>
             <div class="timeline-section">
                 <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:14px; margin-bottom:18px;">
                     <div style="display:flex; align-items:center; gap:12px;">
@@ -996,33 +1101,57 @@
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
-                        <input type="checkbox" class="item-checkbox">
+                        <input type="checkbox" class="item-checkbox" data-price="41800" data-tax="1.1" onchange="calcWishlist()">
                         <div class="item-text-content">
                             <h4>蔡司 Clear View BlueGuard 1.67 鏡片</h4>
                             <p>加購 DuraVision Gold 鍍膜，為大阪購入的 PANT III 鏡框配專用鏡面</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥37,400 + ¥4,400 (税込)</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="wishlist-row-img-frame"><img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Zeiss_logo.svg" alt="Zeiss"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
-                        <input type="checkbox" class="item-checkbox">
+                        <input type="checkbox" class="item-checkbox" data-price="1980" data-tax="1.1" onchange="calcWishlist()">
                         <div class="item-text-content">
-                            <h4>金子眼鏡店 Lens Anti Fog 防霧劑</h4>
+                            <h4><a href="https://centerrace.com/shop/14/news/1988" target="_blank">金子眼鏡店 Lens Anti Fog 防霧劑</a></h4>
                             <p>官方專用高效防霧保養塗層</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥1,980 (税込)</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://www.puyi.cn/pub/media/amasty/shopby/option_images/slider/Logo_KANEKO_OPTICAL_1.png" alt="Kaneko"></div>
+                    <div class="wishlist-row-img-frame"><img src="https://camas-d-centerrace-images.s3.ap-northeast-1.amazonaws.com/content/1988_file_df8f6df92dfd92ff00eb4e009b27512b77340eb4_thumb.jpg" alt="Anti Fog"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
-                        <input type="checkbox" class="item-checkbox">
+                        <input type="checkbox" class="item-checkbox" data-price="1980" data-tax="1.1" onchange="calcWishlist()">
                         <div class="item-text-content">
-                            <h4>金子眼鏡店 Lens Cleaner 清潔液</h4>
+                            <h4><a href="https://vioro.jp/news/kanekogankyoten/44350/" target="_blank">金子眼鏡店 Lens Cleaner 清潔液</a></h4>
                             <p>官方光學鏡片去污專用保養噴霧</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥1,980 (税込)</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://www.puyi.cn/pub/media/amasty/shopby/option_images/slider/Logo_KANEKO_OPTICAL_1.png" alt="Kaneko"></div>
+                    <div class="wishlist-row-img-frame"><img src="https://vioro.jp/cms/wp-content/uploads/2020/07/IMG_7035.jpg" alt="Cleaner"></div>
                 </div>
             </div>
 
@@ -1033,10 +1162,18 @@
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
-                        <input type="checkbox" class="item-checkbox">
+                        <input type="checkbox" class="item-checkbox" data-price="702" data-tax="1.08" onchange="calcWishlist()">
                         <div class="item-text-content">
                             <h4><a href="https://buttersand.com/store/list/?area[]=kyushu" target="_blank">PRESS BUTTER SAND 明太子芝士餅</a></h4>
-                            <p>九州區域極具人氣的限定焦糖奶油夾心餅乾</p>
+                            <p>九州區域極具人氣的限定焦糖奶油夾心餅乾 (適用 8% 減輕稅率)</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥702 (税込)</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="wishlist-row-img-frame"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS"></div>
@@ -1052,30 +1189,54 @@
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
-                        <input type="checkbox" class="item-checkbox">
+                        <input type="checkbox" class="item-checkbox" data-price="35200" data-tax="1.1" onchange="calcWishlist()">
                         <div class="item-text-content">
                             <h4><a href="https://www.isseymiyake.com/products/hp61jf153?_pos=6&_sid=a5d190f91&_ss=r&variant=47542102851802" target="_blank">HOMME PLISSÉ ISSEY MIYAKE TAILORED PLEATS 1(HP61JF153)</a></h4>
                             <p>品牌指定購物清單款式</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥35,200 (税込)</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61JF153-m-02.jpg?v=1769733169&width=1946" alt="Homme Plisse"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
-                        <input type="checkbox" class="item-checkbox">
+                        <input type="checkbox" class="item-checkbox" data-price="39600" data-tax="1.1" onchange="calcWishlist()">
                         <div class="item-text-content">
                             <h4><a href="https://www.isseymiyake.com/products/hp61jk063?_pos=1&_sid=a5d190f91&_ss=r&variant=47918812332250" target="_blank">HOMME PLISSÉ ISSEY MIYAKE MONTHLY COLORS : JUNE(HP61JK063)</a></h4>
                             <p>品牌指定購物清單款式</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥39,600 (税込)</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61JK063-m-01.jpg?v=1780041552&width=1946" alt="Homme Plisse"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
-                        <input type="checkbox" class="item-checkbox">
+                        <input type="checkbox" class="item-checkbox" data-price="55000" data-tax="1.1" onchange="calcWishlist()">
                         <div class="item-text-content">
                             <h4><a href="https://www.isseymiyake.com/products/hp61ff183?_pos=4&_sid=a5d190f91&_ss=r&variant=47624398012634" target="_blank">HOMME PLISSÉ ISSEY MIYAKE TUXEDO PLEATS(HP61FF183)</a></h4>
                             <p>品牌指定購物清單款式</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥55,000 (税込)</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61FF183-m-01.jpg?v=1772152983&width=1946" alt="Homme Plisse"></div>
@@ -1084,18 +1245,61 @@
 
             <div class="store-group-container">
                 <div class="store-title">
+                    <img class="store-logo-icon" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Yodobashi-Camera_logo.png" alt="Yodobashi">
+                    <img class="store-logo-icon" src="https://www.cubicplaza.com/wp-content/uploads/2019/08/logo-2597.png" alt="Bic Camera">
+                    <span>ヨドバシカメラ / ビックカメラ</span>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox" data-price="41580" data-tax="1.1" onchange="calcWishlist()">
+                        <div class="item-text-content">
+                            <h4><a href="https://www.yodobashi.com/product/100000001007932597/" target="_blank">パナソニック Panasonic メンズシェーバー LAMDASH PALM IN 5枚刃</a></h4>
+                            <p>ハイグレード マーブルブラック ES-PV6A-K</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥41,580 (税込)</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame"><img src="https://image.biccamera.com/img/00000011773079_A01.jpg?sr.dw=600&sr.jqh=60&sr.dh=600&sr.mat=1" alt="Panasonic Shaver"></div>
+                </div>
+            </div>
+
+            <div class="store-group-container">
+                <div class="store-title">
+                    <img class="store-logo-icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Swatch_Logo.svg/1280px-Swatch_Logo.svg.png" alt="Swatch">
                     <span>スウォッチストア福岡</span>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
-                        <input type="checkbox" class="item-checkbox">
+                        <input type="checkbox" class="item-checkbox" data-price="57200" data-tax="1.1" onchange="calcWishlist()">
                         <div class="item-text-content">
                             <h4><a href="https://www.swatch.com/ja-jp/orenji-hachi-ssx03l103n/SSX03L103N.html" target="_blank">ROYAL POP ORENJI HACHI 機械時計</a></h4>
                             <p>型號：SSX03L103N。愛彼風格聯名，SISTEM51 機芯，每人每日限購 1 支。</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥57,200 (税込)</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="wishlist-row-img-frame"><img src="https://static.swatch.com/images/product/SSX03L103N/sa000/SSX03L103N_sa000_er003m.png" alt="Swatch ORENJI"></div>
                 </div>
+            </div>
+
+            <div class="wishlist-calculator" id="wishlist-calc-bar">
+                <div class="calc-info">
+                    <span class="calc-count-text" id="calc-count">已選 0 件商品</span>
+                    <strong class="calc-total-text"><span id="calc-total">¥ 0</span> <span class="calc-tax-label" id="calc-tax-label">(含稅總額)</span></strong>
+                </div>
+                <button id="tax-toggle-btn" class="calc-toggle-btn" onclick="toggleTax()">顯示免稅 (稅前) 價格</button>
             </div>
 
         </div>
@@ -1120,6 +1324,7 @@
                 else panel.classList.remove('active');
             });
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (index === 8) calcWishlist(); // 確保願望清單重整時重新計算
         }
 
         function toggleDarkTheme(isDark) {
@@ -1127,11 +1332,35 @@
             else document.body.classList.remove('dark-theme');
         }
 
-        function toggleViewMode() {
-            const body = document.body;
+        // 新版：智慧切換電腦/手機版引擎 (運用 Viewport 操控)
+        function applyViewMode() {
             const btn = document.getElementById('view-emulator-btn');
-            body.classList.toggle('forced-mobile-mode');
-            btn.innerText = body.classList.contains('forced-mobile-mode') ? "切換至電腦版版面" : "切換至手機版版面";
+            const viewport = document.getElementById('viewport-meta');
+
+            if (window.isMobileDevice) {
+                // 如果是真手機裝置，依靠 Viewport 來模擬電腦版縮放
+                if (window.currentMode === 'desktop') {
+                    viewport.setAttribute('content', 'width=1280');
+                    btn.innerText = "手機版";
+                } else {
+                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+                    btn.innerText = "電腦版";
+                }
+            } else {
+                // 如果是真電腦裝置，依靠 Class 來強制模擬手機版排版
+                if (window.currentMode === 'mobile') {
+                    document.body.classList.add('forced-mobile-mode');
+                    btn.innerText = "電腦版";
+                } else {
+                    document.body.classList.remove('forced-mobile-mode');
+                    btn.innerText = "手機版";
+                }
+            }
+        }
+
+        function toggleViewMode() {
+            window.currentMode = (window.currentMode === 'desktop') ? 'mobile' : 'desktop';
+            applyViewMode();
         }
 
         function toggleD3State() {
@@ -1163,6 +1392,48 @@
                 status.innerText = "原定普通方案";
             }
         }
+
+        // ================= 計算機核心邏輯 =================
+        let showPreTax = false;
+
+        function changeQty(btn, delta) {
+            const input = btn.parentElement.querySelector('.qty-input');
+            let newVal = parseInt(input.value) + delta;
+            if (newVal < 1) newVal = 1;
+            input.value = newVal;
+            calcWishlist();
+        }
+
+        function toggleTax() {
+            showPreTax = !showPreTax;
+            const btn = document.getElementById('tax-toggle-btn');
+            btn.innerText = showPreTax ? "顯示稅後 (税込) 價格" : "顯示免稅 (稅前) 價格";
+            calcWishlist();
+        }
+
+        function calcWishlist() {
+            let totalPostTax = 0;
+            let totalPreTax = 0;
+            let count = 0;
+            
+            document.querySelectorAll('.wishlist-item-row').forEach(row => {
+                const cb = row.querySelector('.item-checkbox');
+                if (cb && cb.checked) {
+                    const price = parseFloat(cb.dataset.price);
+                    const tax = parseFloat(cb.dataset.tax);
+                    const qty = parseInt(row.querySelector('.qty-input').value) || 1;
+                    totalPostTax += price * qty;
+                    totalPreTax += (price / tax) * qty;
+                    count += qty;
+                }
+            });
+            
+            const finalAmount = showPreTax ? Math.round(totalPreTax) : totalPostTax;
+            document.getElementById('calc-count').innerText = `已選 ${count} 件商品`;
+            document.getElementById('calc-total').innerText = `¥ ${finalAmount.toLocaleString()}`;
+            document.getElementById('calc-tax-label').innerText = showPreTax ? "(免稅總額)" : "(含稅總額)";
+        }
+        // ===================================================
 
         // 終極即時天氣引擎：Tsukumijima (天氣狀態/高低溫/降雨) + AMeDAS (即時氣溫) + Yahoo 天氣為介面與補充來源
         async function fetchLiveHakataWeather() {
@@ -1354,7 +1625,7 @@
                     <a href="https://news.web.nhk/kishou-saigai/weather/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">NHK 氣象與災害</a>
                 `;
             } else if (remainingDays >= 7 && remainingDays <= 14) {
-                sourceBadge.innerText = "中期預報模式 (tenki.jp 2週間天気)";
+                sourceBadge.innerText = "中期預報模式 (tenki.jp 2週間天氣)";
                 sourceLinks.innerHTML = `
                     官方氣象觀測與即時數據源：<br>
                     <a href="https://www.data.jma.go.jp/multi/yoho/yoho_detail.html?code=400020&lang=cn_zt" target="_blank" style="color:var(--apple-blue); text-decoration:none;">日本氣象廳 (JMA)</a> | 
@@ -1365,7 +1636,7 @@
                     <a href="https://news.web.nhk/kishou-saigai/weather/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">NHK 氣象與災害</a>
                 `;
             } else {
-                sourceBadge.innerText = "近期精確模式 (Yahoo! JAPAN 週間天気)";
+                sourceBadge.innerText = "近期精確模式 (Yahoo! JAPAN 週間天氣)";
                 sourceLinks.innerHTML = `
                     官方氣象觀測與即時數據源：<br>
                     <a href="https://www.data.jma.go.jp/multi/yoho/yoho_detail.html?code=400020&lang=cn_zt" target="_blank" style="color:var(--apple-blue); text-decoration:none;">日本氣象廳 (JMA)</a> | 
@@ -1394,8 +1665,12 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
+            // 初始化套用 View Mode (配合硬體判定按鈕文字)
+            applyViewMode();
+            
             calculateTripCountdown();
             fetchLiveHakataWeather();
+            calcWishlist(); // 初始化願望清單計算機
             
             // 啟動巴士 ETA 模組
             fetchA26ETA();
