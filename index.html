@@ -2,7 +2,7 @@
 <html lang="zh-HK">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" id="viewport-meta" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" id="viewport-meta" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script>
         // 瞬間硬體偵測：如果是手機或平板，預設強迫顯示為手機版
         window.isMobileDevice = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
@@ -22,7 +22,8 @@
             --apple-orange: #ff9500;
             --apple-red: #ff3b30;
             --border-color: #d2d2d7;
-            --nav-bg: rgba(22, 22, 23, 0.8);
+            --nav-bg: rgba(22, 22, 24, 0.85); /* 嚴格鎖定純黑透光導覽列 */
+            --nav-text: #f5f5f7;
             --banner-bg: #e8e8ed;
         }
 
@@ -32,7 +33,6 @@
             --text-main: #f5f5f7;
             --text-secondary: #86868b;
             --border-color: #3a3a3c;
-            --nav-bg: rgba(29, 29, 31, 0.8);
             --banner-bg: #2c2c2e;
         }
 
@@ -40,7 +40,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: Arial, "Microsoft JhengHei", "微軟正黑體", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Microsoft JhengHei", sans-serif;
             -webkit-font-smoothing: antialiased;
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
@@ -48,28 +48,27 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            padding-top: 60px;
-            padding-bottom: 60px;
+            padding-top: 100px;
+            padding-bottom: 120px;
         }
 
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: var(--nav-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background-color: var(--nav-bg) !important;
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
             z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             border-bottom: 1px solid var(--border-color);
-            min-height: 60px;
+            min-height: 48px;
+            color: var(--nav-text) !important;
         }
 
         .nav-container {
             width: 100%;
             max-width: 1440px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -89,14 +88,14 @@
             gap: 2px;
             align-items: flex-start;
             justify-content: center;
-            color: #f5f5f7;
+            color: var(--nav-text);
         }
 
         .time-badge {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 90px;
+            width: 96px;
             font-family: 'Courier New', Courier, monospace;
             font-size: 13px;
             font-weight: 600;
@@ -108,7 +107,7 @@
             font-size: 9px;
             color: rgba(255, 255, 255, 0.7);
             letter-spacing: 0.1em;
-            font-weight: normal;
+            font-weight: bold;
             text-transform: uppercase;
         }
 
@@ -116,7 +115,7 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            color: #f5f5f7;
+            color: var(--nav-text);
             font-weight: 600;
             font-size: 16px;
             white-space: nowrap;
@@ -134,24 +133,27 @@
             color: #ffffff;
             font-size: 11px;
             font-weight: 600;
-            padding: 6px 12px;
+            padding: 4px 10px;
             border-radius: 6px;
             cursor: pointer;
             white-space: nowrap;
+            height: 28px;
         }
+        .view-mode-btn:hover { background: rgba(255, 255, 255, 0.25); }
 
         .live-weather-widget {
             background: rgba(255, 255, 255, 0.12);
-            padding: 0 10px 0 0;
+            padding: 0 12px 0 0;
             border-radius: 8px;
-            font-size: 11px;
+            font-size: 12px;
             line-height: 1.3;
             cursor: pointer;
             transition: background 0.2s ease;
-            height: 40px;
+            height: 48px;
             display: flex;
             align-items: center;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .live-weather-widget:hover {
@@ -163,12 +165,12 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             height: 100%;
         }
 
         .weather-yahoo-img {
-            height: 40px;
+            height: 48px;
             width: auto;
             object-fit: cover;
             border-radius: 8px 0 0 8px;
@@ -186,16 +188,16 @@
         .sub-nav {
             position: sticky;
             top: 60px;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
             border-bottom: 1px solid var(--border-color);
             z-index: 999;
             overflow-x: auto;
             white-space: nowrap;
             margin-bottom: 24px;
         }
-        body.dark-theme .sub-nav { background: rgba(28, 28, 30, 0.8); }
+        body.dark-theme .sub-nav { background: rgba(28, 28, 30, 0.85); }
 
         .tabs-container {
             max-width: 1440px;
@@ -203,7 +205,7 @@
             display: flex;
             justify-content: flex-start;
             gap: 12px;
-            padding: 10px 24px;
+            padding: 12px 24px;
         }
 
         .tab-btn {
@@ -212,10 +214,10 @@
             color: var(--text-secondary);
             font-size: 14px;
             cursor: pointer;
-            padding: 6px 14px;
+            padding: 6px 16px;
             border-radius: 14px;
             text-align: center;
-            min-width: 76px;
+            min-width: 80px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -224,21 +226,22 @@
 
         .tab-btn span {
             display: block;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
             color: var(--text-main);
             margin-top: 2px;
             white-space: nowrap;
         }
         
-        .tab-btn.special-tab span { font-size: 14px; }
+        .tab-btn.special-tab span { font-size: 15px; }
         .tab-btn:hover { color: var(--apple-blue); }
         
-        .tab-btn.active { background-color: var(--text-main) !important; color: var(--bg-color) !important; }
+        .tab-btn.active {
+            background-color: var(--text-main) !important;
+            color: var(--bg-color) !important;
+        }
         .tab-btn.active span { color: var(--bg-color) !important; }
-        
-        .tab-btn.special-tab { border: 1px solid var(--border-color); background-color: rgba(0,0,0,0.02); }
-        body.dark-theme .tab-btn.special-tab { background-color: rgba(255,255,255,0.02); }
+        .tab-btn.special-tab { border: 1px solid var(--border-color); background-color: rgba(134,134,139,0.05); }
 
         .main-container {
             width: 100%;
@@ -247,95 +250,81 @@
             padding: 0 24px;
         }
 
-        .hero-wrapper {
-            position: relative;
+        .carousel-container {
             width: 100%;
-            margin-bottom: 24px;
+            height: 360px;
             border-radius: 22px;
+            margin-bottom: 24px;
+            position: relative;
             box-shadow: 0 4px 24px rgba(0,0,0,0.06);
             border: 1px solid var(--border-color);
             overflow: hidden;
+            touch-action: pan-y;
         }
 
-        .hero-banner-slider {
-            width: 100%;
-            height: 360px;
+        .carousel-track {
             display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-            scroll-behavior: smooth;
-        }
-        .hero-banner-slider::-webkit-scrollbar { display: none; }
-        
-        .hero-slide {
-            flex: 0 0 100%;
             width: 100%;
+            height: 100%;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .carousel-slide {
+            min-width: 100%;
             height: 100%;
             background-size: cover;
             background-position: center 30%;
-            scroll-snap-align: start;
             position: relative;
         }
-        .hero-slide::after {
+
+        .carousel-slide::after {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
             background: linear-gradient(to bottom, rgba(0,0,0,0.05), rgba(0,0,0,0.35));
-            pointer-events: none;
         }
 
-        /* 封面滑動控制按鈕與指示點 */
-        .slider-btn {
+        .carousel-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.3);
-            color: white;
-            width: 44px;
-            height: 44px;
+            background: rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            border: none;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             font-size: 20px;
-            font-weight: bold;
             cursor: pointer;
             z-index: 10;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: background 0.2s, transform 0.2s;
+            transition: background 0.2s;
         }
-        .slider-btn:hover { background: rgba(255, 255, 255, 0.4); transform: translateY(-50%) scale(1.05); }
-        .slider-btn:active { transform: translateY(-50%) scale(0.95); }
-        .slider-btn.prev { left: 16px; padding-right: 4px; }
-        .slider-btn.next { right: 16px; padding-left: 4px; }
+        .carousel-btn:hover { background: rgba(255,255,255,0.5); }
+        .carousel-btn.prev { left: 16px; }
+        .carousel-btn.next { right: 16px; }
 
-        .slider-dots {
+        .carousel-dots {
             position: absolute;
             bottom: 16px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 10px;
+            gap: 8px;
             z-index: 10;
         }
-        .slider-dot {
+        .dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(255,255,255,0.4);
             cursor: pointer;
-            transition: background 0.3s, transform 0.3s;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+            transition: background 0.2s;
         }
-        .slider-dot.active {
-            background: #ffffff;
-            transform: scale(1.3);
-        }
+        .dot.active { background: #fff; }
 
         .view-panel { display: none; animation: fadeIn 0.4s ease-in-out forwards; }
         .view-panel.active { display: block; }
@@ -343,24 +332,28 @@
         .dashboard-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 6px;
+            justify-content: flex-start;
+            margin-bottom: 24px;
         }
 
         .metric-card {
             background: var(--card-bg);
-            border-radius: 14px;
-            padding: 12px 16px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+            border-radius: 8px;
+            padding: 6px 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             border: 1px solid var(--border-color);
-            flex: 1 1 auto;
-            min-width: 130px;
+            flex: 0 1 auto;
+            width: auto;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .metric-card.large { flex: 2 1 auto; }
-        .metric-label { font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 4px; letter-spacing: 0.02em; }
-        .metric-value { font-size: 20px; font-weight: 600; }
-        .metric-sub { font-size: 13px; color: var(--text-secondary); margin-top: 2px; line-height: 1.3; }
+        .metric-label { font-size: 11px; font-weight: 600; color: var(--text-secondary); margin-bottom: 2px; letter-spacing: 0.02em; white-space: nowrap; }
+        .metric-value { font-size: 14px; font-weight: 600; white-space: nowrap; }
+        .metric-sub { font-size: 10px; color: var(--text-secondary); margin-top: 2px; line-height: 1.2; }
 
         .metric-optional { display: none; }
         body.show-d3-opt #view-2 .metric-normal { display: none; }
@@ -384,310 +377,237 @@
             background-color: var(--apple-blue);
             color: #ffffff;
             border: none;
-            padding: 10px 20px;
+            padding: 8px 16px;
             font-size: 14px;
             font-weight: 600;
             border-radius: 10px;
             cursor: pointer;
-            transition: opacity 0.2s;
         }
-
-        .opt-btn:hover { opacity: 0.85; }
         .opt-btn.reset-btn { background-color: var(--text-main); color: var(--bg-color); }
 
         .timeline-section {
             background: var(--card-bg);
             border-radius: 22px;
-            padding: 24px 32px;
+            padding: 32px 40px;
             box-shadow: 0 4px 30px rgba(0,0,0,0.03);
             border: 1px solid var(--border-color);
         }
 
         .timeline-item {
             display: grid;
-            grid-template-columns: 170px 1fr;
-            padding: 20px 0;
+            grid-template-columns: 190px 1fr;
+            padding: 24px 0;
             border-bottom: 1px solid var(--border-color);
             align-items: center; 
         }
         .timeline-item:last-child { border-bottom: none; }
-        .time-box { font-size: 20px; font-weight: 600; color: var(--text-main); padding-right: 15px; }
+        .time-box { font-size: 24px; font-weight: 600; color: var(--text-main); padding-right: 15px; }
 
-        .content-box {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center; 
-            gap: 20px;
-            width: 100%;
-        }
-
+        .content-box { display: flex; justify-content: flex-start; align-items: center; gap: 24px; width: 100%; }
         .text-block { flex: 1; width: 100%; }
-        .text-block h3 { font-size: 20px !important; font-weight: normal !important; margin-bottom: 6px; letter-spacing: -0.01em; }
-        .text-block p { font-size: 20px; color: var(--text-main); line-height: 1.5; white-space: pre-line; }
-
+        .text-block h3 { font-size: 22px !important; font-weight: normal !important; margin-bottom: 6px; letter-spacing: -0.01em; }
+        .text-block p { font-size: 22px; color: var(--text-main); line-height: 1.5; white-space: pre-line; }
         .text-block a { color: var(--apple-blue); text-decoration: none; }
         .text-block a:hover { text-decoration: underline; }
 
         .text-block .sub-item {
             color: var(--text-main);
             padding-left: 20px;
-            margin-top: 14px; 
-            font-size: 20px;  
-            line-height: 1.6; 
+            margin-top: 18px; 
+            font-size: 22px;  
+            line-height: 1.8; 
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
         }
 
-        .accordion-trigger {
-            font-size: 20px !important;
-            font-weight: normal !important;
-            cursor: pointer;
-            transition: color 0.15s ease;
-            margin-bottom: 0 !important;
-        }
-        .accordion-trigger:hover { color: var(--apple-blue); }
-        .accordion-trigger::after {
-            content: " ▾";
-            font-size: 16px;
-            color: var(--text-secondary);
-            vertical-align: middle;
-        }
+        .accordion-trigger { font-size: 22px !important; font-weight: normal !important; cursor: pointer; margin-bottom: 0 !important; }
+        .accordion-trigger::after { content: " ▾"; font-size: 18px; color: var(--text-secondary); vertical-align: middle; }
 
         .timeline-item.plan-normal, .timeline-item.plan-optional { display: none !important; }
-        body:not(.show-d3-opt) .timeline-item.plan-normal.d3-node,
-        body.show-d3-opt .timeline-item.plan-optional.d3-node { display: grid !important; }
-        body:not(.show-d6-opt) .timeline-item.plan-normal.d6-node,
-        body.show-d6-opt .timeline-item.plan-optional.d6-node { display: grid !important; }
+        body:not(.show-d3-opt) .timeline-item.plan-normal.d3-node, body.show-d3-opt .timeline-item.plan-optional.d3-node { display: grid !important; }
+        body:not(.show-d6-opt) .timeline-item.plan-normal.d6-node, body.show-d6-opt .timeline-item.plan-optional.d6-node { display: grid !important; }
 
         .timeline-left-img-container {
-            width: 90px;
-            height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: transparent; 
-            overflow: hidden;
-            flex-shrink: 0;
-            box-shadow: none; 
+            width: 110px; height: 110px; display: flex; align-items: center; justify-content: center; background: transparent; overflow: hidden; flex-shrink: 0;
         }
-
         .timeline-left-img-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .inline-sub-logo { max-height: 50px; max-width: 160px; object-fit: contain; vertical-align: middle; display: inline-block; margin-left: 12px; }
+        .inline-sub-logo { max-height: 65px; max-width: 200px; object-fit: contain; vertical-align: middle; display: inline-block; margin-left: 16px; }
 
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-            padding-left: 16px;
-            border-left: 3px solid var(--border-color);
-            margin-top: 8px;
-        }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; padding-left: 20px; border-left: 3px solid var(--border-color); margin-top: 8px; }
         .accordion-content.expanded { max-height: 2500px; margin-bottom: 8px; }
 
-        .shopping-tag-list { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; }
-        .shopping-tag { background: #f5f5f7; padding: 6px 12px; border-radius: 8px; font-size: 14px; color: var(--text-main); font-weight: 500; }
+        .shopping-tag-list { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+        .shopping-tag { background: #f5f5f7; padding: 6px 14px; border-radius: 8px; font-size: 16px; color: var(--text-main); font-weight: 500; }
         .shopping-tag.alert { background: #fff3cd; color: #644d03; border: 1px solid #ffe69c; }
         body.dark-theme .shopping-tag { background: #2c2c2e; color: #f5f5f7; }
 
         .weather-table { width: 100%; border-collapse: collapse; }
-        .weather-table th, .weather-table td { text-align: left; padding: 14px; border-bottom: 1px solid var(--border-color); font-size: 16px; }
+        .weather-table th, .weather-table td { text-align: left; padding: 16px; border-bottom: 1px solid var(--border-color); font-size: 17px; }
         .weather-table th { color: var(--text-secondary); font-weight: 500; }
 
-        .wishlist-section-title {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            margin-top: 32px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--border-color);
-            color: var(--text-main);
-        }
+        .wishlist-section-title { font-size: 28px; font-weight: 600; margin-bottom: 24px; margin-top: 40px; padding-bottom: 12px; border-bottom: 2px solid var(--border-color); color: var(--text-main); }
         .wishlist-section-title:first-child { margin-top: 0; }
 
-        .store-group-container { background: var(--card-bg); border-radius: 22px; padding: 24px; box-shadow: 0 4px 24px rgba(0,0,0,0.03); margin-bottom: 24px; border: 1px solid var(--border-color); }
-        .store-title { font-size: 20px; font-weight: 600; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
-        .store-logo-icon { max-height: 32px; max-width: 120px; object-fit: contain; }
+        .store-group-container { background: var(--card-bg); border-radius: 22px; padding: 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.03); margin-bottom: 24px; border: 1px solid var(--border-color); }
+        .store-title { font-size: 22px; font-weight: 600; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; }
+        .store-logo-icon { max-height: 36px; max-width: 140px; object-fit: contain; }
 
         .wishlist-item-row { display: flex; align-items: flex-start; justify-content: space-between; padding: 16px 12px; border-bottom: 1px solid var(--border-color); transition: opacity 0.25s ease; }
         .wishlist-item-row:last-child { border-bottom: none; }
-        .wishlist-item-left { display: flex; align-items: flex-start; gap: 14px; flex: 1; margin-top: 4px; }
-        .item-checkbox { width: 20px; height: 20px; cursor: pointer; accent-color: var(--apple-blue); margin-top: 4px;}
-        .wishlist-item-row:has(.item-checkbox:checked) { opacity: 0.4; }
-        .wishlist-item-row:has(.item-checkbox:checked) .item-text-content h4 { text-decoration: line-through; }
+        .wishlist-item-left { display: flex; align-items: flex-start; gap: 18px; flex: 1; margin-top: 8px; }
+        .item-checkbox { width: 22px; height: 22px; cursor: pointer; accent-color: var(--apple-blue); margin-top: 2px;}
+        .wishlist-item-row:has(.item-checkbox:checked) { opacity: 0.35; }
+        .wishlist-item-row:has(.item-checkbox:checked) .item-text-content { text-decoration: line-through; }
 
-        .item-text-content h4 { font-size: 18px; font-weight: 600; margin-bottom: 4px; line-height: 1.4; }
-        .item-text-content p { font-size: 15px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 8px;}
+        .item-text-content h4 { font-size: 20px; font-weight: 600; margin-bottom: 4px; line-height: 1.4; }
+        .item-text-content p { font-size: 16px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px; }
         
-        .item-price-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-        .price-tag { font-family: 'Courier New', Courier, monospace; font-size: 16px; font-weight: 600; color: var(--apple-orange); background: rgba(255, 149, 0, 0.1); padding: 4px 8px; border-radius: 6px; }
+        .item-price-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+        .price-tag { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 18px; font-weight: 600; color: var(--text-main); }
+        .qty-control { display: flex; align-items: center; gap: 8px; background: var(--bg-color); border-radius: 8px; padding: 4px; border: 1px solid var(--border-color); }
+        .qty-btn { width: 28px; height: 28px; border-radius: 6px; border: none; background: var(--card-bg); color: var(--text-main); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .qty-input { width: 40px; text-align: center; border: none; background: transparent; font-size: 16px; font-weight: 600; color: var(--text-main); -moz-appearance: textfield; }
+        .qty-input::-webkit-outer-spin-button, .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         
-        .qty-control { display: flex; align-items: center; gap: 6px; background: var(--bg-color); border-radius: 8px; padding: 2px; }
-        .qty-btn { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); width: 28px; height: 28px; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; }
-        .qty-btn:active { background: var(--border-color); }
-        .qty-input { width: 36px; text-align: center; border: none; background: transparent; font-size: 15px; font-weight: 600; color: var(--text-main); pointer-events: none;}
-        
-        .wishlist-row-img-frame { 
-            width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; 
-            background: #fafafa; border-radius: 12px; padding: 8px; margin-left: 16px; flex-shrink: 0;
-        }
+        .wishlist-row-img-frame { width: 140px; height: 140px; display: flex; align-items: center; justify-content: center; background: #fafafa; border-radius: 12px; padding: 8px; margin-left: 20px; flex-shrink: 0; }
         body.dark-theme .wishlist-row-img-frame { background: #2c2c2e; }
-        .wishlist-row-img-frame img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; mix-blend-mode: multiply; }
-        body.dark-theme .wishlist-row-img-frame img { mix-blend-mode: normal; }
-
-        .wishlist-row-img-frame.enlarge-20 { width: 144px; height: 144px; }
+        .wishlist-row-img-frame img { max-width: 100%; max-height: 100%; object-fit: cover; border-radius: 8px; }
+        .wishlist-row-img-frame.enlarge-20 { width: 168px; height: 168px; }
 
         .calculator-sticky-bar {
-            position: fixed; bottom: 0; left: 0; width: 100%; background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid var(--border-color); padding: 12px 24px; display: flex; justify-content: space-between; align-items: center;
-            z-index: 10000; box-shadow: 0 -4px 20px rgba(0,0,0,0.05); transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            position: fixed !important; 
+            bottom: 0; 
+            left: 0; 
+            width: 100%; 
+            background: rgba(255, 255, 255, 0.75); 
+            backdrop-filter: saturate(180%) blur(20px); 
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-top: 1px solid rgba(0,0,0,0.1); 
+            padding: 16px 32px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            z-index: 99999; 
+            box-shadow: 0 -8px 30px rgba(0,0,0,0.05);
         }
-        .calculator-sticky-bar.visible { transform: translateY(0); }
+        body.dark-theme .calculator-sticky-bar { background: rgba(28, 28, 30, 0.75); border-top: 1px solid rgba(255,255,255,0.1); }
         
-        .calc-info { color: #f5f5f7; display: flex; flex-direction: column; gap: 2px; }
-        .calc-total { font-size: 22px; font-weight: 600; font-family: 'Courier New', Courier, monospace; color: var(--apple-orange); }
-        .calc-items-count { font-size: 13px; color: rgba(255,255,255,0.7); }
-        .tax-toggle-btn {
-            background: var(--apple-blue); color: white; border: none; padding: 8px 16px; border-radius: 8px;
-            font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;
-        }
-        .tax-toggle-btn.tax-free { background: #34c759; }
+        .calc-info { display: flex; flex-direction: column; gap: 4px; }
+        .calc-items-count { font-size: 14px; color: var(--text-secondary); font-weight: 500; }
+        .calc-price-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;}
+        .calc-total { font-size: 28px; font-weight: 700; color: var(--text-main); font-family: -apple-system, BlinkMacSystemFont, sans-serif; letter-spacing: -0.5px; }
+        .calc-hkd-col { display: flex; flex-direction: column; }
+        .calc-hkd { font-size: 16px; font-weight: 500; color: var(--text-secondary); }
+        .calc-rate { font-size: 11px; color: var(--text-secondary); opacity: 0.7; }
+        .tax-toggle-btn { background: var(--apple-blue); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; box-shadow: 0 4px 12px rgba(0,102,204,0.3); }
+        .tax-toggle-btn:hover { opacity: 0.85; }
+        .tax-toggle-btn.tax-free-on { background: #34c759; box-shadow: 0 4px 12px rgba(52,199,89,0.3); }
 
-        .packing-list-grid { display: flex; flex-direction: column; padding: 8px 16px; }
-        .packing-item-row { display: flex; align-items: center; gap: 12px; padding: 12px 8px; border-bottom: 1px solid var(--border-color); }
-        .packing-item-row:last-child { border-bottom: none; }
-        .packing-item-row label { font-size: 16px; color: var(--text-main); cursor: pointer; flex: 1; user-select: none; }
-        .packing-item-row:has(.item-checkbox:checked) label { text-decoration: line-through; color: var(--text-secondary); opacity: 0.5; }
+        .packing-list-grid { display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--border-color); border-radius: 16px; overflow: hidden; border: 1px solid var(--border-color); }
+        .packing-item { background: var(--card-bg); padding: 12px 20px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: background 0.2s; }
+        .packing-item:hover { background: var(--bg-color); }
+        .packing-checkbox { width: 22px; height: 22px; accent-color: var(--apple-blue); cursor: pointer; pointer-events: none; }
+        .packing-label { font-size: 18px; color: var(--text-main); font-weight: 500; flex: 1; }
+        .packing-item.checked { opacity: 0.5; }
+        .packing-item.checked .packing-label { text-decoration: line-through; }
 
-        /* 圖示大小微調 Classes */
-        .scale-down-20 img { transform: scale(0.8); }
-        .scale-up-30 img { transform: scale(1.3); }
-        .scale-up-100 img { transform: scale(2.0); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-
-        
+        body.forced-mobile-mode { padding-top: 130px; padding-bottom: 260px; }
         body.forced-mobile-mode .main-container { max-width: 600px; margin: 0 auto; }
-        body.forced-mobile-mode { padding-bottom: 140px; } /* Prevent hiding behind sub-nav */
-
-        body.forced-mobile-mode nav { height: auto; padding: 8px 0; }
-        body.forced-mobile-mode .nav-container { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 0 16px; }
-        body.forced-mobile-mode .nav-left-section { width: 100%; display: flex; justify-content: flex-start; position: relative; }
-        body.forced-mobile-mode .nav-center-title { position: absolute; left: 50%; transform: translateX(-50%); font-size: 14px; white-space: nowrap; }
-        body.forced-mobile-mode .nav-controls-right { width: 100%; display: flex; justify-content: flex-start; gap: 12px; }
         
-        body.forced-mobile-mode .sub-nav {
-            position: fixed; top: auto; bottom: 0; left: 0; width: 100%;
-            border-top: 1px solid var(--border-color); border-bottom: none;
-            margin-bottom: 0; padding-bottom: calc(env(safe-area-inset-bottom) + 15px);
-            z-index: 10000;
-        }
-        body.forced-mobile-mode .tabs-container { justify-content: space-around; padding: 8px 12px; gap: 6px; }
-        body.forced-mobile-mode .tab-btn { min-width: auto; padding: 4px; flex: 1; }
-        body.forced-mobile-mode .tab-btn span { font-size: 13px; margin-top: 4px; }
-        body.forced-mobile-mode .tab-btn.special-tab span { font-size: 12px; }
-
-        body.forced-mobile-mode .hero-banner-slider { height: 180px; }
-        body.forced-mobile-mode .slider-btn { width: 36px; height: 36px; font-size: 16px; }
-
-        body.forced-mobile-mode .dashboard-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-        body.forced-mobile-mode .metric-card { flex: 1 1 auto; padding: 10px 12px; border-radius: 10px; min-width: 100px; }
-        body.forced-mobile-mode .metric-card.large { flex: 1 1 100%; }
+        body.forced-mobile-mode .dashboard-grid { gap: 6px; }
+        body.forced-mobile-mode .metric-card { padding: 4px 8px; font-size: 12px; }
+        body.forced-mobile-mode .metric-label { font-size: 10px; }
+        body.forced-mobile-mode .metric-value { font-size: 13px; }
         
         body.forced-mobile-mode .time-box { font-size: 16px !important; padding-right: 8px !important; }
-        body.forced-mobile-mode .timeline-item { grid-template-columns: 80px 1fr !important; gap: 8px !important; align-items: center; padding: 16px 0;}
-        body.forced-mobile-mode .content-box { flex-direction: row !important; align-items: center !important; gap: 10px !important; }
-        body.forced-mobile-mode .timeline-left-img-container { width: 50px !important; height: 50px !important; }
-        body.forced-mobile-mode .text-block h3 { font-size: 16px !important; margin-bottom: 4px !important; }
-        body.forced-mobile-mode .text-block p { font-size: 15px !important; }
-        body.forced-mobile-mode .text-block .sub-item { font-size: 14px !important; margin-top: 8px !important; padding-left: 12px !important; gap: 8px; }
-        body.forced-mobile-mode .accordion-trigger { font-size: 16px !important; }
+        body.forced-mobile-mode .timeline-item { grid-template-columns: 85px 1fr !important; gap: 8px !important; align-items: center; }
+        body.forced-mobile-mode .content-box { flex-direction: row !important; align-items: center !important; gap: 12px !important; }
+        body.forced-mobile-mode .timeline-left-img-container { width: 60px !important; height: 60px !important; }
+        body.forced-mobile-mode .text-block h3 { font-size: 18px !important; margin-bottom: 4px !important; }
+        body.forced-mobile-mode .text-block p { font-size: 16px !important; }
+        body.forced-mobile-mode .text-block .sub-item { font-size: 15px !important; margin-top: 8px !important; padding-left: 12px !important; }
+        body.forced-mobile-mode .accordion-trigger { font-size: 18px !important; }
         body.forced-mobile-mode .accordion-trigger::after { font-size: 14px !important; }
         
-        body.forced-mobile-mode .metric-value { font-size: 16px !important; }
-        body.forced-mobile-mode .metric-label { font-size: 10px !important; margin-bottom: 2px !important; }
-        body.forced-mobile-mode .metric-sub { font-size: 11px !important; margin-top: 2px !important; }
-        
-        body.forced-mobile-mode .weather-header-title { font-size: 16px !important; }
-        body.forced-mobile-mode .weather-source-badge { font-size: 10px !important; padding: 2px 6px !important; line-height: 1.2; text-align: right; }
-
-        body.forced-mobile-mode .wishlist-section-title { font-size: 20px !important; margin-top: 20px !important; margin-bottom: 12px !important; }
-        body.forced-mobile-mode .store-title { font-size: 16px !important; margin-bottom: 12px !important; }
+        body.forced-mobile-mode .wishlist-section-title { font-size: 22px !important; margin-top: 24px !important; margin-bottom: 16px !important; }
+        body.forced-mobile-mode .store-title { font-size: 18px !important; margin-bottom: 12px !important; }
         body.forced-mobile-mode .store-group-container { padding: 16px !important; }
-        body.forced-mobile-mode .item-text-content h4 { font-size: 15px !important; }
-        body.forced-mobile-mode .item-text-content p { font-size: 13px !important; }
-        body.forced-mobile-mode .wishlist-item-left { gap: 10px !important; }
-        body.forced-mobile-mode .wishlist-row-img-frame { width: 80px !important; height: 80px !important; margin-left: 10px !important; padding: 4px; }
+        body.forced-mobile-mode .item-text-content h4 { font-size: 16px !important; }
+        body.forced-mobile-mode .item-text-content p { font-size: 14px !important; }
+        body.forced-mobile-mode .wishlist-item-left { gap: 12px !important; flex-direction: column; }
+        body.forced-mobile-mode .wishlist-row-img-frame { width: 80px !important; height: 80px !important; margin-left: 0 !important; align-self: flex-start; }
         body.forced-mobile-mode .wishlist-row-img-frame.enlarge-20 { width: 96px !important; height: 96px !important; }
         
-        body.forced-mobile-mode .shopping-tag { font-size: 12px !important; padding: 4px 8px !important; }
-        body.forced-mobile-mode .inline-sub-logo { max-height: 20px !important; max-width: 80px !important; }
+        body.forced-mobile-mode .shopping-tag { font-size: 13px !important; padding: 4px 8px !important; }
+        body.forced-mobile-mode .inline-sub-logo { max-height: 24px !important; }
+        body.forced-mobile-mode .weather-table th, body.forced-mobile-mode .weather-table td { font-size: 14px !important; padding: 8px 6px !important; }
         
-        body.forced-mobile-mode .weather-table th, body.forced-mobile-mode .weather-table td { font-size: 13px !important; padding: 8px 6px !important; }
+        body.forced-mobile-mode .nav-container { display: block; position: relative; width: 100%; height: 86px; padding: 0; }
+        body.forced-mobile-mode .nav-left-section { position: absolute; top: 12px; left: 12px; width: auto; }
+        body.forced-mobile-mode .nav-center-title { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); width: auto; text-align: center; font-size: 14px; font-weight: 600; white-space: nowrap; color: #f5f5f7; z-index: 5;}
+        body.forced-mobile-mode .nav-controls-right { display: contents; }
+        body.forced-mobile-mode .view-mode-btn { position: absolute; top: 12px; right: 12px; height: 28px; padding: 0 10px; font-size: 11px; z-index: 10; }
+        body.forced-mobile-mode .live-weather-widget { position: absolute; top: 46px; right: 12px; height: 32px; padding: 0 8px 0 0; z-index: 10; display: flex; align-items: center; }
+        body.forced-mobile-mode .weather-yahoo-img { height: 32px; border-radius: 6px 0 0 6px; }
+        body.forced-mobile-mode .weather-text-group { font-size: 10px; }
         
-        body.forced-mobile-mode .calculator-sticky-bar { bottom: 75px; } /* Raise above sub-nav */
+        body.forced-mobile-mode .sub-nav { position: fixed; top: auto; bottom: 0; width: 100%; border-top: 1px solid var(--border-color); border-bottom: none; z-index: 10000; padding-bottom: env(safe-area-inset-bottom); }
+        body.forced-mobile-mode .tabs-container { padding: 8px 12px; overflow-x: auto; gap: 8px; }
+        body.forced-mobile-mode .calculator-sticky-bar { bottom: calc(env(safe-area-inset-bottom) + 105px) !important; padding: 12px 16px; }
+        body.forced-mobile-mode .calc-total { font-size: 22px; }
+        body.forced-mobile-mode .calc-hkd { font-size: 13px; }
+        body.forced-mobile-mode .tax-toggle-btn { font-size: 13px; padding: 10px 16px; }
 
-        /* Native Mobile Queries */
         @media (max-width: 850px) {
-            body { padding-bottom: 140px; }
+            body { padding-top: 130px; padding-bottom: 260px; }
+            .main-container { max-width: 600px; margin: 0 auto; }
             
-            nav { height: auto; padding: 8px 0; }
-            .nav-container { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 0 16px; }
-            .nav-left-section { width: 100%; display: flex; justify-content: flex-start; position: relative; }
-            .nav-center-title { position: absolute; left: 50%; transform: translateX(-50%); font-size: 14px; white-space: nowrap; }
-            .nav-controls-right { width: 100%; display: flex; justify-content: flex-start; gap: 12px; }
-
-            .sub-nav {
-                position: fixed; top: auto; bottom: 0; left: 0; width: 100%;
-                border-top: 1px solid var(--border-color); border-bottom: none;
-                margin-bottom: 0; padding-bottom: calc(env(safe-area-inset-bottom) + 15px);
-                z-index: 10000;
-            }
-            .tabs-container { justify-content: space-around; padding: 8px 12px; gap: 6px; }
-            .tab-btn { min-width: auto; padding: 4px; flex: 1; }
-            .tab-btn span { font-size: 13px; margin-top: 4px; }
-            .tab-btn.special-tab span { font-size: 12px; }
-            
-            .hero-banner-slider { height: 180px; }
-            .slider-btn { width: 36px; height: 36px; font-size: 16px; }
-
-            .dashboard-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-            .metric-card { flex: 1 1 auto; padding: 10px 12px; border-radius: 10px; min-width: 100px;}
-            .metric-card.large { flex: 1 1 100%; }
+            .dashboard-grid { gap: 6px; }
+            .metric-card { padding: 4px 8px; font-size: 12px; }
+            .metric-label { font-size: 10px; }
+            .metric-value { font-size: 13px; }
             
             .time-box { font-size: 16px !important; padding-right: 8px !important; }
-            .timeline-item { grid-template-columns: 80px 1fr !important; gap: 8px !important; align-items: center; padding: 16px 0;}
-            .content-box { flex-direction: row !important; align-items: center !important; gap: 10px !important; }
-            .timeline-left-img-container { width: 50px !important; height: 50px !important; }
-            .text-block h3 { font-size: 16px !important; margin-bottom: 4px !important; }
-            .text-block p { font-size: 15px !important; }
-            .text-block .sub-item { font-size: 14px !important; margin-top: 8px !important; padding-left: 12px !important; gap: 8px;}
-            .accordion-trigger { font-size: 16px !important; }
+            .timeline-item { grid-template-columns: 85px 1fr !important; gap: 8px !important; align-items: center; }
+            .content-box { flex-direction: row !important; align-items: center !important; gap: 12px !important; }
+            .timeline-left-img-container { width: 60px !important; height: 60px !important; }
+            .text-block h3 { font-size: 18px !important; margin-bottom: 4px !important; }
+            .text-block p { font-size: 16px !important; }
+            .text-block .sub-item { font-size: 15px !important; margin-top: 8px !important; padding-left: 12px !important; }
+            .accordion-trigger { font-size: 18px !important; }
             .accordion-trigger::after { font-size: 14px !important; }
             
-            .metric-value { font-size: 16px !important; }
-            .metric-label { font-size: 10px !important; margin-bottom: 2px !important; }
-            .metric-sub { font-size: 11px !important; margin-top: 2px !important; }
-
-            .weather-header-title { font-size: 16px !important; }
-            .weather-source-badge { font-size: 10px !important; padding: 2px 6px !important; line-height: 1.2; text-align: right;}
-            
-            .wishlist-section-title { font-size: 20px !important; margin-top: 20px !important; margin-bottom: 12px !important; }
-            .store-title { font-size: 16px !important; margin-bottom: 12px !important; }
+            .wishlist-section-title { font-size: 22px !important; margin-top: 24px !important; margin-bottom: 16px !important; }
+            .store-title { font-size: 18px !important; margin-bottom: 12px !important; }
             .store-group-container { padding: 16px !important; }
-            .item-text-content h4 { font-size: 15px !important; }
-            .item-text-content p { font-size: 13px !important; }
-            .wishlist-item-left { gap: 10px !important; }
-            .wishlist-row-img-frame { width: 80px !important; height: 80px !important; margin-left: 10px !important; padding: 4px; }
+            .item-text-content h4 { font-size: 16px !important; }
+            .item-text-content p { font-size: 14px !important; }
+            .wishlist-item-left { gap: 12px !important; flex-direction: column;}
+            .wishlist-row-img-frame { width: 80px !important; height: 80px !important; margin-left: 0 !important; align-self: flex-start;}
             .wishlist-row-img-frame.enlarge-20 { width: 96px !important; height: 96px !important; }
             
-            .shopping-tag { font-size: 12px !important; padding: 4px 8px !important; }
-            .inline-sub-logo { max-height: 20px !important; max-width: 80px !important;}
+            .shopping-tag { font-size: 13px !important; padding: 4px 8px !important; }
+            .inline-sub-logo { max-height: 24px !important; }
+            .weather-table th, .weather-table td { font-size: 14px !important; padding: 8px 6px !important; }
             
-            .weather-table th, .weather-table td { font-size: 13px !important; padding: 8px 6px !important; }
+            .nav-container { display: block; position: relative; width: 100%; height: 86px; padding: 0; }
+            .nav-left-section { position: absolute; top: 12px; left: 12px; width: auto; }
+            .nav-center-title { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); width: auto; text-align: center; font-size: 14px; font-weight: 600; white-space: nowrap; color: #f5f5f7; z-index: 5;}
+            .nav-controls-right { display: contents; }
+            .view-mode-btn { position: absolute; top: 12px; right: 12px; height: 28px; padding: 0 10px; font-size: 11px; z-index: 10; }
+            .live-weather-widget { position: absolute; top: 46px; right: 12px; height: 32px; padding: 0 8px 0 0; z-index: 10; display: flex; align-items: center; }
+            .weather-yahoo-img { height: 32px; border-radius: 6px 0 0 6px; }
+            .weather-text-group { font-size: 10px; }
             
-            .calculator-sticky-bar { bottom: 75px; padding: 10px 16px;}
-            .calc-total { font-size: 18px; }
+            .sub-nav { position: fixed; top: auto; bottom: 0; width: 100%; border-top: 1px solid var(--border-color); border-bottom: none; z-index: 10000; padding-bottom: env(safe-area-inset-bottom); }
+            .tabs-container { padding: 8px 12px; overflow-x: auto; gap: 8px; }
+            .calculator-sticky-bar { bottom: calc(env(safe-area-inset-bottom) + 105px) !important; padding: 12px 16px; }
+            .calc-total { font-size: 22px; }
+            .calc-hkd { font-size: 13px; }
+            .tax-toggle-btn { font-size: 13px; padding: 10px 16px; }
         }
     </style>
 </head>
@@ -700,8 +620,9 @@
                     <div class="time-badge"><span class="time-label">HKT</span><span id="clock-hkg">--:--:--</span></div>
                     <div class="time-badge"><span class="time-label">JST</span><span id="clock-jpn">--:--:--</span></div>
                 </div>
-                <div class="nav-center-title" id="nav-header-title">2026福岡(距離行程開始: --日)</div>
             </div>
+            
+            <div class="nav-center-title" id="nav-header-title">2026福岡(距離行程開始: --日)</div>
 
             <div class="nav-controls-right">
                 <button id="view-emulator-btn" class="view-mode-btn" onclick="toggleViewMode()">手機版</button>
@@ -734,16 +655,18 @@
 
     <div class="main-container">
         
-        <div class="hero-wrapper">
-            <div class="hero-banner-slider" id="hero-slider">
-                <div class="hero-slide" style="background-image: url('https://static.gltjp.com/glt/data/article/22000/21091/20250808_095951_e31f2d09_w1920.webp');"></div>
-                <div class="hero-slide" style="background-image: url('https://www.crossroadfukuoka.jp/storage/tourism_attractions/12308/responsive_images/i9rbESY9HkkCI0biRPgrsHMVavMuRD1Z4GbrSV05__1593_767.jpg');"></div>
+        <div class="carousel-container" id="carousel">
+            <div class="carousel-track" id="carousel-track">
+                <!-- Light mode image (Default) -->
+                <div class="carousel-slide" style="background-image: url('https://static.gltjp.com/glt/data/article/22000/21091/20250808_095951_e31f2d09_w1920.webp');"></div>
+                <!-- Dark mode image -->
+                <div class="carousel-slide" style="background-image: url('https://www.crossroadfukuoka.jp/storage/tourism_attractions/12308/responsive_images/i9rbESY9HkkCI0biRPgrsHMVavMuRD1Z4GbrSV05__1593_767.jpg');"></div>
             </div>
-            <button class="slider-btn prev" onclick="slideHero(-1)">&#10094;</button>
-            <button class="slider-btn next" onclick="slideHero(1)">&#10095;</button>
-            <div class="slider-dots">
-                <span class="slider-dot active" onclick="goToSlide(0)"></span>
-                <span class="slider-dot" onclick="goToSlide(1)"></span>
+            <button class="carousel-btn prev" onclick="prevImage()">&#10094;</button>
+            <button class="carousel-btn next" onclick="nextImage()">&#10095;</button>
+            <div class="carousel-dots">
+                <div class="dot active" onclick="goToImage(0)"></div>
+                <div class="dot" onclick="goToImage(1)"></div>
             </div>
         </div>
 
@@ -754,7 +677,7 @@
                 <div class="metric-card"><div class="metric-label">2.離開酒店</div><div class="metric-value" style="color:var(--text-secondary);">N/A</div></div>
                 <div class="metric-card"><div class="metric-label">3.便利店時間</div><div class="metric-value">20:41 - 21:10</div></div>
                 <div class="metric-card"><div class="metric-label">4.回到酒店</div><div class="metric-value">21:10</div></div>
-                <div class="metric-card large"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">2h 50m</div><div class="metric-sub">未多於 3 小時，不執行續攤</div></div>
+                <div class="metric-card"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">2h 50m</div></div>
                 <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">00:00</div></div>
                 <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">00:30</div></div>
             </div>
@@ -794,13 +717,13 @@
                 <div class="metric-card"><div class="metric-label">2.離開酒店</div><div class="metric-value">08:00</div></div>
                 <div class="metric-card"><div class="metric-label">3.便利店時間</div><div class="metric-value">21:06 - 21:35</div></div>
                 <div class="metric-card"><div class="metric-label">4.回到酒店</div><div class="metric-value">21:35</div></div>
-                <div class="metric-card large"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">3h 55m</div><div class="metric-sub" style="color:var(--apple-blue);">☑ 多於 3 小時，符合續攤標準</div></div>
+                <div class="metric-card"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">3h 55m</div></div>
                 <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">01:30</div></div>
                 <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">02:00</div></div>
             </div>
             <div class="timeline-section">
                 <div class="timeline-item"><div class="time-box">08:00 離開</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/hakatacanal/" target="_blank">ドーミーインPREMIUM博多・キャナルシティ前</a></p></div></div></div>
-                <div class="timeline-item"><div class="time-box">08:10 - 08:40</div><div class="content-box"><div class="timeline-left-img-container scale-down-20"><img src="https://companieslogo.com/img/orig/2702.T-5e777f36.png?t=1745945261" alt="McDonald"></div><div class="text-block"><p><a href="https://map.mcdonalds.co.jp/map/40644" target="_blank">マクドナルドキャナルシティ博多店</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">08:10 - 08:40</div><div class="content-box"><div class="timeline-left-img-container" style="width: 70px; height: 70px;"><img src="https://companieslogo.com/img/orig/2702.T-5e777f36.png?t=1745945261" alt="McDonald"></div><div class="text-block"><p><a href="https://map.mcdonalds.co.jp/map/40644" target="_blank">マクドナルドキャナルシティ博多店</a></p></div></div></div>
                 <div class="timeline-item"><div class="time-box">08:47 - 09:29</div><div class="content-box"><div class="text-block"><p>櫛田神社前 → 太宰府</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">09:30 - 11:50</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d2-tazaifu')">太宰府</h3>
@@ -808,7 +731,7 @@
                         <p class="sub-item">- 太宰府天滿宮</p>
                         <p class="sub-item">- <a href="https://store.starbucks.co.jp/detail-1058/" target="_blank">スターバックスコーヒー太宰府天満宮表參道店</a> <img class="inline-sub-logo" src="https://p7.hiclipart.com/preview/228/114/421/cafe-starbucks-tea-coffee-starbucks.jpg" alt="Starbucks"></p>
                         <p class="sub-item">- <a href="https://tabelog.com/tw/fukuoka/A4003/A400301/40005385/" target="_blank">筑紫庵 本店</a></p>
-                        <p class="sub-item">- <a href="https://www.beams.co.jp/shop/jdz" target="_blank">BEAMS JAPAN太宰府</a> <img class="inline-sub-logo scale-down-20" src="https://w7.pngwing.com/pngs/872/747/png-transparent-beams-japan-hd-logo.png" alt="Beams Japan"></p>
+                        <p class="sub-item">- <a href="https://www.beams.co.jp/shop/jdz" target="_blank">BEAMS JAPAN太宰府</a> <img class="inline-sub-logo" style="max-width: 128px;" src="https://w7.pngwing.com/pngs/872/747/png-transparent-beams-japan-hd-logo.png" alt="Beams Japan"></p>
                     </div>
                 </div></div></div>
                 <div class="timeline-item"><div class="time-box">11:52 - 12:00</div><div class="content-box"><div class="text-block"><p>西鉄太宰府駅 → 内山［竈門神社前］</p></div></div></div>
@@ -822,7 +745,7 @@
                     <div id="acc-d2-ohori" class="accordion-content">
                         <p class="sub-item">- 福岡城</p>
                         <p class="sub-item">- 舞鶴公園</p>
-                        <p class="sub-item">- <a href="https://tabelog.com/fukuoka/A4001/A400105/40035537/" target="_blank">橙</a> (18:00-19:30) [<a href="https://www.tablecheck.com/ja/shops/daidai/reserve" target="_blank">預約網址</a>]</p>
+                        <p class="sub-item">- <a href="https://tabelog.com/fukuoka/A4001/A400105/40035537/" target="_blank">橙</a> (18:00-19:30)</p>
                     </div>
                 </div></div></div>
                 <div class="timeline-item"><div class="time-box">19:31 - 19:34</div><div class="content-box"><div class="text-block"><p>大濠公園 → 天神</p></div></div></div>
@@ -845,10 +768,9 @@
                     </div>
                 </div>
                 <div class="metric-card"><div class="metric-label">4.回到酒店</div><div class="metric-value">20:45</div></div>
-                <div class="metric-card large">
+                <div class="metric-card">
                     <div class="metric-label">5.每晚上床前在酒店的時間及長度</div>
                     <div class="metric-value">3h 10m</div>
-                    <div class="metric-sub" style="color:var(--apple-blue);">☑ 多於 3 小時，符合續攤標準</div>
                 </div>
                 <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">23:55</div></div>
                 <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">00:25</div></div>
@@ -865,13 +787,13 @@
                 <div class="timeline-item"><div class="time-box">09:45 - 20:00</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d3-main-inner-node')">天神</h3>
                     <div id="acc-d3-main-inner-node" class="accordion-content">
-                        <p class="sub-item">- <a href="https://tabelog.com/fukuoka/A4001/A400103/40062177/" target="_blank">I'm donut? 福岡店</a> <img class="inline-sub-logo scale-up-100" src="https://fathom-design.jp/wp/wp-content/uploads/2022/06/logo-1.jpg" alt="I'm Donut"></p>
+                        <p class="sub-item">- <a href="https://tabelog.com/fukuoka/A4001/A400103/40062177/" target="_blank">I'm donut? 福岡店</a> <img class="inline-sub-logo" style="height: 130px; max-height: 130px;" src="https://fathom-design.jp/wp/wp-content/uploads/2022/06/logo-1.jpg" alt="I'm Donut"></p>
                         <p class="sub-item">- 大丸福岡天神店 <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/1/16/Daimaru_Logo_full.svg" alt="Daimaru"></p>
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://kiti-coltd.com/wp-content/uploads/2024/06/muji-logo.png" target="_blank">無印良品 大丸福岡天神</a> <img class="inline-sub-logo" src="https://kiti-coltd.com/wp-content/uploads/2024/06/muji-logo.png" alt="Muji"></p>
                         <p class="sub-item">- 天神地下街</p>
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://www.yoshidakaban.com/zh-CHT/shopinfo/kurachika/fukuoka/" target="_blank">KURA CHIKA by PORTER FUKUOKA</a> <img class="inline-sub-logo" src="https://hansengarmentsstore.com/cdn/shop/collections/download.webp?v=1692634430" alt="Porter"></p>
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://www.biccamera.com/bc/i/shop/shoplist/shop026.jsp" target="_blank">ビックカメラ天神1號館</a> <img class="inline-sub-logo" src="https://www.cubicplaza.com/wp-content/uploads/2019/08/logo-2597.png" alt="Bic"></p>
-                        <p class="sub-item">- <a href="https://tabelog.com/fukuoka/A4001/A400103/40040601/" target="_blank">田中田式海鮮食堂 魚忠(12:30-13:30)</a></p>
+                        <p class="sub-item">- <a href="https://tabelog.com/fukuoka/A4001/A400103/40040601/" target="_blank">田中田式海鮮食堂 魚忠</a>(12:30-13:30)</p>
                         <p class="sub-item">- 天神地下街</p>
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://buttersand.com/store/list/?area[]=kyushu" target="_blank">PRESS BUTTER SAND 天神地下街店</a> <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS"></p>
                         <p class="sub-item">- 福岡PARCO</p>
@@ -884,7 +806,7 @@
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://shop.seria-group.com/seria/info/000002787?addresscode=40133" target="_blank">Seria ミーナ天神店</a></p>
                         <p class="sub-item">- ONE FUKUOKA BLDG.</p>
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://store.tsite.jp/fukuoka-tenjin/" target="_blank">福岡天神 蔦屋書店</a> <img class="inline-sub-logo" src="https://store.tsite.jp/static_contents/site/tsite/portal/img/og.jpg" alt="Tsutaya"></p>
-                        <p class="sub-item">- <a href="https://www.nike.com/jp/retail/s/nikep-fukuoka-tenjin" target="_blank">Nike Fukuoka Tenjin</a> <img class="inline-sub-logo scale-down-20" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1280px-Logo_NIKE.svg.png" alt="Nike"></p>
+                        <p class="sub-item">- <a href="https://www.nike.com/jp/retail/s/nikep-fukuoka-tenjin" target="_blank">Nike Fukuoka Tenjin</a> <img class="inline-sub-logo" style="max-width: 128px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1280px-Logo_NIKE.svg.png" alt="Nike"></p>
                         <div class="shopping-tag-list" style="margin-top: 14px;"><div class="shopping-tag alert" style="font-size:16px;">⚠️ 當日為日本公眾假期「山之日」，人潮預計大幅增加</div></div>
                     </div>
                 </div></div></div>
@@ -903,7 +825,7 @@
                 <div class="metric-card"><div class="metric-label">2.離開酒店</div><div class="metric-value">07:55</div></div>
                 <div class="metric-card"><div class="metric-label">3.便利店時間</div><div class="metric-value">19:46 - 20:15</div></div>
                 <div class="metric-card"><div class="metric-label">4.回到酒店</div><div class="metric-value">20:15</div></div>
-                <div class="metric-card large"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">3h 00m</div><div class="metric-sub">未多於 3 小時，不執行續攤</div></div>
+                <div class="metric-card"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">3h 00m</div></div>
                 <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">23:15</div></div>
                 <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">23:45</div></div>
             </div>
@@ -917,7 +839,7 @@
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d4-mojiko')">門司港</h3>
                     <div id="acc-d4-mojiko" class="accordion-content">
                         <p class="sub-item">- 九州鐵道紀念館</p>
-                        <p class="sub-item">- <a href="https://www.bring-you.info/zh-tw/mojiko-curry-honpo" target="_blank">伽哩本舗 門司港レトロ店(13:00-14:00)</a></p>
+                        <p class="sub-item">- <a href="https://www.bring-you.info/zh-tw/mojiko-curry-honpo" target="_blank">伽哩本舗 門司港レトロ店</a>(13:00-14:00)</p>
                     </div>
                 </div></div></div>
                 <div class="timeline-item"><div class="time-box">14:23 - 15:09</div><div class="content-box"><div class="text-block"><p>門司港 → 博多</p></div></div></div>
@@ -925,10 +847,10 @@
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d4-mall-node')">博多</h3>
                     <div id="acc-d4-mall-node" class="accordion-content">
                         <p class="sub-item">- 博多阪急</p>
-                        <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">IM MEN 博多阪急</a> <img class="inline-sub-logo scale-up-30" src="https://uk.isseymiyake.com/cdn/shop/t/106/assets/exp-immen_logobox.png?v=6638328696964336641775124216" alt="IM MEN"></p>
-                        <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">HOMME PLISSÉ ISSEY MIYAKE 博多阪急</a> <img class="inline-sub-logo scale-up-30" src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg?v=1743185807" alt="Homme Plisse"></p>
+                        <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">IM MEN 博多阪急</a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://uk.isseymiyake.com/cdn/shop/t/106/assets/exp-immen_logobox.png?v=6638328696964336641775124216" alt="IM MEN"></p>
+                        <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">HOMME PLISSÉ ISSEY MIYAKE 博多阪急</a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg?v=1743185807" alt="Homme Plisse"></p>
                         <p class="sub-item">- AMU PLAZA博多</p>
-                        <p class="sub-item">    - <a href="https://www.nintendo.com/jp/officialstore/index.html" target="_blank">Nintendo FUKUOKA</a> <img class="inline-sub-logo scale-up-30" src="https://www.jrhakatacity.com.t.bv.hp.transer.com/uploads/images/resized/390x390/jrhakatacity/000002/000002/7a6e2c01.png" alt="Nintendo"></p>
+                        <p class="sub-item">    - <a href="https://www.nintendo.com/jp/officialstore/index.html" target="_blank">Nintendo FUKUOKA</a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://www.jrhakatacity.com.t.bv.hp.transer.com/uploads/images/resized/390x390/jrhakatacity/000002/000002/7a6e2c01.png" alt="Nintendo"></p>
                         <p class="sub-item">- KITTE博多</p>
                         <p class="sub-item">- <a href="https://www.yodobashi.com/ec/store/0088/" target="_blank">ヨドバシカメラ マルチメディア博多</a> <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Yodobashi-Camera_logo.png" alt="Yodobashi"></p>
                     </div>
@@ -947,7 +869,7 @@
                 <div class="metric-card"><div class="metric-label">2.離開酒店</div><div class="metric-value">07:15</div></div>
                 <div class="metric-card"><div class="metric-label">3.便利店時間</div><div class="metric-value">20:36 - 21:00</div></div>
                 <div class="metric-card"><div class="metric-label">4.回到酒店</div><div class="metric-value">21:00</div></div>
-                <div class="metric-card large"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">3h 45m</div><div class="metric-sub" style="color:var(--apple-blue);">☑ 多於 3 小時，符合續攤標準</div></div>
+                <div class="metric-card"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">3h 45m</div></div>
                 <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">00:45</div></div>
                 <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">01:15</div></div>
             </div>
@@ -960,7 +882,7 @@
                 <div class="timeline-item"><div class="time-box">09:37 - 13:50</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d5-aijima')">相島</h3>
                     <div id="acc-d5-aijima" class="accordion-content">
-                        <p class="sub-item">- <a href="https://saly1350.pixnet.net/blog/posts/10358257441" target="_blank">12:00-13:00 丸山食堂</a></p>
+                        <p class="sub-item">- 12:00-13:00 <a href="https://saly1350.pixnet.net/blog/posts/10358257441" target="_blank">丸山食堂</a></p>
                     </div>
                 </div></div></div>
                 <div class="timeline-item"><div class="time-box">13:50 - 14:07</div><div class="content-box"><div class="text-block"><p>相島 → 新宮</p></div></div></div>
@@ -973,7 +895,7 @@
                 <div class="timeline-item"><div class="time-box">17:00 - 20:30</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d5-1')">天神</h3>
                     <div id="acc-d5-1" class="accordion-content">
-                        <p class="sub-item">- <a href="https://standardproducts.jp/pages/store?id=001656" target="_blank">Standard Products ラシック福岡天神店</a> <img class="inline-sub-logo scale-up-30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw6XiKxMXKhlyP6ddl40RAPSsodG5tBJw0gQ&s" alt="Standard Products"></p>
+                        <p class="sub-item">- <a href="https://standardproducts.jp/pages/store?id=001656" target="_blank">Standard Products ラシック福岡天神店</a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw6XiKxMXKhlyP6ddl40RAPSsodG5tBJw0gQ&s" alt="Standard Products"></p>
                         <p class="sub-item">- <a href="https://www.tablecheck.com/ja/shops/yakitori-koto/reserve" target="_blank">焼き鳥 こと(18:00-19:30)</a></p>
                         <p class="sub-item">- <a href="https://www.biccamera.com/bc/i/shop/shoplist/shop018.jsp" target="_blank">ビックカメラ天神2号館</a> <img class="inline-sub-logo" src="https://www.cubicplaza.com/wp-content/uploads/2019/08/logo-2597.png" alt="Bic Camera"></p>
                     </div>
@@ -1002,13 +924,12 @@
                         <span class="metric-optional">21:25</span>
                     </div>
                 </div>
-                <div class="metric-card large">
+                <div class="metric-card">
                     <div class="metric-label">5.每晚上床前在酒店的時間及長度</div>
                     <div class="metric-value">
                         <span class="metric-normal">4h 00m</span>
                         <span class="metric-optional">3h 45m</span>
                     </div>
-                    <div class="metric-sub" style="color:var(--apple-blue);">☑ 多於 3 小時，符合續攤標準</div>
                 </div>
                 <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">01:10</div></div>
                 <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">01:40</div></div>
@@ -1030,7 +951,7 @@
                         <p class="sub-item">- 岩田屋本店</p>
                         <p class="sub-item">    - <a href="https://shiro-shiro.jp/ec/ext/shop/shiro-iwataya/index.html?srsltid=AfmBOooa8smS0I3pRaMB76AEOJIqbV3MbTwnEMpA2SE2JLPXLUvdZMQ6" target="_blank">SHIRO 岩田屋店</a> <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKOjmIF-kBiCpkKlF1eeSETaH0M_e9EZ-MwA&s" alt="SHIRO"></p>
                         <p class="sub-item">    - <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">ISSEY MIYAKE 岩田屋本店</a> <img class="inline-sub-logo" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="Issey Miyake"></p>
-                        <p class="sub-item">- <a href="https://tabelog.com/fukuoka/A4001/A400103/40035496/" target="_blank">元祖赤のれん 節ちゃんラーメン 天神本店(12:00-13:00)</a></p>
+                        <p class="sub-item">- <a href="https://tabelog.com/fukuoka/A4001/A400103/40035496/" target="_blank">元祖赤のれん 節ちゃんラーメン 天神本店</a>(12:00-13:00)</p>
                         <p class="sub-item">- <a href="https://www.humanmade.jp/dealers.html" target="_blank">HUMAN MADE FUKUOKA</a> <img class="inline-sub-logo" src="https://images.seeklogo.com/logo-png/48/1/humanmade-heart-logo-png_seeklogo-486066.png" alt="Human Made"></p>
                         <p class="sub-item">- <a href="https://catmocha.jp/shop/tenjindaimyo/" target="_blank">猫カフェMOCHA 天神大名店</a></p>
                         <p class="sub-item">- <a href="https://www.swatch.com/ja-jp/storedetails?sid=R312353" target="_blank">スウォッチストア福岡</a> <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Swatch_Logo.svg/1280px-Swatch_Logo.svg.png" alt="Swatch"></p>
@@ -1042,7 +963,7 @@
                 <div class="timeline-item"><div class="time-box">15:01 - 15:02</div><div class="content-box"><div class="text-block"><p>天神南 → 櫛田神社前</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">15:05 - 15:30</div><div class="content-box"><div class="text-block"><p>櫛田神社</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">15:30 - 18:00</div><div class="content-box"><div class="text-block">
-                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d6-canal-node')">博多運河城 <a href="https://kyushu.letsgojp.com/archives/762387/" target="_blank" onclick="event.stopPropagation();" style="font-size: 16px; margin-left: 8px;">🔗</a></h3>
+                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d6-canal-node')"><a href="https://kyushu.letsgojp.com/archives/762387/" target="_blank" style="color: inherit; text-decoration: none;">博多運河城</a></h3>
                     <div id="acc-d6-canal-node" class="accordion-content">
                         <p class="sub-item">- <a href="https://bobbytravel.tw/the-full-full-hakata/#1_%E5%AE%98%E6%96%B9LINE%E9%A0%90%E7%B4%84" target="_blank">The Full Full Hakata</a></p>
                     </div>
@@ -1072,7 +993,7 @@
                 <div class="metric-card"><div class="metric-label">2.離開酒店</div><div class="metric-value">09:10</div></div>
                 <div class="metric-card"><div class="metric-label">3.便利店時間</div><div class="metric-value" style="color:var(--text-secondary);">N/A</div></div>
                 <div class="metric-card"><div class="metric-label">4.回到酒店</div><div class="metric-value" style="color:var(--text-secondary);">N/A</div></div>
-                <div class="metric-card large"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value" style="color:var(--text-secondary);">N/A</div></div>
+                <div class="metric-card"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value" style="color:var(--text-secondary);">N/A</div></div>
                 <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">00:00</div></div>
                 <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">00:30</div></div>
             </div>
@@ -1102,27 +1023,25 @@
         <!-- =================== 🌤️ LIVE WEATHER ENGINE PANELS =================== -->
         <div id="view-7" class="view-panel">
             <div class="timeline-section">
-                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:14px; margin-bottom:18px; flex-wrap:wrap; gap:8px;">
-                    <div class="weather-header-left" style="display:flex; align-items:center; gap:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:14px; margin-bottom:18px; flex-wrap: wrap; gap: 12px;">
+                    <div style="display:flex; align-items:center; gap:12px;">
                         <img style="max-height:50px; object-fit:contain;" src="https://ds.data.jma.go.jp/wmc/images/jma_logo.svg" alt="JMA">
-                        <h3 class="weather-header-title" style="font-weight:600; font-size: 20px;">氣象觀測與多主軌預報矩陣</h3>
+                        <h3 style="font-weight:600; font-size: clamp(16px, 4vw, 20px); margin: 0;">氣象觀測與多主軌預報矩陣</h3>
                     </div>
-                    <div id="weather-source-badge" class="weather-source-badge" style="font-size:12px; color:var(--text-secondary); background:#e8e8ed; padding:4px 8px; border-radius:6px; font-weight:600;">遠期統計模式 (JMA 歷史大數據觀測)</div>
+                    <div id="weather-source-badge" style="font-size:12px; color:var(--text-secondary); background:var(--banner-bg); padding:4px 8px; border-radius:6px; font-weight:600; white-space: nowrap;">遠期統計模式 (JMA 歷史大數據觀測)</div>
                 </div>
-                <div style="overflow-x: auto;">
-                    <table class="weather-table">
-                        <thead><tr><th>日期</th><th>預報配置形態</th><th>基準溫度區間</th><th>氣象活動指南</th></tr></thead>
-                        <tbody>
-                            <tr><td>8月9日 (日)</td><td>☀️ 晴朗酷熱 / 局部午後多雲</td><td>27°C - 34°C</td><td>首日天神商圈室內購物，注意冷氣房內外溫差</td></tr>
-                            <tr><td>8月10日 (月)</td><td>☀️ 烈日強襲 / 全天曝曬極熱</td><td>26°C - 34°C</td><td>太宰府與大濠公園全程空曠，必須攜帶防曬陽傘</td></tr>
-                            <tr><td>8月11日 (火)</td><td>⛅ 多雲時晴 / 濕度悶熱感重</td><td>27°C - 35°C</td><td>山之日連假，商場溫差大，室內備薄背心</td></tr>
-                            <tr><td>8月12日 (水)</td><td>☀️ 港灣大晴 / 紫外線強烈反射</td><td>26°C - 33°C</td><td>門司港海風大，戴好偏光太陽眼鏡防眩光</td></tr>
-                            <tr><td>8月13日 (木)</td><td>☀️ 副高軸線核心 / 無雲高熱</td><td>26°C - 34°C</td><td>相島貓島完全暴露日照，務必補充足量水分</td></tr>
-                            <tr><td>8月14日 (金)</td><td>🌦️ 多雲偏悶 / 午後有局部強雷雨</td><td>27°C - 34°C</td><td>大名購物段隨身備妥摺疊傘以防局部夕立</td></tr>
-                            <tr><td>8月15日 (土)</td><td>⛅ 炎熱有雲</td><td>27°C - 34°C</td><td>離境搭機日，建議穿著寬鬆透氣服裝</td></tr>
-                        </tbody>
-                    </table>
-                </div>
+                <table class="weather-table">
+                    <thead><tr><th>日期</th><th>預報配置形態</th><th>基準溫度區間</th><th>氣象活動指南</th></tr></thead>
+                    <tbody>
+                        <tr><td>8月9日 (日)</td><td>☀️ 晴朗酷熱 / 局部午後多雲</td><td>27°C - 34°C</td><td>首日天神商圈室內購物，注意冷氣房內外溫差</td></tr>
+                        <tr><td>8月10日 (月)</td><td>☀️ 烈日強襲 / 全天曝曬極熱</td><td>26°C - 34°C</td><td>太宰府與大濠公園全程空曠，必須攜帶防曬陽傘</td></tr>
+                        <tr><td>8月11日 (火)</td><td>⛅ 多雲時晴 / 濕度悶熱感重</td><td>27°C - 35°C</td><td>山之日連假，商場溫差大，室內備薄背心</td></tr>
+                        <tr><td>8月12日 (水)</td><td>☀️ 港灣大晴 / 紫外線強烈反射</td><td>26°C - 33°C</td><td>門司港海風大，戴好偏光太陽眼鏡防眩光</td></tr>
+                        <tr><td>8月13日 (木)</td><td>☀️ 副高軸線核心 / 無雲高熱</td><td>26°C - 34°C</td><td>相島貓島完全暴露日照，務必補充足量水分</td></tr>
+                        <tr><td>8月14日 (金)</td><td>🌦️ 多雲偏悶 / 午後有局部強雷雨</td><td>27°C - 34°C</td><td>大名購物段隨身備妥摺疊傘以防局部夕立</td></tr>
+                        <tr><td>8月15日 (土)</td><td>⛅ 炎熱有雲</td><td>27°C - 34°C</td><td>離境搭機日，建議穿著寬鬆透氣服裝</td></tr>
+                    </tbody>
+                </table>
                 <div id="weather-source-links" style="margin-top: 24px; font-size:15px; color:var(--text-secondary); text-align:center; line-height:1.6;">
                     官方氣象觀測與即時數據源：<br>
                     <a href="https://www.data.jma.go.jp/multi/yoho/yoho_detail.html?code=400020&lang=cn_zt" target="_blank" style="color:var(--apple-blue); text-decoration:none;">日本氣象廳 (JMA)</a> | 
@@ -1135,7 +1054,7 @@
             </div>
         </div>
 
-        <!-- =================== 🛍️ WISHLIST PANELS (購物清單) =================== -->
+        <!-- =================== 🛍️ WISHLIST PANELS =================== -->
         <div id="view-8" class="view-panel">
             
             <h2 class="wishlist-section-title">🛒 購物清單</h2>
@@ -1197,7 +1116,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://vioro.jp/cms/wp-content/uploads/2020/07/IMG_7035.jpg" alt="Cleaner"></div>
+                    <div class="wishlist-row-img-frame"><img src="https://vioro.jp/cms/wp-content/uploads/2020/07/IMG_7035.jpg" alt="Lens Cleaner"></div>
                 </div>
             </div>
 
@@ -1222,7 +1141,50 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame enlarge-20"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS"></div>
+                    <div class="wishlist-row-img-frame enlarge-20"><img src="https://marukoblog.tw/wp-content/uploads/2019/11/PRESS-BUTTER-SAND-_2.jpg" alt="PBS"></div>
+                </div>
+            </div>
+            
+            <div class="store-group-container">
+                <div class="store-title">
+                    <img class="store-logo-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKOjmIF-kBiCpkKlF1eeSETaH0M_e9EZ-MwA&s" alt="SHIRO">
+                    <span>SHIRO 岩田屋店</span>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox" data-price="2860" data-tax="1.1" onchange="calcWishlist()">
+                        <div class="item-text-content">
+                            <h4><a href="https://shiro-shiro.jp/ec/pro/disp/1/13410" target="_blank">アイスミント ボディミスト エクストラクール</a></h4>
+                            <p>冰涼薄荷身體噴霧</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥2,860 (税込)</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame"><img src="https://shiro-shiro.jp/ec/product_images/13410/13410.jpg" alt="SHIRO Body Mist"></div>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox" data-price="5720" data-tax="1.1" onchange="calcWishlist()">
+                        <div class="item-text-content">
+                            <h4><a href="https://shiro-shiro.jp/ec/pro/disp/1/12917" target="_blank">ホワイトティー フレグランスディフューザー リキッド</a></h4>
+                            <p>白茶擴香液</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥5,720 (税込)</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame"><img src="https://shiro-shiro.jp/ec/product_images/12917/12917.jpg" alt="SHIRO Diffuser"></div>
                 </div>
             </div>
 
@@ -1237,7 +1199,7 @@
                     <div class="wishlist-item-left">
                         <input type="checkbox" class="item-checkbox" data-price="35200" data-tax="1.1" onchange="calcWishlist()">
                         <div class="item-text-content">
-                            <h4><a href="https://www.isseymiyake.com/products/hp61jf153?_pos=6&_sid=a5d190f91&_ss=r&variant=47542102851802" target="_blank">HOMME PLISSÉ TAILORED PLEATS 1(HP61JF153)</a></h4>
+                            <h4><a href="https://www.isseymiyake.com/products/hp61jf153?_pos=6&_sid=a5d190f91&_ss=r&variant=47542102851802" target="_blank">HOMME PLISSÉ ISSEY MIYAKE TAILORED PLEATS 1(HP61JF153)</a></h4>
                             <p>品牌指定購物清單款式</p>
                             <div class="item-price-row">
                                 <span class="price-tag">¥35,200 (税込)</span>
@@ -1255,7 +1217,7 @@
                     <div class="wishlist-item-left">
                         <input type="checkbox" class="item-checkbox" data-price="39600" data-tax="1.1" onchange="calcWishlist()">
                         <div class="item-text-content">
-                            <h4><a href="https://www.isseymiyake.com/products/hp61jk063?_pos=1&_sid=a5d190f91&_ss=r&variant=47918812332250" target="_blank">HOMME PLISSÉ MONTHLY COLORS : JUNE(HP61JK063)</a></h4>
+                            <h4><a href="https://www.isseymiyake.com/products/hp61jk063?_pos=1&_sid=a5d190f91&_ss=r&variant=47918812332250" target="_blank">HOMME PLISSÉ ISSEY MIYAKE MONTHLY COLORS : JUNE(HP61JK063)</a></h4>
                             <p>品牌指定購物清單款式</p>
                             <div class="item-price-row">
                                 <span class="price-tag">¥39,600 (税込)</span>
@@ -1273,7 +1235,7 @@
                     <div class="wishlist-item-left">
                         <input type="checkbox" class="item-checkbox" data-price="55000" data-tax="1.1" onchange="calcWishlist()">
                         <div class="item-text-content">
-                            <h4><a href="https://www.isseymiyake.com/products/hp61ff183?_pos=4&_sid=a5d190f91&_ss=r&variant=47624398012634" target="_blank">HOMME PLISSÉ TUXEDO PLEATS(HP61FF183)</a></h4>
+                            <h4><a href="https://www.isseymiyake.com/products/hp61ff183?_pos=4&_sid=a5d190f91&_ss=r&variant=47624398012634" target="_blank">HOMME PLISSÉ ISSEY MIYAKE TUXEDO PLEATS(HP61FF183)</a></h4>
                             <p>品牌指定購物清單款式</p>
                             <div class="item-price-row">
                                 <span class="price-tag">¥55,000 (税込)</span>
@@ -1288,61 +1250,18 @@
                     <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61FF183-m-01.jpg?v=1772152983&width=1946" alt="Homme Plisse"></div>
                 </div>
             </div>
-
-            <div class="store-group-container">
-                <div class="store-title">
-                    <img class="store-logo-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKOjmIF-kBiCpkKlF1eeSETaH0M_e9EZ-MwA&s" alt="SHIRO">
-                    <span>SHIRO 岩田屋店</span>
-                </div>
-                <div class="wishlist-item-row">
-                    <div class="wishlist-item-left">
-                        <input type="checkbox" class="item-checkbox" data-price="2860" data-tax="1.1" onchange="calcWishlist()">
-                        <div class="item-text-content">
-                            <h4><a href="https://shiro-shiro.jp/ec/pro/disp/1/13410" target="_blank">アイスミント ボディミスト エクストラクール</a></h4>
-                            <p>超涼感冰涼薄荷身體噴霧</p>
-                            <div class="item-price-row">
-                                <span class="price-tag">¥2,860 (税込)</span>
-                                <div class="qty-control">
-                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
-                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="wishlist-row-img-frame"><img src="https://shiro-shiro.jp/ec/product_images/13410/13410.jpg" alt="Shiro Mist"></div>
-                </div>
-                <div class="wishlist-item-row">
-                    <div class="wishlist-item-left">
-                        <input type="checkbox" class="item-checkbox" data-price="5720" data-tax="1.1" onchange="calcWishlist()">
-                        <div class="item-text-content">
-                            <h4><a href="https://shiro-shiro.jp/ec/pro/disp/1/12917" target="_blank">ホワイトティー フレグランスディフューザー リキッド</a></h4>
-                            <p>白茶香氛擴香液</p>
-                            <div class="item-price-row">
-                                <span class="price-tag">¥5,720 (税込)</span>
-                                <div class="qty-control">
-                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
-                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="wishlist-row-img-frame"><img src="https://shiro-shiro.jp/ec/product_images/12917/12917.jpg" alt="Shiro Diffuser"></div>
-                </div>
-            </div>
-
+            
             <div class="store-group-container">
                 <div class="store-title">
                     <img class="store-logo-icon" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Yodobashi-Camera_logo.png" alt="Yodobashi">
-                    <span>ヨドバシ博多 / ビックカメラ天神</span>
+                    <span>ヨドバシカメラ / ビックカメラ天神</span>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
                         <input type="checkbox" class="item-checkbox" data-price="41580" data-tax="1.1" onchange="calcWishlist()">
                         <div class="item-text-content">
-                            <h4><a href="https://www.yodobashi.com/product/100000001007932597/" target="_blank">Panasonic LAMDASH PALM IN 5枚刃</a></h4>
-                            <p>型號：ES-PV6A-K (マーブルブラック) 掌心超跑電動刮鬍刀</p>
+                            <h4><a href="https://www.yodobashi.com/product/100000001007932597/" target="_blank">パナソニック Panasonic メンズシェーバー LAMDASH PALM IN</a></h4>
+                            <p>5枚刃 ハイグレード マーブルブラック ES-PV6A-K</p>
                             <div class="item-price-row">
                                 <span class="price-tag">¥41,580 (税込)</span>
                                 <div class="qty-control">
@@ -1353,7 +1272,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://image.biccamera.com/img/00000011773079_A01.jpg?sr.dw=600&sr.jqh=60&sr.dh=600&sr.mat=1" alt="Panasonic Lamdash"></div>
+                    <div class="wishlist-row-img-frame"><img src="https://image.biccamera.com/img/00000011773079_A01.jpg?sr.dw=600&sr.jqh=60&sr.dh=600&sr.mat=1" alt="Panasonic LAMDASH"></div>
                 </div>
             </div>
 
@@ -1381,29 +1300,33 @@
                     <div class="wishlist-row-img-frame"><img src="https://static.swatch.com/images/product/SSX03L103N/sa000/SSX03L103N_sa000_er003m.png" alt="Swatch ORENJI"></div>
                 </div>
             </div>
-            
-            <div style="height: 60px;"></div>
-
-            <div class="calculator-sticky-bar" id="calc-bar">
-                <div class="calc-info">
-                    <span class="calc-items-count" id="calc-count">已選擇 0 項商品</span>
-                    <span class="calc-total" id="calc-total">¥0</span>
-                </div>
-                <button class="tax-toggle-btn" id="tax-btn" onclick="toggleTaxFree()">
-                    切換免稅價格 (Tax-Free)
-                </button>
-            </div>
-
         </div>
 
-        <!-- =================== 🧳 PACKING LIST PANELS (旅行物品) =================== -->
+        <!-- =================== 🧳 PACKING LIST =================== -->
         <div id="view-9" class="view-panel">
             <h2 class="wishlist-section-title">🧳 旅行物品清單</h2>
-            <div class="store-group-container packing-list-grid" id="packing-container">
-                <!-- Javascript 將自動生成 31 個項目的 Checkbox -->
+            <div class="packing-list-grid" id="packing-container">
+                <!-- Javascript will render items here -->
             </div>
         </div>
 
+    </div>
+
+    <!-- Sticky Calculator (移至 main-container 外部，確保 position: fixed 完美固定於螢幕的最外層) -->
+    <div class="calculator-sticky-bar" id="calc-bar" style="display: none;">
+        <div class="calc-info">
+            <span class="calc-items-count" id="calc-count">已選擇 0 項商品</span>
+            <div class="calc-price-row">
+                <span class="calc-total" id="calc-total">¥0</span>
+                <div class="calc-hkd-col">
+                    <span class="calc-hkd" id="calc-hkd">約 HK$0.00</span>
+                    <span class="calc-rate" id="exchange-rate-label">匯率: ¥100 = HK$5.20 (讀取即時匯率中...)</span>
+                </div>
+            </div>
+        </div>
+        <button class="tax-toggle-btn" id="tax-btn" onclick="toggleTaxFree()">
+            🛒 顯示免稅價 (Tax Free)
+        </button>
     </div>
 
     <script>
@@ -1414,52 +1337,177 @@
             "Wifi portable router", "Verbatim 轉插", "三合一無線充電+火牛", 
             "背囊", "縮骨遮", "Insta360 X5", "日本銀包", "鎖匙", 
             "Issey Miyake x 金子眼鏡", "Airtag x4", "電動牙刷+牙刷頭+叉電", 
-            "鬚刨+叉電", "Passport", "Tech袋(USB-C線)", "Casio溫泉錶", 
-            "尿袋x2", "iPad Pro", "日本銀包", "Povo 2.0 買Plan", "野飲", 
+            "鬚刨+叉電", "Passport", "Tech袋(USB-C線)", "Casio溫泉錶", "Dyson Hushjet Mini Cool", 
+            "尿袋x2", "iPad Pro", "Povo 2.0 買Plan", "野飲", 
             "香港銀包", "Airpods pro", "Apple Watch", "Vision Pro", 
             "sony 1000x the collexion", "iPhone Pocket"
         ];
 
         function renderPackingList() {
             const container = document.getElementById('packing-container');
-            if(!container) return;
             container.innerHTML = '';
             
-            let savedState = {};
-            try {
-                const memory = localStorage.getItem('packingListMemory');
-                if (memory) savedState = JSON.parse(memory);
-            } catch(e) {}
+            // 讀取 Local Storage 記憶
+            let savedState = JSON.parse(localStorage.getItem('fukuokaPackingState') || '{}');
 
             packingItems.forEach((item, index) => {
-                const row = document.createElement('div');
-                row.className = 'packing-item-row';
+                const isChecked = savedState[index] === true;
                 
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.className = 'item-checkbox';
-                checkbox.id = `packing-item-${index}`;
+                const div = document.createElement('div');
+                div.className = `packing-item ${isChecked ? 'checked' : ''}`;
+                div.onclick = () => togglePackingItem(index, div);
                 
-                if (savedState[`packing-item-${index}`]) {
-                    checkbox.checked = true;
-                }
-
-                checkbox.addEventListener('change', () => {
-                    savedState[`packing-item-${index}`] = checkbox.checked;
-                    localStorage.setItem('packingListMemory', JSON.stringify(savedState));
-                });
-                
-                const label = document.createElement('label');
-                label.htmlFor = `packing-item-${index}`;
-                label.innerText = item;
-                
-                row.appendChild(checkbox);
-                row.appendChild(label);
-                container.appendChild(row);
+                div.innerHTML = `
+                    <input type="checkbox" class="packing-checkbox" ${isChecked ? 'checked' : ''}>
+                    <span class="packing-label">${item}</span>
+                `;
+                container.appendChild(div);
             });
         }
 
-        // === 原有功能模組 ===
+        function togglePackingItem(index, element) {
+            const checkbox = element.querySelector('.packing-checkbox');
+            const isChecked = !checkbox.checked;
+            checkbox.checked = isChecked;
+            
+            if (isChecked) {
+                element.classList.add('checked');
+            } else {
+                element.classList.remove('checked');
+            }
+
+            // 更新 Local Storage 記憶
+            let savedState = JSON.parse(localStorage.getItem('fukuokaPackingState') || '{}');
+            savedState[index] = isChecked;
+            localStorage.setItem('fukuokaPackingState', JSON.stringify(savedState));
+        }
+
+        // === 購物車計算機模組 ===
+        let isTaxFree = false;
+        let globalExchangeRate = 0.052; // 預設匯率: ¥100 = HK$5.20
+        
+        async function fetchLiveExchangeRate() {
+            const rateLabel = document.getElementById('exchange-rate-label');
+            try {
+                // 透過可靠之 CDN 匯率 API 抓取最新實時數據
+                const res = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/jpy.json');
+                const data = await res.json();
+                if (data && data.jpy && data.jpy.hkd) {
+                    globalExchangeRate = data.jpy.hkd;
+                    const ratePer100 = (globalExchangeRate * 100).toFixed(2);
+                    if(rateLabel) rateLabel.innerText = `匯率: ¥100 = HK$${ratePer100} (即時數據)`;
+                    calcWishlist(); // 更新匯率後重新計算
+                }
+            } catch(e) {
+                console.error("Fetch live exchange rate failed, using fallback.", e);
+                if(rateLabel) rateLabel.innerText = `匯率: ¥100 = HK$5.20 (預設)`;
+            }
+        }
+
+        function changeQty(btn, delta) {
+            const input = btn.parentElement.querySelector('.qty-input');
+            let val = parseInt(input.value) + delta;
+            if (val < 1) val = 1;
+            input.value = val;
+            calcWishlist();
+        }
+
+        function toggleTaxFree() {
+            isTaxFree = !isTaxFree;
+            const btn = document.getElementById('tax-btn');
+            if(isTaxFree) {
+                btn.classList.add('tax-free-on');
+                btn.innerText = "✅ 已套用免稅價";
+            } else {
+                btn.classList.remove('tax-free-on');
+                btn.innerText = "🛒 顯示免稅價 (Tax Free)";
+            }
+            calcWishlist();
+        }
+
+        function calcWishlist() {
+            const items = document.querySelectorAll('#view-8 .wishlist-item-row');
+            let total = 0;
+            let count = 0;
+
+            items.forEach(item => {
+                const checkbox = item.querySelector('.item-checkbox');
+                if(checkbox && checkbox.checked) {
+                    const price = parseFloat(checkbox.getAttribute('data-price'));
+                    const taxRate = parseFloat(checkbox.getAttribute('data-tax'));
+                    const qty = parseInt(item.querySelector('.qty-input').value);
+                    
+                    let finalPrice = price;
+                    if(isTaxFree) {
+                        finalPrice = Math.round(price / taxRate);
+                    }
+                    total += (finalPrice * qty);
+                    count += qty;
+                }
+            });
+
+            const hkdTotal = (total * globalExchangeRate).toFixed(2);
+
+            document.getElementById('calc-count').innerText = `已選擇 ${count} 項商品`;
+            document.getElementById('calc-total').innerText = `¥${total.toLocaleString()}`;
+            document.getElementById('calc-hkd').innerText = `約 HK$${hkdTotal}`;
+        }
+
+        // === Carousel 封面引擎 ===
+        let currentSlide = 0;
+        const track = document.getElementById('carousel-track');
+        const dots = document.querySelectorAll('.dot');
+        const totalSlides = 2; // 兩張圖片
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === currentSlide);
+            });
+            
+            // 聯動深色模式 (第一張亮色，第二張暗色)
+            if(currentSlide === 1) {
+                document.body.classList.add('dark-theme');
+            } else {
+                document.body.classList.remove('dark-theme');
+            }
+        }
+
+        function nextImage() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevImage() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToImage(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        // Swipe 支援
+        let touchstartX = 0;
+        let touchendX = 0;
+        
+        const carouselContainer = document.getElementById('carousel');
+        carouselContainer.addEventListener('touchstart', e => {
+            touchstartX = e.changedTouches[0].screenX;
+        });
+
+        carouselContainer.addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchendX < touchstartX - 40) nextImage();
+            if (touchendX > touchstartX + 40) prevImage();
+        }
+
+        // === UI 與排版引擎 ===
         function toggleAccordion(id) {
             const content = document.getElementById(id);
             content.classList.toggle('expanded');
@@ -1476,15 +1524,16 @@
                 if(idx === index) panel.classList.add('active');
                 else panel.classList.remove('active');
             });
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            // 處理計算機顯示
+            
+            // 如果切換到購物清單，顯示總額欄，否則隱藏 (透過 display 控制)
             const calcBar = document.getElementById('calc-bar');
-            if(index === 8) calcBar.classList.add('visible'); // 8 是購物清單的 index
-            else calcBar.classList.remove('visible');
+            if (calcBar) {
+                calcBar.style.display = (index === 8) ? 'flex' : 'none';
+            }
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // 智慧切換電腦/手機版引擎
         function applyViewMode() {
             const btn = document.getElementById('view-emulator-btn');
             const viewport = document.getElementById('viewport-meta');
@@ -1493,9 +1542,11 @@
                 if (window.currentMode === 'desktop') {
                     viewport.setAttribute('content', 'width=1280');
                     btn.innerText = "手機版";
+                    document.body.classList.remove('forced-mobile-mode');
                 } else {
-                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
                     btn.innerText = "電腦版";
+                    document.body.classList.add('forced-mobile-mode');
                 }
             } else {
                 if (window.currentMode === 'mobile') {
@@ -1543,55 +1594,7 @@
             }
         }
 
-        // 購物車計算機模組
-        let isTaxFree = false;
-        
-        function changeQty(btn, delta) {
-            const input = btn.parentElement.querySelector('.qty-input');
-            let newVal = parseInt(input.value) + delta;
-            if(newVal < 1) newVal = 1;
-            input.value = newVal;
-            calcWishlist();
-        }
-
-        function toggleTaxFree() {
-            isTaxFree = !isTaxFree;
-            const btn = document.getElementById('tax-btn');
-            if(isTaxFree) {
-                btn.innerText = "返回含稅價格 (Tax-Incl.)";
-                btn.classList.add('tax-free');
-            } else {
-                btn.innerText = "切換免稅價格 (Tax-Free)";
-                btn.classList.remove('tax-free');
-            }
-            calcWishlist();
-        }
-
-        function calcWishlist() {
-            const items = document.querySelectorAll('#view-8 .wishlist-item-row');
-            let total = 0;
-            let count = 0;
-
-            items.forEach(item => {
-                const checkbox = item.querySelector('.item-checkbox');
-                if(checkbox && checkbox.checked) {
-                    const price = parseFloat(checkbox.getAttribute('data-price'));
-                    const taxRate = parseFloat(checkbox.getAttribute('data-tax'));
-                    const qty = parseInt(item.querySelector('.qty-input').value);
-                    
-                    let finalPrice = price;
-                    if(isTaxFree) {
-                        finalPrice = Math.round(price / taxRate);
-                    }
-                    total += (finalPrice * qty);
-                    count += qty;
-                }
-            });
-
-            document.getElementById('calc-count').innerText = `已選擇 ${count} 項商品`;
-            document.getElementById('calc-total').innerText = `¥${total.toLocaleString()}`;
-        }
-
+        // === 終極即時天氣引擎 ===
         async function fetchLiveHakataWeather() {
             let finalized = false;
             const fallbackTimeout = setTimeout(() => {
@@ -1653,7 +1656,7 @@
                             <img class="weather-yahoo-img" src="https://play-lh.googleusercontent.com/9BEle9-LiEDn0x_WdMyMSTLSHRvj0KLavwha2cQYEu7knrlIp9XXdoOPrnXBg320NjJVq484YXpcIGtsuIz9dA" alt="Yahoo Weather">
                             <div class="weather-text-group">
                                 <span>博多即時溫度: ${emoji} ${currentTemp}°C</span>
-                                <span style="color: rgba(255,255,255,0.8); font-size: 11px;">最高: ${maxTemp}°C 最低: ${minTemp}°C | 降雨: ${rainProb}%</span>
+                                <span style="color: rgba(255, 255, 255, 0.8); font-size: 11px;">最高: ${maxTemp}°C 最低: ${minTemp}°C | 降雨: ${rainProb}%</span>
                             </div>
                         </a>
                     `;
@@ -1673,12 +1676,13 @@
                     <img class="weather-yahoo-img" src="https://play-lh.googleusercontent.com/9BEle9-LiEDn0x_WdMyMSTLSHRvj0KLavwha2cQYEu7knrlIp9XXdoOPrnXBg320NjJVq484YXpcIGtsuIz9dA" alt="Yahoo Weather">
                     <div class="weather-text-group">
                         <span>博多即時溫度: ☀️ 29°C</span>
-                        <span style="color: rgba(255,255,255,0.8); font-size: 11px;">最高: 34°C 最低: 26°C | 降雨: 10%</span>
+                        <span style="color: rgba(255, 255, 255, 0.8); font-size: 11px;">最高: 34°C 最低: 26°C | 降雨: 10%</span>
                     </div>
                 </a>
             `;
         }
 
+        // === 城巴 A26 即時 ETA ===
         async function fetchA26ETA() {
             const etaContainer = document.getElementById('a26-eta');
             if (!etaContainer) return;
@@ -1727,7 +1731,7 @@
                     let mins = Math.round((nextEta - now) / 60000);
                     
                     let displayMins = mins <= 0 ? "即將抵達" : `${mins} 分鐘`;
-                    let html = `<span style="font-size: 14px; color: #1f8a4c; font-weight: 600; background: #e3f8e9; padding: 4px 10px; border-radius: 8px; margin-left: 8px; display: inline-block;">🚌 下一班巴士: ${displayMins}</span>`;
+                    let html = `<span style="font-size: 14px; color: #1f8a4c; font-weight: 600; background: rgba(31, 138, 76, 0.1); padding: 4px 10px; border-radius: 8px; margin-left: 8px; display: inline-block;">🚌 下一班: ${displayMins}</span>`;
                     
                     if (etas.length > 1) {
                         let mins2 = Math.round((new Date(etas[1].eta) - now) / 60000);
@@ -1735,14 +1739,15 @@
                     }
                     etaContainer.innerHTML = html;
                 } else {
-                    etaContainer.innerHTML = '<span style="font-size: 14px; color: var(--text-secondary); margin-left: 8px; background: #f5f5f7; padding: 4px 10px; border-radius: 8px; display: inline-block;">🚌 目前暫無 A26 班次資料</span>';
+                    etaContainer.innerHTML = '<span style="font-size: 14px; color: var(--text-secondary); margin-left: 8px; background: var(--banner-bg); padding: 4px 10px; border-radius: 8px; display: inline-block;">🚌 目前暫無 A26 班次資料</span>';
                 }
             } catch (e) {
                 console.error("Citybus ETA Error:", e);
-                etaContainer.innerHTML = '<span style="font-size: 14px; color: var(--apple-red); margin-left: 8px; background: #ffeceb; padding: 4px 10px; border-radius: 8px; display: inline-block;">🚌 ETA 連線失敗</span>';
+                etaContainer.innerHTML = '<span style="font-size: 14px; color: var(--apple-red); margin-left: 8px; background: rgba(255, 59, 48, 0.1); padding: 4px 10px; border-radius: 8px; display: inline-block;">🚌 ETA 連線失敗</span>';
             }
         }
 
+        // === 日期與時鐘引擎 ===
         function calculateTripCountdown() {
             const targetDate = new Date('2026-08-09T00:00:00');
             const currentDate = new Date();
@@ -1764,38 +1769,11 @@
             if(!sourceBadge || !sourceLinks) return;
 
             if (remainingDays > 14) {
-                sourceBadge.innerText = "遠期統計模式 (JMA 歷史大數據觀測)";
-                sourceLinks.innerHTML = `
-                    官方氣象觀測與即時數據源：<br>
-                    <span style="background:var(--apple-blue);color:#fff;padding:2px 6px;border-radius:4px;font-weight:bold;">日本氣象廳 (JMA) 歷史預測主導</span> | 
-                    <a href="https://www.japan.travel/hk/weather/kyushu/fukuoka/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">JNTO 國家旅遊局</a> | 
-                    <a href="https://tenki.jp/forecast/9/43/8210/40130/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">tenki.jp</a> | 
-                    <a href="https://weather.tsukumijima.net/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">Tsukumijima API</a><br>
-                    <a href="https://weather.yahoo.co.jp/weather/jp/40/8210.html" target="_blank" style="color:var(--apple-blue); text-decoration:none;">Yahoo! JAPAN 天氣</a> | 
-                    <a href="https://news.web.nhk/kishou-saigai/weather/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">NHK 氣象與災害</a>
-                `;
+                sourceBadge.innerText = "遠期統計模式 (JMA 歷史大數據)";
             } else if (remainingDays >= 7 && remainingDays <= 14) {
                 sourceBadge.innerText = "中期預報模式 (tenki.jp 2週間天氣)";
-                sourceLinks.innerHTML = `
-                    官方氣象觀測與即時數據源：<br>
-                    <a href="https://www.data.jma.go.jp/multi/yoho/yoho_detail.html?code=400020&lang=cn_zt" target="_blank" style="color:var(--apple-blue); text-decoration:none;">日本氣象廳 (JMA)</a> | 
-                    <a href="https://www.japan.travel/hk/weather/kyushu/fukuoka/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">JNTO 國家旅遊局</a> | 
-                    <span style="background:var(--apple-blue);color:#fff;padding:2px 6px;border-radius:4px;font-weight:bold;"><a href="https://tenki.jp/forecast/9/43/8210/40130/" target="_blank" style="color:#fff; text-decoration:none;">tenki.jp (主導)</a></span> | 
-                    <a href="https://weather.tsukumijima.net/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">Tsukumijima API</a><br>
-                    <a href="https://weather.yahoo.co.jp/weather/jp/40/8210.html" target="_blank" style="color:var(--apple-blue); text-decoration:none;">Yahoo! JAPAN 天氣</a> | 
-                    <a href="https://news.web.nhk/kishou-saigai/weather/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">NHK 氣象與災害</a>
-                `;
             } else {
-                sourceBadge.innerText = "近期精確模式 (Yahoo! JAPAN 週間天氣)";
-                sourceLinks.innerHTML = `
-                    官方氣象觀測與即時數據源：<br>
-                    <a href="https://www.data.jma.go.jp/multi/yoho/yoho_detail.html?code=400020&lang=cn_zt" target="_blank" style="color:var(--apple-blue); text-decoration:none;">日本氣象廳 (JMA)</a> | 
-                    <a href="https://www.japan.travel/hk/weather/kyushu/fukuoka/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">JNTO 國家旅遊局</a> | 
-                    <a href="https://tenki.jp/forecast/9/43/8210/40130/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">tenki.jp</a> | 
-                    <a href="https://weather.tsukumijima.net/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">Tsukumijima API</a><br>
-                    <span style="background:var(--apple-blue);color:#fff;padding:2px 6px;border-radius:4px;font-weight:bold;"><a href="https://weather.yahoo.co.jp/weather/jp/40/8210.html" target="_blank" style="color:#fff; text-decoration:none;">Yahoo! JAPAN 天氣 (主導)</a></span> | 
-                    <a href="https://news.web.nhk/kishou-saigai/weather/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">NHK 氣象與災害</a>
-                `;
+                sourceBadge.innerText = "近期精確模式 (Yahoo! JAPAN 天氣)";
             }
         }
 
@@ -1804,57 +1782,21 @@
             const options = { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
             const hkgTime = now.toLocaleTimeString('en-GB', { ...options, timeZone: 'Asia/Hong_Kong' });
             const jpnTime = now.toLocaleTimeString('en-GB', { ...options, timeZone: 'Asia/Tokyo' });
+            
             const clockHkg = document.getElementById('clock-hkg');
             const clockJpn = document.getElementById('clock-jpn');
+            
             if (clockHkg) clockHkg.innerText = hkgTime;
             if (clockJpn) clockJpn.innerText = jpnTime;
-        }
-
-        // 封面滑動防禦與主題連動
-        function initHeroSlider() {
-            const slider = document.getElementById('hero-slider');
-            const dots = document.querySelectorAll('.slider-dot');
-            if(!slider) return;
-            
-            // 預設為淺色模式 (Slide 0)
-            document.body.classList.remove('dark-theme');
-            
-            let scrollTimeout;
-            slider.addEventListener('scroll', () => {
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                    const slideIndex = Math.round(slider.scrollLeft / slider.clientWidth);
-                    if (slideIndex === 0) {
-                        document.body.classList.remove('dark-theme');
-                    } else {
-                        document.body.classList.add('dark-theme');
-                    }
-                    
-                    dots.forEach((dot, idx) => {
-                        if (idx === slideIndex) dot.classList.add('active');
-                        else dot.classList.remove('active');
-                    });
-                }, 50);
-            });
-        }
-
-        function slideHero(direction) {
-            const slider = document.getElementById('hero-slider');
-            if(!slider) return;
-            slider.scrollBy({ left: direction * slider.clientWidth, behavior: 'smooth' });
-        }
-        
-        function goToSlide(index) {
-            const slider = document.getElementById('hero-slider');
-            if(!slider) return;
-            slider.scrollTo({ left: index * slider.clientWidth, behavior: 'smooth' });
         }
 
         document.addEventListener("DOMContentLoaded", function() {
             applyViewMode();
             calculateTripCountdown();
             fetchLiveHakataWeather();
-            renderPackingList(); // 渲染行李清單與讀取記憶
+            
+            fetchLiveExchangeRate();
+            renderPackingList();
             
             fetchA26ETA();
             setInterval(fetchA26ETA, 60000);
@@ -1862,7 +1804,9 @@
             updateWorldClocks();
             setInterval(updateWorldClocks, 1000);
             
-            initHeroSlider(); // 啟動滑動封面監聽器
+            // 初始化隱藏計算機 (除非一開始就在該分頁)
+            const calcBar = document.getElementById('calc-bar');
+            if (calcBar) calcBar.style.display = 'none';
         });
     </script>
 </body>
