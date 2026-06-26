@@ -119,6 +119,9 @@
             font-weight: 600;
             font-size: 16px;
             white-space: nowrap;
+            max-width: calc(100vw - 460px); /* 預防與兩側按鈕重疊 */
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .nav-controls-right {
@@ -532,56 +535,90 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
-        body.forced-mobile-mode { padding-top: 87px; padding-bottom: 280px; }
-        body.forced-mobile-mode .main-container { max-width: 600px; margin: 0 auto; }
-        
-        body.forced-mobile-mode .carousel-container { height: 220px !important; }
-        
-        body.forced-mobile-mode .dashboard-grid { gap: 6px; }
-        body.forced-mobile-mode .metric-card { padding: 6px 8px; flex: 1 1 21% !important; }
-        body.forced-mobile-mode .metric-label { font-size: 10px; }
-        body.forced-mobile-mode .metric-value { font-size: 12px; }
-        
-        body.forced-mobile-mode .time-box { font-size: 16px !important; padding-right: 8px !important; }
-        body.forced-mobile-mode .timeline-item { grid-template-columns: 85px 1fr !important; gap: 8px !important; align-items: center; }
-        body.forced-mobile-mode .content-box { flex-direction: row !important; align-items: center !important; gap: 12px !important; }
-        body.forced-mobile-mode .timeline-left-img-container { width: 60px !important; height: 60px !important; }
-        body.forced-mobile-mode .text-block h3 { font-size: 18px !important; margin-bottom: 4px !important; }
-        body.forced-mobile-mode .text-block p { font-size: 16px !important; }
-        body.forced-mobile-mode .text-block .sub-item { font-size: 15px !important; margin-top: 8px !important; padding-left: 12px !important; }
-        body.forced-mobile-mode .accordion-trigger { font-size: 18px !important; }
-        body.forced-mobile-mode .accordion-trigger::after { font-size: 14px !important; }
-        
-        body.forced-mobile-mode .wishlist-section-title { font-size: 22px !important; margin-top: 24px !important; margin-bottom: 16px !important; }
-        body.forced-mobile-mode .store-title { font-size: 18px !important; margin-bottom: 12px !important; }
-        body.forced-mobile-mode .store-group-container { padding: 16px !important; }
-        body.forced-mobile-mode .item-text-content h4 { font-size: 16px !important; }
-        body.forced-mobile-mode .item-text-content p { font-size: 14px !important; }
-        body.forced-mobile-mode .wishlist-item-left { gap: 12px !important; flex-direction: column; }
-        body.forced-mobile-mode .wishlist-row-img-frame { width: 80px !important; height: 80px !important; margin-left: 0 !important; align-self: flex-start; }
-        body.forced-mobile-mode .wishlist-row-img-frame.enlarge-20 { width: 96px !important; height: 96px !important; }
-        
-        body.forced-mobile-mode .shopping-tag { font-size: 13px !important; padding: 4px 8px !important; }
-        body.forced-mobile-mode .inline-sub-logo { max-height: 24px !important; }
-        body.forced-mobile-mode .weather-table th, body.forced-mobile-mode .weather-table td { font-size: 14px !important; padding: 8px 6px !important; }
-        
-        body.forced-mobile-mode .nav-container { display: block; position: relative; width: 100%; height: 86px; padding: 0; }
-        body.forced-mobile-mode .nav-left-section { position: absolute; bottom: 8px; left: 12px; top: auto; width: auto; }
-        body.forced-mobile-mode .nav-center-title { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); width: auto; text-align: center; font-size: 14px; font-weight: 600; white-space: nowrap; color: #f5f5f7; z-index: 5;}
-        body.forced-mobile-mode .nav-controls-right { display: contents; }
-        body.forced-mobile-mode .view-mode-btn { position: absolute; top: 12px; right: 12px; height: 28px; padding: 0 10px; font-size: 11px; z-index: 10; }
-        body.forced-mobile-mode .live-weather-widget { position: absolute; top: 46px; right: 12px; height: 32px; padding: 0 8px 0 0; z-index: 10; display: flex; align-items: center; }
-        body.forced-mobile-mode .weather-yahoo-img { height: 32px; border-radius: 6px 0 0 6px; }
-        body.forced-mobile-mode .weather-text-group { font-size: 11px; }
-        
-        body.forced-mobile-mode .sub-nav { position: fixed; top: auto; bottom: 0; width: 100%; border-top: 1px solid var(--border-color); border-bottom: none; z-index: 10000; height: calc(68px + 20px + env(safe-area-inset-bottom)); padding-bottom: calc(20px + env(safe-area-inset-bottom)); margin-bottom: 0 !important; box-sizing: border-box; }
-        body.forced-mobile-mode .tabs-container { height: 100%; padding: 0 12px; overflow-x: auto; gap: 8px; align-items: center; box-sizing: border-box; }
-        body.forced-mobile-mode .calculator-sticky-bar { bottom: calc(68px + 20px + env(safe-area-inset-bottom)) !important; padding: 12px 16px; box-sizing: border-box; }
-        body.forced-mobile-mode .calc-total { font-size: 22px; }
-        body.forced-mobile-mode .calc-hkd { font-size: 13px; }
-        body.forced-mobile-mode .tax-toggle-btn { font-size: 13px; padding: 10px 16px; }
+        /* 全螢幕圖片檢視器樣式 */
+        .fullscreen-viewer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            z-index: 999999;
+            flex-direction: column;
+        }
+        .fullscreen-viewer.active {
+            display: flex;
+            animation: fadeIn 0.25s ease forwards;
+        }
+        .viewer-header {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            background: rgba(0,0,0,0.6);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+        }
+        .viewer-back-btn {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 600;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .viewer-content {
+            flex: 1;
+            overflow: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: pan-x pan-y pinch-zoom;
+        }
+        .viewer-content img {
+            max-width: 100%;
+            transition: transform 0.25s ease;
+            transform-origin: center center;
+        }
+        .viewer-controls {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 24px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+        .viewer-control-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        .viewer-control-btn:active { background: rgba(255,255,255,0.3); }
 
-        @media (max-width: 850px) {
+        /* 防重疊斷點提升至 1050px 且全套用手機版 CSS */
+        @media (max-width: 1050px) {
             body { padding-top: 87px; padding-bottom: 280px; }
             .main-container { max-width: 600px; margin: 0 auto; }
             
@@ -617,7 +654,10 @@
             
             .nav-container { display: block; position: relative; width: 100%; height: 86px; padding: 0; }
             .nav-left-section { position: absolute; bottom: 8px; left: 12px; top: auto; width: auto; }
-            .nav-center-title { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); width: auto; text-align: center; font-size: 14px; font-weight: 600; white-space: nowrap; color: #f5f5f7; z-index: 5;}
+            
+            /* 手機版靠左並省略，徹底防重疊，置中 */
+            .nav-center-title { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); max-width: calc(100vw - 180px); text-align: center; font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #f5f5f7; z-index: 5;}
+            
             .nav-controls-right { display: contents; }
             .view-mode-btn { position: absolute; top: 12px; right: 12px; height: 28px; padding: 0 10px; font-size: 11px; z-index: 10; }
             .live-weather-widget { position: absolute; top: 46px; right: 12px; height: 32px; padding: 0 8px 0 0; z-index: 10; display: flex; align-items: center; }
@@ -631,9 +671,52 @@
             .calc-hkd { font-size: 13px; }
             .tax-toggle-btn { font-size: 13px; padding: 10px 16px; }
         }
+
+        /* 強制手機版的 CSS 亦同步包含安全空間防重疊，維持置中 */
+        body.forced-mobile-mode { padding-top: 87px; padding-bottom: 280px; }
+        body.forced-mobile-mode .main-container { max-width: 600px; margin: 0 auto; }
+        body.forced-mobile-mode .carousel-container { height: 220px !important; }
+        body.forced-mobile-mode .dashboard-grid { gap: 6px; }
+        body.forced-mobile-mode .metric-card { padding: 6px 8px; flex: 1 1 21% !important; }
+        body.forced-mobile-mode .metric-label { font-size: 10px; }
+        body.forced-mobile-mode .metric-value { font-size: 12px; }
+        body.forced-mobile-mode .time-box { font-size: 16px !important; padding-right: 8px !important; }
+        body.forced-mobile-mode .timeline-item { grid-template-columns: 85px 1fr !important; gap: 8px !important; align-items: center; }
+        body.forced-mobile-mode .content-box { flex-direction: row !important; align-items: center !important; gap: 12px !important; }
+        body.forced-mobile-mode .timeline-left-img-container { width: 60px !important; height: 60px !important; }
+        body.forced-mobile-mode .text-block h3 { font-size: 18px !important; margin-bottom: 4px !important; }
+        body.forced-mobile-mode .text-block p { font-size: 16px !important; }
+        body.forced-mobile-mode .text-block .sub-item { font-size: 15px !important; margin-top: 8px !important; padding-left: 12px !important; }
+        body.forced-mobile-mode .accordion-trigger { font-size: 18px !important; }
+        body.forced-mobile-mode .accordion-trigger::after { font-size: 14px !important; }
+        body.forced-mobile-mode .wishlist-section-title { font-size: 22px !important; margin-top: 24px !important; margin-bottom: 16px !important; }
+        body.forced-mobile-mode .store-title { font-size: 18px !important; margin-bottom: 12px !important; }
+        body.forced-mobile-mode .store-group-container { padding: 16px !important; }
+        body.forced-mobile-mode .item-text-content h4 { font-size: 16px !important; }
+        body.forced-mobile-mode .item-text-content p { font-size: 14px !important; }
+        body.forced-mobile-mode .wishlist-item-left { gap: 12px !important; flex-direction: column; }
+        body.forced-mobile-mode .wishlist-row-img-frame { width: 80px !important; height: 80px !important; margin-left: 0 !important; align-self: flex-start; }
+        body.forced-mobile-mode .wishlist-row-img-frame.enlarge-20 { width: 96px !important; height: 96px !important; }
+        body.forced-mobile-mode .shopping-tag { font-size: 13px !important; padding: 4px 8px !important; }
+        body.forced-mobile-mode .inline-sub-logo { max-height: 24px !important; }
+        body.forced-mobile-mode .weather-table th, body.forced-mobile-mode .weather-table td { font-size: 14px !important; padding: 8px 6px !important; }
+        body.forced-mobile-mode .nav-container { display: block; position: relative; width: 100%; height: 86px; padding: 0; }
+        body.forced-mobile-mode .nav-left-section { position: absolute; bottom: 8px; left: 12px; top: auto; width: auto; }
+        body.forced-mobile-mode .nav-center-title { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); max-width: calc(100vw - 180px); text-align: center; font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #f5f5f7; z-index: 5;}
+        body.forced-mobile-mode .nav-controls-right { display: contents; }
+        body.forced-mobile-mode .view-mode-btn { position: absolute; top: 12px; right: 12px; height: 28px; padding: 0 10px; font-size: 11px; z-index: 10; }
+        body.forced-mobile-mode .live-weather-widget { position: absolute; top: 46px; right: 12px; height: 32px; padding: 0 8px 0 0; z-index: 10; display: flex; align-items: center; }
+        body.forced-mobile-mode .weather-yahoo-img { height: 32px; border-radius: 6px 0 0 6px; }
+        body.forced-mobile-mode .weather-text-group { font-size: 11px; }
+        body.forced-mobile-mode .sub-nav { position: fixed; top: auto; bottom: 0; width: 100%; border-top: 1px solid var(--border-color); border-bottom: none; z-index: 10000; height: calc(68px + 20px + env(safe-area-inset-bottom)); padding-bottom: calc(20px + env(safe-area-inset-bottom)); margin-bottom: 0 !important; box-sizing: border-box; }
+        body.forced-mobile-mode .tabs-container { height: 100%; padding: 0 12px; overflow-x: auto; gap: 8px; align-items: center; box-sizing: border-box; }
+        body.forced-mobile-mode .calculator-sticky-bar { bottom: calc(68px + 20px + env(safe-area-inset-bottom)) !important; padding: 12px 16px; box-sizing: border-box; }
+        body.forced-mobile-mode .calc-total { font-size: 22px; }
+        body.forced-mobile-mode .calc-hkd { font-size: 13px; }
+        body.forced-mobile-mode .tax-toggle-btn { font-size: 13px; padding: 10px 16px; }
     </style>
 </head>
-<body>
+<body class="show-d3-opt show-d6-opt">
 
     <nav>
         <div class="nav-container">
@@ -648,8 +731,8 @@
 
             <div class="nav-controls-right">
                 <button id="view-emulator-btn" class="view-mode-btn" onclick="toggleViewMode()">手機版</button>
-                <div id="hakata-weather" class="live-weather-widget">
-                    <a href="https://weather.yahoo.co.jp/weather/jp/40/8210.html" target="_blank">
+                <div id="hakata-weather" class="live-weather-widget" onclick="switchView(7)">
+                    <a href="javascript:void(0);">
                         <img class="weather-yahoo-img" src="https://play-lh.googleusercontent.com/9BEle9-LiEDn0x_WdMyMSTLSHRvj0KLavwha2cQYEu7knrlIp9XXdoOPrnXBg320NjJVq484YXpcIGtsuIz9dA" alt="Yahoo Weather">
                         <div class="weather-text-group">
                             <span>博多即時溫度: ☀️ 讀取中...</span>
@@ -691,6 +774,7 @@
             </div>
         </div>
 
+        <!-- =================== DAY 1 (9/8) =================== -->
         <div id="view-0" class="view-panel active">
             <div class="dashboard-grid">
                 <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value" style="color:var(--text-secondary);">N/A</div></div>
@@ -730,6 +814,7 @@
             </div>
         </div>
 
+        <!-- =================== DAY 2 (10/8) =================== -->
         <div id="view-1" class="view-panel">
             <div class="dashboard-grid">
                 <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">07:30</div></div>
@@ -774,6 +859,7 @@
             </div>
         </div>
 
+        <!-- =================== DAY 3 (11/8) =================== -->
         <div id="view-2" class="view-panel">
             <div class="dashboard-grid">
                 <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">09:00</div></div>
@@ -807,23 +893,23 @@
                     <div id="acc-d3-main-inner-node" class="accordion-content">
                         <p class="sub-item"><a href="https://tabelog.com/fukuoka/A4001/A400103/40062177/" target="_blank">I'm donut? 福岡店</a> <a href="https://www.google.com/maps/search/?api=1&query=I'm donut? 福岡店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" style="height: 130px; max-height: 130px;" src="https://fathom-design.jp/wp/wp-content/uploads/2022/06/logo-1.jpg" alt="I'm Donut"></p>
                         <p class="sub-item">大丸福岡天神店 <a href="https://www.google.com/maps/search/?api=1&query=大丸 福岡天神店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/1/16/Daimaru_Logo_full.svg" alt="Daimaru"></p>
-                        <p class="sub-item">    <a href="https://kiti-coltd.com/wp-content/uploads/2024/06/muji-logo.png" target="_blank">無印良品 大丸福岡天神</a> <img class="inline-sub-logo" src="https://kiti-coltd.com/wp-content/uploads/2024/06/muji-logo.png" alt="Muji"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://kiti-coltd.com/wp-content/uploads/2024/06/muji-logo.png" target="_blank">無印良品 大丸福岡天神</a> <img class="inline-sub-logo" src="https://kiti-coltd.com/wp-content/uploads/2024/06/muji-logo.png" alt="Muji"></p>
                         <p class="sub-item">天神地下街</p>
-                        <p class="sub-item">    <a href="https://www.yoshidakaban.com/zh-CHT/shopinfo/kurachika/fukuoka/" target="_blank">KURA CHIKA by PORTER FUKUOKA</a> <img class="inline-sub-logo" src="https://hansengarmentsstore.com/cdn/shop/collections/download.webp?v=1692634430" alt="Porter"></p>
-                        <p class="sub-item">    <a href="https://www.biccamera.com/bc/i/shop/shoplist/shop026.jsp" target="_blank">ビックカメラ天神1號館</a> <a href="https://www.google.com/maps/search/?api=1&query=BIC CAMERA 天神1號館" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://www.cubicplaza.com/wp-content/uploads/2019/08/logo-2597.png" alt="Bic"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.yoshidakaban.com/zh-CHT/shopinfo/kurachika/fukuoka/" target="_blank">KURA CHIKA by PORTER FUKUOKA</a> <img class="inline-sub-logo" src="https://hansengarmentsstore.com/cdn/shop/collections/download.webp?v=1692634430" alt="Porter"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.biccamera.com/bc/i/shop/shoplist/shop026.jsp" target="_blank">ビックカメラ天神1號館</a> <a href="https://www.google.com/maps/search/?api=1&query=BIC CAMERA 天神1號館" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://www.cubicplaza.com/wp-content/uploads/2019/08/logo-2597.png" alt="Bic"></p>
                         <p class="sub-item"><a href="https://tabelog.com/fukuoka/A4001/A400103/40040601/" target="_blank">田中田式海鮮食堂 魚忠</a>(12:30-13:30) <a href="https://www.google.com/maps/search/?api=1&query=魚忠" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
                         <p class="sub-item">天神地下街</p>
-                        <p class="sub-item">    <a href="https://buttersand.com/store/list/?area[]=kyushu" target="_blank">PRESS BUTTER SAND 天神地下街店</a> <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://buttersand.com/store/list/?area[]=kyushu" target="_blank">PRESS BUTTER SAND 天神地下街店</a> <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS"></p>
                         <p class="sub-item">福岡PARCO</p>
-                        <p class="sub-item">    <a href="https://www.azumabag.jp/" target="_blank">AZUMA 旗艦店 unshop</a> <img class="inline-sub-logo" src="https://www.azumabag.jp/cdn/shop/files/azuma_logo1.png?v=1689419564&width=600" alt="Azuma"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.azumabag.jp/" target="_blank">AZUMA 旗艦店 unshop</a> <img class="inline-sub-logo" src="https://www.azumabag.jp/cdn/shop/files/azuma_logo1.png?v=1689419564&width=600" alt="Azuma"></p>
                         <p class="sub-item">天神地下街</p>
-                        <p class="sub-item">    TRUFFLE Bakery 天神地下街店 <img class="inline-sub-logo" src="https://ifc.com.hk/tc/media/TruffleBAKERY_03.png" alt="Truffle"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;TRUFFLE Bakery 天神地下街店 <img class="inline-sub-logo" src="https://ifc.com.hk/tc/media/TruffleBAKERY_03.png" alt="Truffle"></p>
                         <p class="sub-item">Mina 天神</p>
-                        <p class="sub-item">    <a href="https://www.palcloset.jp/addons/pal/shoplist/detail/?brandshop_no=2643&b=3coins" target="_blank">3COINS +plus ミーナ天神店</a> <img class="inline-sub-logo" src="https://mitsui-shopping-park.com/lalaport/tokyo-bay/shopguide/2359593/image1.jpg" alt="3Coins"></p>
-                        <p class="sub-item">    <a href="https://map.uniqlo.com/jp/ja/detail/10101803" target="_blank">ユニクロ 天神店</a> <img class="inline-sub-logo" src="https://e7.pngegg.com/pngimages/503/276/png-clipart-nex-singapore-regent-street-uniqlo-retail-clothing-nike-miscellaneous-text-thumbnail.png" alt="Uniqlo"></p>
-                        <p class="sub-item">    <a href="https://shop.seria-group.com/seria/info/000002787?addresscode=40133" target="_blank">Seria ミーナ天神店</a></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.palcloset.jp/addons/pal/shoplist/detail/?brandshop_no=2643&b=3coins" target="_blank">3COINS +plus ミーナ天神店</a> <img class="inline-sub-logo" src="https://mitsui-shopping-park.com/lalaport/tokyo-bay/shopguide/2359593/image1.jpg" alt="3Coins"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://map.uniqlo.com/jp/ja/detail/10101803" target="_blank">ユニクロ 天神店</a> <img class="inline-sub-logo" src="https://e7.pngegg.com/pngimages/503/276/png-clipart-nex-singapore-regent-street-uniqlo-retail-clothing-nike-miscellaneous-text-thumbnail.png" alt="Uniqlo"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://shop.seria-group.com/seria/info/000002787?addresscode=40133" target="_blank">Seria ミーナ天神店</a></p>
                         <p class="sub-item">ONE FUKUOKA BLDG.</p>
-                        <p class="sub-item">    <a href="https://store.tsite.jp/fukuoka-tenjin/" target="_blank">福岡天神 蔦屋書店</a> <img class="inline-sub-logo" src="https://store.tsite.jp/static_contents/site/tsite/portal/img/og.jpg" alt="Tsutaya"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://store.tsite.jp/fukuoka-tenjin/" target="_blank">福岡天神 蔦屋書店</a> <img class="inline-sub-logo" src="https://store.tsite.jp/static_contents/site/tsite/portal/img/og.jpg" alt="Tsutaya"></p>
                         <p class="sub-item"><a href="https://www.nike.com/jp/retail/s/nikep-fukuoka-tenjin" target="_blank">Nike Fukuoka Tenjin</a> <a href="https://www.google.com/maps/search/?api=1&query=Nike Fukuoka Tenjin" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" style="max-width: 128px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1280px-Logo_NIKE.svg.png" alt="Nike"></p>
                         <div class="shopping-tag-list" style="margin-top: 14px;"><div class="shopping-tag alert" style="font-size:16px;">⚠️ 當日為日本公眾假期「山之日」，人潮預計大幅增加</div></div>
                     </div>
@@ -836,6 +922,7 @@
             </div>
         </div>
 
+        <!-- =================== DAY 4 (12/8) =================== -->
         <div id="view-3" class="view-panel">
             <div class="dashboard-grid">
                 <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">07:25</div></div>
@@ -864,10 +951,10 @@
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d4-mall-node')">博多</h3>
                     <div id="acc-d4-mall-node" class="accordion-content">
                         <p class="sub-item">博多阪急</p>
-                        <p class="sub-item">    <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">IM MEN 博多阪急</a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://uk.isseymiyake.com/cdn/shop/t/106/assets/exp-immen_logobox.png?v=6638328696964336641775124216" alt="IM MEN"></p>
-                        <p class="sub-item">    <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">HOMME PLISSÉ ISSEY MIYAKE 博多阪急</a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg?v=1743185807" alt="Homme Plisse"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">IM MEN 博多阪急</a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://uk.isseymiyake.com/cdn/shop/t/106/assets/exp-immen_logobox.png?v=6638328696964336641775124216" alt="IM MEN"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">HOMME PLISSÉ ISSEY MIYAKE 博多阪急</a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg?v=1743185807" alt="Homme Plisse"></p>
                         <p class="sub-item">AMU PLAZA博多</p>
-                        <p class="sub-item">    <a href="https://www.nintendo.com/jp/officialstore/index.html" target="_blank">Nintendo FUKUOKA</a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://www.jrhakatacity.com.t.bv.hp.transer.com/uploads/images/resized/390x390/jrhakatacity/000002/000002/7a6e2c01.png" alt="Nintendo"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.nintendo.com/jp/officialstore/index.html" target="_blank">Nintendo FUKUOKA</a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://www.jrhakatacity.com.t.bv.hp.transer.com/uploads/images/resized/390x390/jrhakatacity/000002/000002/7a6e2c01.png" alt="Nintendo"></p>
                         <p class="sub-item">KITTE博多</p>
                         <p class="sub-item"><a href="https://www.yodobashi.com/ec/store/0088/" target="_blank">ヨドバシカメラ マルチメディア博多</a> <a href="https://www.google.com/maps/search/?api=1&query=Yodobashi 友都八喜 博多" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Yodobashi-Camera_logo.png" alt="Yodobashi"></p>
                     </div>
@@ -879,6 +966,7 @@
             </div>
         </div>
 
+        <!-- =================== DAY 5 (13/8) =================== -->
         <div id="view-4" class="view-panel">
             <div class="dashboard-grid">
                 <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">06:45</div></div>
@@ -921,6 +1009,7 @@
             </div>
         </div>
 
+        <!-- =================== DAY 6 (14/8) =================== -->
         <div id="view-5" class="view-panel">
             <div class="dashboard-grid">
                 <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">08:15</div></div>
@@ -964,8 +1053,8 @@
                     <div id="acc-d6-main-inner-node" class="accordion-content">
                         <p class="sub-item"><a href="https://www.kaneko-optical.co.jp/shop_detail/73" target="_blank">金子眼鏡店 天神VIORO店</a> <a href="https://www.google.com/maps/search/?api=1&query=金子眼鏡店 天神VIORO店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://www.puyi.cn/pub/media/amasty/shopby/option_images/slider/Logo_KANEKO_OPTICAL_1.png" alt="Kaneko"></p>
                         <p class="sub-item">岩田屋本店 <a href="https://www.google.com/maps/search/?api=1&query=Iwataya Main Store" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
-                        <p class="sub-item">    <a href="https://shiro-shiro.jp/ec/ext/shop/shiro-iwataya/index.html?srsltid=AfmBOooa8smS0I3pRaMB76AEOJIqbV3MbTwnEMpA2SE2JLPXLUvdZMQ6" target="_blank">SHIRO 岩田屋店</a> <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKOjmIF-kBiCpkKlF1eeSETaH0M_e9EZ-MwA&s" alt="SHIRO"></p>
-                        <p class="sub-item">    <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">ISSEY MIYAKE 岩田屋本店</a> <img class="inline-sub-logo" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="Issey Miyake"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://shiro-shiro.jp/ec/ext/shop/shiro-iwataya/index.html?srsltid=AfmBOooa8smS0I3pRaMB76AEOJIqbV3MbTwnEMpA2SE2JLPXLUvdZMQ6" target="_blank">SHIRO 岩田屋店</a> <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKOjmIF-kBiCpkKlF1eeSETaH0M_e9EZ-MwA&s" alt="SHIRO"></p>
+                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">ISSEY MIYAKE 岩田屋本店</a> <img class="inline-sub-logo" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="Issey Miyake"></p>
                         <p class="sub-item"><a href="https://tabelog.com/fukuoka/A4001/A400103/40035496/" target="_blank">元祖赤のれん 節ちゃんラーメン 天神本店</a>(12:00-13:00) <a href="https://www.google.com/maps/search/?api=1&query=Ganso Akanoren Setchan Ramen Tenjin" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
                         <p class="sub-item"><a href="https://www.humanmade.jp/dealers.html" target="_blank">HUMAN MADE FUKUOKA</a> <a href="https://www.google.com/maps/search/?api=1&query=HUMAN MADE 福岡" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://images.seeklogo.com/logo-png/48/1/humanmade-heart-logo-png_seeklogo-486066.png" alt="Human Made"></p>
                         <p class="sub-item"><a href="https://catmocha.jp/shop/tenjindaimyo/" target="_blank">猫カフェMOCHA 天神大名店</a> <a href="https://www.google.com/maps/search/?api=1&query=CAT CAFE MOCHA Tenjin Daimyo Store" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
@@ -1001,6 +1090,7 @@
             </div>
         </div>
 
+        <!-- =================== DAY 7 (15/8) =================== -->
         <div id="view-6" class="view-panel">
             <div class="dashboard-grid">
                 <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">08:40</div></div>
@@ -1034,6 +1124,7 @@
             </div>
         </div>
 
+        <!-- =================== 🌤️ LIVE WEATHER ENGINE PANELS =================== -->
         <div id="view-7" class="view-panel">
             <div class="timeline-section">
                 <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:14px; margin-bottom:18px; flex-wrap: wrap; gap: 12px;">
@@ -1067,6 +1158,7 @@
             </div>
         </div>
 
+        <!-- =================== 🛍️ WISHLIST PANELS =================== -->
         <div id="view-8" class="view-panel">
             
             <h2 class="wishlist-section-title">🛒 購物清單</h2>
@@ -1314,12 +1406,15 @@
             </div>
         </div>
 
+        <!-- =================== 🧳 PACKING LIST =================== -->
         <div id="view-9" class="view-panel">
             <h2 class="wishlist-section-title">🧳 旅行物品清單</h2>
             <div class="packing-list-grid" id="packing-container">
-                </div>
+                <!-- Javascript will render items here -->
+            </div>
         </div>
 
+        <!-- =================== 🎫 旅行資訊 =================== -->
         <div id="view-10" class="view-panel">
             <h2 class="wishlist-section-title">🎫 旅行資訊</h2>
             
@@ -1328,7 +1423,8 @@
                     <span>優惠卷</span>
                 </div>
                 <div style="text-align: center;">
-                    <img src="https://www.hkt.com/assets/HKTCorpsite/files/consumer/Bic-Camera-2026/NowTV/image/barcode-TC.jpg" alt="優惠卷" style="max-width: 100%; height: auto; border-radius: 12px;">
+                    <img src="https://www.hkt.com/assets/HKTCorpsite/files/consumer/Bic-Camera-2026/NowTV/image/barcode-TC.jpg" alt="優惠卷" style="max-width: 100%; height: auto; border-radius: 12px; cursor: pointer;" onclick="openViewer()">
+                    <p style="margin-top: 12px; font-size: 14px; color: var(--apple-blue); cursor: pointer; font-weight: 500;" onclick="openViewer()">🔍 點擊放大查看</p>
                 </div>
             </div>
 
@@ -1336,6 +1432,7 @@
                 <div class="store-title">
                     <span>YouTube</span>
                 </div>
+                <!-- RWD 響應式 YouTube 容器 (完美16:9比例) -->
                 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000;">
                     <iframe src="https://www.youtube.com/embed/videoseries?si=qCy0f-NRt8oQotH8&list=PLEhRVuV6ta-0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
                 </div>
@@ -1344,6 +1441,24 @@
 
     </div>
 
+    <!-- 全螢幕圖片檢視器 Overlay -->
+    <div class="fullscreen-viewer" id="couponViewer">
+        <div class="viewer-header">
+            <button class="viewer-back-btn" onclick="closeViewer()">
+                <span style="font-size:28px;">←</span> 返回
+            </button>
+        </div>
+        <div class="viewer-content" id="viewerContent">
+            <img src="https://www.hkt.com/assets/HKTCorpsite/files/consumer/Bic-Camera-2026/NowTV/image/barcode-TC.jpg" id="viewerImage" alt="優惠卷放大圖">
+        </div>
+        <div class="viewer-controls">
+            <button class="viewer-control-btn" onclick="zoomImage(-0.5)">－</button>
+            <button class="viewer-control-btn" onclick="resetZoom()">↺</button>
+            <button class="viewer-control-btn" onclick="zoomImage(0.5)">＋</button>
+        </div>
+    </div>
+
+    <!-- Sticky Calculator -->
     <div class="calculator-sticky-bar" id="calc-bar" style="display: none;">
         <div class="calc-info">
             <span class="calc-items-count" id="calc-count">已選擇 0 項商品</span>
@@ -1361,25 +1476,29 @@
     </div>
 
     <script>
-        // === 旅行物品清單資料 ===
+        // === 旅行物品清單資料 (已全面更新為 32 項) ===
         const packingItems = [
-            "旅行喼", "衫褲", "洗頭水+沐浴露", "洗面乳+漱口水", 
-            "益生菌, Vitamin ,魚油,睡眠丸, 鎂", "生髮+果酸x2", 
-            "Wifi portable router", "Verbatim 轉插", "三合一無線充電+火牛", 
-            "背囊", "縮骨遮", "Insta360 X5", "日本銀包", "鎖匙", 
-            "Issey Miyake x 金子眼鏡", "Airtag x4", "電動牙刷+牙刷頭+叉電", 
-            "鬚刨+叉電", "Passport", "Tech袋(USB-C線)", "Casio溫泉錶", "Dyson Hushjet Mini Cool", 
-            "尿袋x2", "iPad Pro", "Povo 2.0 買Plan", "野飲", 
-            "香港銀包", "Airpods pro", "Apple Watch", "Vision Pro", 
-            "sony 1000x the collexion", "iPhone Pocket"
+            "行李箱", "衫褲", "洗頭水+沐浴露", "洗面乳+漱口水", 
+            "益生菌,  Vitamin ,魚油,睡眠丸, 鎂", "生髮+果酸x2", 
+            "Issey Miyake x 金子眼鏡", "Wifi portable router", "Verbatim 轉插", 
+            "三合一無線充電+插頭", "背囊", "Coleman 縮骨遮", "Insta360 X5", 
+            "鎖匙", "Airtag x4", "電動牙刷+牙刷頭+叉電", "鬚刨+叉電", 
+            "Passport", "Tech袋(USB-C線)", "Casio溫泉錶", "Dyson Hushjet Mini Cool", 
+            "尿袋x2", "iPad Pro", "日本銀包", "Povo 2.0 買Plan", 
+            "POKKA SAPPORO 檸檬碳酸飲料", "香港銀包", "Airpods pro", "Apple Watch", 
+            "Vision Pro", "Sony 1000x the collexion", "iPhone Pocket"
         ];
 
         function renderPackingList() {
             const container = document.getElementById('packing-container');
             container.innerHTML = '';
             
-            // 讀取 Local Storage 記憶
-            let savedState = JSON.parse(localStorage.getItem('fukuokaPackingState') || '{}');
+            let savedState = {};
+            try {
+                savedState = JSON.parse(localStorage.getItem('fukuokaPackingState') || '{}');
+            } catch (e) {
+                console.warn('LocalStorage error', e);
+            }
 
             packingItems.forEach((item, index) => {
                 const isChecked = savedState[index] === true;
@@ -1407,10 +1526,11 @@
                 element.classList.remove('checked');
             }
 
-            // 更新 Local Storage 記憶
-            let savedState = JSON.parse(localStorage.getItem('fukuokaPackingState') || '{}');
-            savedState[index] = isChecked;
-            localStorage.setItem('fukuokaPackingState', JSON.stringify(savedState));
+            try {
+                let savedState = JSON.parse(localStorage.getItem('fukuokaPackingState') || '{}');
+                savedState[index] = isChecked;
+                localStorage.setItem('fukuokaPackingState', JSON.stringify(savedState));
+            } catch(e) {}
         }
 
         // === 購物車計算機模組 ===
@@ -1420,14 +1540,13 @@
         async function fetchLiveExchangeRate() {
             const rateLabel = document.getElementById('exchange-rate-label');
             try {
-                // 透過可靠之 CDN 匯率 API 抓取最新實時數據
                 const res = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/jpy.json');
                 const data = await res.json();
                 if (data && data.jpy && data.jpy.hkd) {
                     globalExchangeRate = data.jpy.hkd;
                     const ratePer100 = (globalExchangeRate * 100).toFixed(2);
                     if(rateLabel) rateLabel.innerText = `匯率: ¥100 = HK$${ratePer100} (即時數據)`;
-                    calcWishlist(); // 更新匯率後重新計算
+                    calcWishlist(); 
                 }
             } catch(e) {
                 console.error("Fetch live exchange rate failed, using fallback.", e);
@@ -1479,9 +1598,13 @@
 
             const hkdTotal = (total * globalExchangeRate).toFixed(2);
 
-            document.getElementById('calc-count').innerText = `已選擇 ${count} 項商品`;
-            document.getElementById('calc-total').innerText = `¥${total.toLocaleString()}`;
-            document.getElementById('calc-hkd').innerText = `約 HK$${hkdTotal}`;
+            const calcCount = document.getElementById('calc-count');
+            const calcTotal = document.getElementById('calc-total');
+            const calcHkd = document.getElementById('calc-hkd');
+
+            if(calcCount) calcCount.innerText = `已選擇 ${count} 項商品`;
+            if(calcTotal) calcTotal.innerText = `¥${total.toLocaleString()}`;
+            if(calcHkd) calcHkd.innerText = `約 HK$${hkdTotal}`;
         }
 
         // === Carousel 封面引擎 ===
@@ -1491,7 +1614,7 @@
         const totalSlides = 2; // 兩張圖片
 
         function updateCarousel() {
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            if(track) track.style.transform = `translateX(-${currentSlide * 100}%)`;
             dots.forEach((dot, idx) => {
                 dot.classList.toggle('active', idx === currentSlide);
             });
@@ -1524,14 +1647,16 @@
         let touchendX = 0;
         
         const carouselContainer = document.getElementById('carousel');
-        carouselContainer.addEventListener('touchstart', e => {
-            touchstartX = e.changedTouches[0].screenX;
-        });
+        if (carouselContainer) {
+            carouselContainer.addEventListener('touchstart', e => {
+                touchstartX = e.changedTouches[0].screenX;
+            });
 
-        carouselContainer.addEventListener('touchend', e => {
-            touchendX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
+            carouselContainer.addEventListener('touchend', e => {
+                touchendX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+        }
 
         function handleSwipe() {
             if (touchendX < touchstartX - 40) nextImage();
@@ -1541,7 +1666,7 @@
         // === UI 與排版引擎 ===
         function toggleAccordion(id) {
             const content = document.getElementById(id);
-            content.classList.toggle('expanded');
+            if(content) content.classList.toggle('expanded');
         }
 
         function switchView(index) {
@@ -1571,21 +1696,21 @@
 
             if (window.isMobileDevice) {
                 if (window.currentMode === 'desktop') {
-                    viewport.setAttribute('content', 'width=1280');
-                    btn.innerText = "手機版";
+                    if(viewport) viewport.setAttribute('content', 'width=1280');
+                    if(btn) btn.innerText = "手機版";
                     document.body.classList.remove('forced-mobile-mode');
                 } else {
-                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
-                    btn.innerText = "電腦版";
+                    if(viewport) viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                    if(btn) btn.innerText = "電腦版";
                     document.body.classList.add('forced-mobile-mode');
                 }
             } else {
                 if (window.currentMode === 'mobile') {
                     document.body.classList.add('forced-mobile-mode');
-                    btn.innerText = "電腦版";
+                    if(btn) btn.innerText = "電腦版";
                 } else {
                     document.body.classList.remove('forced-mobile-mode');
-                    btn.innerText = "手機版";
+                    if(btn) btn.innerText = "手機版";
                 }
             }
         }
@@ -1600,13 +1725,11 @@
             const btn = document.getElementById('d3-toggle-btn');
             const status = document.getElementById('d3-plan-status');
             if(document.body.classList.contains('show-d3-opt')) {
-                btn.innerText = "返回原本普通行程";
-                btn.classList.add('reset-btn');
-                status.innerText = "選配 Optional Plan 運作中";
+                if(btn){ btn.innerText = "返回原本普通行程"; btn.classList.add('reset-btn'); }
+                if(status) status.innerText = "選配 Optional Plan 運作中";
             } else {
-                btn.innerText = "切換至選配 Optional Plan (屋台續攤)";
-                btn.classList.remove('reset-btn');
-                status.innerText = "原定普通方案";
+                if(btn){ btn.innerText = "切換至選配 Optional Plan (屋台續攤)"; btn.classList.remove('reset-btn'); }
+                if(status) status.innerText = "原定普通方案";
             }
         }
 
@@ -1615,14 +1738,57 @@
             const btn = document.getElementById('d6-toggle-btn');
             const status = document.getElementById('d6-plan-status');
             if(document.body.classList.contains('show-d6-opt')) {
-                btn.innerText = "返回原本普通行程";
-                btn.classList.add('reset-btn');
-                status.innerText = "選配 Optional Plan 運作中";
+                if(btn){ btn.innerText = "返回原本普通行程"; btn.classList.add('reset-btn'); }
+                if(status) status.innerText = "選配 Optional Plan 運作中";
             } else {
-                btn.innerText = "切換至選配 Optional Plan (やまちゃん)";
-                btn.classList.remove('reset-btn');
-                status.innerText = "原定普通方案";
+                if(btn){ btn.innerText = "切換至選配 Optional Plan (やまちゃん)"; btn.classList.remove('reset-btn'); }
+                if(status) status.innerText = "原定普通方案";
             }
+        }
+
+        // 新增：防重疊雙向自動切換機制 (當寬度小於 1050px 強制手機版，大於 1050px 恢復電腦版)
+        function handleResponsiveSwitch() {
+            if (window.isMobileDevice) return; // 真實手機設備不觸發此邏輯
+
+            if (window.innerWidth <= 1050 && window.currentMode === 'desktop') {
+                window.currentMode = 'mobile';
+                applyViewMode();
+            } else if (window.innerWidth > 1050 && window.currentMode === 'mobile') {
+                window.currentMode = 'desktop';
+                applyViewMode();
+            }
+        }
+        window.addEventListener('resize', handleResponsiveSwitch);
+
+        // === 全螢幕圖片檢視器 (Zoom & Pan) ===
+        let currentZoom = 1;
+        function openViewer() {
+            const viewer = document.getElementById('couponViewer');
+            if(viewer) viewer.classList.add('active');
+            document.body.style.overflow = 'hidden'; // 禁止背景滾動
+            resetZoom();
+        }
+
+        function closeViewer() {
+            const viewer = document.getElementById('couponViewer');
+            if(viewer) viewer.classList.remove('active');
+            document.body.style.overflow = ''; // 恢復背景滾動
+        }
+
+        function zoomImage(delta) {
+            currentZoom += delta;
+            if (currentZoom < 0.5) currentZoom = 0.5;
+            if (currentZoom > 4) currentZoom = 4; // 最大放大 4 倍
+            const vImg = document.getElementById('viewerImage');
+            if(vImg) vImg.style.transform = `scale(${currentZoom})`;
+        }
+
+        function resetZoom() {
+            currentZoom = 1;
+            const vImg = document.getElementById('viewerImage');
+            const vContent = document.getElementById('viewerContent');
+            if(vImg) vImg.style.transform = `scale(${currentZoom})`;
+            if(vContent) vContent.scrollTo(0,0);
         }
 
         // === 終極即時天氣引擎 ===
@@ -1682,15 +1848,18 @@
                 if(!finalized) {
                     clearTimeout(fallbackTimeout);
                     finalized = true;
-                    document.getElementById('hakata-weather').innerHTML = `
-                        <a href="https://weather.yahoo.co.jp/weather/jp/40/8210.html" target="_blank">
-                            <img class="weather-yahoo-img" src="https://play-lh.googleusercontent.com/9BEle9-LiEDn0x_WdMyMSTLSHRvj0KLavwha2cQYEu7knrlIp9XXdoOPrnXBg320NjJVq484YXpcIGtsuIz9dA" alt="Yahoo Weather">
-                            <div class="weather-text-group">
-                                <span>博多即時溫度: ${emoji} ${currentTemp}°C</span>
-                                <span style="color: rgba(255, 255, 255, 0.8); font-size: 11px;">最高: ${maxTemp}°C 最低: ${minTemp}°C | 降雨: ${rainProb}%</span>
-                            </div>
-                        </a>
-                    `;
+                    const hw = document.getElementById('hakata-weather');
+                    if(hw) {
+                        hw.innerHTML = `
+                            <a href="https://weather.yahoo.co.jp/weather/jp/40/8210.html" target="_blank">
+                                <img class="weather-yahoo-img" src="https://play-lh.googleusercontent.com/9BEle9-LiEDn0x_WdMyMSTLSHRvj0KLavwha2cQYEu7knrlIp9XXdoOPrnXBg320NjJVq484YXpcIGtsuIz9dA" alt="Yahoo Weather">
+                                <div class="weather-text-group">
+                                    <span>博多即時溫度: ${emoji} ${currentTemp}°C</span>
+                                    <span style="color: rgba(255, 255, 255, 0.8); font-size: 11px;">最高: ${maxTemp}°C 最低: ${minTemp}°C | 降雨: ${rainProb}%</span>
+                                </div>
+                            </a>
+                        `;
+                    }
                 }
             } catch (e) {
                 if(!finalized) {
@@ -1702,15 +1871,18 @@
         }
 
         function injectDefaultWeatherMetrics() {
-            document.getElementById('hakata-weather').innerHTML = `
-                <a href="https://weather.yahoo.co.jp/weather/jp/40/8210.html" target="_blank">
-                    <img class="weather-yahoo-img" src="https://play-lh.googleusercontent.com/9BEle9-LiEDn0x_WdMyMSTLSHRvj0KLavwha2cQYEu7knrlIp9XXdoOPrnXBg320NjJVq484YXpcIGtsuIz9dA" alt="Yahoo Weather">
-                    <div class="weather-text-group">
-                        <span>博多即時溫度: ☀️ 29°C</span>
-                        <span style="color: rgba(255, 255, 255, 0.8); font-size: 11px;">最高: 34°C 最低: 26°C | 降雨: 10%</span>
-                    </div>
-                </a>
-            `;
+            const hw = document.getElementById('hakata-weather');
+            if (hw) {
+                hw.innerHTML = `
+                    <a href="https://weather.yahoo.co.jp/weather/jp/40/8210.html" target="_blank">
+                        <img class="weather-yahoo-img" src="https://play-lh.googleusercontent.com/9BEle9-LiEDn0x_WdMyMSTLSHRvj0KLavwha2cQYEu7knrlIp9XXdoOPrnXBg320NjJVq484YXpcIGtsuIz9dA" alt="Yahoo Weather">
+                        <div class="weather-text-group">
+                            <span>博多即時溫度: ☀️ 29°C</span>
+                            <span style="color: rgba(255, 255, 255, 0.8); font-size: 11px;">最高: 34°C 最低: 26°C | 降雨: 10%</span>
+                        </div>
+                    </a>
+                `;
+            }
         }
 
         // === 城巴 A26 即時 ETA ===
@@ -1774,7 +1946,7 @@
                 }
             } catch (e) {
                 console.error("Citybus ETA Error:", e);
-                etaContainer.innerHTML = '<span style="font-size: 14px; color: var(--apple-red); margin-left: 8px; background: rgba(255, 59, 48, 0.1); padding: 4px 10px; border-radius: 8px; display: inline-block;">🚌 ETA 連線失敗</span>';
+                if (etaContainer) etaContainer.innerHTML = '<span style="font-size: 14px; color: var(--apple-red); margin-left: 8px; background: rgba(255, 59, 48, 0.1); padding: 4px 10px; border-radius: 8px; display: inline-block;">🚌 ETA 連線失敗</span>';
             }
         }
 
@@ -1789,23 +1961,8 @@
             
             const titleString = `2026福岡(距離行程開始: ${remainingDays}日)`;
             document.title = titleString;
-            document.getElementById('nav-header-title').innerText = titleString;
-
-            updateWeatherSourceByDays(remainingDays);
-        }
-
-        function updateWeatherSourceByDays(remainingDays) {
-            const sourceBadge = document.getElementById('weather-source-badge');
-            const sourceLinks = document.getElementById('weather-source-links');
-            if(!sourceBadge || !sourceLinks) return;
-
-            if (remainingDays > 14) {
-                sourceBadge.innerText = "遠期統計模式 (JMA 歷史大數據)";
-            } else if (remainingDays >= 7 && remainingDays <= 14) {
-                sourceBadge.innerText = "中期預報模式 (tenki.jp 2週間天氣)";
-            } else {
-                sourceBadge.innerText = "近期精確模式 (Yahoo! JAPAN 天氣)";
-            }
+            const titleEl = document.getElementById('nav-header-title');
+            if(titleEl) titleEl.innerText = titleString;
         }
 
         function updateWorldClocks() {
@@ -1821,21 +1978,21 @@
             if (clockJpn) clockJpn.innerText = jpnTime;
         }
 
+        // 安全防護機制：若有單一模組失效，不會導致整個系統當機
         document.addEventListener("DOMContentLoaded", function() {
-            applyViewMode();
-            calculateTripCountdown();
-            fetchLiveHakataWeather();
+            try { applyViewMode(); } catch(e){console.error(e);}
+            try { handleResponsiveSwitch(); } catch(e){console.error(e);}
+            try { calculateTripCountdown(); } catch(e){console.error(e);}
+            try { fetchLiveHakataWeather(); } catch(e){console.error(e);}
+            try { fetchLiveExchangeRate(); } catch(e){console.error(e);}
+            try { renderPackingList(); } catch(e){console.error(e);}
             
-            fetchLiveExchangeRate();
-            renderPackingList();
-            
-            fetchA26ETA();
+            try { fetchA26ETA(); } catch(e){console.error(e);}
             setInterval(fetchA26ETA, 60000);
 
-            updateWorldClocks();
+            try { updateWorldClocks(); } catch(e){console.error(e);}
             setInterval(updateWorldClocks, 1000);
             
-            // 初始化隱藏計算機 (除非一開始就在該分頁)
             const calcBar = document.getElementById('calc-bar');
             if (calcBar) calcBar.style.display = 'none';
         });
