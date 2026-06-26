@@ -218,6 +218,7 @@
             border-radius: 14px;
             text-align: center;
             min-width: 80px;
+            flex-shrink: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -671,6 +672,7 @@
             <button class="tab-btn special-tab" onclick="switchView(7)">🌤️<span>天氣預報</span></button>
             <button class="tab-btn special-tab" onclick="switchView(8)">🛍️<span>購物清單</span></button>
             <button class="tab-btn special-tab" onclick="switchView(9)">🧳<span>旅行物品</span></button>
+            <button class="tab-btn special-tab" onclick="switchView(10)">🎫<span>旅行資訊</span></button>
         </div>
     </div>
 
@@ -681,15 +683,14 @@
                 <div class="carousel-slide" style="background-image: url('https://static.gltjp.com/glt/data/article/22000/21091/20250808_095951_e31f2d09_w1920.webp');"></div>
                 <div class="carousel-slide" style="background-image: url('https://www.crossroadfukuoka.jp/storage/tourism_attractions/12308/responsive_images/i9rbESY9HkkCI0biRPgrsHMVavMuRD1Z4GbrSV05__1593_767.jpg');"></div>
             </div>
-            <button class="carousel-btn prev" onclick="prevImage()">&#10094;</button>
-            <button class="carousel-btn next" onclick="nextImage()">&#10095;</button>
+            <button class="carousel-btn prev" onclick="prevImage()">❮</button>
+            <button class="carousel-btn next" onclick="nextImage()">❯</button>
             <div class="carousel-dots">
                 <div class="dot active" onclick="goToImage(0)"></div>
                 <div class="dot" onclick="goToImage(1)"></div>
             </div>
         </div>
 
-        <!-- =================== DAY 1 (9/8) =================== -->
         <div id="view-0" class="view-panel active">
             <div class="dashboard-grid">
                 <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value" style="color:var(--text-secondary);">N/A</div></div>
@@ -729,7 +730,6 @@
             </div>
         </div>
 
-        <!-- =================== DAY 2 (10/8) =================== -->
         <div id="view-1" class="view-panel">
             <div class="dashboard-grid">
                 <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">07:30</div></div>
@@ -774,7 +774,6 @@
             </div>
         </div>
 
-        <!-- =================== DAY 3 (11/8) =================== -->
         <div id="view-2" class="view-panel">
             <div class="dashboard-grid">
                 <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">09:00</div></div>
@@ -808,23 +807,23 @@
                     <div id="acc-d3-main-inner-node" class="accordion-content">
                         <p class="sub-item"><a href="https://tabelog.com/fukuoka/A4001/A400103/40062177/" target="_blank">I'm donut? 福岡店</a> <a href="https://www.google.com/maps/search/?api=1&query=I'm donut? 福岡店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" style="height: 130px; max-height: 130px;" src="https://fathom-design.jp/wp/wp-content/uploads/2022/06/logo-1.jpg" alt="I'm Donut"></p>
                         <p class="sub-item">大丸福岡天神店 <a href="https://www.google.com/maps/search/?api=1&query=大丸 福岡天神店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/1/16/Daimaru_Logo_full.svg" alt="Daimaru"></p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://kiti-coltd.com/wp-content/uploads/2024/06/muji-logo.png" target="_blank">無印良品 大丸福岡天神</a> <img class="inline-sub-logo" src="https://kiti-coltd.com/wp-content/uploads/2024/06/muji-logo.png" alt="Muji"></p>
+                        <p class="sub-item">    <a href="https://kiti-coltd.com/wp-content/uploads/2024/06/muji-logo.png" target="_blank">無印良品 大丸福岡天神</a> <img class="inline-sub-logo" src="https://kiti-coltd.com/wp-content/uploads/2024/06/muji-logo.png" alt="Muji"></p>
                         <p class="sub-item">天神地下街</p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.yoshidakaban.com/zh-CHT/shopinfo/kurachika/fukuoka/" target="_blank">KURA CHIKA by PORTER FUKUOKA</a> <img class="inline-sub-logo" src="https://hansengarmentsstore.com/cdn/shop/collections/download.webp?v=1692634430" alt="Porter"></p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.biccamera.com/bc/i/shop/shoplist/shop026.jsp" target="_blank">ビックカメラ天神1號館</a> <a href="https://www.google.com/maps/search/?api=1&query=BIC CAMERA 天神1號館" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://www.cubicplaza.com/wp-content/uploads/2019/08/logo-2597.png" alt="Bic"></p>
+                        <p class="sub-item">    <a href="https://www.yoshidakaban.com/zh-CHT/shopinfo/kurachika/fukuoka/" target="_blank">KURA CHIKA by PORTER FUKUOKA</a> <img class="inline-sub-logo" src="https://hansengarmentsstore.com/cdn/shop/collections/download.webp?v=1692634430" alt="Porter"></p>
+                        <p class="sub-item">    <a href="https://www.biccamera.com/bc/i/shop/shoplist/shop026.jsp" target="_blank">ビックカメラ天神1號館</a> <a href="https://www.google.com/maps/search/?api=1&query=BIC CAMERA 天神1號館" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://www.cubicplaza.com/wp-content/uploads/2019/08/logo-2597.png" alt="Bic"></p>
                         <p class="sub-item"><a href="https://tabelog.com/fukuoka/A4001/A400103/40040601/" target="_blank">田中田式海鮮食堂 魚忠</a>(12:30-13:30) <a href="https://www.google.com/maps/search/?api=1&query=魚忠" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
                         <p class="sub-item">天神地下街</p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://buttersand.com/store/list/?area[]=kyushu" target="_blank">PRESS BUTTER SAND 天神地下街店</a> <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS"></p>
+                        <p class="sub-item">    <a href="https://buttersand.com/store/list/?area[]=kyushu" target="_blank">PRESS BUTTER SAND 天神地下街店</a> <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-Kkhca9LYDVK0ewUPunzsnnU1VRaVkspQQ&s" alt="PBS"></p>
                         <p class="sub-item">福岡PARCO</p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.azumabag.jp/" target="_blank">AZUMA 旗艦店 unshop</a> <img class="inline-sub-logo" src="https://www.azumabag.jp/cdn/shop/files/azuma_logo1.png?v=1689419564&width=600" alt="Azuma"></p>
+                        <p class="sub-item">    <a href="https://www.azumabag.jp/" target="_blank">AZUMA 旗艦店 unshop</a> <img class="inline-sub-logo" src="https://www.azumabag.jp/cdn/shop/files/azuma_logo1.png?v=1689419564&width=600" alt="Azuma"></p>
                         <p class="sub-item">天神地下街</p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;TRUFFLE Bakery 天神地下街店 <img class="inline-sub-logo" src="https://ifc.com.hk/tc/media/TruffleBAKERY_03.png" alt="Truffle"></p>
+                        <p class="sub-item">    TRUFFLE Bakery 天神地下街店 <img class="inline-sub-logo" src="https://ifc.com.hk/tc/media/TruffleBAKERY_03.png" alt="Truffle"></p>
                         <p class="sub-item">Mina 天神</p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.palcloset.jp/addons/pal/shoplist/detail/?brandshop_no=2643&b=3coins" target="_blank">3COINS +plus ミーナ天神店</a> <img class="inline-sub-logo" src="https://mitsui-shopping-park.com/lalaport/tokyo-bay/shopguide/2359593/image1.jpg" alt="3Coins"></p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://map.uniqlo.com/jp/ja/detail/10101803" target="_blank">ユニクロ 天神店</a> <img class="inline-sub-logo" src="https://e7.pngegg.com/pngimages/503/276/png-clipart-nex-singapore-regent-street-uniqlo-retail-clothing-nike-miscellaneous-text-thumbnail.png" alt="Uniqlo"></p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://shop.seria-group.com/seria/info/000002787?addresscode=40133" target="_blank">Seria ミーナ天神店</a></p>
+                        <p class="sub-item">    <a href="https://www.palcloset.jp/addons/pal/shoplist/detail/?brandshop_no=2643&b=3coins" target="_blank">3COINS +plus ミーナ天神店</a> <img class="inline-sub-logo" src="https://mitsui-shopping-park.com/lalaport/tokyo-bay/shopguide/2359593/image1.jpg" alt="3Coins"></p>
+                        <p class="sub-item">    <a href="https://map.uniqlo.com/jp/ja/detail/10101803" target="_blank">ユニクロ 天神店</a> <img class="inline-sub-logo" src="https://e7.pngegg.com/pngimages/503/276/png-clipart-nex-singapore-regent-street-uniqlo-retail-clothing-nike-miscellaneous-text-thumbnail.png" alt="Uniqlo"></p>
+                        <p class="sub-item">    <a href="https://shop.seria-group.com/seria/info/000002787?addresscode=40133" target="_blank">Seria ミーナ天神店</a></p>
                         <p class="sub-item">ONE FUKUOKA BLDG.</p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://store.tsite.jp/fukuoka-tenjin/" target="_blank">福岡天神 蔦屋書店</a> <img class="inline-sub-logo" src="https://store.tsite.jp/static_contents/site/tsite/portal/img/og.jpg" alt="Tsutaya"></p>
+                        <p class="sub-item">    <a href="https://store.tsite.jp/fukuoka-tenjin/" target="_blank">福岡天神 蔦屋書店</a> <img class="inline-sub-logo" src="https://store.tsite.jp/static_contents/site/tsite/portal/img/og.jpg" alt="Tsutaya"></p>
                         <p class="sub-item"><a href="https://www.nike.com/jp/retail/s/nikep-fukuoka-tenjin" target="_blank">Nike Fukuoka Tenjin</a> <a href="https://www.google.com/maps/search/?api=1&query=Nike Fukuoka Tenjin" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" style="max-width: 128px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1280px-Logo_NIKE.svg.png" alt="Nike"></p>
                         <div class="shopping-tag-list" style="margin-top: 14px;"><div class="shopping-tag alert" style="font-size:16px;">⚠️ 當日為日本公眾假期「山之日」，人潮預計大幅增加</div></div>
                     </div>
@@ -837,7 +836,6 @@
             </div>
         </div>
 
-        <!-- =================== DAY 4 (12/8) =================== -->
         <div id="view-3" class="view-panel">
             <div class="dashboard-grid">
                 <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">07:25</div></div>
@@ -866,10 +864,10 @@
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d4-mall-node')">博多</h3>
                     <div id="acc-d4-mall-node" class="accordion-content">
                         <p class="sub-item">博多阪急</p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">IM MEN 博多阪急</a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://uk.isseymiyake.com/cdn/shop/t/106/assets/exp-immen_logobox.png?v=6638328696964336641775124216" alt="IM MEN"></p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">HOMME PLISSÉ ISSEY MIYAKE 博多阪急</a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg?v=1743185807" alt="Homme Plisse"></p>
+                        <p class="sub-item">    <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">IM MEN 博多阪急</a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://uk.isseymiyake.com/cdn/shop/t/106/assets/exp-immen_logobox.png?v=6638328696964336641775124216" alt="IM MEN"></p>
+                        <p class="sub-item">    <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">HOMME PLISSÉ ISSEY MIYAKE 博多阪急</a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg?v=1743185807" alt="Homme Plisse"></p>
                         <p class="sub-item">AMU PLAZA博多</p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.nintendo.com/jp/officialstore/index.html" target="_blank">Nintendo FUKUOKA</a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://www.jrhakatacity.com.t.bv.hp.transer.com/uploads/images/resized/390x390/jrhakatacity/000002/000002/7a6e2c01.png" alt="Nintendo"></p>
+                        <p class="sub-item">    <a href="https://www.nintendo.com/jp/officialstore/index.html" target="_blank">Nintendo FUKUOKA</a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://www.jrhakatacity.com.t.bv.hp.transer.com/uploads/images/resized/390x390/jrhakatacity/000002/000002/7a6e2c01.png" alt="Nintendo"></p>
                         <p class="sub-item">KITTE博多</p>
                         <p class="sub-item"><a href="https://www.yodobashi.com/ec/store/0088/" target="_blank">ヨドバシカメラ マルチメディア博多</a> <a href="https://www.google.com/maps/search/?api=1&query=Yodobashi 友都八喜 博多" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Yodobashi-Camera_logo.png" alt="Yodobashi"></p>
                     </div>
@@ -881,7 +879,6 @@
             </div>
         </div>
 
-        <!-- =================== DAY 5 (13/8) =================== -->
         <div id="view-4" class="view-panel">
             <div class="dashboard-grid">
                 <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">06:45</div></div>
@@ -924,7 +921,6 @@
             </div>
         </div>
 
-        <!-- =================== DAY 6 (14/8) =================== -->
         <div id="view-5" class="view-panel">
             <div class="dashboard-grid">
                 <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">08:15</div></div>
@@ -968,8 +964,8 @@
                     <div id="acc-d6-main-inner-node" class="accordion-content">
                         <p class="sub-item"><a href="https://www.kaneko-optical.co.jp/shop_detail/73" target="_blank">金子眼鏡店 天神VIORO店</a> <a href="https://www.google.com/maps/search/?api=1&query=金子眼鏡店 天神VIORO店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://www.puyi.cn/pub/media/amasty/shopby/option_images/slider/Logo_KANEKO_OPTICAL_1.png" alt="Kaneko"></p>
                         <p class="sub-item">岩田屋本店 <a href="https://www.google.com/maps/search/?api=1&query=Iwataya Main Store" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://shiro-shiro.jp/ec/ext/shop/shiro-iwataya/index.html?srsltid=AfmBOooa8smS0I3pRaMB76AEOJIqbV3MbTwnEMpA2SE2JLPXLUvdZMQ6" target="_blank">SHIRO 岩田屋店</a> <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKOjmIF-kBiCpkKlF1eeSETaH0M_e9EZ-MwA&s" alt="SHIRO"></p>
-                        <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">ISSEY MIYAKE 岩田屋本店</a> <img class="inline-sub-logo" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="Issey Miyake"></p>
+                        <p class="sub-item">    <a href="https://shiro-shiro.jp/ec/ext/shop/shiro-iwataya/index.html?srsltid=AfmBOooa8smS0I3pRaMB76AEOJIqbV3MbTwnEMpA2SE2JLPXLUvdZMQ6" target="_blank">SHIRO 岩田屋店</a> <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKOjmIF-kBiCpkKlF1eeSETaH0M_e9EZ-MwA&s" alt="SHIRO"></p>
+                        <p class="sub-item">    <a href="https://www.isseymiyake.com/pages/storesdetail" target="_blank">ISSEY MIYAKE 岩田屋本店</a> <img class="inline-sub-logo" src="https://logolook.net/wp-content/uploads/2024/05/Issey-Miyake-Logo-1989.png" alt="Issey Miyake"></p>
                         <p class="sub-item"><a href="https://tabelog.com/fukuoka/A4001/A400103/40035496/" target="_blank">元祖赤のれん 節ちゃんラーメン 天神本店</a>(12:00-13:00) <a href="https://www.google.com/maps/search/?api=1&query=Ganso Akanoren Setchan Ramen Tenjin" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
                         <p class="sub-item"><a href="https://www.humanmade.jp/dealers.html" target="_blank">HUMAN MADE FUKUOKA</a> <a href="https://www.google.com/maps/search/?api=1&query=HUMAN MADE 福岡" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://images.seeklogo.com/logo-png/48/1/humanmade-heart-logo-png_seeklogo-486066.png" alt="Human Made"></p>
                         <p class="sub-item"><a href="https://catmocha.jp/shop/tenjindaimyo/" target="_blank">猫カフェMOCHA 天神大名店</a> <a href="https://www.google.com/maps/search/?api=1&query=CAT CAFE MOCHA Tenjin Daimyo Store" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
@@ -1005,7 +1001,6 @@
             </div>
         </div>
 
-        <!-- =================== DAY 7 (15/8) =================== -->
         <div id="view-6" class="view-panel">
             <div class="dashboard-grid">
                 <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">08:40</div></div>
@@ -1039,7 +1034,6 @@
             </div>
         </div>
 
-        <!-- =================== 🌤️ LIVE WEATHER ENGINE PANELS =================== -->
         <div id="view-7" class="view-panel">
             <div class="timeline-section">
                 <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:14px; margin-bottom:18px; flex-wrap: wrap; gap: 12px;">
@@ -1073,7 +1067,6 @@
             </div>
         </div>
 
-        <!-- =================== 🛍️ WISHLIST PANELS =================== -->
         <div id="view-8" class="view-panel">
             
             <h2 class="wishlist-section-title">🛒 購物清單</h2>
@@ -1321,17 +1314,36 @@
             </div>
         </div>
 
-        <!-- =================== 🧳 PACKING LIST =================== -->
         <div id="view-9" class="view-panel">
             <h2 class="wishlist-section-title">🧳 旅行物品清單</h2>
             <div class="packing-list-grid" id="packing-container">
-                <!-- Javascript will render items here -->
+                </div>
+        </div>
+
+        <div id="view-10" class="view-panel">
+            <h2 class="wishlist-section-title">🎫 旅行資訊</h2>
+            
+            <div class="store-group-container">
+                <div class="store-title">
+                    <span>優惠卷</span>
+                </div>
+                <div style="text-align: center;">
+                    <img src="https://www.hkt.com/assets/HKTCorpsite/files/consumer/Bic-Camera-2026/NowTV/image/barcode-TC.jpg" alt="優惠卷" style="max-width: 100%; height: auto; border-radius: 12px;">
+                </div>
+            </div>
+
+            <div class="store-group-container">
+                <div class="store-title">
+                    <span>YouTube</span>
+                </div>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000;">
+                    <iframe src="https://www.youtube.com/embed/videoseries?si=qCy0f-NRt8oQotH8&list=PLEhRVuV6ta-0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                </div>
             </div>
         </div>
 
     </div>
 
-    <!-- Sticky Calculator -->
     <div class="calculator-sticky-bar" id="calc-bar" style="display: none;">
         <div class="calc-info">
             <span class="calc-items-count" id="calc-count">已選擇 0 項商品</span>
