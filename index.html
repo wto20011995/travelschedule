@@ -491,10 +491,10 @@
         .qty-input { width: 40px; text-align: center; border: none; background: transparent; font-size: 16px; font-weight: 600; color: var(--text-main); -moz-appearance: textfield; }
         .qty-input::-webkit-outer-spin-button, .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         
-        .wishlist-row-img-frame { width: 140px; height: 140px; display: flex; align-items: center; justify-content: center; background: #fafafa; border-radius: 12px; padding: 8px; margin-left: 20px; flex-shrink: 0; }
+        .wishlist-row-img-frame { width: 140px; height: 140px; display: flex; align-items: center; justify-content: center; background: #fafafa; border-radius: 12px; padding: 8px; margin-left: 20px; flex-shrink: 0; cursor: pointer;}
         body.dark-theme .wishlist-row-img-frame { background: #2c2c2e; }
-        .wishlist-row-img-frame img { max-width: 100%; max-height: 100%; object-fit: cover; border-radius: 8px; cursor: pointer; transition: transform 0.2s ease; }
-        .wishlist-row-img-frame img:hover { transform: scale(1.05); }
+        .wishlist-row-img-frame img { max-width: 100%; max-height: 100%; object-fit: cover; border-radius: 8px; transition: transform 0.2s ease;}
+        .wishlist-row-img-frame:hover img { transform: scale(1.05); }
         .wishlist-row-img-frame.enlarge-20 { width: 168px; height: 168px; }
 
         .calculator-sticky-bar {
@@ -536,7 +536,7 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
-        /* 全螢幕圖片檢視器樣式 (增強版拖曳功能) */
+        /* 全螢幕圖片檢視器樣式 */
         .fullscreen-viewer {
             display: none;
             position: fixed;
@@ -577,11 +577,11 @@
         }
         .viewer-content {
             flex: 1;
-            overflow: hidden; /* 隱藏滾動條，使用純 CSS Transform 拖曳 */
+            overflow: hidden; /* 隱藏滾動條，使用自訂拖曳 */
             display: flex;
             align-items: center;
             justify-content: center;
-            touch-action: none; /* 禁用預設手勢，支援純自訂拖曳 */
+            touch-action: none; /* 禁用預設手勢，支援完全自訂的滑動 */
             cursor: grab;
         }
         .viewer-content.is-dragging {
@@ -589,14 +589,13 @@
         }
         .viewer-content img {
             max-width: 100%;
-            max-height: 100%;
             transition: transform 0.25s ease;
             transform-origin: center center;
             user-select: none;
-            -webkit-user-drag: none; /* 防止原生圖片拖曳 */
+            -webkit-user-drag: none; /* 防止圖片原生拖曳干擾 */
         }
         .viewer-content.is-dragging img {
-            transition: none !important; /* 拖曳時取消動畫，達到 0 延遲跟手 */
+            transition: none !important; /* 拖曳時無延遲跟手 */
         }
         .viewer-controls {
             position: absolute;
@@ -666,8 +665,8 @@
             .nav-container { display: block; position: relative; width: 100%; height: 86px; padding: 0; }
             .nav-left-section { position: absolute; bottom: 8px; left: 12px; top: auto; width: auto; }
             
-            /* 手機版靠左並省略，徹底防重疊，置中 */
-            .nav-center-title { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); max-width: calc(100vw - 180px); text-align: center; font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #f5f5f7; z-index: 5;}
+            /* 手機版靠左並省略，徹底防重疊 */
+            .nav-center-title { position: absolute; top: 16px; left: 12px; transform: none; max-width: calc(100% - 90px); text-align: left; font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #f5f5f7; z-index: 5;}
             
             .nav-controls-right { display: contents; }
             .view-mode-btn { position: absolute; top: 12px; right: 12px; height: 28px; padding: 0 10px; font-size: 11px; z-index: 10; }
@@ -683,7 +682,7 @@
             .tax-toggle-btn { font-size: 13px; padding: 10px 16px; }
         }
 
-        /* 強制手機版的 CSS 亦同步包含安全空間防重疊，維持置中 */
+        /* 強制手機版的 CSS 亦同步包含靠左省略 */
         body.forced-mobile-mode { padding-top: 87px; padding-bottom: 280px; }
         body.forced-mobile-mode .main-container { max-width: 600px; margin: 0 auto; }
         body.forced-mobile-mode .carousel-container { height: 220px !important; }
@@ -713,7 +712,7 @@
         body.forced-mobile-mode .weather-table th, body.forced-mobile-mode .weather-table td { font-size: 14px !important; padding: 8px 6px !important; }
         body.forced-mobile-mode .nav-container { display: block; position: relative; width: 100%; height: 86px; padding: 0; }
         body.forced-mobile-mode .nav-left-section { position: absolute; bottom: 8px; left: 12px; top: auto; width: auto; }
-        body.forced-mobile-mode .nav-center-title { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); max-width: calc(100vw - 180px); text-align: center; font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #f5f5f7; z-index: 5;}
+        body.forced-mobile-mode .nav-center-title { position: absolute; top: 16px; left: 12px; transform: none; max-width: calc(100% - 90px); text-align: left; font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #f5f5f7; z-index: 5;}
         body.forced-mobile-mode .nav-controls-right { display: contents; }
         body.forced-mobile-mode .view-mode-btn { position: absolute; top: 12px; right: 12px; height: 28px; padding: 0 10px; font-size: 11px; z-index: 10; }
         body.forced-mobile-mode .live-weather-widget { position: absolute; top: 46px; right: 12px; height: 32px; padding: 0 8px 0 0; z-index: 10; display: flex; align-items: center; }
@@ -1001,13 +1000,14 @@
                     </div>
                 </div></div></div>
                 <div class="timeline-item"><div class="time-box">13:50 - 14:07</div><div class="content-box"><div class="text-block"><p>相島 → 新宮</p></div></div></div>
-                <div class="timeline-item"><div class="time-box">14:29 - 14:40</div><div class="content-box"><div class="text-block"><p>新宮港 → 福工大前駅</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">14:29 - 14:40</div><div class="content-box"><div class="text-block"><p>相島渡船場 → 福工大前駅 [マリンクス:相らんど線第２ルート［逆回り］(ＪＲ福工大前駅行)]</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">14:48 - 14:57</div><div class="content-box"><div class="text-block"><p>福工大前 → 福間</p></div></div></div>
-                <div class="timeline-item"><div class="time-box">15:20 - 15:26</div><div class="content-box"><div class="text-block"><p>福間駅前 → 宮地嶽神社前</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">15:20 - 15:26</div><div class="content-box"><div class="text-block"><p>福間駅前 → 宮地嶽神社前 [西鉄バス]１－１［津屋崎橋～光陽台］(津屋崎橋行)</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">15:26 - 15:59</div><div class="content-box"><div class="text-block"><p><a href="https://www.crossroadfukuoka.jp/tw/spot/10236" target="_blank">宮地嶽神社</a> <a href="https://www.google.com/maps/search/?api=1&query=宮地嶽神社" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p></div></div></div>
                 <div class="timeline-item"><div class="time-box">15:59 - 16:06</div><div class="content-box"><div class="text-block"><p>宮地嶽神社前 → 福間駅前</p></div></div></div>
-                <div class="timeline-item"><div class="time-box">16:17 - 17:00</div><div class="content-box"><div class="text-block"><p>福間 → 天神</p></div></div></div>
-                <div class="timeline-item"><div class="time-box">17:00 - 20:30</div><div class="content-box"><div class="text-block">
+                <div class="timeline-item"><div class="time-box">16:17 - 16:48</div><div class="content-box"><div class="text-block"><p>福間 → 博多</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">16:59 - 17:04</div><div class="content-box"><div class="text-block"><p>博多 → 天神</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">17:04 - 20:30</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d5-1')">天神</h3>
                     <div id="acc-d5-1" class="accordion-content">
                         <p class="sub-item"><a href="https://standardproducts.jp/pages/store?id=001656" target="_blank">Standard Products ラシック福岡天神店</a> <a href="https://www.google.com/maps/search/?api=1&query=Standard Products ラシック福岡天神店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw6XiKxMXKhlyP6ddl40RAPSsodG5tBJw0gQ&s" alt="Standard Products"></p>
@@ -1195,7 +1195,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Zeiss_logo.svg" alt="Zeiss" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://upload.wikimedia.org/wikipedia/commons/9/95/Zeiss_logo.svg')"><img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Zeiss_logo.svg" alt="Zeiss"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
@@ -1213,7 +1213,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://camas-d-centerrace-images.s3.ap-northeast-1.amazonaws.com/content/1988_file_df8f6df92dfd92ff00eb4e009b27512b77340eb4_thumb.jpg" alt="Anti Fog" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://camas-d-centerrace-images.s3.ap-northeast-1.amazonaws.com/content/1988_file_df8f6df92dfd92ff00eb4e009b27512b77340eb4_thumb.jpg')"><img src="https://camas-d-centerrace-images.s3.ap-northeast-1.amazonaws.com/content/1988_file_df8f6df92dfd92ff00eb4e009b27512b77340eb4_thumb.jpg" alt="Anti Fog"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
@@ -1231,7 +1231,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://vioro.jp/cms/wp-content/uploads/2020/07/IMG_7035.jpg" alt="Lens Cleaner" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://vioro.jp/cms/wp-content/uploads/2020/07/IMG_7035.jpg')"><img src="https://vioro.jp/cms/wp-content/uploads/2020/07/IMG_7035.jpg" alt="Lens Cleaner"></div>
                 </div>
             </div>
 
@@ -1256,7 +1256,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame enlarge-20"><img src="https://marukoblog.tw/wp-content/uploads/2019/11/PRESS-BUTTER-SAND-_2.jpg" alt="PBS" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame enlarge-20" onclick="openViewer('https://marukoblog.tw/wp-content/uploads/2019/11/PRESS-BUTTER-SAND-_2.jpg')"><img src="https://marukoblog.tw/wp-content/uploads/2019/11/PRESS-BUTTER-SAND-_2.jpg" alt="PBS"></div>
                 </div>
             </div>
             
@@ -1281,7 +1281,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://shiro-shiro.jp/ec/product_images/13410/13410.jpg" alt="SHIRO Body Mist" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://shiro-shiro.jp/ec/product_images/13410/13410.jpg')"><img src="https://shiro-shiro.jp/ec/product_images/13410/13410.jpg" alt="SHIRO Body Mist"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
@@ -1299,7 +1299,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://shiro-shiro.jp/ec/product_images/12917/12917.jpg" alt="SHIRO Diffuser" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://shiro-shiro.jp/ec/product_images/12917/12917.jpg')"><img src="https://shiro-shiro.jp/ec/product_images/12917/12917.jpg" alt="SHIRO Diffuser"></div>
                 </div>
             </div>
 
@@ -1326,7 +1326,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61JF153-m-02.jpg?v=1769733169&width=1946" alt="Homme Plisse" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://www.isseymiyake.com/cdn/shop/files/HP61JF153-m-02.jpg?v=1769733169&width=1946')"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61JF153-m-02.jpg?v=1769733169&width=1946" alt="Homme Plisse"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
@@ -1344,7 +1344,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61JK063-m-01.jpg?v=1780041552&width=1946" alt="Homme Plisse" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://www.isseymiyake.com/cdn/shop/files/HP61JK063-m-01.jpg?v=1780041552&width=1946')"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61JK063-m-01.jpg?v=1780041552&width=1946" alt="Homme Plisse"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
@@ -1362,7 +1362,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61FF183-m-01.jpg?v=1772152983&width=1946" alt="Homme Plisse" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://www.isseymiyake.com/cdn/shop/files/HP61FF183-m-01.jpg?v=1772152983&width=1946')"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61FF183-m-01.jpg?v=1772152983&width=1946" alt="Homme Plisse"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
@@ -1380,7 +1380,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61AJ480-m-02.jpg?v=1772152869&width=1946" alt="Homme Plisse Shoes" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://www.isseymiyake.com/cdn/shop/files/HP61AJ480-m-02.jpg?v=1772152869&width=1946')"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61AJ480-m-02.jpg?v=1772152869&width=1946" alt="Homme Plisse Shoes"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
@@ -1398,7 +1398,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61JK053-m-01.jpg?v=1777509414&width=1946" alt="Homme Plisse Top" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://www.isseymiyake.com/cdn/shop/files/HP61JK053-m-01.jpg?v=1777509414&width=1946')"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61JK053-m-01.jpg?v=1777509414&width=1946" alt="Homme Plisse Top"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
@@ -1416,7 +1416,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/HP63JK246-m-03.jpg?v=1782780109&width=1946" alt="Homme Plisse Top" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://www.isseymiyake.com/cdn/shop/files/HP63JK246-m-03.jpg?v=1782780109&width=1946')"><img src="https://www.isseymiyake.com/cdn/shop/files/HP63JK246-m-03.jpg?v=1782780109&width=1946" alt="Homme Plisse Top"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
@@ -1434,7 +1434,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/HP63JF247-m-03.jpg?v=1782780228&width=1946" alt="Homme Plisse Pants" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://www.isseymiyake.com/cdn/shop/files/HP63JF247-m-03.jpg?v=1782780228&width=1946')"><img src="https://www.isseymiyake.com/cdn/shop/files/HP63JF247-m-03.jpg?v=1782780228&width=1946" alt="Homme Plisse Pants"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
@@ -1452,7 +1452,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/HP63JL071-m-01.jpg?v=1782780243&width=1946" alt="Homme Plisse Hoodie" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://www.isseymiyake.com/cdn/shop/files/HP63JL071-m-01.jpg?v=1782780243&width=1946')"><img src="https://www.isseymiyake.com/cdn/shop/files/HP63JL071-m-01.jpg?v=1782780243&width=1946" alt="Homme Plisse Hoodie"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
@@ -1470,7 +1470,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/LA63FC061-m-02.jpg?v=1782780004&width=1946" alt="IM MEN Jacket" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://www.isseymiyake.com/cdn/shop/files/LA63FC061-m-02.jpg?v=1782780004&width=1946')"><img src="https://www.isseymiyake.com/cdn/shop/files/LA63FC061-m-02.jpg?v=1782780004&width=1946" alt="IM MEN Jacket"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
@@ -1488,7 +1488,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/LA63FF062-m-02.jpg?v=1782779994&width=1946" alt="IM MEN Pants" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://www.isseymiyake.com/cdn/shop/files/LA63FF062-m-02.jpg?v=1782779994&width=1946')"><img src="https://www.isseymiyake.com/cdn/shop/files/LA63FF062-m-02.jpg?v=1782779994&width=1946" alt="IM MEN Pants"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
@@ -1506,7 +1506,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/LA63FJ051-m-02.jpg?v=1782779997&width=1946" alt="IM MEN Shirt" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://www.isseymiyake.com/cdn/shop/files/LA63FJ051-m-02.jpg?v=1782779997&width=1946')"><img src="https://www.isseymiyake.com/cdn/shop/files/LA63FJ051-m-02.jpg?v=1782779997&width=1946" alt="IM MEN Shirt"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
@@ -1524,7 +1524,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61JF044-m-01.jpg?v=1774917156&width=1946" alt="Homme Plisse Shorts" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://www.isseymiyake.com/cdn/shop/files/HP61JF044-m-01.jpg?v=1774917156&width=1946')"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61JF044-m-01.jpg?v=1774917156&width=1946" alt="Homme Plisse Shorts"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
@@ -1542,7 +1542,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61JK236-m-02.jpg?v=1780014909&width=1946" alt="Homme Plisse Top" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://www.isseymiyake.com/cdn/shop/files/HP61JK236-m-02.jpg?v=1780014909&width=1946')"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61JK236-m-02.jpg?v=1780014909&width=1946" alt="Homme Plisse Top"></div>
                 </div>
                 <div class="wishlist-item-row">
                     <div class="wishlist-item-left">
@@ -1560,7 +1560,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61JC021-m-03.jpg?v=1769759214&width=1946" alt="Homme Plisse Jacket" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://www.isseymiyake.com/cdn/shop/files/HP61JC021-m-03.jpg?v=1769759214&width=1946')"><img src="https://www.isseymiyake.com/cdn/shop/files/HP61JC021-m-03.jpg?v=1769759214&width=1946" alt="Homme Plisse Jacket"></div>
                 </div>
             </div>
             
@@ -1585,7 +1585,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://image.biccamera.com/img/00000011773079_A01.jpg?sr.dw=600&sr.jqh=60&sr.dh=600&sr.mat=1" alt="Panasonic LAMDASH" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://image.biccamera.com/img/00000011773079_A01.jpg?sr.dw=600&sr.jqh=60&sr.dh=600&sr.mat=1')"><img src="https://image.biccamera.com/img/00000011773079_A01.jpg?sr.dw=600&sr.jqh=60&sr.dh=600&sr.mat=1" alt="Panasonic LAMDASH"></div>
                 </div>
             </div>
 
@@ -1610,7 +1610,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://static.swatch.com/images/product/SSX03L103N/sa000/SSX03L103N_sa000_er003m.png" alt="Swatch ORENJI" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://static.swatch.com/images/product/SSX03L103N/sa000/SSX03L103N_sa000_er003m.png')"><img src="https://static.swatch.com/images/product/SSX03L103N/sa000/SSX03L103N_sa000_er003m.png" alt="Swatch ORENJI"></div>
                 </div>
             </div>
 
@@ -1635,7 +1635,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wishlist-row-img-frame"><img src="https://image.uniqlo.com/UQ/ST3/jp/imagesgoods/492557/sub/jpgoods_492557_sub6_3x4.jpg?width=400" alt="Uniqlo Shirt" onclick="openViewer(this.src)"></div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://image.uniqlo.com/UQ/ST3/jp/imagesgoods/492557/sub/jpgoods_492557_sub6_3x4.jpg?width=400')"><img src="https://image.uniqlo.com/UQ/ST3/jp/imagesgoods/492557/sub/jpgoods_492557_sub6_3x4.jpg?width=400" alt="Uniqlo Shirt"></div>
                 </div>
             </div>
 
@@ -1658,7 +1658,7 @@
                     <span>優惠卷</span>
                 </div>
                 <div style="text-align: center;">
-                    <img src="https://www.taxfreeshops.jp/img/tieup2/coupon_zhtw.jpg?202508" alt="優惠卷" style="max-width: 100%; height: auto; border-radius: 12px; cursor: pointer;" onclick="openViewer(this.src)">
+                    <img src="https://www.taxfreeshops.jp/img/tieup2/coupon_zhtw.jpg?202508" alt="優惠卷" style="max-width: 100%; height: auto; border-radius: 12px; cursor: pointer;" onclick="openViewer('https://www.taxfreeshops.jp/img/tieup2/coupon_zhtw.jpg?202508')">
                     <p style="margin-top: 12px; font-size: 14px; color: var(--apple-blue); cursor: pointer; font-weight: 500;" onclick="openViewer('https://www.taxfreeshops.jp/img/tieup2/coupon_zhtw.jpg?202508')">🔍 點擊圖片放大全螢幕查看</p>
                 </div>
             </div>
@@ -1945,7 +1945,7 @@
             applyViewMode();
         }
 
-        // 新增：防重疊雙向自動切換機制 (當寬度小於 1050px 強制手機版，大於 1050px 恢復電腦版)
+        // 防重疊雙向自動切換機制 (當寬度小於 1050px 強制手機版，大於 1050px 恢復電腦版)
         function handleResponsiveSwitch() {
             if (window.isMobileDevice) return; // 真實手機設備不觸發此邏輯
 
@@ -2195,7 +2195,8 @@
             
             const titleString = `2026福岡(距離行程開始: ${remainingDays}日)`;
             document.title = titleString;
-            document.getElementById('nav-header-title').innerText = titleString;
+            const navTitle = document.getElementById('nav-header-title');
+            if (navTitle) navTitle.innerText = titleString;
 
             updateWeatherSourceByDays(remainingDays);
         }
@@ -2217,30 +2218,41 @@
         function updateWorldClocks() {
             const now = new Date();
             const options = { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
-            const hkgTime = now.toLocaleTimeString('en-GB', { ...options, timeZone: 'Asia/Hong_Kong' });
-            const jpnTime = now.toLocaleTimeString('en-GB', { ...options, timeZone: 'Asia/Tokyo' });
             
-            const clockHkg = document.getElementById('clock-hkg');
-            const clockJpn = document.getElementById('clock-jpn');
-            
-            if (clockHkg) clockHkg.innerText = hkgTime;
-            if (clockJpn) clockJpn.innerText = jpnTime;
+            try {
+                const hkgTime = now.toLocaleTimeString('en-GB', { ...options, timeZone: 'Asia/Hong_Kong' });
+                const jpnTime = now.toLocaleTimeString('en-GB', { ...options, timeZone: 'Asia/Tokyo' });
+                
+                const clockHkg = document.getElementById('clock-hkg');
+                const clockJpn = document.getElementById('clock-jpn');
+                
+                if (clockHkg) clockHkg.innerText = hkgTime;
+                if (clockJpn) clockJpn.innerText = jpnTime;
+            } catch (e) {
+                console.error("Clock update failed:", e);
+            }
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            applyViewMode();
-            handleResponsiveSwitch(); // 初始化檢查防重疊
-            calculateTripCountdown();
-            fetchLiveHakataWeather();
-            
-            fetchLiveExchangeRate();
-            renderPackingList();
-            
-            fetchA26ETA();
-            setInterval(fetchA26ETA, 60000);
+            try {
+                applyViewMode();
+                handleResponsiveSwitch(); // 初始化檢查防重疊
+            } catch(e) { console.error(e); }
 
-            updateWorldClocks();
-            setInterval(updateWorldClocks, 1000);
+            try { calculateTripCountdown(); } catch(e) { console.error(e); }
+            try { fetchLiveHakataWeather(); } catch(e) { console.error(e); }
+            try { fetchLiveExchangeRate(); } catch(e) { console.error(e); }
+            try { renderPackingList(); } catch(e) { console.error(e); }
+            
+            try { 
+                fetchA26ETA();
+                setInterval(fetchA26ETA, 60000);
+            } catch(e) { console.error(e); }
+
+            try {
+                updateWorldClocks();
+                setInterval(updateWorldClocks, 1000);
+            } catch(e) { console.error(e); }
             
             // 初始化隱藏計算機 (除非一開始就在該分頁)
             const calcBar = document.getElementById('calc-bar');
@@ -2250,51 +2262,53 @@
             const viewerContent = document.getElementById('viewerContent');
             const viewerImage = document.getElementById('viewerImage');
 
-            viewerImage.addEventListener('dragstart', (e) => e.preventDefault()); // 阻擋原生拖曳
+            if (viewerImage && viewerContent) {
+                viewerImage.addEventListener('dragstart', (e) => e.preventDefault()); // 阻擋原生拖曳
 
-            // 滑鼠事件
-            viewerContent.addEventListener('mousedown', (e) => {
-                isDraggingViewer = true;
-                viewerContent.classList.add('is-dragging');
-                startDragX = e.clientX - panX;
-                startDragY = e.clientY - panY;
-            });
-            window.addEventListener('mouseup', () => {
-                if(isDraggingViewer) {
-                    isDraggingViewer = false;
-                    viewerContent.classList.remove('is-dragging');
-                }
-            });
-            window.addEventListener('mousemove', (e) => {
-                if (!isDraggingViewer) return;
-                e.preventDefault();
-                panX = e.clientX - startDragX;
-                panY = e.clientY - startDragY;
-                updateViewerTransform();
-            });
-
-            // 觸控事件
-            viewerContent.addEventListener('touchstart', (e) => {
-                if (e.touches.length === 1) {
+                // 滑鼠事件
+                viewerContent.addEventListener('mousedown', (e) => {
                     isDraggingViewer = true;
                     viewerContent.classList.add('is-dragging');
-                    startDragX = e.touches[0].clientX - panX;
-                    startDragY = e.touches[0].clientY - panY;
-                }
-            }, {passive: false});
-            window.addEventListener('touchend', () => {
-                if(isDraggingViewer) {
-                    isDraggingViewer = false;
-                    viewerContent.classList.remove('is-dragging');
-                }
-            });
-            window.addEventListener('touchmove', (e) => {
-                if (!isDraggingViewer || e.touches.length !== 1) return;
-                e.preventDefault(); // 防止滾動頁面
-                panX = e.touches[0].clientX - startDragX;
-                panY = e.touches[0].clientY - startDragY;
-                updateViewerTransform();
-            }, {passive: false});
+                    startDragX = e.clientX - panX;
+                    startDragY = e.clientY - panY;
+                });
+                window.addEventListener('mouseup', () => {
+                    if(isDraggingViewer) {
+                        isDraggingViewer = false;
+                        viewerContent.classList.remove('is-dragging');
+                    }
+                });
+                window.addEventListener('mousemove', (e) => {
+                    if (!isDraggingViewer) return;
+                    e.preventDefault();
+                    panX = e.clientX - startDragX;
+                    panY = e.clientY - startDragY;
+                    updateViewerTransform();
+                });
+
+                // 觸控事件
+                viewerContent.addEventListener('touchstart', (e) => {
+                    if (e.touches.length === 1) {
+                        isDraggingViewer = true;
+                        viewerContent.classList.add('is-dragging');
+                        startDragX = e.touches[0].clientX - panX;
+                        startDragY = e.touches[0].clientY - panY;
+                    }
+                }, {passive: false});
+                window.addEventListener('touchend', () => {
+                    if(isDraggingViewer) {
+                        isDraggingViewer = false;
+                        viewerContent.classList.remove('is-dragging');
+                    }
+                });
+                window.addEventListener('touchmove', (e) => {
+                    if (!isDraggingViewer || e.touches.length !== 1) return;
+                    e.preventDefault(); // 防止滾動頁面
+                    panX = e.touches[0].clientX - startDragX;
+                    panY = e.touches[0].clientY - startDragY;
+                    updateViewerTransform();
+                }, {passive: false});
+            }
         });
     </script>
 </body>
