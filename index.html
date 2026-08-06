@@ -1148,13 +1148,13 @@
                 <table class="weather-table">
                     <thead><tr><th>日期</th><th>預報配置形態</th><th>基準溫度區間</th><th>氣象活動指南</th></tr></thead>
                     <tbody>
-                        <tr><td>8月9日 (日)</td><td>☀️ 晴朗酷熱 / 局部午後多雲</td><td>27°C - 34°C</td><td>首日天神商圈室內購物，注意冷氣房內外溫差</td></tr>
-                        <tr><td>8月10日 (月)</td><td>☀️ 烈日強襲 / 全天曝曬極熱</td><td>26°C - 34°C</td><td>太宰府與大濠公園全程空曠，必須攜帶防曬陽傘</td></tr>
-                        <tr><td>8月11日 (火)</td><td>⛅ 多雲時晴 / 濕度悶熱感重</td><td>27°C - 35°C</td><td>山之日連假，商場溫差大，室內備薄背心</td></tr>
-                        <tr><td>8月12日 (水)</td><td>☀️ 港灣大晴 / 紫外線強烈反射</td><td>26°C - 33°C</td><td>門司港海風大，戴好偏光太陽眼鏡防眩光</td></tr>
-                        <tr><td>8月13日 (木)</td><td>☀️ 副高軸線核心 / 無雲高熱</td><td>26°C - 34°C</td><td>相島貓島完全暴露日照，務必補充足量水分</td></tr>
-                        <tr><td>8月14日 (金)</td><td>🌦️ 多雲偏悶 / 午後有局部強雷雨</td><td>27°C - 34°C</td><td>大名購物段隨身備妥摺疊傘以防局部夕立</td></tr>
-                        <tr><td>8月15日 (土)</td><td>⛅ 炎熱有雲</td><td>27°C - 34°C</td><td>離境搭機日，建議穿著寬鬆透氣服裝</td></tr>
+                        <tr><td>8月9日 (日)</td><td>☀️ 晴朗酷熱 / 局部午後多雲</td><td>28°C - 35°C</td><td>首日天神商圈室內購物，注意冷氣房內外溫差</td></tr>
+                        <tr><td>8月10日 (月)</td><td>☀️ 烈日強襲 / 全天曝曬極熱</td><td>28°C - 35°C</td><td>太宰府與大濠公園全程空曠，必須攜帶防曬陽傘</td></tr>
+                        <tr><td>8月11日 (火)</td><td>⛅ 多雲時晴 / 濕度悶熱感重</td><td>28°C - 36°C</td><td>山之日連假，商場溫差大，室內備薄背心</td></tr>
+                        <tr><td>8月12日 (水)</td><td>☀️ 港灣大晴 / 紫外線強烈反射</td><td>27°C - 36°C</td><td>門司港海風大，戴好偏光太陽眼鏡防眩光</td></tr>
+                        <tr><td>8月13日 (木)</td><td>☀️ 副高軸線核心 / 無雲高熱</td><td>27°C - 36°C</td><td>相島貓島完全暴露日照，務必補充足量水分</td></tr>
+                        <tr><td>8月14日 (金)</td><td>🌦️ 多雲偏悶 / 午後有局部強雷雨</td><td>27°C - 35°C</td><td>大名購物段隨身備妥摺疊傘以防局部夕立</td></tr>
+                        <tr><td>8月15日 (土)</td><td>⛅ 炎熱有雲</td><td>27°C - 35°C</td><td>離境搭機日，建議穿著寬鬆透氣服裝</td></tr>
                     </tbody>
                 </table>
                 <div id="weather-source-links" style="margin-top: 24px; font-size:15px; color:var(--text-secondary); text-align:center; line-height:1.6;">
@@ -2275,7 +2275,6 @@
                 sourceBadge.innerText = "遠期統計模式 (JMA 歷史大數據)";
             } else if (remainingDays >= 7 && remainingDays <= 14) {
                 sourceBadge.innerText = "中期預報模式 (tenki.jp 2週間天氣)";
-                // 只保留 tenki.jp
                 linkJma.style.display = 'none';
                 sep1.style.display = 'none';
                 linkJnto.style.display = 'none';
@@ -2288,7 +2287,6 @@
                 linkNhk.style.display = 'none';
             } else {
                 sourceBadge.innerText = "近期精確模式 (Yahoo! JAPAN 天氣)";
-                // 只保留 Yahoo! JAPAN 天氣
                 linkJma.style.display = 'none';
                 sep1.style.display = 'none';
                 linkJnto.style.display = 'none';
