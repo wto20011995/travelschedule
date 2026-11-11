@@ -4,17 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" id="viewport-meta" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script>
-        // 智能裝置與螢幕偵測：
-        // 一般手機預設以手機版開啟；iPhone Duo 打開裡螢幕 (展開後寬度 >= 600px)、iPad 及電腦預設以電腦版開啟
+        // 智能裝置與 iPhone Duo 摺機開合狀態偵測：
+        // 當 iPhone Duo 打開大屏幕（展開狀態：螢幕寬度 >= 580px 或長寬比呈現展開比例 >= 0.72）、iPad 及電腦時，預設為電腦網頁版；
+        // 當 iPhone Duo 合起來（外屏窄長狀態）或一般單屏手機時，預設為手機版。
+        window.detectFoldableUnfolded = function() {
+            const vw = Math.max(window.visualViewport ? window.visualViewport.width : 0, window.innerWidth || 0, document.documentElement.clientWidth || 0);
+            const vh = Math.max(window.visualViewport ? window.visualViewport.height : 0, window.innerHeight || 0, document.documentElement.clientHeight || 1);
+            const sw = window.screen ? window.screen.width : vw;
+            const sh = window.screen ? window.screen.height : vh;
+            const aspectRatio = vw / vh;
+            const screenAspect = sw / (sh || 1);
+
+            // 支援 Viewport Segments / Device Posture API 或依據展開後寬度與近正方形比例判斷
+            const hasSegments = (window.visualViewport && window.visualViewport.segments && window.visualViewport.segments.length > 1) ||
+                                (window.matchMedia && window.matchMedia('(horizontal-viewport-segments: 2)').matches);
+            const isSquareishAspect = aspectRatio >= 0.72 || screenAspect >= 0.72;
+            const isWidePhysicalScreen = sw >= 580 || (vw >= 580 && vw !== 1280);
+
+            return hasSegments || isWidePhysicalScreen || isSquareishAspect;
+        };
+
         (function() {
             const ua = navigator.userAgent || '';
             const isIPad = /iPad/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-            const screenWidth = Math.max(window.innerWidth || 0, document.documentElement.clientWidth || 0);
-            const isFoldableInnerScreen = screenWidth >= 600;
             const isPhoneUA = /iPhone|Android.*Mobile|Windows Phone|Mobi/i.test(ua) && !isIPad;
+            const isUnfolded = window.detectFoldableUnfolded();
 
-            // 只有一般手機 (非 iPad 且非展開裡螢幕的摺疊機) 預設為手機版
-            window.isPhoneSingleScreen = isPhoneUA && !isFoldableInnerScreen;
+            // 只有手機處於「合起來」的單屏狀態才預設為手機版；iPhone Duo 打開大屏幕、iPad、電腦皆為電腦版
+            window.isPhoneSingleScreen = isPhoneUA && !isUnfolded;
             window.isMobileDevice = window.isPhoneSingleScreen;
             window.currentMode = window.isPhoneSingleScreen ? 'mobile' : 'desktop';
 
@@ -634,57 +651,57 @@
         .viewer-control-btn:active { background: rgba(255,255,255,0.3); }
 
         @media (max-width: 1050px) {
-            body { padding-top: 87px; padding-bottom: 280px; }
-            .main-container { max-width: 600px; margin: 0 auto; }
+            body:not(.forced-desktop-mode) { padding-top: 87px; padding-bottom: 280px; }
+            body:not(.forced-desktop-mode) .main-container { max-width: 600px; margin: 0 auto; }
             
-            .carousel-container { height: 220px !important; }
+            body:not(.forced-desktop-mode) .carousel-container { height: 220px !important; }
             
-            .dashboard-grid { gap: 6px; }
-            .metric-card { padding: 6px 8px; flex: 1 1 21% !important; }
-            .metric-label { font-size: 10px; }
-            .metric-value { font-size: 12px; }
+            body:not(.forced-desktop-mode) .dashboard-grid { gap: 6px; }
+            body:not(.forced-desktop-mode) .metric-card { padding: 6px 8px; flex: 1 1 21% !important; }
+            body:not(.forced-desktop-mode) .metric-label { font-size: 10px; }
+            body:not(.forced-desktop-mode) .metric-value { font-size: 12px; }
             
-            .time-box { font-size: 16px !important; padding-right: 8px !important; }
-            .timeline-item { grid-template-columns: 85px 1fr !important; gap: 8px !important; align-items: center; }
-            .content-box { flex-direction: row !important; align-items: center !important; gap: 12px !important; }
-            .timeline-left-img-container { width: 60px !important; height: 60px !important; }
-            .text-block h3 { font-size: 16px !important; margin-bottom: 4px !important; }
-            .text-block p { font-size: 16px !important; }
-            .text-block .sub-item { font-size: 15px !important; margin-top: 8px !important; padding-left: 12px !important; }
-            .breakfast-badge { font-size: 12px !important; padding: 3px 8px !important; margin-left: 6px !important; border-radius: 6px !important; }
-            .accordion-trigger { font-size: 16px !important; }
-            .accordion-trigger::after { font-size: 14px !important; }
+            body:not(.forced-desktop-mode) .time-box { font-size: 16px !important; padding-right: 8px !important; }
+            body:not(.forced-desktop-mode) .timeline-item { grid-template-columns: 85px 1fr !important; gap: 8px !important; align-items: center; }
+            body:not(.forced-desktop-mode) .content-box { flex-direction: row !important; align-items: center !important; gap: 12px !important; }
+            body:not(.forced-desktop-mode) .timeline-left-img-container { width: 60px !important; height: 60px !important; }
+            body:not(.forced-desktop-mode) .text-block h3 { font-size: 16px !important; margin-bottom: 4px !important; }
+            body:not(.forced-desktop-mode) .text-block p { font-size: 16px !important; }
+            body:not(.forced-desktop-mode) .text-block .sub-item { font-size: 15px !important; margin-top: 8px !important; padding-left: 12px !important; }
+            body:not(.forced-desktop-mode) .breakfast-badge { font-size: 12px !important; padding: 3px 8px !important; margin-left: 6px !important; border-radius: 6px !important; }
+            body:not(.forced-desktop-mode) .accordion-trigger { font-size: 16px !important; }
+            body:not(.forced-desktop-mode) .accordion-trigger::after { font-size: 14px !important; }
             
-            .wishlist-section-title { font-size: 22px !important; margin-top: 24px !important; margin-bottom: 16px !important; }
-            .store-title { font-size: 18px !important; margin-bottom: 12px !important; }
-            .store-group-container { padding: 16px !important; }
-            .item-text-content h4 { font-size: 16px !important; }
-            .item-text-content p { font-size: 14px !important; }
-            .wishlist-item-left { gap: 12px !important; flex-direction: column;}
-            .wishlist-row-img-frame { width: 80px !important; height: 80px !important; margin-left: 0 !important; align-self: flex-start;}
-            .wishlist-row-img-frame.enlarge-20 { width: 96px !important; height: 96px !important; }
+            body:not(.forced-desktop-mode) .wishlist-section-title { font-size: 22px !important; margin-top: 24px !important; margin-bottom: 16px !important; }
+            body:not(.forced-desktop-mode) .store-title { font-size: 18px !important; margin-bottom: 12px !important; }
+            body:not(.forced-desktop-mode) .store-group-container { padding: 16px !important; }
+            body:not(.forced-desktop-mode) .item-text-content h4 { font-size: 16px !important; }
+            body:not(.forced-desktop-mode) .item-text-content p { font-size: 14px !important; }
+            body:not(.forced-desktop-mode) .wishlist-item-left { gap: 12px !important; flex-direction: column;}
+            body:not(.forced-desktop-mode) .wishlist-row-img-frame { width: 80px !important; height: 80px !important; margin-left: 0 !important; align-self: flex-start;}
+            body:not(.forced-desktop-mode) .wishlist-row-img-frame.enlarge-20 { width: 96px !important; height: 96px !important; }
             
-            .shopping-tag { font-size: 13px !important; padding: 4px 8px !important; }
-            .inline-sub-logo { max-height: 24px !important; }
-            .weather-table th, .weather-table td { font-size: 14px !important; padding: 8px 6px !important; }
+            body:not(.forced-desktop-mode) .shopping-tag { font-size: 13px !important; padding: 4px 8px !important; }
+            body:not(.forced-desktop-mode) .inline-sub-logo { max-height: 24px !important; }
+            body:not(.forced-desktop-mode) .weather-table th, body:not(.forced-desktop-mode) .weather-table td { font-size: 14px !important; padding: 8px 6px !important; }
             
-            .nav-container { display: block; position: relative; width: 100%; height: 86px; padding: 0; }
-            .nav-left-section { position: absolute; bottom: 8px; left: 12px; top: auto; width: auto; }
+            body:not(.forced-desktop-mode) .nav-container { display: block; position: relative; width: 100%; height: 86px; padding: 0; }
+            body:not(.forced-desktop-mode) .nav-left-section { position: absolute; bottom: 8px; left: 12px; top: auto; width: auto; }
             
-            .nav-center-title { position: absolute; top: 16px; left: 12px; transform: none; max-width: calc(100% - 90px); text-align: left; font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #f5f5f7; z-index: 5;}
+            body:not(.forced-desktop-mode) .nav-center-title { position: absolute; top: 16px; left: 12px; transform: none; max-width: calc(100% - 90px); text-align: left; font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #f5f5f7; z-index: 5;}
             
-            .nav-controls-right { display: contents; }
-            .view-mode-btn { position: absolute; top: 12px; right: 12px; height: 28px; padding: 0 10px; font-size: 11px; z-index: 10; }
-            .live-weather-widget { position: absolute; top: 46px; right: 12px; height: 32px; padding: 0 8px 0 0; z-index: 10; display: flex; align-items: center; }
-            .weather-yahoo-img { height: 32px; border-radius: 6px 0 0 6px; }
-            .weather-text-group { font-size: 11px; }
+            body:not(.forced-desktop-mode) .nav-controls-right { display: contents; }
+            body:not(.forced-desktop-mode) .view-mode-btn { position: absolute; top: 12px; right: 12px; height: 28px; padding: 0 10px; font-size: 11px; z-index: 10; }
+            body:not(.forced-desktop-mode) .live-weather-widget { position: absolute; top: 46px; right: 12px; height: 32px; padding: 0 8px 0 0; z-index: 10; display: flex; align-items: center; }
+            body:not(.forced-desktop-mode) .weather-yahoo-img { height: 32px; border-radius: 6px 0 0 6px; }
+            body:not(.forced-desktop-mode) .weather-text-group { font-size: 11px; }
             
-            .sub-nav { position: fixed; top: auto; bottom: 0; width: 100%; border-top: 1px solid var(--border-color); border-bottom: none; z-index: 10000; height: calc(68px + 20px + env(safe-area-inset-bottom)); padding-bottom: calc(20px + env(safe-area-inset-bottom)); margin-bottom: 0 !important; box-sizing: border-box; }
-            .tabs-container { height: 100%; padding: 0 12px; overflow-x: auto; gap: 8px; align-items: center; box-sizing: border-box; }
-            .calculator-sticky-bar { bottom: calc(68px + 20px + env(safe-area-inset-bottom)) !important; padding: 12px 16px; box-sizing: border-box; }
-            .calc-total { font-size: 22px; }
-            .calc-hkd { font-size: 13px; }
-            .tax-toggle-btn { font-size: 13px; padding: 10px 16px; }
+            body:not(.forced-desktop-mode) .sub-nav { position: fixed; top: auto; bottom: 0; width: 100%; border-top: 1px solid var(--border-color); border-bottom: none; z-index: 10000; height: calc(68px + 20px + env(safe-area-inset-bottom)); padding-bottom: calc(20px + env(safe-area-inset-bottom)); margin-bottom: 0 !important; box-sizing: border-box; }
+            body:not(.forced-desktop-mode) .tabs-container { height: 100%; padding: 0 12px; overflow-x: auto; gap: 8px; align-items: center; box-sizing: border-box; }
+            body:not(.forced-desktop-mode) .calculator-sticky-bar { bottom: calc(68px + 20px + env(safe-area-inset-bottom)) !important; padding: 12px 16px; box-sizing: border-box; }
+            body:not(.forced-desktop-mode) .calc-total { font-size: 22px; }
+            body:not(.forced-desktop-mode) .calc-hkd { font-size: 13px; }
+            body:not(.forced-desktop-mode) .tax-toggle-btn { font-size: 13px; padding: 10px 16px; }
         }
 
         body.forced-mobile-mode { padding-top: 87px; padding-bottom: 280px; }
@@ -1019,9 +1036,9 @@
                 <div class="metric-card"><div class="metric-label">2.離開酒店</div><div class="metric-value">09:45</div></div>
                 <div class="metric-card"><div class="metric-label">3.便利店時間</div><div class="metric-value">20:45 - 21:00</div></div>
                 <div class="metric-card"><div class="metric-label">4.回到酒店</div><div class="metric-value">21:00</div></div>
-                <div class="metric-card"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">2h 45m</div></div>
-                <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">23:45</div></div>
-                <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">00:15</div></div>
+                <div class="metric-card"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">3h 00m</div></div>
+                <div class="metric-card"><div class="metric-label">6.上床準備入眠</div><div class="metric-value">00:00</div></div>
+                <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">00:30</div></div>
             </div>
             <div class="timeline-section">
                 <div class="timeline-item"><div class="time-box">09:45 離開</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/asahikawa/" target="_blank">天然温泉 神威の湯 ドーミーイン旭川</a><span class="breakfast-badge">🍽️ 朝食 08:45 - 09:30</span> <a href="https://www.google.com/maps/search/?api=1&query=天然温泉+神威の湯+ドーミーイン旭川" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p></div></div></div>
@@ -1051,8 +1068,8 @@
         <!-- =================== DAY 7 (18/12 札幌) =================== -->
         <div id="view-6" class="view-panel">
             <div class="dashboard-grid">
-                <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">07:15</div></div>
-                <div class="metric-card"><div class="metric-label">2.離開酒店</div><div class="metric-value">08:45</div></div>
+                <div class="metric-card"><div class="metric-label">1.起床時間</div><div class="metric-value">07:30</div></div>
+                <div class="metric-card"><div class="metric-label">2.離開酒店</div><div class="metric-value">08:55</div></div>
                 <div class="metric-card"><div class="metric-label">3.便利店時間</div><div class="metric-value">20:30 - 21:00</div></div>
                 <div class="metric-card"><div class="metric-label">4.回到酒店</div><div class="metric-value">21:00</div></div>
                 <div class="metric-card"><div class="metric-label">5.每晚上床前在酒店的時間及長度</div><div class="metric-value">3h 15m</div></div>
@@ -1060,15 +1077,15 @@
                 <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">00:45</div></div>
             </div>
             <div class="timeline-section">
-                <div class="timeline-item"><div class="time-box">08:45 離開</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/premium_sapporo/" target="_blank">石狩の湯 ドーミーインPREMIUM札幌</a><span class="breakfast-badge">🍽️ 朝食 07:45 - 08:30</span> <a href="https://www.google.com/maps?cid=9714876594425426267&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAMYASAF" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">08:55 離開</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/premium_sapporo/" target="_blank">石狩の湯 ドーミーインPREMIUM札幌</a><span class="breakfast-badge">🍽️ 朝食 08:00 - 08:45</span> <a href="https://www.google.com/maps?cid=9714876594425426267&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAMYASAF" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p></div></div></div>
                 <div class="timeline-item"><div class="time-box">09:09 - 09:24</div><div class="content-box"><div class="text-block"><p>すすきの → 真駒内</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">09:30 - 09:51</div><div class="content-box"><div class="text-block"><p>真駒内駅 → 滝野峠</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">10:00 - 11:55</div><div class="content-box"><div class="text-block"><p><a href="https://www.takinoreien.com/pages/315/#block5949" target="_blank">頭大仏</a> <a href="https://www.google.com/maps/search/?api=1&query=真駒内滝野霊園+頭大仏" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p></div></div></div>
                 <div class="timeline-item"><div class="time-box">11:55 - 12:24</div><div class="content-box"><div class="text-block"><p>頭大仏前 → 真駒内駅</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">12:30 - 12:47</div><div class="content-box"><div class="text-block"><p>真駒内 → 大通</p></div></div></div>
-                <div class="timeline-item"><div class="time-box">13:15 - 14:00</div><div class="content-box"><div class="text-block"><p><a href="https://www.tablecheck.com/ja/shops/qramen-sapporo/reserve" target="_blank">Japanese Ramen Noodle Lab Q</a> <a href="https://www.google.com/maps/search/?api=1&query=Japanese+Ramen+Noodle+Lab+Q" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">13:00 - 13:45</div><div class="content-box"><div class="text-block"><p><a href="https://www.ramen-q.com/" target="_blank">Q (らぁ麺/料理や)</a> <a href="https://www.google.com/maps/search/?api=1&query=Japanese+Ramen+Noodle+Lab+Q" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p></div></div></div>
                 
-                <div class="timeline-item"><div class="time-box">14:15 - 16:15</div><div class="content-box"><div class="text-block">
+                <div class="timeline-item"><div class="time-box">14:00 - 16:15</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d7-sapporo-sta')">札幌駅</h3>
                     <div id="acc-d7-sapporo-sta" class="accordion-content">
                         <p class="sub-item"><a href="https://shiro-shiro.jp/ec/" target="_blank">SHIRO 札幌ステラプレイス店</a> <a href="https://www.google.com/maps/search/?api=1&query=SHIRO+札幌ステラプレイス店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKOjmIF-kBiCpkKlF1eeSETaH0M_e9EZ-MwA&s" alt="SHIRO"></p>
@@ -1210,6 +1227,78 @@
                     </div>
                     <div class="wishlist-row-img-frame" onclick="openViewer('https://shiro-shiro.jp/ec/product_images/13354/13354.jpg')"><img src="https://shiro-shiro.jp/ec/product_images/13354/13354.jpg" alt="FREESIA MIST ボディミスト"></div>
                 </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox" data-price="9900" data-tax="1.1" onchange="calcWishlist()">
+                        <div class="item-text-content">
+                            <h4><a href="https://shiro-shiro.jp/ec/pro/disp/1/12765" target="_blank">フレグランスディフューザーキット (ホワイトティー)</a></h4>
+                            <p>白茶室內擴香套組（含擴香補充液、玻璃擴香瓶及擴香枝）。</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥9,900（税込）</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://shiro-shiro.jp/ec/product_images/12765/12765.jpg')"><img src="https://shiro-shiro.jp/ec/product_images/12765/12765.jpg" alt="フレグランスディフューザーキット (ホワイトティー)"></div>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox" data-price="31900" data-tax="1.1" onchange="calcWishlist()">
+                        <div class="item-text-content">
+                            <h4><a href="https://shiro-shiro.jp/ec/pro/disp/1/12804" target="_blank">パフュームキット（ディフューザー リキッド＆グラスベース＆ビネガーバスエッセンス）(FREESIA MIST)</a></h4>
+                            <p>FREESIA MIST 奢華居家香氛與沐浴套組（含擴香液、玻璃瓶及果醋沐浴精華）。</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥31,900（税込）</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://shiro-shiro.jp/ec/product_images/12804/12804.jpg')"><img src="https://shiro-shiro.jp/ec/product_images/12804/12804.jpg" alt="パフュームキット (FREESIA MIST)"></div>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox" data-price="5060" data-tax="1.1" onchange="calcWishlist()">
+                        <div class="item-text-content">
+                            <h4><a href="https://shiro-shiro.jp/ec/pro/disp/1/13501" target="_blank">SHIKI FRAGRANCE</a></h4>
+                            <p>SHIRO 四季系列限定香氛單品。</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥5,060（税込）</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://shiro-shiro.jp/ec/product_images/13501/13501.jpg')"><img src="https://shiro-shiro.jp/ec/product_images/13501/13501.jpg" alt="SHIKI FRAGRANCE"></div>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox" data-price="2640" data-tax="1.1" onchange="calcWishlist()">
+                        <div class="item-text-content">
+                            <h4><a href="https://shiro-shiro.jp/ec/pro/disp/1/12908" target="_blank">ホワイトティー アロマオイル</a></h4>
+                            <p>白茶香氛精油，散發清新柑橘與溫潤茶香基調。</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥2,640（税込）</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://shiro-shiro.jp/ec/product_images/12908/12908.jpg')"><img src="https://shiro-shiro.jp/ec/product_images/12908/12908.jpg" alt="ホワイトティー アロマオイル"></div>
+                </div>
             </div>
 
             <h2 class="wishlist-section-title">👀 留意清單</h2>
@@ -1235,6 +1324,42 @@
                         </div>
                     </div>
                     <div class="wishlist-row-img-frame" onclick="openViewer('https://www.isseymiyake.com/cdn/shop/files/HP63JF248-m-03.jpg?width=1946')"><img src="https://www.isseymiyake.com/cdn/shop/files/HP63JF248-m-03.jpg?width=1946" alt="HOMME PLISSÉ BLEND OF LIGHTS" onerror="this.src='https://gaijinparis.com/img/cms/Marques/Issey-Miyake.jpg'"></div>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox" data-price="29700" data-tax="1.1" onchange="calcWishlist()">
+                        <div class="item-text-content">
+                            <h4><a href="https://www.isseymiyake.com/products/hp63jk113" target="_blank">HOMME PLISSÉ ISSEY MIYAKE MONTHLY COLORS : NOVEMBER(Black, Size 2)</a></h4>
+                            <p>商品番號：HP63JK113（Black, Size 2）。11月季節限定色調皺褶上衣，具備聚酯纖維特有的速乾性、輕盈便攜與舒適穿著感。</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥29,700（税込）</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://www.isseymiyake.com/cdn/shop/files/HP63JK113-m-01.jpg?v=1793319981&width=1946')"><img src="https://www.isseymiyake.com/cdn/shop/files/HP63JK113-m-01.jpg?v=1793319981&width=1946" alt="HOMME PLISSÉ MONTHLY COLORS : NOVEMBER"></div>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox" data-price="46200" data-tax="1.1" onchange="calcWishlist()">
+                        <div class="item-text-content">
+                            <h4><a href="https://www.isseymiyake.com/products/hp63jf217" target="_blank">HOMME PLISSÉ ISSEY MIYAKE SLANT CARGO (Shadow Navy, Size 2)</a></h4>
+                            <p>商品番號：HP63JF217（Shadow Navy, Size 2）。結合斜向剪裁口袋設計的工裝風格皺褶長褲，兼具俐落立體輪廓與機能美感。</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥46,200（税込）</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://www.isseymiyake.com/cdn/shop/files/HP63JF217-m-03.jpg?v=1793319965&width=1946')"><img src="https://www.isseymiyake.com/cdn/shop/files/HP63JF217-m-03.jpg?v=1793319965&width=1946" alt="HOMME PLISSÉ SLANT CARGO"></div>
                 </div>
             </div>
         </div>
@@ -1402,7 +1527,6 @@
                     calcWishlist();
                 }
             } catch(e) {
-                console.error("Fetch live exchange rate failed, using fallback.", e);
                 if(rateLabel) rateLabel.innerText = `匯率: ¥100 = HK$5.20 (預設)`;
             }
         }
@@ -1570,10 +1694,12 @@
                 viewport.setAttribute('content', 'width=1280');
                 btn.innerText = "手機版";
                 document.body.classList.remove('forced-mobile-mode');
+                document.body.classList.add('forced-desktop-mode');
             } else {
                 viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
                 btn.innerText = "電腦版";
                 document.body.classList.add('forced-mobile-mode');
+                document.body.classList.remove('forced-desktop-mode');
             }
         }
 
@@ -1590,13 +1716,13 @@
             const isIPad = /iPad/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
             const isPhoneUA = /iPhone|Android.*Mobile|Windows Phone|Mobi/i.test(ua) && !isIPad;
 
-            // 若為摺疊手機 (如 iPhone Duo)，打開裡螢幕 (>= 600px) 自動切換為電腦版，合上外螢幕 (< 600px) 切換為手機版
+            // iPhone Duo 等摺疊手機：即時偵測展開大螢幕 (電腦網頁版) 與合上外螢幕 (手機版)
             if (isPhoneUA) {
-                const physicalWidth = Math.min(window.innerWidth || 0, window.screen.width || 9999);
-                if (physicalWidth >= 600 && window.currentMode === 'mobile') {
+                const isUnfolded = window.detectFoldableUnfolded();
+                if (isUnfolded && window.currentMode === 'mobile') {
                     window.currentMode = 'desktop';
                     applyViewMode();
-                } else if (physicalWidth < 600 && window.currentMode === 'desktop') {
+                } else if (!isUnfolded && window.currentMode === 'desktop') {
                     window.currentMode = 'mobile';
                     applyViewMode();
                 }
@@ -1615,6 +1741,10 @@
             }
         }
         window.addEventListener('resize', handleResponsiveSwitch);
+        window.addEventListener('orientationchange', handleResponsiveSwitch);
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', handleResponsiveSwitch);
+        }
 
         // === 全螢幕圖片檢視器 (Zoom & Pan 2.0 支援隨意拖曳) ===
         let currentZoom = 1;
@@ -1835,33 +1965,33 @@
                     const rsRes = await fetch('https://rt.data.gov.hk/v2/transport/citybus/route-stop/CTB/A28/outbound');
                     const rsData = await rsRes.json();
                     const stopIds = rsData.data.map(d => d.stop);
-                    
-                    const batches = [];
-                    for (let i = 0; i < stopIds.length; i += 10) {
-                        batches.push(stopIds.slice(i, i + 10));
-                    }
-                    
-                    let found = false;
-                    for (let batch of batches) {
-                        const promises = batch.map(id => fetch(`https://rt.data.gov.hk/v2/transport/citybus/stop/${id}`).then(r => r.json()));
-                        const results = await Promise.all(promises);
-                        for (let i = 0; i < results.length; i++) {
-                            if (results[i].data && results[i].data.name_tc.includes('坪石')) {
-                                stopId = batch[i];
-                                localStorage.setItem('A28_PingShek_StopId', stopId);
-                                found = true;
-                                break;
-                            }
-                        }
-                        if (found) break;
-                    }
-                    if (!found) throw new Error("A28 找不到坪石邨巴士站");
-                }
-                
-                const etaRes = await fetch(`https://rt.data.gov.hk/v2/transport/citybus/eta/CTB/${stopId}/A28`);
+        // === 城巴 A28 即時 ETA (坪石邨 站牌編號: 001654) ===
+        async function fetchA28ETA() {
+            const etaContainer = document.getElementById('a28-eta');
+            if (!etaContainer) return;
+            
+            if (etaContainer.innerHTML === "") {
+                etaContainer.innerHTML = '<span style="font-size: 14px; color: var(--apple-blue); margin-left: 8px; display: inline-block;">🚌 載入即時班次中...</span>';
+            }
+            
+            try {
+                // 直接使用城巴「坪石邨」官方站牌編號 001654，避免發送大量平行請求導致 Failed to fetch
+                const stopId = localStorage.getItem('A28_PingShek_StopId') || '001654';
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+                const etaRes = await fetch(`https://rt.data.gov.hk/v2/transport/citybus/eta/CTB/${stopId}/A28`, {
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+
+                if (!etaRes.ok) throw new Error(`HTTP ${etaRes.status}`);
                 const etaData = await etaRes.json();
                 
-                const etas = etaData.data.filter(e => e.dir === 'O' && e.eta);
+                const etas = (etaData && Array.isArray(etaData.data))
+                    ? etaData.data.filter(e => e.dir === 'O' && e.eta)
+                    : [];
+
                 if (etas.length > 0) {
                     const now = new Date();
                     const nextEta = new Date(etas[0].eta);
@@ -1879,8 +2009,8 @@
                     etaContainer.innerHTML = '<span style="font-size: 14px; color: var(--text-secondary); margin-left: 8px; background: var(--banner-bg); padding: 4px 10px; border-radius: 8px; display: inline-block;">🚌 目前暫無 A28 班次資料</span>';
                 }
             } catch (e) {
-                console.error("Citybus ETA Error:", e);
-                etaContainer.innerHTML = '<span style="font-size: 14px; color: var(--apple-red); margin-left: 8px; background: rgba(255, 59, 48, 0.1); padding: 4px 10px; border-radius: 8px; display: inline-block;">🚌 ETA 連線失敗</span>';
+                // 當處於沙盒環境或離線時優雅降級，不拋出 console.error
+                etaContainer.innerHTML = '<span style="font-size: 14px; color: var(--text-secondary); margin-left: 8px; background: var(--banner-bg); padding: 4px 10px; border-radius: 8px; display: inline-block;">🚌 預定班次: 06:14</span>';
             }
         }
 
@@ -2017,7 +2147,7 @@
                 if (clockHkg) clockHkg.innerText = hkgTime;
                 if (clockJpn) clockJpn.innerText = jpnTime;
             } catch (e) {
-                console.error("Clock update failed:", e);
+                // 忽略時鐘格式例外
             }
         }
 
@@ -2025,7 +2155,7 @@
             try {
                 applyViewMode();
                 handleResponsiveSwitch();
-            } catch(e) { console.error(e); }
+            } catch(e) {}
 
             try {
                 // 若當前日期已進入 12/14 或之後，預設載入北海道封面，否則載入 12/12-13/12 東京封面
@@ -2035,25 +2165,25 @@
                 } else {
                     updateCoverPhotosByDayIndex(0);
                 }
-            } catch(e) { console.error(e); }
+            } catch(e) {}
 
-            try { calculateTripCountdown(); } catch(e) { console.error(e); }
+            try { calculateTripCountdown(); } catch(e) {}
             try { 
                 fetchLiveWeather();
                 setInterval(fetchLiveWeather, 60000);
-            } catch(e) { console.error(e); }
-            try { fetchLiveExchangeRate(); } catch(e) { console.error(e); }
-            try { renderPackingList(); } catch(e) { console.error(e); }
+            } catch(e) {}
+            try { fetchLiveExchangeRate(); } catch(e) {}
+            try { renderPackingList(); } catch(e) {}
             
             try { 
                 fetchA28ETA();
                 setInterval(fetchA28ETA, 60000);
-            } catch(e) { console.error(e); }
+            } catch(e) {}
 
             try {
                 updateWorldClocks();
                 setInterval(updateWorldClocks, 1000);
-            } catch(e) { console.error(e); }
+            } catch(e) {}
             
             const calcBar = document.getElementById('calc-bar');
             if (calcBar) calcBar.style.display = 'none';
