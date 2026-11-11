@@ -1476,9 +1476,15 @@
 
         function renderPackingList() {
             const container = document.getElementById('packing-container');
+            if (!container) return;
             container.innerHTML = '';
             
-            let savedState = JSON.parse(localStorage.getItem('fukuokaPackingState') || '{}');
+            let savedState = {};
+            try {
+                savedState = JSON.parse(localStorage.getItem('fukuokaPackingState') || '{}');
+            } catch (e) {
+                savedState = {};
+            }
 
             packingItems.forEach((item, index) => {
                 const isChecked = savedState[index] === true;
@@ -1506,9 +1512,11 @@
                 element.classList.remove('checked');
             }
 
-            let savedState = JSON.parse(localStorage.getItem('fukuokaPackingState') || '{}');
-            savedState[index] = isChecked;
-            localStorage.setItem('fukuokaPackingState', JSON.stringify(savedState));
+            try {
+                let savedState = JSON.parse(localStorage.getItem('fukuokaPackingState') || '{}');
+                savedState[index] = isChecked;
+                localStorage.setItem('fukuokaPackingState', JSON.stringify(savedState));
+            } catch (e) {}
         }
 
         // === 購物車計算機模組 ===
@@ -1949,22 +1957,6 @@
             `;
         }
 
-        // === 城巴 A28 即時 ETA (坪石邨) ===
-        async function fetchA28ETA() {
-            const etaContainer = document.getElementById('a28-eta');
-            if (!etaContainer) return;
-            
-            if (etaContainer.innerHTML === "") {
-                etaContainer.innerHTML = '<span style="font-size: 14px; color: var(--apple-blue); margin-left: 8px; display: inline-block;">🚌 載入即時班次中...</span>';
-            }
-            
-            try {
-                let stopId = localStorage.getItem('A28_PingShek_StopId');
-                
-                if (!stopId) {
-                    const rsRes = await fetch('https://rt.data.gov.hk/v2/transport/citybus/route-stop/CTB/A28/outbound');
-                    const rsData = await rsRes.json();
-                    const stopIds = rsData.data.map(d => d.stop);
         // === 城巴 A28 即時 ETA (坪石邨 站牌編號: 001654) ===
         async function fetchA28ETA() {
             const etaContainer = document.getElementById('a28-eta');
@@ -1976,7 +1968,10 @@
             
             try {
                 // 直接使用城巴「坪石邨」官方站牌編號 001654，避免發送大量平行請求導致 Failed to fetch
-                const stopId = localStorage.getItem('A28_PingShek_StopId') || '001654';
+                let stopId = '001654';
+                try {
+                    stopId = localStorage.getItem('A28_PingShek_StopId') || '001654';
+                } catch (err) {}
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 5000);
 
