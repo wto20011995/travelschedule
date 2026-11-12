@@ -515,6 +515,11 @@
         .qty-input { width: 40px; text-align: center; border: none; background: transparent; font-size: 16px; font-weight: 600; color: var(--text-main); -moz-appearance: textfield; }
         .qty-input::-webkit-outer-spin-button, .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         
+        .item-extra-inputs { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+        .extra-input-group { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; padding: 4px 10px; font-size: 13px; color: var(--text-secondary); font-weight: 500; }
+        .extra-input-group input { width: 68px; border: none; background: transparent; font-size: 14px; font-weight: 600; color: var(--text-main); text-align: right; outline: none; -moz-appearance: textfield; }
+        .extra-input-group input::-webkit-outer-spin-button, .extra-input-group input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        
         .wishlist-row-img-frame { width: 140px; height: 140px; display: flex; align-items: center; justify-content: center; background: #fafafa; border-radius: 12px; padding: 8px; margin-left: 20px; flex-shrink: 0; cursor: pointer;}
         body.dark-theme .wishlist-row-img-frame { background: #2c2c2e; }
         .wishlist-row-img-frame img { max-width: 100%; max-height: 100%; object-fit: cover; border-radius: 8px; transition: transform 0.2s ease;}
@@ -819,9 +824,9 @@
                 <div class="metric-card"><div class="metric-label">7.入眠時間</div><div class="metric-value">01:00</div></div>
             </div>
             <div class="timeline-section">
-                <div class="timeline-item"><div class="time-box">06:14 - 06:59</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/HongKongCitybus.svg/960px-HongKongCitybus.svg.png" alt="Citybus"></div><div class="text-block"><p>A28 坪石邨 → 機場 (1 號客運大樓) <span id="a28-eta"></span></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">06:15 - 06:58</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/HongKongCitybus.svg/960px-HongKongCitybus.svg.png" alt="Citybus"></div><div class="text-block"><p>A28 坪石邨 → 機場 (1 號客運大樓) <span id="a28-eta"></span></p></div></div></div>
                 
-                <div class="timeline-item"><div class="time-box">06:59 - 09:45</div><div class="content-box"><div class="text-block">
+                <div class="timeline-item"><div class="time-box">06:58 - 09:45</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d1-airport')">香港國際機場</h3>
                     <div id="acc-d1-airport" class="accordion-content">
                         <p class="sub-item"><a href="https://www.plazapremiumlounge.com/zh-hk/find/china-regions/hong-kong/hong-kong/hong-kong-international-airport?currencyCode=undefined" target="_blank">Plaza Premium Lounge</a> <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Plaza_Premium_Lounge_Management_Limited_Official_Logo.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" alt="Plaza Premium Lounge"></p>
@@ -829,16 +834,16 @@
                 </div></div></div>
                 
                 <div class="timeline-item"><div class="time-box">10:00 - 15:10</div><div class="content-box"><div class="text-block"><p>NH812 香港 → 成田機場</p></div></div></div>
-                <div class="timeline-item"><div class="time-box">15:10 - 16:38</div><div class="content-box"><div class="text-block"><p>成田機場</p></div></div></div>
-                <div class="timeline-item"><div class="time-box">16:39 - 17:23</div><div class="content-box"><div class="text-block"><p><a href="https://www.keisei.co.jp/keisei/tetudou/skyliner/tc/traffic/skyliner_1125.php" target="_blank">成田空港（成田第１ターミナル）→ 上野</a></p></div></div></div>
-                <div class="timeline-item"><div class="time-box">17:32 - 17:44</div><div class="content-box"><div class="text-block"><p>上野 → 銀座</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">15:10 - 16:39</div><div class="content-box"><div class="text-block"><p>成田機場</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">16:39 - 17:23</div><div class="content-box"><div class="text-block"><p><a href="https://www.keisei.co.jp/keisei/tetudou/skyliner/tc/traffic/skyliner_1125.php" target="_blank">成田空港（成田第１ターミナル）→ 京成上野</a></p></div></div></div>
+                <div class="timeline-item"><div class="time-box">17:29 - 17:41</div><div class="content-box"><div class="text-block"><p>上野 → 銀座</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">17:55 - 18:15</div><div class="content-box"><div class="text-block"><p><a href="https://sotetsu-hotels.com/fresa-inn/ginza7/" target="_blank">相鉄フレッサイン七丁目</a> <a href="https://www.google.com/maps/search/?api=1&query=相鉄フレッサイン+銀座七丁目" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p></div></div></div>
                 
                 <div class="timeline-item"><div class="time-box">18:15 - 19:30</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d1-ginza')">銀座</h3>
                     <div id="acc-d1-ginza" class="accordion-content">
                         <p class="sub-item">GINZA SIX <a href="https://www.google.com/maps/search/?api=1&query=GINZA+SIX" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
-                        <p class="sub-item">Uniqlo TOKYO <a href="https://www.google.com/maps/search/?api=1&query=UNIQLO+TOKYO" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/UNIQLO_logo.svg/3840px-UNIQLO_logo.svg.png" alt="Uniqlo"></p>
+                        <p class="sub-item">Uniqlo TOKYO <a href="https://maps.app.goo.gl/Fd5Lg7i4DhA2B7RS8" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/UNIQLO_logo.svg/3840px-UNIQLO_logo.svg.png" alt="Uniqlo"></p>
                         <p class="sub-item">無印良品銀座 <a href="https://www.google.com/maps/search/?api=1&query=無印良品+銀座" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://media.langhamplace.com.hk/cms/store/pOqpj2qXE.png" alt="Muji"></p>
                         <p class="sub-item"><a href="https://www.isseymiyake.com/pages/storesdetail?shop_code=292" target="_blank">ISSEY MIYAKE GINZA / 442</a> <a href="https://www.google.com/maps/search/?api=1&query=ISSEY+MIYAKE+GINZA+442" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://gaijinparis.com/img/cms/Marques/Issey-Miyake.jpg" alt="Issey Miyake"></p>
                         <p class="sub-item">Apple 銀座 <a href="https://www.google.com/maps/search/?api=1&query=Apple+銀座" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
@@ -850,8 +855,8 @@
                 <div class="timeline-item"><div class="time-box">19:32 - 21:02</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d1-tokyo')">東京駅</h3>
                     <div id="acc-d1-tokyo" class="accordion-content">
-                        <p class="sub-item">大丸東京店-N.Y.C. Sand <a href="https://www.google.com/maps/search/?api=1&query=大丸東京店+N.Y.C.SAND" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/1/16/Daimaru_Logo_full.svg" alt="Daimaru"></p>
-                        <p class="sub-item"><a href="https://tabelog.com/tokyo/A1302/A130201/13298470/" target="_blank">利久 東京駅グランスタ八重洲店</a>(20:00-21:00) <a href="https://www.google.com/maps/search/?api=1&query=仙臺たんや利久+東京駅グランスタ八重洲店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
+                        <p class="sub-item"><a href="https://www.nycsand.site/product" target="_blank">大丸東京店-N.Y.C. Sand</a> <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/1/16/Daimaru_Logo_full.svg" alt="Daimaru"></p>
+                        <p class="sub-item"><a href="https://www.gransta.jp/mall/gransta_yaesu/sendai_tanya_rikyu/" target="_blank">利久 東京駅グランスタ八重洲店</a>(20:00-21:00) <a href="https://www.google.com/maps/search/?api=1&query=仙臺たんや利久+東京駅グランスタ八重洲店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
                     </div>
                 </div></div></div>
 
@@ -1207,6 +1212,10 @@
                                     <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
                                 </div>
                             </div>
+                            <div class="item-extra-inputs">
+                                <label class="extra-input-group">🎫 現金劵 (免稅前扣) -¥<input type="number" class="voucher-input" value="0" min="0" step="100" oninput="calcWishlist()" onchange="calcWishlist()"></label>
+                                <label class="extra-input-group">🧾 免稅手續費 <input type="number" class="fee-input" value="0" min="0" max="15" step="0.05" oninput="calcWishlist()" onchange="calcWishlist()">%</label>
+                            </div>
                         </div>
                     </div>
                     <div class="wishlist-row-img-frame" onclick="openViewer('https://shiro-shiro.jp/ec/product_images/12780/12780.jpg')"><img src="https://shiro-shiro.jp/ec/product_images/12780/12780.jpg" alt="FREESIA MIST オードパルファン"></div>
@@ -1224,6 +1233,10 @@
                                     <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
                                     <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
                                 </div>
+                            </div>
+                            <div class="item-extra-inputs">
+                                <label class="extra-input-group">🎫 現金劵 (免稅前扣) -¥<input type="number" class="voucher-input" value="0" min="0" step="100" oninput="calcWishlist()" onchange="calcWishlist()"></label>
+                                <label class="extra-input-group">🧾 免稅手續費 <input type="number" class="fee-input" value="0" min="0" max="15" step="0.05" oninput="calcWishlist()" onchange="calcWishlist()">%</label>
                             </div>
                         </div>
                     </div>
@@ -1243,6 +1256,10 @@
                                     <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
                                 </div>
                             </div>
+                            <div class="item-extra-inputs">
+                                <label class="extra-input-group">🎫 現金劵 (免稅前扣) -¥<input type="number" class="voucher-input" value="0" min="0" step="100" oninput="calcWishlist()" onchange="calcWishlist()"></label>
+                                <label class="extra-input-group">🧾 免稅手續費 <input type="number" class="fee-input" value="0" min="0" max="15" step="0.05" oninput="calcWishlist()" onchange="calcWishlist()">%</label>
+                            </div>
                         </div>
                     </div>
                     <div class="wishlist-row-img-frame" onclick="openViewer('https://shiro-shiro.jp/ec/product_images/12765/12765.jpg')"><img src="https://shiro-shiro.jp/ec/product_images/12765/12765.jpg" alt="フレグランスディフューザーキット (ホワイトティー)"></div>
@@ -1260,6 +1277,10 @@
                                     <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
                                     <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
                                 </div>
+                            </div>
+                            <div class="item-extra-inputs">
+                                <label class="extra-input-group">🎫 現金劵 (免稅前扣) -¥<input type="number" class="voucher-input" value="0" min="0" step="100" oninput="calcWishlist()" onchange="calcWishlist()"></label>
+                                <label class="extra-input-group">🧾 免稅手續費 <input type="number" class="fee-input" value="0" min="0" max="15" step="0.05" oninput="calcWishlist()" onchange="calcWishlist()">%</label>
                             </div>
                         </div>
                     </div>
@@ -1279,6 +1300,10 @@
                                     <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
                                 </div>
                             </div>
+                            <div class="item-extra-inputs">
+                                <label class="extra-input-group">🎫 現金劵 (免稅前扣) -¥<input type="number" class="voucher-input" value="0" min="0" step="100" oninput="calcWishlist()" onchange="calcWishlist()"></label>
+                                <label class="extra-input-group">🧾 免稅手續費 <input type="number" class="fee-input" value="0" min="0" max="15" step="0.05" oninput="calcWishlist()" onchange="calcWishlist()">%</label>
+                            </div>
                         </div>
                     </div>
                     <div class="wishlist-row-img-frame" onclick="openViewer('https://shiro-shiro.jp/ec/product_images/13501/13501.jpg')"><img src="https://shiro-shiro.jp/ec/product_images/13501/13501.jpg" alt="SHIKI FRAGRANCE"></div>
@@ -1297,16 +1322,13 @@
                                     <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
                                 </div>
                             </div>
+                            <div class="item-extra-inputs">
+                                <label class="extra-input-group">🎫 現金劵 (免稅前扣) -¥<input type="number" class="voucher-input" value="0" min="0" step="100" oninput="calcWishlist()" onchange="calcWishlist()"></label>
+                                <label class="extra-input-group">🧾 免稅手續費 <input type="number" class="fee-input" value="0" min="0" max="15" step="0.05" oninput="calcWishlist()" onchange="calcWishlist()">%</label>
+                            </div>
                         </div>
                     </div>
                     <div class="wishlist-row-img-frame" onclick="openViewer('https://shiro-shiro.jp/ec/product_images/12908/12908.jpg')"><img src="https://shiro-shiro.jp/ec/product_images/12908/12908.jpg" alt="ホワイトティー アロマオイル"></div>
-                </div>
-            </div>
-
-            <div class="store-group-container">
-                <div class="store-title">
-                    <img class="store-logo-icon" src="https://hansengarmentsstore.com/cdn/shop/collections/download.webp?v=1692634430" alt="PORTER TOKYO">
-                    <span><a href="https://www.yoshidakaban.com/" target="_blank" style="color: var(--apple-blue); text-decoration: none;">PORTER TOKYO</a></span>
                 </div>
             </div>
 
@@ -1330,6 +1352,10 @@
                                     <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
                                 </div>
                             </div>
+                            <div class="item-extra-inputs">
+                                <label class="extra-input-group">🎫 現金劵 (免稅前扣) -¥<input type="number" class="voucher-input" value="0" min="0" step="100" oninput="calcWishlist()" onchange="calcWishlist()"></label>
+                                <label class="extra-input-group">🧾 免稅手續費 <input type="number" class="fee-input" value="0" min="0" max="15" step="0.05" oninput="calcWishlist()" onchange="calcWishlist()">%</label>
+                            </div>
                         </div>
                     </div>
                     <div class="wishlist-row-img-frame" onclick="openViewer('https://www.isseymiyake.com/cdn/shop/files/HP63JF248-m-03.jpg?width=1946')"><img src="https://www.isseymiyake.com/cdn/shop/files/HP63JF248-m-03.jpg?width=1946" alt="HOMME PLISSÉ BLEND OF LIGHTS" onerror="this.src='https://gaijinparis.com/img/cms/Marques/Issey-Miyake.jpg'"></div>
@@ -1347,6 +1373,10 @@
                                     <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
                                     <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
                                 </div>
+                            </div>
+                            <div class="item-extra-inputs">
+                                <label class="extra-input-group">🎫 現金劵 (免稅前扣) -¥<input type="number" class="voucher-input" value="0" min="0" step="100" oninput="calcWishlist()" onchange="calcWishlist()"></label>
+                                <label class="extra-input-group">🧾 免稅手續費 <input type="number" class="fee-input" value="0" min="0" max="15" step="0.05" oninput="calcWishlist()" onchange="calcWishlist()">%</label>
                             </div>
                         </div>
                     </div>
@@ -1366,9 +1396,71 @@
                                     <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
                                 </div>
                             </div>
+                            <div class="item-extra-inputs">
+                                <label class="extra-input-group">🎫 現金劵 (免稅前扣) -¥<input type="number" class="voucher-input" value="0" min="0" step="100" oninput="calcWishlist()" onchange="calcWishlist()"></label>
+                                <label class="extra-input-group">🧾 免稅手續費 <input type="number" class="fee-input" value="0" min="0" max="15" step="0.05" oninput="calcWishlist()" onchange="calcWishlist()">%</label>
+                            </div>
                         </div>
                     </div>
                     <div class="wishlist-row-img-frame" onclick="openViewer('https://www.isseymiyake.com/cdn/shop/files/HP63JF217-m-03.jpg?v=1793319965&width=1946')"><img src="https://www.isseymiyake.com/cdn/shop/files/HP63JF217-m-03.jpg?v=1793319965&width=1946" alt="HOMME PLISSÉ SLANT CARGO"></div>
+                </div>
+            </div>
+
+            <div class="store-group-container">
+                <div class="store-title">
+                    <img class="store-logo-icon" src="https://hansengarmentsstore.com/cdn/shop/collections/download.webp?v=1692634430" alt="PORTER TOKYO">
+                    <span><a href="https://www.yoshidakaban.com/" target="_blank" style="color: var(--apple-blue); text-decoration: none;">PORTER TOKYO</a></span>
+                </div>
+            </div>
+
+            <div class="store-group-container">
+                <div class="store-title">
+                    <img class="store-logo-icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/UNIQLO_logo.svg/3840px-UNIQLO_logo.svg.png" alt="ユニクロ">
+                    <span><a href="https://www.uniqlo.com/jp/ja/" target="_blank" style="color: var(--apple-blue); text-decoration: none;">ユニクロ</a></span>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox" data-price="2990" data-tax="1.1" onchange="calcWishlist()">
+                        <div class="item-text-content">
+                            <h4><a href="https://www.uniqlo.com/jp/ja/products/E482883-000/00?colorDisplayCode=07&sizeDisplayCode=004" target="_blank">ワイドフィットカーゴパンツ</a></h4>
+                            <p>寬版工裝長褲（商品番號：482883）。</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥2,990（税込）</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="item-extra-inputs">
+                                <label class="extra-input-group">🎫 現金劵 (免稅前扣) -¥<input type="number" class="voucher-input" value="0" min="0" step="100" oninput="calcWishlist()" onchange="calcWishlist()"></label>
+                                <label class="extra-input-group">🧾 免稅手續費 <input type="number" class="fee-input" value="0" min="0" max="15" step="0.05" oninput="calcWishlist()" onchange="calcWishlist()">%</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/482883/sub/goods_482883_sub13_3x4.jpg')"><img src="https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/482883/sub/goods_482883_sub13_3x4.jpg" alt="ワイドフィットカーゴパンツ"></div>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox" data-price="1990" data-tax="1.1" onchange="calcWishlist()">
+                        <div class="item-text-content">
+                            <h4><a href="https://www.uniqlo.com/jp/ja/products/E487270-000/00?colorDisplayCode=09&sizeDisplayCode=004" target="_blank">イージーワイドパンツ</a></h4>
+                            <p>休閒寬版長褲（商品番號：487270）。</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥1,990（税込）</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="item-extra-inputs">
+                                <label class="extra-input-group">🎫 現金劵 (免稅前扣) -¥<input type="number" class="voucher-input" value="0" min="0" step="100" oninput="calcWishlist()" onchange="calcWishlist()"></label>
+                                <label class="extra-input-group">🧾 免稅手續費 <input type="number" class="fee-input" value="0" min="0" max="15" step="0.05" oninput="calcWishlist()" onchange="calcWishlist()">%</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/487270/sub/goods_487270_sub11_3x4.jpg')"><img src="https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/487270/sub/goods_487270_sub11_3x4.jpg" alt="イージーワイドパンツ"></div>
                 </div>
             </div>
         </div>
@@ -1577,15 +1669,24 @@
             items.forEach(item => {
                 const checkbox = item.querySelector('.item-checkbox');
                 if(checkbox && checkbox.checked) {
-                    const price = parseFloat(checkbox.getAttribute('data-price'));
-                    const taxRate = parseFloat(checkbox.getAttribute('data-tax'));
-                    const qty = parseInt(item.querySelector('.qty-input').value);
+                    const price = parseFloat(checkbox.getAttribute('data-price')) || 0;
+                    const taxRate = parseFloat(checkbox.getAttribute('data-tax')) || 1.1;
+                    const qty = parseInt(item.querySelector('.qty-input').value) || 1;
+                    const voucherInput = item.querySelector('.voucher-input');
+                    const feeInput = item.querySelector('.fee-input');
+                    const voucher = voucherInput ? Math.max(0, parseFloat(voucherInput.value) || 0) : 0;
+                    const feePercent = feeInput ? Math.max(0, parseFloat(feeInput.value) || 0) : 0;
                     
-                    let finalPrice = price;
+                    // 先計算商品含稅小計，並在免稅前扣除現金劵
+                    let subtotalBeforeTaxFree = Math.max(0, (price * qty) - voucher);
+                    let itemFinalTotal = subtotalBeforeTaxFree;
+
                     if(isTaxFree) {
-                        finalPrice = Math.round(price / taxRate);
+                        const taxFreeBase = subtotalBeforeTaxFree / taxRate;
+                        const handlingFee = taxFreeBase * (feePercent / 100);
+                        itemFinalTotal = Math.round(taxFreeBase + handlingFee);
                     }
-                    total += (finalPrice * qty);
+                    total += itemFinalTotal;
                     count += qty;
                 }
             });
@@ -2014,7 +2115,7 @@
                 }
             } catch (e) {
                 // 當處於沙盒環境或離線時優雅降級，不拋出 console.error
-                etaContainer.innerHTML = '<span style="font-size: 14px; color: var(--text-secondary); margin-left: 8px; background: var(--banner-bg); padding: 4px 10px; border-radius: 8px; display: inline-block;">🚌 預定班次: 06:14</span>';
+                etaContainer.innerHTML = '<span style="font-size: 14px; color: var(--text-secondary); margin-left: 8px; background: var(--banner-bg); padding: 4px 10px; border-radius: 8px; display: inline-block;">🚌 預定班次: 06:15</span>';
             }
         }
 
