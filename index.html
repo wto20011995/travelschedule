@@ -1758,7 +1758,7 @@
                 const itemTaxSavedJpy = Math.max(0, subtotalBeforeTaxFree - taxFreeTotal);
                 const itemTaxSavedHkd = (itemTaxSavedJpy * globalExchangeRate).toFixed(2);
 
-                // 在每項商品顯示退稅扣除金額 (日元及港元)，未開啟免稅價時隱藏
+                // 在每項商品顯示退稅扣除金額 (日元及港元)，未開啟免稅價或未勾選該商品時隱藏
                 const extraInputsContainer = item.querySelector('.item-extra-inputs');
                 if (extraInputsContainer) {
                     let taxBadge = extraInputsContainer.querySelector('.item-tax-saved-badge');
@@ -1768,7 +1768,7 @@
                         extraInputsContainer.appendChild(taxBadge);
                     }
                     taxBadge.innerText = `💸 退稅扣除: -¥${itemTaxSavedJpy.toLocaleString()} (約 HK$${itemTaxSavedHkd})`;
-                    taxBadge.style.display = isTaxFree ? 'inline-flex' : 'none';
+                    taxBadge.style.display = (isTaxFree && checkbox.checked) ? 'inline-flex' : 'none';
                 }
 
                 if (checkbox.checked) {
@@ -1788,7 +1788,7 @@
             const taxSavedEl = document.getElementById('calc-tax-saved');
             if (taxSavedEl) {
                 taxSavedEl.innerText = `💸 退稅共扣除: -¥${totalTaxSavedJpy.toLocaleString()} (約 HK$${totalTaxSavedHkd})`;
-                taxSavedEl.style.display = isTaxFree ? 'block' : 'none';
+                taxSavedEl.style.display = (isTaxFree && count > 0) ? 'block' : 'none';
             }
         }
 
