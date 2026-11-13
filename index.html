@@ -1596,7 +1596,7 @@
                     <span class="calc-rate" id="exchange-rate-label">匯率: ¥100 = HK$5.20 (讀取即時匯率中...)</span>
                 </div>
             </div>
-            <div class="calc-tax-saved" id="calc-tax-saved">💸 退稅共扣除: -¥0 (約 HK$0.00)</div>
+            <div class="calc-tax-saved" id="calc-tax-saved" style="display: none;">💸 退稅共扣除: -¥0 (約 HK$0.00)</div>
         </div>
         <button class="tax-toggle-btn" id="tax-btn" onclick="toggleTaxFree()">
             🛒 顯示免稅價 (Tax Free)
@@ -1758,7 +1758,7 @@
                 const itemTaxSavedJpy = Math.max(0, subtotalBeforeTaxFree - taxFreeTotal);
                 const itemTaxSavedHkd = (itemTaxSavedJpy * globalExchangeRate).toFixed(2);
 
-                // 在每項商品顯示退稅扣除金額 (日元及港元)
+                // 在每項商品顯示退稅扣除金額 (日元及港元)，未開啟免稅價時隱藏
                 const extraInputsContainer = item.querySelector('.item-extra-inputs');
                 if (extraInputsContainer) {
                     let taxBadge = extraInputsContainer.querySelector('.item-tax-saved-badge');
@@ -1768,6 +1768,7 @@
                         extraInputsContainer.appendChild(taxBadge);
                     }
                     taxBadge.innerText = `💸 退稅扣除: -¥${itemTaxSavedJpy.toLocaleString()} (約 HK$${itemTaxSavedHkd})`;
+                    taxBadge.style.display = isTaxFree ? 'inline-flex' : 'none';
                 }
 
                 if (checkbox.checked) {
@@ -1787,6 +1788,7 @@
             const taxSavedEl = document.getElementById('calc-tax-saved');
             if (taxSavedEl) {
                 taxSavedEl.innerText = `💸 退稅共扣除: -¥${totalTaxSavedJpy.toLocaleString()} (約 HK$${totalTaxSavedHkd})`;
+                taxSavedEl.style.display = isTaxFree ? 'block' : 'none';
             }
         }
 
