@@ -517,6 +517,8 @@
         .extra-input-group { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; padding: 4px 10px; font-size: 13px; color: var(--text-secondary); font-weight: 500; }
         .extra-input-group input { width: 68px; border: none; background: transparent; font-size: 14px; font-weight: 600; color: var(--text-main); text-align: right; outline: none; -moz-appearance: textfield; }
         .extra-input-group input::-webkit-outer-spin-button, .extra-input-group input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        .item-tax-saved-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(52, 199, 89, 0.12); border: 1px solid rgba(52, 199, 89, 0.3); color: #1f8a4c; border-radius: 8px; padding: 4px 10px; font-size: 13px; font-weight: 600; }
+        body.dark-theme .item-tax-saved-badge { background: rgba(48, 209, 88, 0.15); border-color: rgba(48, 209, 88, 0.35); color: #30d158; }
         
         .wishlist-row-img-frame { width: 140px; height: 140px; display: flex; align-items: center; justify-content: center; background: #fafafa; border-radius: 12px; padding: 8px; margin-left: 20px; flex-shrink: 0; cursor: pointer;}
         body.dark-theme .wishlist-row-img-frame { background: #2c2c2e; }
@@ -549,6 +551,8 @@
         .calc-hkd-col { display: flex; flex-direction: column; }
         .calc-hkd { font-size: 16px; font-weight: 500; color: var(--text-secondary); }
         .calc-rate { font-size: 11px; color: var(--text-secondary); opacity: 0.7; }
+        .calc-tax-saved { font-size: 13px; font-weight: 600; color: #1f8a4c; margin-top: 2px; }
+        body.dark-theme .calc-tax-saved { color: #30d158; }
         .tax-toggle-btn { background: var(--apple-blue); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; box-shadow: 0 4px 12px rgba(0,102,204,0.3); }
         .tax-toggle-btn:hover { opacity: 0.85; }
         .tax-toggle-btn.tax-free-on { background: #34c759; box-shadow: 0 4px 12px rgba(52,199,89,0.3); }
@@ -1592,6 +1596,7 @@
                     <span class="calc-rate" id="exchange-rate-label">匯率: ¥100 = HK$5.20 (讀取即時匯率中...)</span>
                 </div>
             </div>
+            <div class="calc-tax-saved" id="calc-tax-saved">💸 退稅共扣除: -¥0 (約 HK$0.00)</div>
         </div>
         <button class="tax-toggle-btn" id="tax-btn" onclick="toggleTaxFree()">
             🛒 顯示免稅價 (Tax Free)
@@ -1729,37 +1734,60 @@
             const items = document.querySelectorAll('#view-9 .wishlist-item-row');
             let total = 0;
             let count = 0;
+            let totalTaxSavedJpy = 0;
 
             items.forEach(item => {
                 const checkbox = item.querySelector('.item-checkbox');
-                if(checkbox && checkbox.checked) {
-                    const price = parseFloat(checkbox.getAttribute('data-price')) || 0;
-                    const taxRate = parseFloat(checkbox.getAttribute('data-tax')) || 1.1;
-                    const qty = parseInt(item.querySelector('.qty-input').value) || 1;
-                    const voucherInput = item.querySelector('.voucher-input');
-                    const feeInput = item.querySelector('.fee-input');
-                    const voucher = voucherInput ? Math.max(0, parseFloat(voucherInput.value) || 0) : 0;
-                    const feePercent = feeInput ? Math.max(0, parseFloat(feeInput.value) || 0) : 0;
-                    
-                    // 先計算商品含稅小計，並在免稅前扣除現金劵
-                    let subtotalBeforeTaxFree = Math.max(0, (price * qty) - voucher);
-                    let itemFinalTotal = subtotalBeforeTaxFree;
+                if (!checkbox) return;
 
-                    if(isTaxFree) {
-                        const taxFreeBase = subtotalBeforeTaxFree / taxRate;
-                        const handlingFee = taxFreeBase * (feePercent / 100);
-                        itemFinalTotal = Math.round(taxFreeBase + handlingFee);
+                const price = parseFloat(checkbox.getAttribute('data-price')) || 0;
+                const taxRate = parseFloat(checkbox.getAttribute('data-tax')) || 1.1;
+                const qty = parseInt(item.querySelector('.qty-input').value) || 1;
+                const voucherInput = item.querySelector('.voucher-input');
+                const feeInput = item.querySelector('.fee-input');
+                const voucher = voucherInput ? Math.max(0, parseFloat(voucherInput.value) || 0) : 0;
+                const feePercent = feeInput ? Math.max(0, parseFloat(feeInput.value) || 0) : 0;
+                
+                // 先計算商品含稅小計，並在免稅前扣除現金劵
+                const subtotalBeforeTaxFree = Math.max(0, (price * qty) - voucher);
+                const taxFreeBase = subtotalBeforeTaxFree / taxRate;
+                const handlingFee = taxFreeBase * (feePercent / 100);
+                const taxFreeTotal = Math.round(taxFreeBase + handlingFee);
+
+                // 計算單項商品退稅所扣除的金額 (日元與港元)
+                const itemTaxSavedJpy = Math.max(0, subtotalBeforeTaxFree - taxFreeTotal);
+                const itemTaxSavedHkd = (itemTaxSavedJpy * globalExchangeRate).toFixed(2);
+
+                // 在每項商品顯示退稅扣除金額 (日元及港元)
+                const extraInputsContainer = item.querySelector('.item-extra-inputs');
+                if (extraInputsContainer) {
+                    let taxBadge = extraInputsContainer.querySelector('.item-tax-saved-badge');
+                    if (!taxBadge) {
+                        taxBadge = document.createElement('span');
+                        taxBadge.className = 'item-tax-saved-badge';
+                        extraInputsContainer.appendChild(taxBadge);
                     }
+                    taxBadge.innerText = `💸 退稅扣除: -¥${itemTaxSavedJpy.toLocaleString()} (約 HK$${itemTaxSavedHkd})`;
+                }
+
+                if (checkbox.checked) {
+                    const itemFinalTotal = isTaxFree ? taxFreeTotal : subtotalBeforeTaxFree;
                     total += itemFinalTotal;
                     count += qty;
+                    totalTaxSavedJpy += itemTaxSavedJpy;
                 }
             });
 
             const hkdTotal = (total * globalExchangeRate).toFixed(2);
+            const totalTaxSavedHkd = (totalTaxSavedJpy * globalExchangeRate).toFixed(2);
 
             document.getElementById('calc-count').innerText = `已選擇 ${count} 項商品`;
             document.getElementById('calc-total').innerText = `¥${total.toLocaleString()}`;
             document.getElementById('calc-hkd').innerText = `約 HK$${hkdTotal}`;
+            const taxSavedEl = document.getElementById('calc-tax-saved');
+            if (taxSavedEl) {
+                taxSavedEl.innerText = `💸 退稅共扣除: -¥${totalTaxSavedJpy.toLocaleString()} (約 HK$${totalTaxSavedHkd})`;
+            }
         }
 
         // === Carousel 封面引擎 (依 12/12-13/12 與其餘日子動態切換圖片) ===
@@ -2341,6 +2369,7 @@
                 fetchLiveWeather();
                 setInterval(fetchLiveWeather, 60000);
             } catch(e) {}
+            try { calcWishlist(); } catch(e) {}
             try { fetchLiveExchangeRate(); } catch(e) {}
             try { renderPackingList(); } catch(e) {}
             
