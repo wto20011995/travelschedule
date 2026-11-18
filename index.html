@@ -450,6 +450,69 @@
             color: #f5f5f7;
         }
 
+        /* Optional 標誌與後備方案按鈕 */
+        .optional-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 102, 204, 0.1);
+            border: 1px solid rgba(0, 102, 204, 0.3);
+            color: var(--apple-blue);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 999px;
+            margin-left: auto;
+            white-space: nowrap;
+            letter-spacing: 0.02em;
+        }
+        body.dark-theme .optional-badge {
+            background: rgba(10, 132, 255, 0.18);
+            border-color: rgba(10, 132, 255, 0.4);
+            color: #409cff;
+        }
+
+        .sub-item-right-group {
+            margin-left: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding-left: 10px;
+        }
+
+        .backup-toggle-btn {
+            margin-left: auto;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .backup-toggle-btn:hover {
+            border-color: var(--apple-blue);
+            color: var(--apple-blue);
+        }
+        .backup-toggle-btn.is-backup {
+            background: rgba(255, 149, 0, 0.14);
+            border-color: var(--apple-orange);
+            color: #c93400;
+        }
+        body.dark-theme .backup-toggle-btn.is-backup {
+            background: rgba(255, 159, 10, 0.2);
+            border-color: #ff9f0a;
+            color: #ffb340;
+        }
+
         .accordion-trigger { font-size: 22px !important; font-weight: normal !important; cursor: pointer; margin-bottom: 0 !important; }
         .accordion-trigger::after { content: " ▾"; font-size: 18px; color: var(--text-secondary); vertical-align: middle; }
 
@@ -676,6 +739,8 @@
             body:not(.forced-desktop-mode) .text-block p { font-size: 16px !important; }
             body:not(.forced-desktop-mode) .text-block .sub-item { font-size: 15px !important; margin-top: 8px !important; padding-left: 12px !important; }
             body:not(.forced-desktop-mode) .breakfast-badge { font-size: 12px !important; padding: 3px 8px !important; margin-left: 6px !important; border-radius: 6px !important; }
+            body:not(.forced-desktop-mode) .optional-badge { font-size: 11px !important; padding: 2px 8px !important; }
+            body:not(.forced-desktop-mode) .backup-toggle-btn { font-size: 12px !important; padding: 4px 10px !important; border-radius: 8px !important; }
             body:not(.forced-desktop-mode) .accordion-trigger { font-size: 16px !important; }
             body:not(.forced-desktop-mode) .accordion-trigger::after { font-size: 14px !important; }
             
@@ -726,6 +791,8 @@
         body.forced-mobile-mode .text-block p { font-size: 16px !important; }
         body.forced-mobile-mode .text-block .sub-item { font-size: 15px !important; margin-top: 8px !important; padding-left: 12px !important; }
         body.forced-mobile-mode .breakfast-badge { font-size: 12px !important; padding: 3px 8px !important; margin-left: 6px !important; border-radius: 6px !important; }
+        body.forced-mobile-mode .optional-badge { font-size: 11px !important; padding: 2px 8px !important; }
+        body.forced-mobile-mode .backup-toggle-btn { font-size: 12px !important; padding: 4px 10px !important; border-radius: 8px !important; }
         body.forced-mobile-mode .accordion-trigger { font-size: 16px !important; }
         body.forced-mobile-mode .accordion-trigger::after { font-size: 14px !important; }
         body.forced-mobile-mode .wishlist-section-title { font-size: 22px !important; margin-top: 24px !important; margin-bottom: 16px !important; }
@@ -841,12 +908,13 @@
                 <div class="timeline-item"><div class="time-box">17:29 - 17:41</div><div class="content-box"><div class="text-block"><p>上野 → 銀座</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">17:55 - 18:15</div><div class="content-box"><div class="text-block"><p><a href="https://sotetsu-hotels.com/fresa-inn/ginza7/" target="_blank">相鉄フレッサイン七丁目</a> <a href="https://www.google.com/maps/search/?api=1&query=相鉄フレッサイン+銀座七丁目" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p></div></div></div>
                 
-                <div class="timeline-item"><div class="time-box">18:15 - 19:30</div><div class="content-box"><div class="text-block">
+                <div class="timeline-item"><div class="time-box">18:15 - 19:29</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d1-ginza')">銀座</h3>
                     <div id="acc-d1-ginza" class="accordion-content">
                         <p class="sub-item">GINZA SIX <a href="https://www.google.com/maps/search/?api=1&query=GINZA+SIX" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
                         <p class="sub-item">Uniqlo TOKYO <a href="https://maps.app.goo.gl/Fd5Lg7i4DhA2B7RS8" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/UNIQLO_logo.svg/3840px-UNIQLO_logo.svg.png" alt="Uniqlo"></p>
                         <p class="sub-item">無印良品銀座 <a href="https://www.google.com/maps/search/?api=1&query=無印良品+銀座" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://media.langhamplace.com.hk/cms/store/pOqpj2qXE.png" alt="Muji"></p>
+                        <p class="sub-item"><a href="https://shiro-shiro.jp/ec/ext/shop/ginza/index.html" target="_blank">SHIRO 銀座本店</a> <a href="https://www.google.com/maps/search/?api=1&query=SHIRO+銀座本店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <span class="sub-item-right-group"><span class="optional-badge">Optional</span><img class="inline-sub-logo" style="margin-left:0;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKOjmIF-kBiCpkKlF1eeSETaH0M_e9EZ-MwA&s" alt="SHIRO"></span></p>
                         <p class="sub-item"><a href="https://www.isseymiyake.com/pages/storesdetail?shop_code=292" target="_blank">ISSEY MIYAKE GINZA / 442</a> <a href="https://www.google.com/maps/search/?api=1&query=ISSEY+MIYAKE+GINZA+442" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://gaijinparis.com/img/cms/Marques/Issey-Miyake.jpg" alt="Issey Miyake"></p>
                         <p class="sub-item">Apple 銀座 <a href="https://www.google.com/maps/search/?api=1&query=Apple+銀座" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
                     </div>
@@ -884,7 +952,7 @@
                 <div class="timeline-item"><div class="time-box">09:00 - 09:50</div><div class="content-box"><div class="text-block"><p><a href="https://tabelog.com/tokyo/A1304/A130401/13004332/" target="_blank">Berg</a> <a href="https://www.google.com/maps/search/?api=1&query=BERG+新宿" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p></div></div></div>
                 <div class="timeline-item"><div class="time-box">09:50 - 09:54</div><div class="content-box"><div class="text-block"><p>新宿 → 原宿</p></div></div></div>
                 
-                <div class="timeline-item"><div class="time-box">09:54 - 12:25</div><div class="content-box"><div class="text-block">
+                <div class="timeline-item"><div class="time-box">09:54 - 12:24</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d2-harajuku')">原宿/青山</h3>
                     <div id="acc-d2-harajuku" class="accordion-content">
                         <p class="sub-item"><a href="https://catmocha.jp/shop/harajuku/" target="_blank">猫カフェMOCHA 原宿店</a> <a href="https://www.google.com/maps/search/?api=1&query=猫カフェMOCHA+原宿店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
@@ -894,6 +962,7 @@
                         <p class="sub-item">Apple原宿 <a href="https://www.google.com/maps/search/?api=1&query=Apple+Omotesando" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
                         <p class="sub-item"><a href="https://www.isseymiyake.com/pages/storesdetail?shop_code=273" target="_blank">IM MEN / AOYAMA</a> <a href="https://www.google.com/maps/search/?api=1&query=IM+MEN+AOYAMA" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://uk.isseymiyake.com/cdn/shop/t/106/assets/exp-immen_logobox.png?v=6638328696964336641775124216" alt="IM MEN"></p>
                         <p class="sub-item"><a href="https://www.isseymiyake.com/pages/storesdetail?shop_code=247" target="_blank">HOMME PLISSÉ ISSEY MIYAKE / AOYAMA</a> <a href="https://www.google.com/maps/search/?api=1&query=HOMME+PLISSE+ISSEY+MIYAKE+AOYAMA" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg?v=1743185807" alt="Homme Plisse"></p>
+                        <p class="sub-item"><a href="https://shiro-shiro.jp/ec/ext/shop/omotesando/index.html" target="_blank">SHIRO 表参道本店</a> <a href="https://www.google.com/maps/search/?api=1&query=SHIRO+表参道本店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <span class="sub-item-right-group"><span class="optional-badge">Optional</span><img class="inline-sub-logo" style="margin-left:0;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKOjmIF-kBiCpkKlF1eeSETaH0M_e9EZ-MwA&s" alt="SHIRO"></span></p>
                     </div>
                 </div></div></div>
 
@@ -915,6 +984,7 @@
                 <div class="timeline-item"><div class="time-box">15:38 - 17:23</div><div class="content-box"><div class="text-block">
                     <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d2-shibuya')">渋谷</h3>
                     <div id="acc-d2-shibuya" class="accordion-content">
+                        <p class="sub-item"><a href="https://www.harbs.co.jp/shop_kanto/" target="_blank">Harbs 渋谷サクラステージ店</a> <a href="https://www.google.com/maps?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B8%8B%E8%B0%B7%E5%8C%BA%E6%A1%9C%E3%83%B6%E4%B8%98%E7%94%BA%EF%BC%91-%EF%BC%94++SHIBUYA%E3%82%B5%E3%82%A4%E3%83%89%EF%BC%92F+%E3%83%8F%E3%83%BC%E3%83%96%E3%82%B9%E6%B8%8B%E8%B0%B7%E3%82%B5%E3%82%AF%E3%83%A9%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E5%BA%97" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <span class="optional-badge">Optional</span></p>
                         <p class="sub-item"><a href="https://www.beams.co.jp/shop/js/" target="_blank">ビームス ジャパン 渋谷</a> <a href="https://www.google.com/maps/search/?api=1&query=BEAMS+JAPAN+SHIBUYA" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" style="max-width: 128px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt06V9NPrCnjWWkW_drze1cuFi7-D1OU0JqeHNl9Rcojn_rB2gsQV6JkU&s=10" alt="Beams Japan"></p>
                         <p class="sub-item">PARCO <a href="https://www.google.com/maps/search/?api=1&query=SHIBUYA+PARCO" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
                         <p class="sub-item">    <a href="https://www.nintendo.com/jp/officialstore/index.html" target="_blank">nintendo TOKYO</a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://www.nintendo.com/jp/officialstore/img/info_logo_tokyo.png" alt="Nintendo"></p>
@@ -1024,7 +1094,7 @@
             <div class="timeline-section">
                 <div class="timeline-item"><div class="time-box">07:30 - 09:45</div><div class="content-box"><div class="text-block"><p><a href="https://nonokaze-resort.com/access" target="_blank">ザ レイクビューTOYA 乃の風リゾート</a><span class="breakfast-badge">🍽️ 朝食 07:30</span> <a href="https://www.google.com/maps/search/?api=1&query=ザ+レイクビューTOYA+乃の風リゾート" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p></div></div></div>
                 <div class="timeline-item"><div class="time-box">10:00 - 12:30</div><div class="content-box"><div class="text-block"><p><a href="https://nonokaze-resort.com/access#access02" target="_blank">乃の風リゾート → 札幌駅北口</a></p></div></div></div>
-                <div class="timeline-item"><div class="time-box">13:00 - 14:00</div><div class="content-box"><div class="text-block"><p><a href="https://tabelog.com/hokkaido/A0101/A010101/1060249/dtlmap/" target="_blank">カリーサボイ</a> <a href="https://www.google.com/maps/search/?api=1&query=カリーサボイ+札幌" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a>(Backup:<a href="https://tabelog.com/hokkaido/A0101/A010101/1004285/dtlmap/" target="_blank">スープカリー ヒリヒリ2号</a> <a href="https://maps.app.goo.gl/r7GULJWiYBYznUxW9" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a>)</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">13:00 - 14:00</div><div class="content-box"><div class="text-block"><p style="display:flex; align-items:center; flex-wrap:wrap; gap:4px;"><a id="plan-link-curry" href="https://tabelog.com/hokkaido/A0101/A010101/1060249/dtlmap/" target="_blank">カリーサボイ</a> <a id="plan-map-curry" href="https://www.google.com/maps/search/?api=1&query=カリーサボイ+札幌" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a><button type="button" class="backup-toggle-btn" onclick="toggleBackupPlan('curry', this)">🔄 後備方案</button></p></div></div></div>
                 <div class="timeline-item"><div class="time-box">14:30 - 15:55</div><div class="content-box"><div class="text-block"><p>札幌 → 旭川</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">16:15 - 16:22</div><div class="content-box"><div class="text-block"><p>旭川駅前 → ６条昭和通 ([道北バス]２８番：春光台循環線(旭川駅前行))</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">16:25 - 16:55</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/asahikawa/" target="_blank">天然温泉 神威の湯 ドーミーイン旭川</a> <a href="https://www.google.com/maps/search/?api=1&query=天然温泉+神威の湯+ドーミーイン旭川" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p></div></div></div>
@@ -1052,7 +1122,7 @@
                 <div class="timeline-item"><div class="time-box">09:59 - 10:34</div><div class="content-box"><div class="text-block"><p>４条９丁目 → 旭山動物園([旭川電気軌道]４７番：旭山動物園線［１０条経由］（動物園閉園時間及び休園日は旭山公園入口発着）(旭山動物園行))</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">10:35 - 12:35</div><div class="content-box"><div class="text-block"><p><a href="https://hokkaido.letsgojp.com/archives/21521/" target="_blank">旭山動物園</a> <a href="https://www.google.com/maps/search/?api=1&query=旭山動物園" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p></div></div></div>
                 <div class="timeline-item"><div class="time-box">12:40 - 13:10</div><div class="content-box"><div class="text-block"><p>旭山動物園 → ４条９丁目([旭川電気軌道]４１番：旭山動物園線［４条経由］（動物園閉園時間及び休園日は旭山公園入口発着）(旭川駅行))</p></div></div></div>
-                <div class="timeline-item"><div class="time-box">13:15 - 14:00</div><div class="content-box"><div class="text-block"><p><a href="https://tabelog.com/hokkaido/A0104/A010401/1085640/" target="_blank">旭川らぅめん青葉</a> <a href="https://www.google.com/maps/place/Asahikawa+Ramen+Aoba-honten/@43.7685155,142.3609745,20.32z/data=!4m15!1m8!3m7!1s0x5f0ce61278389585:0xc459fa50571b92e8!2zOC1jaMWNbWUtMTcwNS02IDQgSsWNZMWNcmksIEFzYWhpa2F3YSwgSG9ra2FpZG8gMDcwLTAwMzTml6XmnKw!3b1!8m2!3d43.7684669!4d142.3611317!16s%2Fg%2F11d_41yvzw!3m5!1s0x5f0ce6122492a761:0x507a31cc45b65b50!8m2!3d43.7685962!4d142.361064!16s%2Fg%2F1tk6q3q6!5m1!1e2?hl=zh-TW&entry=ttu&g_ep=EgoyMDI2MTEwMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> (Backup: <a href="https://tabelog.com/hokkaido/A0104/A010401/1000090/dtlmap/" target="_blank">らーめんや天金 四条店</a> <a href="https://www.google.com/maps/place/%E5%A4%A9%E9%87%91%E6%8B%89%E9%BA%B5+%E5%9B%9B%E6%9D%A1%E5%BA%97/@43.7678054,142.3625016,18z/data=!3m1!4b1!4m6!3m5!1s0x5f0ce6125923c561:0xb3a721354f43abd9!8m2!3d43.7678054!4d142.3632508!16s%2Fg%2F1tf5djzw!5m1!1e2?hl=zh-TW&entry=ttu&g_ep=EgoyMDI2MTEwMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a>)</p></div></div></div>
+                <div class="timeline-item"><div class="time-box">13:15 - 14:00</div><div class="content-box"><div class="text-block"><p style="display:flex; align-items:center; flex-wrap:wrap; gap:4px;"><a id="plan-link-ramen" href="https://tabelog.com/hokkaido/A0104/A010401/1085640/" target="_blank">旭川らぅめん青葉</a> <a id="plan-map-ramen" href="https://www.google.com/maps/place/Asahikawa+Ramen+Aoba-honten/@43.7685155,142.3609745,20.32z/data=!4m15!1m8!3m7!1s0x5f0ce61278389585:0xc459fa50571b92e8!2zOC1jaMWNbWUtMTcwNS02IDQgSsWNZMWNcmksIEFzYWhpa2F3YSwgSG9ra2FpZG8gMDcwLTAwMzTml6XmnKw!3b1!8m2!3d43.7684669!4d142.3611317!16s%2Fg%2F11d_41yvzw!3m5!1s0x5f0ce6122492a761:0x507a31cc45b65b50!8m2!3d43.7685962!4d142.361064!16s%2Fg%2F1tk6q3q6!5m1!1e2?hl=zh-TW&entry=ttu&g_ep=EgoyMDI2MTEwMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a><button type="button" class="backup-toggle-btn" onclick="toggleBackupPlan('ramen', this)">🔄 後備方案</button></p></div></div></div>
                 <div class="timeline-item"><div class="time-box">14:15 - 14:30</div><div class="content-box"><div class="timeline-left-img-container"><img src="https://image.cdn-eztravel.com.tw/q2odKv2KWbwhPRVYmVNeaKWqCEE8M2hoMBOHShzdlmg/g:ce/q:95/aHR0cHM6Ly9ob3RlbC5jZG4tZXp0cmF2ZWwuY29tLnR3L2h0bC9odGYvZnJnL0ZYSC8yMDEvQnVzaW5lc3MvRG9ybXklMjBJbm5fbG9nby5wbmc.png" alt="Dormy Inn"></div><div class="text-block"><p><a href="https://dormy-hotels.com/dormyinn/hotels/asahikawa/" target="_blank">天然温泉 神威の湯 ドーミーイン旭川</a> <a href="https://www.google.com/maps/search/?api=1&query=%E5%A4%A9%E7%84%B6%E6%B8%A9%E6%B3%89+%E7%A5%9E%E5%A8%81%E3%81%AE%E6%B9%AF+%E3%83%89%E3%83%BC%E3%83%9F%E3%83%BC%E3%82%A4%E3%83%B3%E6%97%AD%E5%B7%9D" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p></div></div></div>
                 <div class="timeline-item"><div class="time-box">14:36 - 14:46</div><div class="content-box"><div class="text-block"><p>５条緑橋通 → 旭川駅前([道北バス]３番：名寄線(旭川駅前行))</p></div></div></div>
                 <div class="timeline-item"><div class="time-box">15:00 - 16:25</div><div class="content-box"><div class="text-block"><p>旭川 → 札幌</p></div></div></div>
@@ -1109,7 +1179,7 @@
                         <p class="sub-item"><a href="https://humanmade.jp/pages/dealers?srsltid=AfmBOormVKR6rS3NPI9F_mu8CkSwj66sdRN8nGEft2ev9niKIOYI2Y9L" target="_blank">HUMAN MADE SAPPORO</a> <a href="https://www.google.com/maps/search/?api=1&query=HUMAN+MADE+SAPPORO" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://images.seeklogo.com/logo-png/48/1/humanmade-heart-logo-png_seeklogo-486066.png" alt="Human Made"></p>
                         <p class="sub-item"><a href="https://senshuan.co.jp/map/" target="_blank">札幌千秋庵 本店</a> <a href="https://www.google.com/maps/search/?api=1&query=札幌千秋庵+本店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
                         <p class="sub-item"><a href="https://www.kaneko-optical.co.jp/shop_detail/142" target="_blank">金子眼鏡店 モユク札幌店</a> <a href="https://www.google.com/maps/search/?api=1&query=金子眼鏡店+モユク札幌店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://www.puyi.cn/pub/media/amasty/shopby/option_images/slider/Logo_KANEKO_OPTICAL_1.png" alt="Kaneko"></p>
-                        <p class="sub-item">(<a href="https://aoao-sapporo.blue/en/" target="_blank">AOAO SAPPORO</a>) <a href="https://www.google.com/maps/search/?api=1&query=AOAO+SAPPORO" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
+                        <p class="sub-item"><a href="https://aoao-sapporo.blue/en/" target="_blank">AOAO SAPPORO</a> <a href="https://www.google.com/maps/search/?api=1&query=AOAO+SAPPORO" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <span class="optional-badge">Optional</span></p>
                         <p class="sub-item">札幌三越 <a href="https://www.google.com/maps/search/?api=1&query=札幌三越" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
                         <p class="sub-item">札幌Parco <a href="https://www.google.com/maps/search/?api=1&query=札幌PARCO" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
                         <p class="sub-item">    <a href="https://www.muji.com/jp/ja/shop/detail/045607" target="_blank">MUJI</a> <img class="inline-sub-logo" src="https://media.langhamplace.com.hk/cms/store/pOqpj2qXE.png" alt="Muji"></p>
@@ -1331,6 +1401,72 @@
                         </div>
                     </div>
                     <div class="wishlist-row-img-frame" onclick="openViewer('https://shiro-shiro.jp/ec/product_images/12908/12908.jpg')"><img src="https://shiro-shiro.jp/ec/product_images/12908/12908.jpg" alt="ホワイトティー アロマオイル"></div>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox" data-price="11220" data-tax="1.1" onchange="calcWishlist()">
+                        <div class="item-text-content">
+                            <h4><a href="https://shiro-shiro.jp/ec/pro/disp/1/13478" target="_blank">WARM EDEN オードパルファン</a></h4>
+                            <p>SHIRO PERFUME 系列香水單品。</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥11,220（税込）</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="item-extra-inputs">
+                                <label class="extra-input-group">🎫 現金劵 (免稅前扣) -¥<input type="number" class="voucher-input" value="0" min="0" step="100" oninput="calcWishlist()" onchange="calcWishlist()"></label>
+                                <label class="extra-input-group">🧾 免稅手續費 <input type="number" class="fee-input" value="0" min="0" max="15" step="0.05" oninput="calcWishlist()" onchange="calcWishlist()">%</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://shiro-shiro.jp/ec/product_images/13478/13478.jpg')"><img src="https://shiro-shiro.jp/ec/product_images/13478/13478.jpg" alt="WARM EDEN オードパルファン"></div>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox" data-price="11220" data-tax="1.1" onchange="calcWishlist()">
+                        <div class="item-text-content">
+                            <h4><a href="https://shiro-shiro.jp/ec/pro/disp/1/13482" target="_blank">FIND MY STAR オードパルファン</a></h4>
+                            <p>SHIRO PERFUME 系列香水單品。</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥11,220（税込）</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="item-extra-inputs">
+                                <label class="extra-input-group">🎫 現金劵 (免稅前扣) -¥<input type="number" class="voucher-input" value="0" min="0" step="100" oninput="calcWishlist()" onchange="calcWishlist()"></label>
+                                <label class="extra-input-group">🧾 免稅手續費 <input type="number" class="fee-input" value="0" min="0" max="15" step="0.05" oninput="calcWishlist()" onchange="calcWishlist()">%</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://shiro-shiro.jp/ec/product_images/13482/13482.jpg')"><img src="https://shiro-shiro.jp/ec/product_images/13482/13482.jpg" alt="FIND MY STAR オードパルファン"></div>
+                </div>
+                <div class="wishlist-item-row">
+                    <div class="wishlist-item-left">
+                        <input type="checkbox" class="item-checkbox" data-price="11220" data-tax="1.1" onchange="calcWishlist()">
+                        <div class="item-text-content">
+                            <h4><a href="https://shiro-shiro.jp/ec/pro/disp/1/13477" target="_blank">INNOCENT FORTE オードパルファン</a></h4>
+                            <p>SHIRO PERFUME 系列香水單品。</p>
+                            <div class="item-price-row">
+                                <span class="price-tag">¥11,220（税込）</span>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                                    <input type="number" class="qty-input" value="1" min="1" onchange="calcWishlist()">
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="item-extra-inputs">
+                                <label class="extra-input-group">🎫 現金劵 (免稅前扣) -¥<input type="number" class="voucher-input" value="0" min="0" step="100" oninput="calcWishlist()" onchange="calcWishlist()"></label>
+                                <label class="extra-input-group">🧾 免稅手續費 <input type="number" class="fee-input" value="0" min="0" max="15" step="0.05" oninput="calcWishlist()" onchange="calcWishlist()">%</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wishlist-row-img-frame" onclick="openViewer('https://shiro-shiro.jp/ec/product_images/13477/13477.jpg')"><img src="https://shiro-shiro.jp/ec/product_images/13477/13477.jpg" alt="INNOCENT FORTE オードパルファン"></div>
                 </div>
             </div>
 
@@ -1931,6 +2067,62 @@
         }
 
         // === UI 與排版引擎 ===
+        const backupPlansData = {
+            curry: {
+                isBackup: false,
+                primary: {
+                    name: 'カリーサボイ',
+                    url: 'https://tabelog.com/hokkaido/A0101/A010101/1060249/dtlmap/',
+                    map: 'https://www.google.com/maps/search/?api=1&query=カリーサボイ+札幌'
+                },
+                backup: {
+                    name: 'スープカリー ヒリヒリ2号',
+                    url: 'https://tabelog.com/hokkaido/A0101/A010101/1004285/dtlmap/',
+                    map: 'https://maps.app.goo.gl/r7GULJWiYBYznUxW9'
+                }
+            },
+            ramen: {
+                isBackup: false,
+                primary: {
+                    name: '旭川らぅめん青葉',
+                    url: 'https://tabelog.com/hokkaido/A0104/A010401/1085640/',
+                    map: 'https://www.google.com/maps/place/Asahikawa+Ramen+Aoba-honten/@43.7685155,142.3609745,20.32z/data=!4m15!1m8!3m7!1s0x5f0ce61278389585:0xc459fa50571b92e8!2zOC1jaMWNbWUtMTcwNS02IDQgSsWNZMWNcmksIEFzYWhpa2F3YSwgSG9ra2FpZG8gMDcwLTAwMzTml6XmnKw!3b1!8m2!3d43.7684669!4d142.3611317!16s%2Fg%2F11d_41yvzw!3m5!1s0x5f0ce6122492a761:0x507a31cc45b65b50!8m2!3d43.7685962!4d142.361064!16s%2Fg%2F1tk6q3q6!5m1!1e2?hl=zh-TW&entry=ttu&g_ep=EgoyMDI2MTEwMy4wIKXMDSoASAFQAw%3D%3D'
+                },
+                backup: {
+                    name: 'らーめんや天金 四条店',
+                    url: 'https://tabelog.com/hokkaido/A0104/A010401/1000090/dtlmap/',
+                    map: 'https://www.google.com/maps/place/%E5%A4%A9%E9%87%91%E6%8B%89%E9%BA%B5+%E5%9B%9B%E6%9D%A1%E5%BA%97/@43.7678054,142.3625016,18z/data=!3m1!4b1!4m6!3m5!1s0x5f0ce6125923c561:0xb3a721354f43abd9!8m2!3d43.7678054!4d142.3632508!16s%2Fg%2F1tf5djzw!5m1!1e2?hl=zh-TW&entry=ttu&g_ep=EgoyMDI2MTEwMy4wIKXMDSoASAFQAw%3D%3D'
+                }
+            }
+        };
+
+        function toggleBackupPlan(key, btnEl) {
+            const plan = backupPlansData[key];
+            if (!plan) return;
+            plan.isBackup = !plan.isBackup;
+            const current = plan.isBackup ? plan.backup : plan.primary;
+
+            const linkEl = document.getElementById(`plan-link-${key}`);
+            const mapEl = document.getElementById(`plan-map-${key}`);
+
+            if (linkEl) {
+                linkEl.innerText = current.name;
+                linkEl.href = current.url;
+            }
+            if (mapEl) {
+                mapEl.href = current.map;
+            }
+            if (btnEl) {
+                if (plan.isBackup) {
+                    btnEl.classList.add('is-backup');
+                    btnEl.innerText = '↩️ 主方案';
+                } else {
+                    btnEl.classList.remove('is-backup');
+                    btnEl.innerText = '🔄 後備方案';
+                }
+            }
+        }
+
         function toggleAccordion(id) {
             const content = document.getElementById(id);
             if (content) content.classList.toggle('expanded');
