@@ -1035,29 +1035,131 @@
         }
         .viewer-control-btn:active { background: rgba(255,255,255,0.3); }
 
+        /* 手機版行程時間字體大小控制列（預設隱藏，僅於手機版顯示） */
+        .mobile-time-size-bar {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 8px 14px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .mobile-time-size-controls {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .time-size-btn {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            border-radius: 8px;
+            padding: 4px 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            line-height: 1.2;
+        }
+        .time-size-btn:active {
+            background: var(--apple-blue);
+            color: #ffffff;
+            border-color: var(--apple-blue);
+        }
+        .time-size-val {
+            min-width: 38px;
+            text-align: center;
+            font-weight: 700;
+            color: var(--text-main);
+            font-size: 13px;
+        }
+
+        /* 旅行資訊頁優惠卷與影片響應式排版 */
+        .coupon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .coupon-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        .coupon-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--apple-blue);
+        }
+        .coupon-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            object-position: top;
+            border-radius: 10px;
+            background: #ffffff;
+        }
+        .coupon-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-main);
+            text-align: center;
+        }
+        .video-responsive {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            background: #000000;
+            margin-top: 16px;
+        }
+        .video-responsive iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
         @media (max-width: 1050px) {
             body:not(.forced-desktop-mode) { padding-top: 87px; padding-bottom: 280px; }
-            body:not(.forced-desktop-mode) .main-container { max-width: 600px; margin: 0 auto; }
+            body:not(.forced-desktop-mode) .main-container { max-width: 600px; margin: 0 auto; padding: 0 12px; }
             
             body:not(.forced-desktop-mode) .carousel-container { height: 220px !important; }
+            body:not(.forced-desktop-mode) .mobile-time-size-bar { display: flex; }
             
             body:not(.forced-desktop-mode) .dashboard-grid { gap: 6px; }
             body:not(.forced-desktop-mode) .metric-card { padding: 6px 8px; flex: 1 1 21% !important; }
             body:not(.forced-desktop-mode) .metric-label { font-size: 10px; }
             body:not(.forced-desktop-mode) .metric-value { font-size: 12px; }
             
-            body:not(.forced-desktop-mode) .time-box { font-size: 16px !important; padding-right: 8px !important; }
-            body:not(.forced-desktop-mode) .timeline-item { grid-template-columns: 85px 1fr !important; gap: 8px !important; align-items: center; }
-            body:not(.forced-desktop-mode) .content-box { flex-direction: row !important; align-items: center !important; gap: 12px !important; }
-            body:not(.forced-desktop-mode) .timeline-left-img-container { width: 60px !important; height: 60px !important; }
+            body:not(.forced-desktop-mode) .timeline-section { padding: 16px 14px !important; border-radius: 16px !important; }
+            body:not(.forced-desktop-mode) .time-box { font-size: var(--mobile-time-font-size, 14px) !important; padding-right: 6px !important; line-height: 1.45 !important; align-self: start !important; padding-top: 2px; word-break: keep-all; }
+            body:not(.forced-desktop-mode) .timeline-item { grid-template-columns: 94px 1fr !important; gap: 10px !important; padding: 14px 0 !important; align-items: start !important; }
+            body:not(.forced-desktop-mode) .content-box { flex-direction: row !important; align-items: flex-start !important; gap: 10px !important; }
+            body:not(.forced-desktop-mode) .timeline-left-img-container { width: 52px !important; height: 52px !important; align-self: flex-start; }
             body:not(.forced-desktop-mode) .timeline-section .text-block > h3,
             body:not(.forced-desktop-mode) .timeline-section .text-block > h3.accordion-trigger,
             body:not(.forced-desktop-mode) .timeline-section .text-block > p,
             body:not(.forced-desktop-mode) .timeline-section .text-block > h3 a,
-            body:not(.forced-desktop-mode) .timeline-section .text-block > p a { font-size: 16px !important; }
+            body:not(.forced-desktop-mode) .timeline-section .text-block > p a { font-size: 16px !important; line-height: 1.45 !important; }
+            body:not(.forced-desktop-mode) .accordion-content { padding-left: 10px !important; }
             body:not(.forced-desktop-mode) .timeline-section .accordion-content .sub-item,
-            body:not(.forced-desktop-mode) .timeline-section .accordion-content .sub-item a { font-size: 15px !important; }
-            body:not(.forced-desktop-mode) .timeline-section .accordion-content .sub-item { margin-top: 8px !important; padding-left: 12px !important; }
+            body:not(.forced-desktop-mode) .timeline-section .accordion-content .sub-item a { font-size: 15px !important; line-height: 1.5 !important; }
+            body:not(.forced-desktop-mode) .timeline-section .accordion-content .sub-item { margin-top: 10px !important; padding-left: 6px !important; }
             body:not(.forced-desktop-mode) .breakfast-badge { font-size: 12px !important; padding: 3px 8px !important; margin-left: 6px !important; border-radius: 6px !important; }
             body:not(.forced-desktop-mode) .optional-badge { font-size: 11px !important; padding: 2px 8px !important; }
             body:not(.forced-desktop-mode) .backup-toggle-btn { font-size: 12px !important; padding: 4px 10px !important; border-radius: 8px !important; }
@@ -1101,27 +1203,27 @@
         }
 
         body.forced-mobile-mode { padding-top: 87px; padding-bottom: 280px; }
-        body.forced-mobile-mode .main-container { max-width: 600px; margin: 0 auto; }
+        body.forced-mobile-mode .main-container { max-width: 600px; margin: 0 auto; padding: 0 12px; }
         body.forced-mobile-mode .carousel-container { height: 220px !important; }
+        body.forced-mobile-mode .mobile-time-size-bar { display: flex; }
         body.forced-mobile-mode .dashboard-grid { gap: 6px; }
         body.forced-mobile-mode .metric-card { padding: 6px 8px; flex: 1 1 21% !important; }
         body.forced-mobile-mode .metric-label { font-size: 10px; }
         body.forced-mobile-mode .metric-value { font-size: 12px; }
-        body.forced-mobile-mode .time-box { font-size: 16px !important; padding-right: 8px !important; }
-        body.forced-mobile-mode .timeline-item { grid-template-columns: 85px 1fr !important; gap: 8px !important; align-items: center; }
-        body.forced-mobile-mode .content-box { flex-direction: row !important; align-items: center !important; gap: 12px !important; }
-        body.forced-mobile-mode .timeline-left-img-container { width: 60px !important; height: 60px !important; }
+        body.forced-mobile-mode .timeline-section { padding: 16px 14px !important; border-radius: 16px !important; }
+        body.forced-mobile-mode .time-box { font-size: var(--mobile-time-font-size, 14px) !important; padding-right: 6px !important; line-height: 1.45 !important; align-self: start !important; padding-top: 2px; word-break: keep-all; }
+        body.forced-mobile-mode .timeline-item { grid-template-columns: 94px 1fr !important; gap: 10px !important; padding: 14px 0 !important; align-items: start !important; }
+        body.forced-mobile-mode .content-box { flex-direction: row !important; align-items: flex-start !important; gap: 10px !important; }
+        body.forced-mobile-mode .timeline-left-img-container { width: 52px !important; height: 52px !important; align-self: flex-start; }
         body.forced-mobile-mode .timeline-section .text-block > h3,
         body.forced-mobile-mode .timeline-section .text-block > h3.accordion-trigger,
         body.forced-mobile-mode .timeline-section .text-block > p,
         body.forced-mobile-mode .timeline-section .text-block > h3 a,
-        body.forced-mobile-mode .timeline-section .text-block > p a { font-size: 16px !important; }
+        body.forced-mobile-mode .timeline-section .text-block > p a { font-size: 16px !important; line-height: 1.45 !important; }
+        body.forced-mobile-mode .accordion-content { padding-left: 10px !important; }
         body.forced-mobile-mode .timeline-section .accordion-content .sub-item,
-        body.forced-mobile-mode .timeline-section .accordion-content .sub-item a { font-size: 15px !important; }
-        body.forced-mobile-mode .timeline-section .accordion-content .sub-item { margin-top: 8px !important; padding-left: 12px !important; }
-        body.forced-mobile-mode .breakfast-badge { font-size: 12px !important; padding: 3px 8px !important; margin-left: 6px !important; border-radius: 6px !important; }
-        body.forced-mobile-mode .optional-badge { font-size: 11px !important; padding: 2px 8px !important; }
-        body.forced-mobile-mode .backup-toggle-btn { font-size: 12px !important; padding: 4px 10px !important; border-radius: 8px !important; }
+        body.forced-mobile-mode .timeline-section .accordion-content .sub-item a { font-size: 15px !important; line-height: 1.5 !important; }
+        body.forced-mobile-mode .timeline-section .accordion-content .sub-item { margin-top: 10px !important; padding-left: 6px !important; }
         body.forced-mobile-mode .accordion-trigger::after { font-size: 14px !important; }
         body.forced-mobile-mode .wishlist-section-title { font-size: 22px !important; margin-top: 24px !important; margin-bottom: 16px !important; }
         body.forced-mobile-mode .store-title { font-size: 18px !important; margin-bottom: 12px !important; }
@@ -1212,6 +1314,17 @@
             <div class="carousel-dots">
                 <div class="dot active" onclick="goToImage(0)"></div>
                 <div class="dot" onclick="goToImage(1)"></div>
+            </div>
+        </div>
+
+        <!-- 手機版行程時間字體大小快速調整列 -->
+        <div class="mobile-time-size-bar" id="mobile-time-size-bar">
+            <span>🕒 行程時間字體大小</span>
+            <div class="mobile-time-size-controls">
+                <button type="button" class="time-size-btn" onclick="adjustMobileTimeFontSize(-1)">A-</button>
+                <span class="time-size-val" id="mobile-time-size-val">14px</span>
+                <button type="button" class="time-size-btn" onclick="adjustMobileTimeFontSize(1)">A+</button>
+                <button type="button" class="time-size-btn" onclick="resetMobileTimeFontSize()">重設</button>
             </div>
         </div>
 
@@ -1333,33 +1446,6 @@
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.yoshidakaban.com/shopinfo/px/px_shibuya/" target="_blank">PORTER EXCHANGE SHIBUYA</a> <img class="inline-sub-logo" src="https://hansengarmentsstore.com/cdn/shop/collections/download.webp?v=1692634430" alt="Porter"></p>
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://shiro-shiro.jp/ec/ext/shop/shibuya-parco/index.html" target="_blank">SHIRO 渋谷PARCO店</a> <span class="optional-badge">Optional</span> <img class="inline-sub-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKOjmIF-kBiCpkKlF1eeSETaH0M_e9EZ-MwA&s" alt="SHIRO"></p>
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.humanmade.jp/dealers.html" target="_blank">HUMAN MADE SHIBUYA PARCO</a> <span class="optional-badge">Optional</span> <img class="inline-sub-logo" src="https://images.seeklogo.com/logo-png/48/1/humanmade-heart-logo-png_seeklogo-486066.png" alt="Human Made"></p>
-                    </div>
-                </div></div></div>
-
-                <div class="timeline-item"><div class="time-box">12:25 - 12:38</div><div class="content-box"><div class="text-block"><p>表参道 → 中目黒</p></div></div></div>
-                
-                <div class="timeline-item"><div class="time-box">12:38 - 15:30</div><div class="content-box"><div class="text-block">
-                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d2-meguro')">目黒</h3>
-                    <div id="acc-d2-meguro" class="accordion-content">
-                        <p class="sub-item"><a href="https://tabelog.com/tokyo/A1317/A131701/13299883/" target="_blank">Ramen Jazzy Beats</a>(12:45-13:30) <a href="https://www.google.com/maps/search/?api=1&query=Ramen+Jazzy+Beats" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
-                        <p class="sub-item">I'm donut ? 中目黒店 <a href="https://www.google.com/maps/search/?api=1&query=I'm+donut+?+中目黒店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" style="height: 130px; max-height: 130px;" src="https://fathom-design.jp/wp/wp-content/uploads/2022/06/logo-1.jpg" alt="I'm Donut"></p>
-                        <p class="sub-item">STARBUCKS RESERVE® ROASTERY TOKYO <a href="https://www.google.com/maps/search/?api=1&query=STARBUCKS+RESERVE+ROASTERY+TOKYO" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://static.vecteezy.com/system/resources/previews/022/636/379/non_2x/starbucks-logo-starbucks-icon-transparent-free-png.png" alt="Starbucks"></p>
-                        <p class="sub-item">蔦屋書店 <a href="https://www.google.com/maps/search/?api=1&query=代官山+蔦屋書店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://store.tsite.jp/static_contents/site/tsite/portal/img/og.jpg" alt="Tsutaya"></p>
-                        <p class="sub-item"><a href="https://www.isseymiyake.com/pages/storesdetail?shop_code=42" target="_blank">HOMME PLISSÉ ISSEY MIYAKE / DAIKANYAMA</a> <a href="https://www.google.com/maps/search/?api=1&query=HOMME+PLISSE+ISSEY+MIYAKE+DAIKANYAMA" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://us.isseymiyake.com/cdn/shop/articles/HP_2025mar26_2_thumb_9ab6a4d0-bd56-4e17-bba6-ada2fbe8dd18.jpg?v=1743185807" alt="Homme Plisse"></p>
-                    </div>
-                </div></div></div>
-
-                <div class="timeline-item"><div class="time-box">15:36 - 15:38</div><div class="content-box"><div class="text-block"><p>代官山 → 渋谷</p></div></div></div>
-                
-                <div class="timeline-item"><div class="time-box">15:38 - 17:23</div><div class="content-box"><div class="text-block">
-                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d2-shibuya')">渋谷</h3>
-                    <div id="acc-d2-shibuya" class="accordion-content">
-                        <p class="sub-item"><a href="https://www.harbs.co.jp/shop_kanto/" target="_blank">Harbs 渋谷サクラステージ店</a> <a href="https://www.google.com/maps?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B8%8B%E8%B0%B7%E5%8C%BA%E6%A1%9C%E3%83%B6%E4%B8%98%E7%94%BA%EF%BC%91-%EF%BC%94++SHIBUYA%E3%82%B5%E3%82%A4%E3%83%89%EF%BC%92F+%E3%83%8F%E3%83%BC%E3%83%96%E3%82%B9%E6%B8%8B%E8%B0%B7%E3%82%B5%E3%82%AF%E3%83%A9%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E5%BA%97" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <span class="optional-badge">Optional</span></p>
-                        <p class="sub-item"><a href="https://www.beams.co.jp/shop/js/" target="_blank">ビームス ジャパン 渋谷</a> <a href="https://www.google.com/maps/search/?api=1&query=BEAMS+JAPAN+SHIBUYA" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" style="max-width: 128px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt06V9NPrCnjWWkW_drze1cuFi7-D1OU0JqeHNl9Rcojn_rB2gsQV6JkU&s=10" alt="Beams Japan"></p>
-                        <p class="sub-item">PARCO <a href="https://www.google.com/maps/search/?api=1&query=SHIBUYA+PARCO" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
-                        <p class="sub-item">    <a href="https://www.nintendo.com/jp/officialstore/index.html" target="_blank">nintendo TOKYO</a> <img class="inline-sub-logo" style="max-width: 338px; max-height: 110px;" src="https://www.nintendo.com/jp/officialstore/img/info_logo_tokyo.png" alt="Nintendo"></p>
-                        <p class="sub-item">    <a href="https://www.yoshidakaban.com/shopinfo/px/px_shibuya/" target="_blank">PORTER EXCHANGE SHIBUYA</a> <img class="inline-sub-logo" src="https://hansengarmentsstore.com/cdn/shop/collections/download.webp?v=1692634430" alt="Porter"></p>
-                        <p class="sub-item">    <a href="https://www.humanmade.jp/dealers.html" target="_blank">HUMAN MADE SHIBUYA PARCO</a> <img class="inline-sub-logo" src="https://images.seeklogo.com/logo-png/48/1/humanmade-heart-logo-png_seeklogo-486066.png" alt="Human Made"></p>
                     </div>
                 </div></div></div>
 
@@ -1562,26 +1648,6 @@
                         <p class="sub-item"><a href="https://www.etnet.com.hk/www/tc/lifestyle/eatandplay/traveljapan/89230" target="_blank">COCONO SUSUKINO</a></p>
                         <p class="sub-item"><a href="https://hokkaido.letsgojp.com/archives/385044/" target="_blank">札幌地下街</a></p>
                         <p class="sub-item">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.palcloset.jp/addons/pal/shoplist/detail/?brandshop_no=2&b=3coins" target="_blank">3COINS 札幌ポールタウン店</a> <img class="inline-sub-logo" src="https://mitsui-shopping-park.com/lalaport/tokyo-bay/shopguide/2359593/image1.jpg" alt="3Coins"></p>
-                    </div>
-                </div></div></div>
-
-                <div class="timeline-item"><div class="time-box">16:17 - 16:20</div><div class="content-box"><div class="text-block"><p>さっぽろ → すすきの</p></div></div></div>
-
-                <div class="timeline-item"><div class="time-box">16:25 - 19:30</div><div class="content-box"><div class="text-block">
-                    <h3 class="accordion-trigger" onclick="toggleAccordion('acc-d7-tanukikoji')">狸小路</h3>
-                    <div id="acc-d7-tanukikoji" class="accordion-content">
-                        <p class="sub-item"><a href="https://humanmade.jp/pages/dealers?srsltid=AfmBOormVKR6rS3NPI9F_mu8CkSwj66sdRN8nGEft2ev9niKIOYI2Y9L" target="_blank">HUMAN MADE SAPPORO</a> <a href="https://www.google.com/maps/search/?api=1&query=HUMAN+MADE+SAPPORO" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://images.seeklogo.com/logo-png/48/1/humanmade-heart-logo-png_seeklogo-486066.png" alt="Human Made"></p>
-                        <p class="sub-item"><a href="https://senshuan.co.jp/map/" target="_blank">札幌千秋庵 本店</a> <a href="https://www.google.com/maps/search/?api=1&query=札幌千秋庵+本店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
-                        <p class="sub-item"><a href="https://www.kaneko-optical.co.jp/shop_detail/142" target="_blank">金子眼鏡店 モユク札幌店</a> <a href="https://www.google.com/maps/search/?api=1&query=金子眼鏡店+モユク札幌店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://www.puyi.cn/pub/media/amasty/shopby/option_images/slider/Logo_KANEKO_OPTICAL_1.png" alt="Kaneko"></p>
-                        <p class="sub-item"><a href="https://aoao-sapporo.blue/en/" target="_blank">AOAO SAPPORO</a> <a href="https://www.google.com/maps/search/?api=1&query=AOAO+SAPPORO" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <span class="optional-badge">Optional</span></p>
-                        <p class="sub-item">札幌三越 <a href="https://www.google.com/maps/search/?api=1&query=札幌三越" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
-                        <p class="sub-item">札幌Parco <a href="https://www.google.com/maps/search/?api=1&query=札幌PARCO" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
-                        <p class="sub-item">    <a href="https://www.muji.com/jp/ja/shop/detail/045607" target="_blank">MUJI</a> <img class="inline-sub-logo" src="https://media.langhamplace.com.hk/cms/store/pOqpj2qXE.png" alt="Muji"></p>
-                        <p class="sub-item">    <a href="https://www.yoshidakaban.com/shopinfo/potr/sapporo/" target="_blank">POTR SAPPORO</a> <img class="inline-sub-logo" src="https://hansengarmentsstore.com/cdn/shop/collections/download.webp?v=1692634430" alt="Porter"></p>
-                        <p class="sub-item"><a href="https://hokkaido.letsgojp.com/archives/382907/" target="_blank">狸小路商店街</a></p>
-                        <p class="sub-item"><a href="https://www.etnet.com.hk/www/tc/lifestyle/eatandplay/traveljapan/89230" target="_blank">COCONO SUSUKINO</a></p>
-                        <p class="sub-item"><a href="https://hokkaido.letsgojp.com/archives/385044/" target="_blank">札幌地下街</a></p>
-                        <p class="sub-item">    <a href="https://www.palcloset.jp/addons/pal/shoplist/detail/?brandshop_no=2&b=3coins" target="_blank">3COINS 札幌ポールタウン店</a> <img class="inline-sub-logo" src="https://mitsui-shopping-park.com/lalaport/tokyo-bay/shopguide/2359593/image1.jpg" alt="3Coins"></p>
                     </div>
                 </div></div></div>
 
@@ -2143,6 +2209,379 @@
             </div>
         </div>
 
+        <!-- =================== 🧳 PACKING LIST PANEL =================== -->
+        <div id="view-10" class="view-panel">
+            <div class="timeline-section">
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:14px; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+                    <h2 style="font-size:24px; font-weight:700; margin:0;">🧳 旅行物品清單 (東京 / 北海道冬季裝備)</h2>
+                    <span style="font-size:13px; color:var(--text-secondary);">點擊項目即可勾選並自動儲存狀態</span>
+                </div>
+                <div id="packing-container" class="packing-list-grid"></div>
+            </div>
+        </div>
+
+        <!-- =================== 🧾 TAX-FREE GUIDE PANEL =================== -->
+        <div id="view-11" class="view-panel">
+            <div class="tax-hero-banner">
+                <div class="tax-hero-title">
+                    <span>🧾 2026 日本免稅新制「先付後退」全攻略懶人包</span>
+                    <span class="tax-pill-badge">2026/11/01 實施</span>
+                </div>
+                <p class="tax-hero-desc">
+                    日本免稅改為<strong>「購物時先付 10% 含稅價，出境經海關確認後退款」</strong>，取消消耗品密封包裝，且不分物品種類。採用哪間退稅公司與手續費由店家決定，出發前先掌握 <strong>8 間 0% 免手續費店家</strong>與<strong>四大主流退稅系統</strong>，回程於新千歲機場即可極速完成海關確認！
+                </p>
+                <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:10px;">
+                    <a class="tax-action-link" href="https://linshibi.com/?p=53059#%E5%85%8D%E9%80%80%E7%A8%85%E6%89%8B%E7%BA%8C%E8%B2%BB%E7%9A%84%E6%97%A5%E6%9C%AC%E5%95%86%E5%AE%B6%E6%95%B4%E7%90%86_116_8AM%E6%9B%B4%E6%96%B0" target="_blank">🔗 查看林氏璧原文：免退稅手續費日本商家整理</a>
+                </div>
+            </div>
+
+            <!-- 1. 8 間免手續費店家 -->
+            <div class="store-group-container">
+                <div class="store-title">
+                    <span>🏆 8 間 0% 免退稅手續費友善店家（全屬 J-TaxRefund 系統）</span>
+                </div>
+                <p style="font-size:14px; color:var(--text-secondary); margin-bottom:12px;">
+                    以下店家確認全額吸收退稅手續費（百貨業界普遍已由 1.5% 調升至 2.3%，因此優先在免手續費或低手續費店家購物更划算）：
+                </p>
+                <div class="tax-free-store-grid">
+                    <div class="tax-store-card">
+                        <div class="tax-store-card-header"><span>🛒 綜合賣場</span><span class="tax-pill-badge">0% 手續費</span></div>
+                        <ul class="tax-store-card-list">
+                            <li>• 上野御徒町多慶屋（僅此一間）</li>
+                            <li>• 唐吉訶德 (Don Quijote)</li>
+                        </ul>
+                    </div>
+                    <div class="tax-store-card">
+                        <div class="tax-store-card-header"><span>🔌 家電量販</span><span class="tax-pill-badge">0% 手續費</span></div>
+                        <ul class="tax-store-card-list">
+                            <li>• Bic Camera（ビックカメラ）</li>
+                            <li>• 山田電機 LABI</li>
+                        </ul>
+                    </div>
+                    <div class="tax-store-card">
+                        <div class="tax-store-card-header"><span>💊 連鎖藥妝</span><span class="tax-pill-badge">0% 手續費</span></div>
+                        <ul class="tax-store-card-list">
+                            <li>• 札幌藥妝店（收 1% 但直接降價 1% 補回）</li>
+                            <li>• 鶴羽藥妝 (TSURUHA)</li>
+                            <li>• SUNDRUG（尚都樂客）</li>
+                            <li>• 大國藥妝 (Daikoku)</li>
+                        </ul>
+                    </div>
+                    <div class="tax-store-card">
+                        <div class="tax-store-card-header"><span>✨ 低手續費推薦</span><span class="tax-pill-badge blue">超低費率</span></div>
+                        <ul class="tax-store-card-list">
+                            <li>• 松本清：<strong>0.33%</strong>（僅酌收匯款費）</li>
+                            <li>• 東武百貨店：<strong>1.0%</strong>（遠低於一般百貨 2.3%）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 各已知商店退稅公司及手續費總表 -->
+            <div class="store-group-container">
+                <div class="store-title">
+                    <span>📋 各已知商店所屬免稅公司及手續費總整理</span>
+                </div>
+                <div class="tax-filter-toolbar">
+                    <div class="tax-filter-pills" id="tax-filter-pills">
+                        <button type="button" class="tax-filter-btn active" onclick="setTaxStoreFilter('all', this)">全部商店</button>
+                        <button type="button" class="tax-filter-btn" onclick="setTaxStoreFilter('trip', this)">⭐ 本次行程重點</button>
+                        <button type="button" class="tax-filter-btn" onclick="setTaxStoreFilter('zero', this)">0% 免手續費</button>
+                        <button type="button" class="tax-filter-btn" onclick="setTaxStoreFilter('J-TaxRefund', this)">J-TaxRefund</button>
+                        <button type="button" class="tax-filter-btn" onclick="setTaxStoreFilter('Global Blue', this)">Global Blue</button>
+                        <button type="button" class="tax-filter-btn" onclick="setTaxStoreFilter('PIE VAT', this)">PIE VAT</button>
+                        <button type="button" class="tax-filter-btn" onclick="setTaxStoreFilter('JPrefund', this)">JPrefund</button>
+                    </div>
+                    <input type="text" id="tax-store-search" class="tax-search-input" placeholder="🔍 搜尋商店名稱或類別..." oninput="filterTaxStores()">
+                </div>
+
+                <div class="tax-store-table-wrap">
+                    <table class="tax-store-table">
+                        <thead>
+                            <tr>
+                                <th>商店名稱</th>
+                                <th>類別</th>
+                                <th>所屬免稅公司</th>
+                                <th>手續費率</th>
+                                <th>備註 / 計算基準</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tax-store-tbody">
+                            <tr data-company="J-TaxRefund" data-zero="true" data-trip="true"><td><strong>Bic Camera (ビックカメラ)</strong><span class="trip-match-badge">行程/清單</span></td><td>家電</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-zero">0%</td><td>店家全額吸收；支援優惠卷折後免稅</td></tr>
+                            <tr data-company="J-TaxRefund" data-zero="true" data-trip="true"><td><strong>札幌藥妝店 (Satsudora)</strong><span class="trip-match-badge">優惠卷</span></td><td>藥妝</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-zero">0% (實際)</td><td>手續費 1%，但結帳時直接降價 1% 補回</td></tr>
+                            <tr data-company="J-TaxRefund" data-zero="true" data-trip="true"><td><strong>大國藥妝 (Daikoku)</strong><span class="trip-match-badge">優惠卷</span></td><td>藥妝</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-zero">0%</td><td>店家全額吸收手續費</td></tr>
+                            <tr data-company="J-TaxRefund" data-zero="true" data-trip="false"><td><strong>上野御徒町多慶屋</strong></td><td>綜合</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-zero">0%</td><td>100% 消費稅全額回饋，僅此一間無分店</td></tr>
+                            <tr data-company="J-TaxRefund" data-zero="true" data-trip="false"><td><strong>唐吉訶德 (Don Quijote)</strong></td><td>綜合</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-zero">0%</td><td>店家全額吸收手續費</td></tr>
+                            <tr data-company="J-TaxRefund" data-zero="true" data-trip="false"><td><strong>鶴羽藥妝 (TSURUHA)</strong></td><td>藥妝</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-zero">0%</td><td>店家全額吸收手續費</td></tr>
+                            <tr data-company="J-TaxRefund" data-zero="true" data-trip="false"><td><strong>山田電機 LABI</strong></td><td>家電</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-zero">0%</td><td>可任選 J-TaxRefund 或 Ocean</td></tr>
+                            <tr data-company="J-TaxRefund" data-zero="true" data-trip="false"><td><strong>SUNDRUG (尚都樂客)</strong></td><td>藥妝</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-zero">0%</td><td>店家全額吸收手續費</td></tr>
+                            <tr data-company="J-TaxRefund" data-zero="false" data-trip="true"><td><strong>松本清 / Cocokara Fine</strong><span class="trip-match-badge">優惠卷</span></td><td>藥妝</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-mid">0.33%</td><td>僅酌收信用卡匯款第三方費用</td></tr>
+                            <tr data-company="J-TaxRefund" data-zero="false" data-trip="true"><td><strong>UNIQLO (ユニクロ)</strong><span class="trip-match-badge">行程/清單</span></td><td>時裝</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-mid">退款額約 10%</td><td>約實退 9%（以退款額計；等同商品未稅價約 1%）</td></tr>
+                            <tr data-company="J-TaxRefund" data-zero="false" data-trip="false"><td><strong>GU</strong></td><td>時裝</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-mid">1.0%</td><td>未稅價基準</td></tr>
+                            <tr data-company="J-TaxRefund" data-zero="false" data-trip="false"><td><strong>東武百貨店</strong></td><td>百貨</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-mid">1.0%</td><td>百貨業最低之一（多數百貨已漲至 2.3%）</td></tr>
+                            <tr data-company="J-TaxRefund" data-zero="false" data-trip="false"><td><strong>伊藤洋華堂</strong></td><td>百貨</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-mid">1.65%</td><td>未稅價基準</td></tr>
+                            <tr data-company="J-TaxRefund" data-zero="false" data-trip="false"><td><strong>松屋銀座百貨</strong></td><td>百貨</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-high">2.15%</td><td>以含稅價計算</td></tr>
+                            <tr data-company="J-TaxRefund" data-zero="false" data-trip="false"><td><strong>駿河屋</strong></td><td>動漫</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-high">4.0%</td><td>未稅價基準</td></tr>
+                            <tr data-company="Global Blue" data-zero="false" data-trip="true"><td><strong>大丸百貨 / 松坂屋 (大丸東京・札幌)</strong><span class="trip-match-badge">行程</span></td><td>百貨</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-high">2.3%</td><td>建議退至 JCB 卡避免匯差；無需 CVV</td></tr>
+                            <tr data-company="Global Blue" data-zero="false" data-trip="true"><td><strong>ヨドバシカメラ (Yodobashi)</strong><span class="trip-match-badge">行程</span></td><td>家電</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-high">2.3%</td><td>大額可選門市市區退現金（約 5%，上限 ¥500）</td></tr>
+                            <tr data-company="Global Blue" data-zero="false" data-trip="true"><td><strong>ISSEY MIYAKE (三宅一生)</strong><span class="trip-match-badge">行程/清單</span></td><td>時裝</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-high">3.0%</td><td>建議退至 JCB 卡；登記免 CVV 與預授權</td></tr>
+                            <tr data-company="Global Blue" data-zero="false" data-trip="false"><td><strong>SUGI 藥局</strong></td><td>藥妝</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-mid">1.6%</td><td>未稅價基準</td></tr>
+                            <tr data-company="Global Blue" data-zero="false" data-trip="false"><td><strong>阪急百貨 / 高島屋</strong></td><td>百貨</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-high">2.3% → 1.6%</td><td>依消費額級距遞減</td></tr>
+                            <tr data-company="Global Blue" data-zero="false" data-trip="false"><td><strong>愛電王 EDION</strong></td><td>家電</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-mid">定額 ¥210</td><td>買越多越划算</td></tr>
+                            <tr data-company="PIE VAT" data-zero="false" data-trip="false"><td><strong>三井 Outlet Park / LaLaport</strong></td><td>Outlet</td><td><span class="tax-company-tag pie">PIE VAT</span></td><td class="tax-fee-mid">1.5%</td><td>須裝 App；無現金退款選項</td></tr>
+                            <tr data-company="PIE VAT" data-zero="false" data-trip="false"><td><strong>澀谷 109</strong></td><td>商場</td><td><span class="tax-company-tag pie">PIE VAT</span></td><td class="tax-fee-mid">1.55%</td><td>須裝 App；僅線上退款</td></tr>
+                            <tr data-company="PIE VAT" data-zero="false" data-trip="false"><td><strong>Montbell</strong></td><td>運動</td><td><span class="tax-company-tag pie">PIE VAT</span></td><td class="tax-fee-high">2% - 3%</td><td>依各分店而異</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="true"><td><strong>3COINS (札幌ポールタウン店)</strong><span class="trip-match-badge">行程</span></td><td>雜貨</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-high">定額 ¥320</td><td>未稅 ¥5,000 約 6.4%；¥10,000 約 3.2%</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>阿卡將本舖</strong></td><td>母嬰</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-mid">1.1%</td><td>以含稅價計算</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>Grand Front Osaka</strong></td><td>商場</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-mid">1.5%</td><td>未稅價基準</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>Fancl</strong></td><td>美妝</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-high">3.5%</td><td>未稅價基準</td></tr>
+                            <tr data-company="其他" data-zero="false" data-trip="false"><td><strong>AEON 夢樂城 / Animate</strong></td><td>商場/動漫</td><td><span class="tax-company-tag other">Planet / Ocean</span></td><td class="tax-fee-mid">1.5% / 2.1%</td><td>Animate 另收提領費 ¥180 起</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p id="tax-store-empty-msg" style="display:none; text-align:center; padding:18px; color:var(--text-secondary); font-size:14px;">找不到符合條件的商店，請嘗試其他關鍵字或篩選條件。</p>
+            </div>
+
+            <!-- 3. 四大主流退稅系統比較 -->
+            <div class="store-group-container">
+                <div class="store-title">
+                    <span>🏢 日本四大主流退稅系統比較</span>
+                </div>
+                <div class="tax-company-grid">
+                    <div class="tax-company-card">
+                        <div class="tax-company-head">
+                            <span style="font-size:17px; font-weight:700;">1. J-TaxRefund (J&amp;J Tax Free)</span>
+                            <span class="tax-pill-badge">最常見・0% 店最多</span>
+                        </div>
+                        <div class="tax-company-meta">
+                            • <strong>方式</strong>：純網頁登記（免下載 App）<br>
+                            • <strong>期限</strong>：購物後 <strong>180 天內</strong>皆可辦理<br>
+                            • <strong>現金退稅</strong>：支援機場現金機，且退現金<strong>完全免建帳號</strong><br>
+                            • <strong>備註</strong>：綁信用卡需 CVV 與 3D 驗證（收不到 SMS 可改電郵或銀行 App 授權）
+                        </div>
+                        <div class="tax-company-links">
+                            <a class="tax-action-link" href="https://j-taxrefund.com/" target="_blank">🌐 退稅網頁</a>
+                            <a class="tax-action-link" href="https://j-taxfree.jp/" target="_blank">ℹ️ 官方介紹</a>
+                        </div>
+                    </div>
+
+                    <div class="tax-company-card">
+                        <div class="tax-company-head">
+                            <span style="font-size:17px; font-weight:700;">2. Global Blue (環球藍聯)</span>
+                            <span class="tax-pill-badge blue">百貨/精品/三宅一生</span>
+                        </div>
+                        <div class="tax-company-meta">
+                            • <strong>方式</strong>：網頁或 App（無需 CVV、無需預授權，資安最安心）<br>
+                            • <strong>期限</strong>：離境後 <strong>3 週內</strong>設好信用卡，<strong>3 個月內</strong>完成辦理<br>
+                            • <strong>現金退稅</strong>：支援機場現金機（免建帳號）及 Yodobashi 市區領現<br>
+                            • <strong>💡 避雷貼士</strong>：強烈建議退至 <strong>JCB 卡</strong>，避免被強制轉匯造成匯差損失
+                        </div>
+                        <div class="tax-company-links">
+                            <a class="tax-action-link" href="https://www.globalblue.com/zh/shoppers/how-to-shop-tax-free/destinations/japan" target="_blank">🌐 日本退稅指引</a>
+                            <a class="tax-action-link" href="https://www.globalblue.com/zh/shoppers/global-blue-shop-tax-free-app" target="_blank">📱 下載 App</a>
+                        </div>
+                    </div>
+
+                    <div class="tax-company-card">
+                        <div class="tax-company-head">
+                            <span style="font-size:17px; font-weight:700;">3. PIE VAT</span>
+                            <span class="tax-pill-badge warn">僅線上・無現金</span>
+                        </div>
+                        <div class="tax-company-meta">
+                            • <strong>方式</strong>：建議下載專用 App（綁卡需 CVV）<br>
+                            • <strong>期限</strong>：購物後 <strong>18 個月內</strong>皆可辦理<br>
+                            • <strong>現金退稅</strong>：<strong>沒有退現金選項</strong>，僅限線上退款<br>
+                            • <strong>常見場域</strong>：三井 Outlet、LaLaport、澀谷 109、Montbell
+                        </div>
+                        <div class="tax-company-links">
+                            <a class="tax-action-link" href="https://pievat.com/tourists/japan/zh-tw" target="_blank">📱 退稅 App</a>
+                            <a class="tax-action-link" href="https://pievat.com/" target="_blank">🌐 官方網站</a>
+                        </div>
+                    </div>
+
+                    <div class="tax-company-card">
+                        <div class="tax-company-head">
+                            <span style="font-size:17px; font-weight:700;">4. JPrefund (Smart Detax)</span>
+                            <span class="tax-pill-badge blue">伊藤忠・軟銀支持</span>
+                        </div>
+                        <div class="tax-company-meta">
+                            • <strong>方式</strong>：純網頁登記（綁卡需 CVV 及人臉辨識）<br>
+                            • <strong>期限</strong>：購物後 <strong>200 天內</strong>皆可辦理<br>
+                            • <strong>現金退稅</strong>：欲在機場領現金<strong>必須先建立帳號</strong>，並於出境前選擇「機場現金領取」<br>
+                            • <strong>常見場域</strong>：3COINS、阿卡將本舖、Fancl
+                        </div>
+                        <div class="tax-company-links">
+                            <a class="tax-action-link" href="https://jprefund.jp/" target="_blank">🌐 退稅網頁</a>
+                            <a class="tax-action-link" href="https://s-tar.net/" target="_blank">ℹ️ 公司官網</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. HSBC World Debit Card 退稅實測 -->
+            <div class="store-group-container">
+                <div class="store-title">
+                    <span>💳 網民實測：HSBC World Debit Card 收取日本退稅金紀錄</span>
+                </div>
+                <p style="font-size:14px; color:var(--text-secondary); margin-bottom:14px;">
+                    實測日期：11 月 3 日回港選擇以 HSBC World Debit Card 退款 ➔ <strong>11 月 9 日收到款項（約 6 日入帳）</strong>
+                </p>
+                <div class="tax-store-table-wrap" style="margin-bottom:16px;">
+                    <table class="tax-store-table">
+                        <thead>
+                            <tr>
+                                <th>消費商店</th>
+                                <th>免稅適用金額</th>
+                                <th>退稅入帳金額</th>
+                                <th>Cash Rebate 扣回</th>
+                                <th>最終實收</th>
+                                <th>實測手續費率</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>1. Lumine Sanrio</strong></td><td>¥620</td><td>¥470</td><td>-¥2</td><td><strong>¥468</strong></td><td class="tax-fee-high">約 24% (立牌標示 24.2%)</td></tr>
+                            <tr><td><strong>2. Lumine MUJI</strong></td><td>¥526</td><td>¥399</td><td>-¥2</td><td><strong>¥397</strong></td><td class="tax-fee-high">約 24%</td></tr>
+                            <tr><td><strong>3. Kiddy Land</strong></td><td>¥630</td><td>¥527</td><td>-¥2</td><td><strong>¥525</strong></td><td class="tax-fee-high">約 16%</td></tr>
+                            <tr><td><strong>4. Hoka</strong></td><td>¥1,500</td><td>¥1,253</td><td>-¥5</td><td><strong>¥1,248</strong></td><td class="tax-fee-high">約 16%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tax-tips-grid">
+                    <div class="tax-tip-card">
+                        <strong>💱 直入日元戶口，免蝕匯率</strong>
+                        使用 HSBC World Debit Card 退稅會直接入帳至外幣日元戶口，完全不會蝕兌換匯差，但銀行會按比例扣回原先該筆消費已派發的 Cash Rebate。
+                    </div>
+                    <div class="tax-tip-card">
+                        <strong>⚠️ 注意手續費計算分母</strong>
+                        部分商場（如新宿 Lumine 標示 24.2%）的手續費是直接從「免稅適用金額（10% 稅額）」中扣除（相當於實收約 7.6% 退稅），結帳前務必看清告示。
+                    </div>
+                    <div class="tax-tip-card">
+                        <strong>⏱️ 退款入帳速度比較</strong>
+                        使用信用卡或 Debit Card 收款，處理時間（Process Date）至少需要 5 個工作天以上；根據網民普遍分享，使用「支付寶」收款到帳速度最快。
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. 2026 新制 4 步驟與新千歲機場離境指引 -->
+            <div class="store-group-container">
+                <div class="store-title">
+                    <span>✈️ 2026 免稅 4 步驟與 12/19 新千歲機場離境指引</span>
+                </div>
+                <div class="tax-infographic-wrap">
+                    <svg viewBox="0 0 880 140" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="10" y="15" width="195" height="110" rx="14" fill="#0066cc" fill-opacity="0.1" stroke="#0066cc" stroke-width="1.5"/>
+                        <text x="107" y="45" text-anchor="middle" font-size="16" font-weight="700" fill="#0066cc">1. 結帳付含稅價</text>
+                        <text x="107" y="72" text-anchor="middle" font-size="13" fill="currentColor">出示護照告知 Tax Free</text>
+                        <text x="107" y="95" text-anchor="middle" font-size="12" fill="#86868b">保留所有收據至入帳</text>
+
+                        <text x="218" y="75" text-anchor="middle" font-size="22" font-weight="700" fill="#86868b">➔</text>
+
+                        <rect x="232" y="15" width="195" height="110" rx="14" fill="#0066cc" fill-opacity="0.1" stroke="#0066cc" stroke-width="1.5"/>
+                        <text x="329" y="45" text-anchor="middle" font-size="16" font-weight="700" fill="#0066cc">2. 掃碼登記退款</text>
+                        <text x="329" y="72" text-anchor="middle" font-size="13" fill="currentColor">掃收據 QR 選信用卡/現金</text>
+                        <text x="329" y="95" text-anchor="middle" font-size="12" fill="#86868b">建議購物當日完成登記</text>
+
+                        <text x="440" y="75" text-anchor="middle" font-size="22" font-weight="700" fill="#86868b">➔</text>
+
+                        <rect x="454" y="15" width="195" height="110" rx="14" fill="#34c759" fill-opacity="0.12" stroke="#34c759" stroke-width="1.5"/>
+                        <text x="551" y="45" text-anchor="middle" font-size="16" font-weight="700" fill="#1f8a4c">3. 機場海關確認</text>
+                        <text x="551" y="72" text-anchor="middle" font-size="13" fill="currentColor">託運前掃 KIOSK 或 VJW</text>
+                        <text x="551" y="95" text-anchor="middle" font-size="12" fill="#86868b">綠燈 Complete 即過關</text>
+
+                        <text x="662" y="75" text-anchor="middle" font-size="22" font-weight="700" fill="#86868b">➔</text>
+
+                        <rect x="676" y="15" width="195" height="110" rx="14" fill="#ff9500" fill-opacity="0.12" stroke="#ff9500" stroke-width="1.5"/>
+                        <text x="773" y="45" text-anchor="middle" font-size="16" font-weight="700" fill="#c93400">4. 自動入帳 / 領現</text>
+                        <text x="773" y="72" text-anchor="middle" font-size="13" fill="currentColor">信用卡自動退 / 現金機領</text>
+                        <text x="773" y="95" text-anchor="middle" font-size="12" fill="#86868b">新千歲現金機 06:00-20:30</text>
+                    </svg>
+                </div>
+                <div class="tax-tips-grid">
+                    <div class="tax-tip-card">
+                        <strong>📶 新千歲機場免排隊密技 (VJW Wi-Fi)</strong>
+                        於國際線 3 樓出發大堂（<strong>託運行李與安檢前</strong>），連接海關專用 Wi-Fi：<br>
+                        SSID: <code>Customs_WiFi_For_TaxRefund</code><br>
+                        密碼: <code>jcustoms</code><br>
+                        登入 Visit Japan Web ➔「退稅手續」確認顯示綠色 Complete 即可直接託運行李！
+                    </div>
+                    <div class="tax-tip-card">
+                        <strong>🚨 海關查核兩大陷阱</strong>
+                        1. <strong>消耗品不可在日本境內拆封使用</strong>（食品、飲料、化妝品等）。<br>
+                        2. <strong>整張單據一併判定</strong>：若單據中任何一件遺失或已消耗，整張單據將無法獲退稅；衣物等非消耗品可穿但需保留實物備查。
+                    </div>
+                </div>
+                <div style="margin-top:18px; text-align:center;">
+                    <a class="tax-action-link" href="https://linshibi.com/?p=53059#%E5%85%8D%E9%80%80%E7%A8%85%E6%89%8B%E7%BA%8C%E8%B2%BB%E7%9A%84%E6%97%A5%E6%9C%AC%E5%95%86%E5%AE%B6%E6%95%B4%E7%90%86_116_8AM%E6%9B%B4%E6%96%B0" target="_blank">🔗 前往林氏璧原文查看最新退稅手續費更新</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- =================== 🎫 TRAVEL INFO PANEL =================== -->
+        <div id="view-12" class="view-panel">
+            <!-- 1. 優惠卷專區 -->
+            <div class="store-group-container">
+                <div class="store-title">
+                    <span>🎟️ 日本購物優惠卷（點擊圖片可全螢幕放大縮放）</span>
+                </div>
+                <div class="coupon-grid">
+                    <div class="coupon-card" onclick="openViewer('https://img.letsgojp.com/2026/10/bc_coupon_tw_2027-1838x2578.webp')">
+                        <img src="https://img.letsgojp.com/2026/10/bc_coupon_tw_2027-1838x2578.webp" alt="Bic Camera 優惠卷">
+                        <div class="coupon-card-title">Bic Camera 優惠卷 (免稅+最高7%)</div>
+                    </div>
+                    <div class="coupon-card" onclick="openViewer('https://img.letsgojp.com/2026/08/satsudora2627coupon-1170x2532.webp')">
+                        <img src="https://img.letsgojp.com/2026/08/satsudora2627coupon-1170x2532.webp" alt="Satsudora 札幌藥妝優惠卷">
+                        <div class="coupon-card-title">Satsudora 札幌藥妝優惠卷</div>
+                    </div>
+                    <div class="coupon-card" onclick="openViewer('https://img.letsgojp.com/2026/07/daikokucoupon202607-855x1300.webp')">
+                        <img src="https://img.letsgojp.com/2026/07/daikokucoupon202607-855x1300.webp" alt="大國藥妝優惠卷">
+                        <div class="coupon-card-title">大國藥妝優惠卷</div>
+                    </div>
+                    <div class="coupon-card" onclick="openViewer('https://img.letsgojp.com/2026/10/20261028matsuki_2026couponwhiletaxfree-855x1300-1793154656.webp')">
+                        <img src="https://img.letsgojp.com/2026/10/20261028matsuki_2026couponwhiletaxfree-855x1300-1793154656.webp" alt="松本清優惠卷">
+                        <div class="coupon-card-title">松本清優惠卷</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. YouTube 播放清單 -->
+            <div class="store-group-container">
+                <div class="store-title">
+                    <span>📺 行程參考影片 / YouTube 播放清單</span>
+                </div>
+                <div class="video-responsive">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=DQZVsP9RMX-Qu-TS&amp;list=PLEDiS5ZqnnBc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <!-- 3. 實用工具與即時運行資訊 -->
+            <div class="store-group-container">
+                <div class="store-title">
+                    <span>🔗 出行必備實用連結</span>
+                </div>
+                <div class="shopping-tag-list">
+                    <a class="tax-action-link" href="https://services.digital.go.jp/zh-cmn-hant/visit-japan-web/" target="_blank">🛂 Visit Japan Web</a>
+                    <a class="tax-action-link" href="https://www3.jrhokkaido.co.jp/webunkou/index_tc.html" target="_blank">🚆 JR 北海道即時運行情報</a>
+                    <a class="tax-action-link" href="https://www.hokkaido-airports.com/zh-CHT/new-chitose/" target="_blank">✈️ 新千歲機場官網</a>
+                    <a class="tax-action-link" href="https://www.keisei.co.jp/keisei/tetudou/skyliner/tc/" target="_blank">🚄 京成電鐵 Skyliner</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 全螢幕圖片檢視器 (支援縮放與隨意拖曳) -->
+    <div id="couponViewer" class="fullscreen-viewer">
+        <div class="viewer-header">
+            <button type="button" class="viewer-back-btn" onclick="closeViewer()">✕ 返回</button>
+        </div>
+        <div id="viewerContent" class="viewer-content">
+            <img id="viewerImage" src="" alt="檢視圖片">
+        </div>
+        <div class="viewer-controls">
+            <button type="button" class="viewer-control-btn" onclick="zoomImage(-0.5)">−</button>
+            <button type="button" class="viewer-control-btn" onclick="resetZoom()">⟲</button>
+            <button type="button" class="viewer-control-btn" onclick="zoomImage(0.5)">+</button>
+        </div>
     </div>
 
     <!-- Sticky Calculator -->
@@ -2583,8 +3022,35 @@
             if (calcBar) {
                 calcBar.style.display = (index === 9) ? 'flex' : 'none';
             }
+
+            // 僅於行程分頁 (D1-D8: index 0..7) 顯示手機版行程時間字體調整列
+            const mobileTimeBar = document.getElementById('mobile-time-size-bar');
+            if (mobileTimeBar) {
+                mobileTimeBar.style.display = (index >= 0 && index <= 7) ? '' : 'none';
+            }
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // === 手機版行程時間字體大小調整 (11px - 22px，自動記憶設定) ===
+        let mobileTimeFontSize = 14;
+
+        function applyMobileTimeFontSize(size) {
+            mobileTimeFontSize = Math.min(22, Math.max(11, size));
+            document.documentElement.style.setProperty('--mobile-time-font-size', mobileTimeFontSize + 'px');
+            const valEl = document.getElementById('mobile-time-size-val');
+            if (valEl) valEl.innerText = mobileTimeFontSize + 'px';
+            try {
+                localStorage.setItem('mobileTimeFontSize', String(mobileTimeFontSize));
+            } catch (e) {}
+        }
+
+        function adjustMobileTimeFontSize(delta) {
+            applyMobileTimeFontSize(mobileTimeFontSize + delta);
+        }
+
+        function resetMobileTimeFontSize() {
+            applyMobileTimeFontSize(14);
         }
 
         function applyViewMode() {
@@ -3046,12 +3512,11 @@
             } catch(e) {}
 
             try {
-                // 若當前日期已進入 12/14 或之後，預設載入北海道封面，否則載入 12/12-13/12 東京封面
-                const now = new Date();
-                if (now >= new Date('2026-12-14T00:00:00')) {
-                    updateCoverPhotosByDayIndex(2);
+                const savedTimeSize = parseInt(localStorage.getItem('mobileTimeFontSize'), 10);
+                if (!isNaN(savedTimeSize)) {
+                    applyMobileTimeFontSize(savedTimeSize);
                 } else {
-                    updateCoverPhotosByDayIndex(0);
+                    applyMobileTimeFontSize(14);
                 }
             } catch(e) {}
 
