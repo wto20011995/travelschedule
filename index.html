@@ -1401,7 +1401,7 @@
         <div class="carousel-container" id="carousel">
             <div class="carousel-track" id="carousel-track">
                 <div class="carousel-slide" id="carousel-slide-light" style="background-image: url('https://www.gotokyo.org/tc/destinations/western-tokyo/shibuya/images/main.jpg');"></div>
-                <div class="carousel-slide" id="carousel-slide-dark" style="background-image: url('https://www.gotokyo.org/en/story/guide/december/images/kv_december_1_main.webp');"></div>
+                <div class="carousel-slide" id="carousel-slide-dark" style="background-image: url('https://resources.matcha-jp.com/original/2025/10/16-246936.webp');"></div>
             </div>
             <button class="carousel-btn prev" onclick="prevImage()">❮</button>
             <button class="carousel-btn next" onclick="nextImage()">❯</button>
@@ -3078,7 +3078,7 @@
         const totalSlides = 2;
 
         const TOKYO_LIGHT_IMG = "https://www.gotokyo.org/tc/destinations/western-tokyo/shibuya/images/main.jpg";
-        const TOKYO_DARK_IMG = "https://www.gotokyo.org/en/story/guide/december/images/kv_december_1_main.webp";
+        const TOKYO_DARK_IMG = "https://resources.matcha-jp.com/original/2025/10/16-246936.webp";
         const HOKKAIDO_LIGHT_IMG = "https://www.bring-you.info/imgs/2021/02/Former-Hokkaido-Government-Office-Building.jpg";
         const HOKKAIDO_DARK_IMG = "https://www.sapporo.travel/cms/wp-content/uploads/2024/01/white-illumination-001.jpg";
 
@@ -3087,10 +3087,15 @@
             const slideDark = document.getElementById('carousel-slide-dark');
             if (!slideLight || !slideDark) return;
 
-            // 12/12 (index 0) 及 13/12 (index 1) 使用東京封面，其餘日子 (14/12 - 19/12) 使用北海道封面
+            // 12/12 (index 0) 及 13/12 (index 1)：普通與黑暗模式皆使用東京封面
+            // 14/12 (index 2)：普通模式使用東京封面（與 12/12 及 13/12 相同），黑暗模式使用北海道封面
+            // 15/12 - 19/12 (index 3 - 7)：普通與黑暗模式皆使用北海道封面
             if (dayIndex === 0 || dayIndex === 1) {
                 slideLight.style.backgroundImage = `url('${TOKYO_LIGHT_IMG}')`;
                 slideDark.style.backgroundImage = `url('${TOKYO_DARK_IMG}')`;
+            } else if (dayIndex === 2) {
+                slideLight.style.backgroundImage = `url('${TOKYO_LIGHT_IMG}')`;
+                slideDark.style.backgroundImage = `url('${HOKKAIDO_DARK_IMG}')`;
             } else {
                 slideLight.style.backgroundImage = `url('${HOKKAIDO_LIGHT_IMG}')`;
                 slideDark.style.backgroundImage = `url('${HOKKAIDO_DARK_IMG}')`;
