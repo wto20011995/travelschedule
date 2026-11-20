@@ -101,7 +101,7 @@
 
         .nav-container {
             width: 100%;
-            max-width: 1440px;
+            max-width: 1800px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -237,7 +237,7 @@
         body.dark-theme .sub-nav { background: rgba(28, 28, 30, 0.85); }
 
         .tabs-container {
-            max-width: 1440px;
+            max-width: 1800px;
             margin: 0 auto;
             display: flex;
             justify-content: flex-start;
@@ -283,7 +283,7 @@
 
         .main-container {
             width: 100%;
-            max-width: 1440px;
+            max-width: 1800px;
             margin: 0 auto;
             padding: 0 24px;
         }
@@ -1035,47 +1035,139 @@
         }
         .viewer-control-btn:active { background: rgba(255,255,255,0.3); }
 
-        /* 手機版行程時間字體大小控制列（預設隱藏，僅於手機版顯示） */
-        .mobile-time-size-bar {
-            display: none;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 8px 14px;
-            margin-bottom: 12px;
-            font-size: 13px;
-            color: var(--text-secondary);
+        /* 免稅計算機樣式 */
+        .tax-calc-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 16px;
         }
-        .mobile-time-size-controls {
-            display: inline-flex;
-            align-items: center;
+        .tax-calc-field {
+            display: flex;
+            flex-direction: column;
             gap: 6px;
         }
-        .time-size-btn {
+        .tax-calc-field label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .tax-calc-input-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 10px 14px;
+            transition: border-color 0.2s ease;
+        }
+        .tax-calc-input-box:focus-within {
+            border-color: var(--apple-blue);
+        }
+        .tax-calc-input-box input,
+        .tax-calc-input-box select {
+            flex: 1;
+            min-width: 0;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+            outline: none;
+            -moz-appearance: textfield;
+        }
+        .tax-calc-input-box input::-webkit-outer-spin-button,
+        .tax-calc-input-box input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .tax-calc-unit {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+        .tax-calc-presets {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+        .tax-preset-btn {
             background: var(--bg-color);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            border-radius: 8px;
-            padding: 4px 10px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
+            padding: 5px 11px;
+            border-radius: 999px;
             cursor: pointer;
-            line-height: 1.2;
+            transition: all 0.2s ease;
         }
-        .time-size-btn:active {
-            background: var(--apple-blue);
-            color: #ffffff;
+        .tax-preset-btn:hover {
             border-color: var(--apple-blue);
+            color: var(--apple-blue);
         }
-        .time-size-val {
-            min-width: 38px;
-            text-align: center;
+        .tax-calc-results {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        .tax-result-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .tax-result-card.highlight {
+            background: rgba(0, 102, 204, 0.08);
+            border-color: rgba(0, 102, 204, 0.35);
+        }
+        body.dark-theme .tax-result-card.highlight {
+            background: rgba(10, 132, 255, 0.16);
+            border-color: rgba(10, 132, 255, 0.45);
+        }
+        .tax-result-card.refund {
+            background: rgba(52, 199, 89, 0.1);
+            border-color: rgba(52, 199, 89, 0.35);
+        }
+        body.dark-theme .tax-result-card.refund {
+            background: rgba(48, 209, 88, 0.16);
+            border-color: rgba(48, 209, 88, 0.4);
+        }
+        .tax-result-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .tax-result-jpy {
+            font-size: 20px;
             font-weight: 700;
             color: var(--text-main);
+            line-height: 1.3;
+        }
+        .tax-result-hkd {
             font-size: 13px;
+            font-weight: 600;
+            color: var(--apple-blue);
+        }
+        .tax-result-card.refund .tax-result-jpy,
+        .tax-result-card.refund .tax-result-hkd {
+            color: #1f8a4c;
+        }
+        body.dark-theme .tax-result-card.refund .tax-result-jpy,
+        body.dark-theme .tax-result-card.refund .tax-result-hkd {
+            color: #30d158;
+        }
+        .tax-result-sub {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 2px;
         }
 
         /* 旅行資訊頁優惠卷與影片響應式排版 */
@@ -1136,30 +1228,29 @@
 
         @media (max-width: 1050px) {
             body:not(.forced-desktop-mode) { padding-top: 87px; padding-bottom: 280px; }
-            body:not(.forced-desktop-mode) .main-container { max-width: 600px; margin: 0 auto; padding: 0 12px; }
+            body:not(.forced-desktop-mode) .main-container { max-width: 100%; margin: 0 auto; padding: 0 10px; }
             
             body:not(.forced-desktop-mode) .carousel-container { height: 220px !important; }
-            body:not(.forced-desktop-mode) .mobile-time-size-bar { display: flex; }
             
             body:not(.forced-desktop-mode) .dashboard-grid { gap: 6px; }
             body:not(.forced-desktop-mode) .metric-card { padding: 6px 8px; flex: 1 1 21% !important; }
             body:not(.forced-desktop-mode) .metric-label { font-size: 10px; }
             body:not(.forced-desktop-mode) .metric-value { font-size: 12px; }
             
-            body:not(.forced-desktop-mode) .timeline-section { padding: 16px 14px !important; border-radius: 16px !important; }
-            body:not(.forced-desktop-mode) .time-box { font-size: var(--mobile-time-font-size, 14px) !important; padding-right: 6px !important; line-height: 1.45 !important; align-self: start !important; padding-top: 2px; word-break: keep-all; }
-            body:not(.forced-desktop-mode) .timeline-item { grid-template-columns: 94px 1fr !important; gap: 10px !important; padding: 14px 0 !important; align-items: start !important; }
+            body:not(.forced-desktop-mode) .timeline-section { padding: 16px 12px !important; border-radius: 16px !important; }
+            body:not(.forced-desktop-mode) .time-box { font-size: 13px !important; padding-right: 4px !important; line-height: 1.4 !important; align-self: start !important; padding-top: 2px; word-break: normal; }
+            body:not(.forced-desktop-mode) .timeline-item { grid-template-columns: 74px 1fr !important; gap: 8px !important; padding: 18px 0 !important; align-items: start !important; }
             body:not(.forced-desktop-mode) .content-box { flex-direction: row !important; align-items: flex-start !important; gap: 10px !important; }
-            body:not(.forced-desktop-mode) .timeline-left-img-container { width: 52px !important; height: 52px !important; align-self: flex-start; }
+            body:not(.forced-desktop-mode) .timeline-left-img-container { width: 64px !important; height: 64px !important; align-self: flex-start; }
             body:not(.forced-desktop-mode) .timeline-section .text-block > h3,
             body:not(.forced-desktop-mode) .timeline-section .text-block > h3.accordion-trigger,
             body:not(.forced-desktop-mode) .timeline-section .text-block > p,
             body:not(.forced-desktop-mode) .timeline-section .text-block > h3 a,
-            body:not(.forced-desktop-mode) .timeline-section .text-block > p a { font-size: 16px !important; line-height: 1.45 !important; }
+            body:not(.forced-desktop-mode) .timeline-section .text-block > p a { font-size: 16px !important; line-height: 1.55 !important; }
             body:not(.forced-desktop-mode) .accordion-content { padding-left: 10px !important; }
             body:not(.forced-desktop-mode) .timeline-section .accordion-content .sub-item,
-            body:not(.forced-desktop-mode) .timeline-section .accordion-content .sub-item a { font-size: 15px !important; line-height: 1.5 !important; }
-            body:not(.forced-desktop-mode) .timeline-section .accordion-content .sub-item { margin-top: 10px !important; padding-left: 6px !important; }
+            body:not(.forced-desktop-mode) .timeline-section .accordion-content .sub-item a { font-size: 15px !important; line-height: 1.6 !important; }
+            body:not(.forced-desktop-mode) .timeline-section .accordion-content .sub-item { margin-top: 14px !important; padding-left: 6px !important; row-gap: 6px; }
             body:not(.forced-desktop-mode) .breakfast-badge { font-size: 12px !important; padding: 3px 8px !important; margin-left: 6px !important; border-radius: 6px !important; }
             body:not(.forced-desktop-mode) .optional-badge { font-size: 11px !important; padding: 2px 8px !important; }
             body:not(.forced-desktop-mode) .backup-toggle-btn { font-size: 12px !important; padding: 4px 10px !important; border-radius: 8px !important; }
@@ -1175,7 +1266,7 @@
             body:not(.forced-desktop-mode) .wishlist-row-img-frame.enlarge-20 { width: 96px !important; height: 96px !important; }
             
             body:not(.forced-desktop-mode) .shopping-tag { font-size: 13px !important; padding: 4px 8px !important; }
-            body:not(.forced-desktop-mode) .inline-sub-logo { max-height: 24px !important; }
+            body:not(.forced-desktop-mode) .inline-sub-logo { max-height: 36px !important; max-width: 115px !important; }
             body:not(.forced-desktop-mode) .weather-table th, body:not(.forced-desktop-mode) .weather-table td { font-size: 14px !important; padding: 8px 6px !important; }
             
             body:not(.forced-desktop-mode) .nav-container { display: block; position: relative; width: 100%; height: 86px; padding: 0; }
@@ -1196,6 +1287,8 @@
             body:not(.forced-desktop-mode) .calc-hkd { font-size: 13px; }
             body:not(.forced-desktop-mode) .tax-toggle-btn { font-size: 13px; padding: 10px 16px; }
             body:not(.forced-desktop-mode) .tax-company-grid { grid-template-columns: 1fr; }
+            body:not(.forced-desktop-mode) .tax-calc-grid { grid-template-columns: 1fr; }
+            body:not(.forced-desktop-mode) .tax-calc-results { grid-template-columns: repeat(2, 1fr); }
             body:not(.forced-desktop-mode) .tax-hero-banner { padding: 16px; }
             body:not(.forced-desktop-mode) .tax-search-input { width: 100%; }
             body:not(.forced-desktop-mode) .tax-store-table th,
@@ -1203,27 +1296,26 @@
         }
 
         body.forced-mobile-mode { padding-top: 87px; padding-bottom: 280px; }
-        body.forced-mobile-mode .main-container { max-width: 600px; margin: 0 auto; padding: 0 12px; }
+        body.forced-mobile-mode .main-container { max-width: 100%; margin: 0 auto; padding: 0 10px; }
         body.forced-mobile-mode .carousel-container { height: 220px !important; }
-        body.forced-mobile-mode .mobile-time-size-bar { display: flex; }
         body.forced-mobile-mode .dashboard-grid { gap: 6px; }
         body.forced-mobile-mode .metric-card { padding: 6px 8px; flex: 1 1 21% !important; }
         body.forced-mobile-mode .metric-label { font-size: 10px; }
         body.forced-mobile-mode .metric-value { font-size: 12px; }
-        body.forced-mobile-mode .timeline-section { padding: 16px 14px !important; border-radius: 16px !important; }
-        body.forced-mobile-mode .time-box { font-size: var(--mobile-time-font-size, 14px) !important; padding-right: 6px !important; line-height: 1.45 !important; align-self: start !important; padding-top: 2px; word-break: keep-all; }
-        body.forced-mobile-mode .timeline-item { grid-template-columns: 94px 1fr !important; gap: 10px !important; padding: 14px 0 !important; align-items: start !important; }
+        body.forced-mobile-mode .timeline-section { padding: 16px 12px !important; border-radius: 16px !important; }
+        body.forced-mobile-mode .time-box { font-size: 13px !important; padding-right: 4px !important; line-height: 1.4 !important; align-self: start !important; padding-top: 2px; word-break: normal; }
+        body.forced-mobile-mode .timeline-item { grid-template-columns: 74px 1fr !important; gap: 8px !important; padding: 18px 0 !important; align-items: start !important; }
         body.forced-mobile-mode .content-box { flex-direction: row !important; align-items: flex-start !important; gap: 10px !important; }
-        body.forced-mobile-mode .timeline-left-img-container { width: 52px !important; height: 52px !important; align-self: flex-start; }
+        body.forced-mobile-mode .timeline-left-img-container { width: 64px !important; height: 64px !important; align-self: flex-start; }
         body.forced-mobile-mode .timeline-section .text-block > h3,
         body.forced-mobile-mode .timeline-section .text-block > h3.accordion-trigger,
         body.forced-mobile-mode .timeline-section .text-block > p,
         body.forced-mobile-mode .timeline-section .text-block > h3 a,
-        body.forced-mobile-mode .timeline-section .text-block > p a { font-size: 16px !important; line-height: 1.45 !important; }
+        body.forced-mobile-mode .timeline-section .text-block > p a { font-size: 16px !important; line-height: 1.55 !important; }
         body.forced-mobile-mode .accordion-content { padding-left: 10px !important; }
         body.forced-mobile-mode .timeline-section .accordion-content .sub-item,
-        body.forced-mobile-mode .timeline-section .accordion-content .sub-item a { font-size: 15px !important; line-height: 1.5 !important; }
-        body.forced-mobile-mode .timeline-section .accordion-content .sub-item { margin-top: 10px !important; padding-left: 6px !important; }
+        body.forced-mobile-mode .timeline-section .accordion-content .sub-item a { font-size: 15px !important; line-height: 1.6 !important; }
+        body.forced-mobile-mode .timeline-section .accordion-content .sub-item { margin-top: 14px !important; padding-left: 6px !important; row-gap: 6px; }
         body.forced-mobile-mode .accordion-trigger::after { font-size: 14px !important; }
         body.forced-mobile-mode .wishlist-section-title { font-size: 22px !important; margin-top: 24px !important; margin-bottom: 16px !important; }
         body.forced-mobile-mode .store-title { font-size: 18px !important; margin-bottom: 12px !important; }
@@ -1234,7 +1326,7 @@
         body.forced-mobile-mode .wishlist-row-img-frame { width: 80px !important; height: 80px !important; margin-left: 0 !important; align-self: flex-start; }
         body.forced-mobile-mode .wishlist-row-img-frame.enlarge-20 { width: 96px !important; height: 96px !important; }
         body.forced-mobile-mode .shopping-tag { font-size: 13px !important; padding: 4px 8px !important; }
-        body.forced-mobile-mode .inline-sub-logo { max-height: 24px !important; }
+        body.forced-mobile-mode .inline-sub-logo { max-height: 36px !important; max-width: 115px !important; }
         body.forced-mobile-mode .weather-table th, body.forced-mobile-mode .weather-table td { font-size: 14px !important; padding: 8px 6px !important; }
         body.forced-mobile-mode .nav-container { display: block; position: relative; width: 100%; height: 86px; padding: 0; }
         body.forced-mobile-mode .nav-left-section { position: absolute; bottom: 8px; left: 12px; top: auto; width: auto; }
@@ -1251,6 +1343,8 @@
         body.forced-mobile-mode .calc-hkd { font-size: 13px; }
         body.forced-mobile-mode .tax-toggle-btn { font-size: 13px; padding: 10px 16px; }
         body.forced-mobile-mode .tax-company-grid { grid-template-columns: 1fr; }
+        body.forced-mobile-mode .tax-calc-grid { grid-template-columns: 1fr; }
+        body.forced-mobile-mode .tax-calc-results { grid-template-columns: repeat(2, 1fr); }
         body.forced-mobile-mode .tax-hero-banner { padding: 16px; }
         body.forced-mobile-mode .tax-search-input { width: 100%; }
         body.forced-mobile-mode .tax-store-table th,
@@ -1314,17 +1408,6 @@
             <div class="carousel-dots">
                 <div class="dot active" onclick="goToImage(0)"></div>
                 <div class="dot" onclick="goToImage(1)"></div>
-            </div>
-        </div>
-
-        <!-- 手機版行程時間字體大小快速調整列 -->
-        <div class="mobile-time-size-bar" id="mobile-time-size-bar">
-            <span>🕒 行程時間字體大小</span>
-            <div class="mobile-time-size-controls">
-                <button type="button" class="time-size-btn" onclick="adjustMobileTimeFontSize(-1)">A-</button>
-                <span class="time-size-val" id="mobile-time-size-val">14px</span>
-                <button type="button" class="time-size-btn" onclick="adjustMobileTimeFontSize(1)">A+</button>
-                <button type="button" class="time-size-btn" onclick="resetMobileTimeFontSize()">重設</button>
             </div>
         </div>
 
@@ -1637,7 +1720,7 @@
                         <p class="sub-item"><a href="https://tabelog.com/hokkaido/A0101/A010103/1076745/" target="_blank">ESPRESSO D WORKS ココノススキノ店</a> <a href="https://www.google.com/maps/search/?api=1&query=ESPRESSO+D+WORKS+ココノススキノ" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
                         <p class="sub-item"><a href="https://humanmade.jp/pages/dealers?srsltid=AfmBOormVKR6rS3NPI9F_mu8CkSwj66sdRN8nGEft2ev9niKIOYI2Y9L" target="_blank">HUMAN MADE SAPPORO</a> <a href="https://www.google.com/maps/search/?api=1&query=HUMAN+MADE+SAPPORO" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://images.seeklogo.com/logo-png/48/1/humanmade-heart-logo-png_seeklogo-486066.png" alt="Human Made"></p>
                         <p class="sub-item"><a href="https://senshuan.co.jp/map/" target="_blank">札幌千秋庵 本店</a> <a href="https://www.google.com/maps/search/?api=1&query=札幌千秋庵+本店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
-                        <p class="sub-item"><a href="https://www.kaneko-optical.co.jp/shop_detail/142" target="_blank">金子眼鏡店 モユク札幌店</a> <a href="https://www.google.com/maps/search/?api=1&query=金子眼鏡店+モユク札幌店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://www.puyi.cn/pub/media/amasty/shopby/option_images/slider/Logo_KANEKO_OPTICAL_1.png" alt="Kaneko"></p>
+                        <p class="sub-item"><a href="https://www.kaneko-optical.co.jp/shop_detail/142" target="_blank">金子眼鏡店 モユク札幌店</a> <a href="https://www.google.com/maps/search/?api=1&query=金子眼鏡店+モユク札幌店" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <img class="inline-sub-logo" src="https://mitsui-shopping-park.com/lalaport/expocity/shopguide/2053889/image1.jpg" alt="Kaneko"></p>
                         <p class="sub-item"><a href="https://aoao-sapporo.blue/en/" target="_blank">AOAO SAPPORO</a> <a href="https://www.google.com/maps/search/?api=1&query=AOAO+SAPPORO" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a> <span class="optional-badge">Optional</span></p>
                         <p class="sub-item">札幌三越 <a href="https://www.google.com/maps/search/?api=1&query=札幌三越" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
                         <p class="sub-item">札幌Parco <a href="https://www.google.com/maps/search/?api=1&query=札幌PARCO" target="_blank" class="map-btn"><img src="https://static.vecteezy.com/system/resources/previews/016/716/478/non_2x/google-maps-icon-free-png.png" alt="Map"></a></p>
@@ -2235,6 +2318,85 @@
                 </div>
             </div>
 
+            <!-- 0. 日本新制免稅計算機 -->
+            <div class="store-group-container">
+                <div class="store-title" style="justify-content: space-between; flex-wrap: wrap;">
+                    <span>🧮 日本免稅試算計算機（即時換算港幣）</span>
+                    <span id="tax-calc-rate-label" style="font-size:13px; font-weight:500; color:var(--text-secondary);">匯率: ¥100 = HK$5.20</span>
+                </div>
+                <div class="tax-calc-presets">
+                    <span style="font-size:12px; font-weight:600; color:var(--text-secondary);">快速套用常見費率：</span>
+                    <button type="button" class="tax-preset-btn" onclick="applyTaxCalcPreset(0, 0)">BicCamera / 0%免手續費</button>
+                    <button type="button" class="tax-preset-btn" onclick="applyTaxCalcPreset(2.3, 0)">大丸 / 百貨 (免稅前 2.3%)</button>
+                    <button type="button" class="tax-preset-btn" onclick="applyTaxCalcPreset(3, 0)">三宅一生 (免稅前 3%)</button>
+                    <button type="button" class="tax-preset-btn" onclick="applyTaxCalcPreset(0, 10)">UNIQLO (10%稅額計 10%)</button>
+                    <button type="button" class="tax-preset-btn" onclick="applyTaxCalcPreset(0, 16)">Kiddy Land / Hoka (稅額計 16%)</button>
+                    <button type="button" class="tax-preset-btn" onclick="applyTaxCalcPreset(0, 24.2)">新宿 Lumine (稅額計 24.2%)</button>
+                </div>
+                <div class="tax-calc-grid">
+                    <div class="tax-calc-field">
+                        <label for="tax-calc-price">1. 物品含稅總金額（免稅前）</label>
+                        <div class="tax-calc-input-box">
+                            <span class="tax-calc-unit">¥</span>
+                            <input type="number" id="tax-calc-price" value="11000" min="0" step="100" placeholder="輸入含稅金額" oninput="calcTaxFreeGuide()">
+                            <select id="tax-calc-rate" onchange="calcTaxFreeGuide()" style="flex:0 0 auto; font-size:13px; color:var(--apple-blue); cursor:pointer;">
+                                <option value="10" selected>10% 消費稅</option>
+                                <option value="8">8% 食品輕減</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="tax-calc-field">
+                        <label for="tax-calc-voucher">2. 免稅前使用優惠劵 / 折扣</label>
+                        <div class="tax-calc-input-box">
+                            <button type="button" id="tax-calc-voucher-mode" class="voucher-mode-btn" data-mode="jpy" onclick="toggleTaxCalcVoucherMode()" title="點擊切換金額 (¥) 或折扣 (%)">¥</button>
+                            <input type="text" inputmode="decimal" id="tax-calc-voucher" value="0" placeholder="輸入金額或如 7%" oninput="calcTaxFreeGuide()">
+                            <span class="tax-calc-unit" id="tax-calc-voucher-hint">先扣再免稅</span>
+                        </div>
+                    </div>
+                    <div class="tax-calc-field">
+                        <label for="tax-calc-fee-pre">3. 免稅手續費（% 以物品免稅前金額計算）</label>
+                        <div class="tax-calc-input-box">
+                            <input type="number" id="tax-calc-fee-pre" value="0" min="0" max="50" step="0.05" placeholder="例如 2.3" oninput="calcTaxFreeGuide()">
+                            <span class="tax-calc-unit">%</span>
+                        </div>
+                    </div>
+                    <div class="tax-calc-field">
+                        <label for="tax-calc-fee-tax">4. 免稅手續費（% 以免稅後所扣除的 10% 稅額計算）</label>
+                        <div class="tax-calc-input-box">
+                            <input type="number" id="tax-calc-fee-tax" value="0" min="0" max="100" step="0.1" placeholder="例如 24.2" oninput="calcTaxFreeGuide()">
+                            <span class="tax-calc-unit">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tax-calc-results">
+                    <div class="tax-result-card">
+                        <span class="tax-result-label">折後先付含稅額</span>
+                        <span class="tax-result-jpy" id="res-after-voucher-jpy">¥11,000</span>
+                        <span class="tax-result-hkd" id="res-after-voucher-hkd">約 HK$572.00</span>
+                        <span class="tax-result-sub" id="res-voucher-sub">優惠劵已扣: ¥0</span>
+                    </div>
+                    <div class="tax-result-card">
+                        <span class="tax-result-label">預估退稅手續費總計</span>
+                        <span class="tax-result-jpy" id="res-fee-jpy">¥0</span>
+                        <span class="tax-result-hkd" id="res-fee-hkd">約 HK$0.00</span>
+                        <span class="tax-result-sub" id="res-fee-sub">原應退稅額: ¥1,000</span>
+                    </div>
+                    <div class="tax-result-card refund">
+                        <span class="tax-result-label">實際預計退稅金額</span>
+                        <span class="tax-result-jpy" id="res-refund-jpy">¥1,000</span>
+                        <span class="tax-result-hkd" id="res-refund-hkd">約 HK$52.00</span>
+                        <span class="tax-result-sub" id="res-refund-rate">實際退稅率: 9.09%</span>
+                    </div>
+                    <div class="tax-result-card highlight">
+                        <span class="tax-result-label">退稅後最終淨消費</span>
+                        <span class="tax-result-jpy" id="res-final-jpy">¥10,000</span>
+                        <span class="tax-result-hkd" id="res-final-hkd">約 HK$520.00</span>
+                        <span class="tax-result-sub">已扣優惠劵及實收退稅</span>
+                    </div>
+                </div>
+            </div>
+
             <!-- 1. 8 間免手續費店家 -->
             <div class="store-group-container">
                 <div class="store-title">
@@ -2700,11 +2862,100 @@
                     globalExchangeRate = data.jpy.hkd;
                     const ratePer100 = (globalExchangeRate * 100).toFixed(2);
                     if(rateLabel) rateLabel.innerText = `匯率: ¥100 = HK$${ratePer100} (即時數據)`;
+                    const taxCalcRateLabel = document.getElementById('tax-calc-rate-label');
+                    if(taxCalcRateLabel) taxCalcRateLabel.innerText = `匯率: ¥100 = HK$${ratePer100} (即時數據)`;
                     calcWishlist();
+                    calcTaxFreeGuide();
                 }
             } catch(e) {
                 if(rateLabel) rateLabel.innerText = `匯率: ¥100 = HK$5.20 (預設)`;
+                const taxCalcRateLabel = document.getElementById('tax-calc-rate-label');
+                if(taxCalcRateLabel) taxCalcRateLabel.innerText = `匯率: ¥100 = HK$5.20 (預設)`;
             }
+        }
+
+        // === 免稅教學頁：日本免稅試算計算機 ===
+        function toggleTaxCalcVoucherMode() {
+            const btn = document.getElementById('tax-calc-voucher-mode');
+            if (!btn) return;
+            const mode = btn.getAttribute('data-mode') || 'jpy';
+            if (mode === 'jpy') {
+                btn.setAttribute('data-mode', 'percent');
+                btn.innerText = '%';
+                btn.classList.add('is-percent');
+            } else {
+                btn.setAttribute('data-mode', 'jpy');
+                btn.innerText = '¥';
+                btn.classList.remove('is-percent');
+            }
+            calcTaxFreeGuide();
+        }
+
+        function applyTaxCalcPreset(preTaxPct, onTaxPct) {
+            const preInput = document.getElementById('tax-calc-fee-pre');
+            const taxInput = document.getElementById('tax-calc-fee-tax');
+            if (preInput) preInput.value = preTaxPct;
+            if (taxInput) taxInput.value = onTaxPct;
+            calcTaxFreeGuide();
+        }
+
+        function calcTaxFreeGuide() {
+            const priceEl = document.getElementById('tax-calc-price');
+            if (!priceEl) return;
+
+            const grossPrice = Math.max(0, parseFloat(priceEl.value) || 0);
+            const taxRatePct = parseFloat(document.getElementById('tax-calc-rate')?.value) || 10;
+            const voucherRaw = String(document.getElementById('tax-calc-voucher')?.value || '').trim();
+            const voucherMode = document.getElementById('tax-calc-voucher-mode')?.getAttribute('data-mode') || 'jpy';
+            const feePrePct = Math.max(0, parseFloat(document.getElementById('tax-calc-fee-pre')?.value) || 0);
+            const feeOnTaxPct = Math.max(0, parseFloat(document.getElementById('tax-calc-fee-tax')?.value) || 0);
+
+            // 1. 先於免稅前扣除優惠劵（支援固定日圓金額或百分比折扣）
+            const isExplicitPercent = voucherRaw.endsWith('%');
+            const voucherNum = Math.max(0, parseFloat(voucherRaw.replace('%', '')) || 0);
+            let voucherDiscount = 0;
+            if (isExplicitPercent || voucherMode === 'percent') {
+                voucherDiscount = Math.round(grossPrice * (Math.min(100, voucherNum) / 100));
+            } else {
+                voucherDiscount = Math.min(grossPrice, Math.round(voucherNum));
+            }
+
+            const afterVoucherPrice = Math.max(0, grossPrice - voucherDiscount);
+
+            // 2. 計算免稅後所扣除的消費稅額（如 10% 含稅價中之稅額 = 折後含稅價 - 折後含稅價 / 1.1）
+            const taxFreeBase = afterVoucherPrice / (1 + taxRatePct / 100);
+            const rawTaxAmount = afterVoucherPrice - taxFreeBase;
+
+            // 3. 分別計算兩種基準的免稅手續費
+            const feeFromPreTax = afterVoucherPrice * (feePrePct / 100);
+            const feeFromTaxAmount = rawTaxAmount * (feeOnTaxPct / 100);
+            const totalFee = Math.round(feeFromPreTax + feeFromTaxAmount);
+
+            // 4. 實際可獲退稅額與退稅後最終淨消費
+            const netRefundJpy = Math.max(0, Math.round(rawTaxAmount - totalFee));
+            const finalCostJpy = Math.max(0, Math.round(afterVoucherPrice - netRefundJpy));
+            const effectiveRate = afterVoucherPrice > 0 ? ((netRefundJpy / afterVoucherPrice) * 100).toFixed(2) : '0.00';
+
+            // 5. 換算港幣
+            const afterVoucherHkd = (afterVoucherPrice * globalExchangeRate).toFixed(2);
+            const totalFeeHkd = (totalFee * globalExchangeRate).toFixed(2);
+            const netRefundHkd = (netRefundJpy * globalExchangeRate).toFixed(2);
+            const finalCostHkd = (finalCostJpy * globalExchangeRate).toFixed(2);
+
+            document.getElementById('res-after-voucher-jpy').innerText = `¥${afterVoucherPrice.toLocaleString()}`;
+            document.getElementById('res-after-voucher-hkd').innerText = `約 HK$${afterVoucherHkd}`;
+            document.getElementById('res-voucher-sub').innerText = `優惠劵已扣: -¥${voucherDiscount.toLocaleString()}`;
+
+            document.getElementById('res-fee-jpy').innerText = `¥${totalFee.toLocaleString()}`;
+            document.getElementById('res-fee-hkd').innerText = `約 HK$${totalFeeHkd}`;
+            document.getElementById('res-fee-sub').innerText = `原${taxRatePct}%稅額: ¥${Math.round(rawTaxAmount).toLocaleString()}`;
+
+            document.getElementById('res-refund-jpy').innerText = `¥${netRefundJpy.toLocaleString()}`;
+            document.getElementById('res-refund-hkd').innerText = `約 HK$${netRefundHkd}`;
+            document.getElementById('res-refund-rate').innerText = `實際退稅率: ${effectiveRate}%`;
+
+            document.getElementById('res-final-jpy').innerText = `¥${finalCostJpy.toLocaleString()}`;
+            document.getElementById('res-final-hkd').innerText = `約 HK$${finalCostHkd}`;
         }
 
         function changeQty(btn, delta) {
@@ -3022,35 +3273,8 @@
             if (calcBar) {
                 calcBar.style.display = (index === 9) ? 'flex' : 'none';
             }
-
-            // 僅於行程分頁 (D1-D8: index 0..7) 顯示手機版行程時間字體調整列
-            const mobileTimeBar = document.getElementById('mobile-time-size-bar');
-            if (mobileTimeBar) {
-                mobileTimeBar.style.display = (index >= 0 && index <= 7) ? '' : 'none';
-            }
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // === 手機版行程時間字體大小調整 (11px - 22px，自動記憶設定) ===
-        let mobileTimeFontSize = 14;
-
-        function applyMobileTimeFontSize(size) {
-            mobileTimeFontSize = Math.min(22, Math.max(11, size));
-            document.documentElement.style.setProperty('--mobile-time-font-size', mobileTimeFontSize + 'px');
-            const valEl = document.getElementById('mobile-time-size-val');
-            if (valEl) valEl.innerText = mobileTimeFontSize + 'px';
-            try {
-                localStorage.setItem('mobileTimeFontSize', String(mobileTimeFontSize));
-            } catch (e) {}
-        }
-
-        function adjustMobileTimeFontSize(delta) {
-            applyMobileTimeFontSize(mobileTimeFontSize + delta);
-        }
-
-        function resetMobileTimeFontSize() {
-            applyMobileTimeFontSize(14);
         }
 
         function applyViewMode() {
@@ -3511,21 +3735,13 @@
                 handleResponsiveSwitch();
             } catch(e) {}
 
-            try {
-                const savedTimeSize = parseInt(localStorage.getItem('mobileTimeFontSize'), 10);
-                if (!isNaN(savedTimeSize)) {
-                    applyMobileTimeFontSize(savedTimeSize);
-                } else {
-                    applyMobileTimeFontSize(14);
-                }
-            } catch(e) {}
-
             try { calculateTripCountdown(); } catch(e) {}
             try { 
                 fetchLiveWeather();
                 setInterval(fetchLiveWeather, 60000);
             } catch(e) {}
             try { calcWishlist(); } catch(e) {}
+            try { calcTaxFreeGuide(); } catch(e) {}
             try { fetchLiveExchangeRate(); } catch(e) {}
             try { renderPackingList(); } catch(e) {}
             
