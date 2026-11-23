@@ -2327,6 +2327,7 @@
                 <div class="tax-calc-presets">
                     <span style="font-size:12px; font-weight:600; color:var(--text-secondary);">快速套用常見費率：</span>
                     <button type="button" class="tax-preset-btn" onclick="applyTaxCalcPreset(0, 0)">BicCamera / 0%免手續費</button>
+                    <button type="button" class="tax-preset-btn" onclick="applyTaxCalcPreset(0.5, 0)">HANDS / 3COINS (0.5%)</button>
                     <button type="button" class="tax-preset-btn" onclick="applyTaxCalcPreset(2.3, 0)">大丸 / 百貨 (免稅前 2.3%)</button>
                     <button type="button" class="tax-preset-btn" onclick="applyTaxCalcPreset(3, 0)">三宅一生 (免稅前 3%)</button>
                     <button type="button" class="tax-preset-btn" onclick="applyTaxCalcPreset(0, 10)">UNIQLO (10%稅額計 10%)</button>
@@ -2454,7 +2455,20 @@
                         <button type="button" class="tax-filter-btn" onclick="setTaxStoreFilter('PIE VAT', this)">PIE VAT</button>
                         <button type="button" class="tax-filter-btn" onclick="setTaxStoreFilter('JPrefund', this)">JPrefund</button>
                     </div>
-                    <input type="text" id="tax-store-search" class="tax-search-input" placeholder="🔍 搜尋商店名稱或類別..." oninput="filterTaxStores()">
+                    <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
+                        <select id="tax-store-category" class="tax-search-input" style="min-width:150px; cursor:pointer;" onchange="filterTaxStores()">
+                            <option value="all">📂 全部類別</option>
+                            <option value="藥妝美妝">💊 藥妝 / 美妝</option>
+                            <option value="百貨商場">🏬 百貨 / 商場 / Outlet</option>
+                            <option value="家電相機">🔌 家電 / 相機</option>
+                            <option value="服飾時裝">👕 服飾 / 時裝</option>
+                            <option value="雜貨綜合">🛍️ 雜貨 / 綜合 / 母嬰</option>
+                            <option value="運動眼鏡">🏃 運動 / 鞋履 / 眼鏡</option>
+                            <option value="動漫">🎮 動漫</option>
+                            <option value="超市零食">🛒 超市 / 零食 / 伴手禮</option>
+                        </select>
+                        <input type="text" id="tax-store-search" class="tax-search-input" placeholder="🔍 搜尋商店名稱或類別..." oninput="filterTaxStores()">
+                    </div>
                 </div>
 
                 <div class="tax-store-table-wrap">
@@ -2476,7 +2490,7 @@
                             <tr data-company="J-TaxRefund" data-zero="true" data-trip="false"><td><strong>唐吉訶德 (Don Quijote)</strong></td><td>綜合</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-zero">0%</td><td>店家全額吸收手續費</td></tr>
                             <tr data-company="J-TaxRefund" data-zero="true" data-trip="false"><td><strong>鶴羽藥妝 (TSURUHA)</strong></td><td>藥妝</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-zero">0%</td><td>店家全額吸收手續費</td></tr>
                             <tr data-company="J-TaxRefund" data-zero="true" data-trip="false"><td><strong>山田電機 LABI</strong></td><td>家電</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-zero">0%</td><td>可任選 J-TaxRefund 或 Ocean</td></tr>
-                            <tr data-company="J-TaxRefund" data-zero="true" data-trip="false"><td><strong>SUNDRUG (尚都樂客)</strong></td><td>藥妝</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-zero">0%</td><td>店家全額吸收手續費</td></tr>
+                            <tr data-company="J-TaxRefund" data-zero="true" data-trip="false"><td><strong>SUNDRUG (尚都樂客)</strong></td><td>藥妝</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-zero">0%</td><td>店家全額吸收手續費（部分分店如上野店可能為 Global Blue 1.56%）</td></tr>
                             <tr data-company="J-TaxRefund" data-zero="false" data-trip="true"><td><strong>松本清 / Cocokara Fine</strong><span class="trip-match-badge">優惠卷</span></td><td>藥妝</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-mid">0.33%</td><td>僅酌收信用卡匯款第三方費用</td></tr>
                             <tr data-company="J-TaxRefund" data-zero="false" data-trip="true"><td><strong>UNIQLO (ユニクロ)</strong><span class="trip-match-badge">行程/清單</span></td><td>時裝</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-mid">退款額約 10%</td><td>約實退 9%（以退款額計；等同商品未稅價約 1%）</td></tr>
                             <tr data-company="J-TaxRefund" data-zero="false" data-trip="false"><td><strong>GU</strong></td><td>時裝</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-mid">1.0%</td><td>未稅價基準</td></tr>
@@ -2484,24 +2498,50 @@
                             <tr data-company="J-TaxRefund" data-zero="false" data-trip="false"><td><strong>伊藤洋華堂</strong></td><td>百貨</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-mid">1.65%</td><td>未稅價基準</td></tr>
                             <tr data-company="J-TaxRefund" data-zero="false" data-trip="false"><td><strong>松屋銀座百貨</strong></td><td>百貨</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-high">2.15%</td><td>以含稅價計算</td></tr>
                             <tr data-company="J-TaxRefund" data-zero="false" data-trip="false"><td><strong>駿河屋</strong></td><td>動漫</td><td><span class="tax-company-tag jtax">J-TaxRefund</span></td><td class="tax-fee-high">4.0%</td><td>未稅價基準</td></tr>
-                            <tr data-company="Global Blue" data-zero="false" data-trip="true"><td><strong>大丸百貨 / 松坂屋 (大丸東京・札幌)</strong><span class="trip-match-badge">行程</span></td><td>百貨</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-high">2.3%</td><td>建議退至 JCB 卡避免匯差；無需 CVV</td></tr>
-                            <tr data-company="Global Blue" data-zero="false" data-trip="true"><td><strong>ヨドバシカメラ (Yodobashi)</strong><span class="trip-match-badge">行程</span></td><td>家電</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-high">2.3%</td><td>大額可選門市市區退現金（約 5%，上限 ¥500）</td></tr>
-                            <tr data-company="Global Blue" data-zero="false" data-trip="true"><td><strong>ISSEY MIYAKE (三宅一生)</strong><span class="trip-match-badge">行程/清單</span></td><td>時裝</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-high">3.0%</td><td>建議退至 JCB 卡；登記免 CVV 與預授權</td></tr>
-                            <tr data-company="Global Blue" data-zero="false" data-trip="false"><td><strong>SUGI 藥局</strong></td><td>藥妝</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-mid">1.6%</td><td>未稅價基準</td></tr>
-                            <tr data-company="Global Blue" data-zero="false" data-trip="false"><td><strong>阪急百貨 / 高島屋</strong></td><td>百貨</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-high">2.3% → 1.6%</td><td>依消費額級距遞減</td></tr>
-                            <tr data-company="Global Blue" data-zero="false" data-trip="false"><td><strong>愛電王 EDION</strong></td><td>家電</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-mid">定額 ¥210</td><td>買越多越划算</td></tr>
+                            <tr data-company="Global Blue" data-zero="false" data-trip="true"><td><strong>大丸 / 松坂屋 / 近鐵 / 三越伊勢丹 (大丸東京・札幌 / 札幌三越)</strong><span class="trip-match-badge">行程</span></td><td>百貨</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-high">2.3%</td><td>不排除級距式；務必退至 JCB 卡避開極差匯率（免 CVV）</td></tr>
+                            <tr data-company="Global Blue" data-zero="false" data-trip="true"><td><strong>ヨドバシカメラ (Yodobashi 友都八喜)</strong><span class="trip-match-badge">行程</span></td><td>家電</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-high">2.3%</td><td>11 間門市提供市區退現金（退稅額 5%，最低 ¥150／上限 ¥500）</td></tr>
+                            <tr data-company="Global Blue" data-zero="false" data-trip="true"><td><strong>東京車站一番街</strong><span class="trip-match-badge">行程</span></td><td>商場</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-high">2.3%</td><td>未稅價基準；建議退 JCB 卡</td></tr>
+                            <tr data-company="Global Blue" data-zero="false" data-trip="true"><td><strong>ISSEY MIYAKE (三宅一生街邊店)</strong><span class="trip-match-badge">行程/清單</span></td><td>時裝</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-high">3.0%</td><td>建議退至 JCB 卡；登記免 CVV 與預授權</td></tr>
+                            <tr data-company="Global Blue" data-zero="false" data-trip="false"><td><strong>SUGI 藥局</strong></td><td>藥妝</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-mid">定額 ¥160</td><td>固定金額收費，買越多越划算</td></tr>
+                            <tr data-company="Global Blue" data-zero="false" data-trip="false"><td><strong>愛電王 EDION</strong></td><td>家電</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-mid">定額 ¥210</td><td>固定金額收費，買越多越划算</td></tr>
+                            <tr data-company="Global Blue" data-zero="false" data-trip="false"><td><strong>SUNDRUG (部分分店如上野店)</strong></td><td>藥妝</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-mid">1.56%</td><td>部分分店僅提供 Global Blue QR 碼（其餘多數為 J-TaxRefund 0%）</td></tr>
+                            <tr data-company="Global Blue" data-zero="false" data-trip="false"><td><strong>JINS</strong></td><td>眼鏡</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-mid">1.6%</td><td>未稅價基準</td></tr>
+                            <tr data-company="Global Blue" data-zero="false" data-trip="false"><td><strong>沖繩御菓子御殿</strong></td><td>伴手禮</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-mid">1.8%</td><td>未稅價基準（基於單筆回報）</td></tr>
+                            <tr data-company="Global Blue" data-zero="false" data-trip="false"><td><strong>鬼塚虎 / Super Sports Xebio</strong></td><td>運動/鞋履</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-high">2.0%</td><td>未稅價基準</td></tr>
+                            <tr data-company="Global Blue" data-zero="false" data-trip="false"><td><strong>阪急百貨 / 高島屋</strong></td><td>百貨</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-high">2.3% → 1.6%</td><td>級距式：&lt;100萬 2.3%｜100~300萬 2.1%｜300~1000萬 1.8%｜&gt;1000萬 1.6%</td></tr>
+                            <tr data-company="Global Blue" data-zero="false" data-trip="false"><td><strong>AMU PLAZA博多 / S-PAL仙台 / 表參道Longchamp</strong></td><td>商場/精品</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-high">2.3%</td><td>未稅價基準</td></tr>
+                            <tr data-company="Global Blue" data-zero="false" data-trip="false"><td><strong>OWNDAYS / Zoff / 全家 / PLAZA / 成城石井 / Disney Store / H&amp;M / ZARA / LV・DIOR 等精品</strong></td><td>綜合/精品</td><td><span class="tax-company-tag gb">Global Blue</span></td><td class="tax-fee-mid">待回報</td><td>Global Blue 合作店家（含 Victoria、博品館、Cosme Kitchen、Samsonite、Drugstore Mori 等）</td></tr>
                             <tr data-company="PIE VAT" data-zero="false" data-trip="false"><td><strong>三井 Outlet Park / LaLaport</strong></td><td>Outlet</td><td><span class="tax-company-tag pie">PIE VAT</span></td><td class="tax-fee-mid">1.5%</td><td>須裝 App；無現金退款選項</td></tr>
                             <tr data-company="PIE VAT" data-zero="false" data-trip="false"><td><strong>澀谷 109</strong></td><td>商場</td><td><span class="tax-company-tag pie">PIE VAT</span></td><td class="tax-fee-mid">1.55%</td><td>須裝 App；僅線上退款</td></tr>
                             <tr data-company="PIE VAT" data-zero="false" data-trip="false"><td><strong>Montbell</strong></td><td>運動</td><td><span class="tax-company-tag pie">PIE VAT</span></td><td class="tax-fee-high">2% - 3%</td><td>依各分店而異</td></tr>
-                            <tr data-company="JPrefund" data-zero="false" data-trip="true"><td><strong>3COINS (札幌ポールタウン店)</strong><span class="trip-match-badge">行程</span></td><td>雜貨</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-high">定額 ¥320</td><td>未稅 ¥5,000 約 6.4%；¥10,000 約 3.2%</td></tr>
-                            <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>阿卡將本舖</strong></td><td>母嬰</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-mid">1.1%</td><td>以含稅價計算</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="true"><td><strong>HANDS (東京・渋谷・札幌店)</strong><span class="trip-match-badge">行程/清單</span></td><td>雜貨</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-mid">0.5%</td><td>未稅價基準（屬 JPrefund 最低跨境稅款手續費區間）</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="true"><td><strong>3COINS (札幌ポールタウン店)</strong><span class="trip-match-badge">行程</span></td><td>雜貨</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-mid">0.5% (已大降!)</td><td>由原定額 ¥320 大降為未稅價 0.5%（實測未稅 ¥7,600 僅收 ¥41）</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="true"><td><strong>PARCO (渋谷・札幌PARCO)</strong><span class="trip-match-badge">行程</span></td><td>商場</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-mid">待確認</td><td>費率待回報確認</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>銀座 OK 超市</strong></td><td>超市</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-mid">0.4%</td><td>未稅價基準</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>二木菓子店</strong></td><td>零食</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-mid">0.4%</td><td>未稅價基準</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>新宿北村寫真機店</strong></td><td>相機</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-mid">0.5%</td><td>未稅價基準</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>MITTAN 服飾店</strong></td><td>服飾</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-mid">0.5%</td><td>未稅價基準</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>阿卡將本舖 (Akachan Honpo)</strong></td><td>母嬰</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-mid">1.1%</td><td>以含稅價計算</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>Welcia 藥妝</strong></td><td>藥妝</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-mid">1.18%</td><td>未稅價基準（目前僅一單回報）</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>國民 Kokumin</strong></td><td>藥妝</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-mid">1.25%</td><td>未稅價基準（目前僅一單回報）</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>Workman / evam eva</strong></td><td>服飾</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-mid">1.5%</td><td>未稅價基準</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>駿河屋 (JPrefund 系統)</strong></td><td>動漫</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-mid">1.5%</td><td>比 J-TaxRefund 系統（4%）划算許多</td></tr>
                             <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>Grand Front Osaka</strong></td><td>商場</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-mid">1.5%</td><td>未稅價基準</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>AINS &amp; TULPE</strong></td><td>美妝</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-mid">1.9%</td><td>未稅價基準（目前僅一單回報）</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>Alpen 運動用品店</strong></td><td>運動</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-high">2.0%</td><td>未稅價基準</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>思夢樂 (Shimamura)</strong></td><td>服飾</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-high">1% - 2.5%</td><td>各分店費率可能不同</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>MURASAKI SPORTS</strong></td><td>運動</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-high">2% - 3%</td><td>各分店費率可能不同</td></tr>
                             <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>Fancl</strong></td><td>美妝</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-high">3.5%</td><td>未稅價基準</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>指南針 (らしんばん / Lashinbang)</strong></td><td>動漫</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-high">定額約 ¥320</td><td>採定額制，消費額較低時佔比較高</td></tr>
+                            <tr data-company="JPrefund" data-zero="false" data-trip="false"><td><strong>BOOKOFF / AOKI西服 / COSMOS藥妝 / AEON Mall</strong></td><td>綜合/藥妝</td><td><span class="tax-company-tag jpr">JPrefund</span></td><td class="tax-fee-mid">待確認</td><td>AEON Mall 各分店可能不同（疑為定額制）</td></tr>
                             <tr data-company="其他" data-zero="false" data-trip="false"><td><strong>AEON 夢樂城 / Animate</strong></td><td>商場/動漫</td><td><span class="tax-company-tag other">Planet / Ocean</span></td><td class="tax-fee-mid">1.5% / 2.1%</td><td>Animate 另收提領費 ¥180 起</td></tr>
                         </tbody>
                     </table>
                 </div>
                 <p id="tax-store-empty-msg" style="display:none; text-align:center; padding:18px; color:var(--text-secondary); font-size:14px;">找不到符合條件的商店，請嘗試其他關鍵字或篩選條件。</p>
+                <p style="margin-top:12px; font-size:12px; color:var(--text-secondary); line-height:1.6;">
+                    ※ 註：上表除特別標註外皆以「未稅價」為分母計算（例如消費稅 10%、手續費 1.5% 即實拿 8.5%）；若於機場領現金另有手續費（約 1% 或 Cash JAPAN 應退稅額 10%、最低 ¥100）。資料引用並整理自 <a href="https://linshibi.com/?p=53059#%E5%85%8D%E9%80%80%E7%A8%85%E6%89%8B%E7%BA%8C%E8%B2%BB%E7%9A%84%E6%97%A5%E6%9C%AC%E5%95%86%E5%AE%B6%E6%95%B4%E7%90%86_116_8AM%E6%9B%B4%E6%96%B0" target="_blank" style="color:var(--apple-blue); text-decoration:none;">林氏璧（璧傳媒）日本退稅手續費實測整理</a>，費率可能隨時變動。
+                </p>
             </div>
 
             <!-- 3. 四大主流退稅系統比較 -->
@@ -2533,14 +2573,15 @@
                             <span class="tax-pill-badge blue">百貨/精品/三宅一生</span>
                         </div>
                         <div class="tax-company-meta">
-                            • <strong>方式</strong>：網頁或 App（無需 CVV、無需預授權，資安最安心）<br>
-                            • <strong>期限</strong>：離境後 <strong>3 週內</strong>設好信用卡，<strong>3 個月內</strong>完成辦理<br>
-                            • <strong>現金退稅</strong>：支援機場現金機（免建帳號）及 Yodobashi 市區領現<br>
-                            • <strong>💡 避雷貼士</strong>：強烈建議退至 <strong>JCB 卡</strong>，避免被強制轉匯造成匯差損失
+                            • <strong>方式</strong>：網頁或 App（無需 CVV、免註冊亦可領現；App 僅簡中／英／日，登入護照可查歷史紀錄）<br>
+                            • <strong>期限</strong>：離境後 <strong>3 週內</strong>設好信用卡（否則寄虛擬預付卡），<strong>3 個月內</strong>必辦<br>
+                            • <strong>現金退稅</strong>：支援 6 大機場 Cash JAPAN、11 間友都八喜門市、LAOX 銀座本店及大丸心齋橋<br>
+                            • <strong>💡 避雷核心</strong>：<strong>退回信用卡務必選 JCB 卡</strong>（日圓入帳，JCB 日圓雙幣卡可拿回 100%）；退 VISA / Master 會被極差匯率強轉帳單幣別（僅拿回約 90%）
                         </div>
                         <div class="tax-company-links">
                             <a class="tax-action-link" href="https://www.globalblue.com/zh/shoppers/how-to-shop-tax-free/destinations/japan" target="_blank">🌐 日本退稅指引</a>
                             <a class="tax-action-link" href="https://www.globalblue.com/zh/shoppers/global-blue-shop-tax-free-app" target="_blank">📱 下載 App</a>
+                            <a class="tax-action-link" href="https://www.cashjapan.com/zh-tw/" target="_blank">💴 Cash JAPAN</a>
                         </div>
                     </div>
 
@@ -2568,9 +2609,10 @@
                         </div>
                         <div class="tax-company-meta">
                             • <strong>方式</strong>：純網頁登記（綁卡需 CVV 及人臉辨識）<br>
+                            • <strong>費率區間</strong>：店家吸收後最低仍需 <strong>0.4%～0.5%</strong> 跨境稅款手續費<br>
                             • <strong>期限</strong>：購物後 <strong>200 天內</strong>皆可辦理<br>
-                            • <strong>現金退稅</strong>：欲在機場領現金<strong>必須先建立帳號</strong>，並於出境前選擇「機場現金領取」<br>
-                            • <strong>常見場域</strong>：3COINS、阿卡將本舖、Fancl
+                            • <strong>現金退稅</strong>：欲在機場領現金<strong>必須先建立帳號並掃描收據專屬 QR Code</strong>，使紀錄變為「已確認」後再選「機場現金領取」<br>
+                            • <strong>常見場域</strong>：HANDS (0.5%)、3COINS (0.5%)、PARCO (待確認)、阿卡將本舖、Fancl
                         </div>
                         <div class="tax-company-links">
                             <a class="tax-action-link" href="https://jprefund.jp/" target="_blank">🌐 退稅網頁</a>
@@ -2578,21 +2620,155 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- JPrefund 實戰情報及避雷貼士 -->
+                <div class="tax-tips-grid" style="margin-top: 16px;">
+                    <div class="tax-tip-card">
+                        <strong>🎉 3COINS 退稅手續費大降為 0.5%！</strong>
+                        原定額 ¥320（消費未稅 ¥5,000 相當於被扣 6.4%）已於 11 月起大幅調降為 <strong>未稅價 0.5%</strong>！實測未稅 ¥7,600 僅收 ¥41 手續費。<br>
+                        <span style="color:var(--text-secondary); font-size:13px;">💡 小提醒：若選機場 Cash JAPAN 領現金，機台另收應退稅金的 <strong>10%（最低 ¥100）</strong>，比店家手續費還高，小額建議退信用卡更划算。</span>
+                    </div>
+                    <div class="tax-tip-card">
+                        <strong>⚠️ JPrefund 無法在 Cash JAPAN 領現金的 2 大原因</strong>
+                        1. <strong>漏掃收據專屬 QR Code</strong>：JPrefund 領現金也必須登入網頁，並掃描收據上的專屬 QR Code（或手動輸入 20 位數交易編號），待購買紀錄從「待處理」變成「已確認」並選擇「機場領現金」，Cash JAPAN 機台才會顯示該筆紀錄。<br>
+                        2. <strong>海關查核傳輸時間差</strong>：過完海關綠燈後，資料傳至退稅公司可能有延遲（甚至回國後仍顯示「請於出境時接受海關確認」）；若在機場機台查無資料，請直接改選<strong>退回信用卡</strong>。
+                    </div>
+                </div>
             </div>
 
-            <!-- 4. HSBC World Debit Card 退稅實測 -->
+            <!-- 4. Global Blue (環球藍聯) 深度攻略：信用卡避雷 × 4 大現金退稅管道 -->
             <div class="store-group-container">
-                <div class="store-title">
-                    <span>💳 網民實測：HSBC World Debit Card 收取日本退稅金紀錄</span>
+                <div class="store-title" style="justify-content: space-between; flex-wrap: wrap;">
+                    <span>🔵 Global Blue（環球藍聯）深度攻略：信用卡必選 JCB × 4 大領現管道</span>
+                    <span class="tax-pill-badge warn">付款與退款方式完全脫鈎</span>
                 </div>
-                <p style="font-size:14px; color:var(--text-secondary); margin-bottom:14px;">
-                    實測日期：11 月 3 日回港選擇以 HSBC World Debit Card 退款 ➔ <strong>11 月 9 日收到款項（約 6 日入帳）</strong>
+                <p style="font-size:14px; color:var(--text-secondary); margin-bottom:14px; line-height:1.6;">
+                    日本絕大多數百貨公司（大丸、三越伊勢丹、高島屋、松屋等）、三宅一生、Yodobashi 及全家便利商店皆採用 Global Blue，店家手續費多落在 <strong>2%～3%</strong>。退稅方式與原本付款工具無關（可用現金、PayPay 或任一張卡結帳，再指定退回<strong>本人名下</strong>信用卡或領現；不支援預付卡）。
+                </p>
+
+                <!-- 4A. 信用卡退款實測對照表 -->
+                <h4 style="font-size:16px; font-weight:700; margin-bottom:10px; color:var(--text-main);">💳 信用卡退款幣別與實測回收率對照（避開匯差陷阱）</h4>
+                <div class="tax-store-table-wrap" style="margin-bottom:18px;">
+                    <table class="tax-store-table">
+                        <thead>
+                            <tr>
+                                <th>退款卡別</th>
+                                <th>入帳幣別</th>
+                                <th>實測拿回比例</th>
+                                <th>實測案例 / 注意事項</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>JCB 日圓雙幣卡</strong></td>
+                                <td class="tax-fee-zero">日圓 (JPY)</td>
+                                <td class="tax-fee-zero">100% 原額</td>
+                                <td>高島屋應退 ¥3,204 ➔ 實拿 ¥3,204；友都八喜應退 ¥1,386 ➔ 實拿 ¥1,386（最推薦！）</td>
+                            </tr>
+                            <tr>
+                                <td><strong>一般 JCB 卡</strong></td>
+                                <td class="tax-fee-zero">日圓 (JPY)</td>
+                                <td class="tax-fee-zero">近 100%</td>
+                                <td>以日圓送出再依發卡組織正常匯率折算（友都八喜應退 ¥2,642 ➔ 匯率 0.2055，逃過 Global Blue 劣質匯率）</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Master 日圓雙幣卡</strong></td>
+                                <td class="tax-fee-mid">帳單幣別轉換</td>
+                                <td class="tax-fee-mid">約 95%</td>
+                                <td>經測試仍會少收約 5.5%（Tommy Hilfiger 應退 ¥832 ➔ 實拿 ¥786）</td>
+                            </tr>
+                            <tr>
+                                <td><strong>一般 VISA / Master / Diners</strong></td>
+                                <td class="tax-fee-high">強制轉帳單幣別 (HKD/TWD)</td>
+                                <td class="tax-fee-high">僅約 90%</td>
+                                <td>被 Global Blue 以極差匯率＋2%～4% 換匯費剝削（GINZA SIX、東京車站一番街、SUGI 實測均大蝕約 10%）</td>
+                            </tr>
+                            <tr>
+                                <td><strong>銀聯 / 美國運通 (AE)</strong></td>
+                                <td class="tax-fee-mid">預設美元 (USD)</td>
+                                <td class="tax-fee-mid">依銀行二次換匯</td>
+                                <td>若帳單幣別非美元可能產生雙重貨幣轉換費</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 4B. 4 大現金退稅管道比較 -->
+                <h4 style="font-size:16px; font-weight:700; margin-bottom:10px; color:var(--text-main);">💴 Global Blue 4 大現金退稅管道與手續費比較</h4>
+                <div class="tax-store-table-wrap" style="margin-bottom:16px;">
+                    <table class="tax-store-table">
+                        <thead>
+                            <tr>
+                                <th>領現管道 / 地點</th>
+                                <th>額外現金手續費（疊加店家費）</th>
+                                <th>擔保 / 資格要求</th>
+                                <th>本次行程重點據點與營業時間</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>1. 6 大機場 Cash JAPAN</strong><span class="trip-match-badge">行程</span><br><span style="font-size:12px; color:var(--text-secondary);">成田・新千歲・關西・中部・神戶・福岡</span></td>
+                                <td><strong>應退稅額 10%</strong>（約未稅 1%）<br><span class="tax-fee-mid">最低 ¥100／最高 ¥500 封頂</span><br><span style="font-size:12px; color:var(--text-secondary);">以 ¥50 取整（未滿 ¥25 捨去）</span></td>
+                                <td><strong>完全免註冊、免信用卡、免收據</strong><br>先過海關再掃護照（約 70 秒；單筆上限 ¥10 萬；羽田／那霸不支援）</td>
+                                <td><strong>新千歲機場 國際線 3 樓</strong>：<br>人工櫃檯 07:00–20:00<br>自助退稅機 06:00–20:30</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2. 市區 11 間友都八喜 (DTRO)</strong><span class="trip-match-badge">行程</span><br><span style="font-size:12px; color:var(--text-secondary);">可跨店合退 Global Blue 特約店</span></td>
+                                <td><strong>應退稅額 5%</strong>（約未稅 0.5%）<br><span class="tax-fee-mid">最低 ¥150／最高 ¥500 封頂</span></td>
+                                <td><strong>須綁 VISA/Master 擔保</strong>（不可用 JCB）<br>帶商品與收據（限單筆 ¥20 萬內）；出境仍須過海關</td>
+                                <td>全分店 <strong>09:30–22:00</strong>：<br><strong>札幌店 2 樓</strong>（JR札幌北口 2 分）<br>東京：新宿西口 6F／池袋 B1F／秋葉原 3F／上野 1F</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3. 東京 LAOX 銀座本店 3 樓</strong><span class="trip-match-badge">行程</span></td>
+                                <td><strong>應退稅額 5%</strong><br><span class="tax-fee-mid">最低 ¥150／最高 ¥500 封頂</span></td>
+                                <td>設 2 台 Global Blue 自助終端機；可併退銀座周邊合作店</td>
+                                <td><strong>11:00–20:00</strong><br>地鐵銀座站徒步 5 分／JR 新橋站徒步 3 分</td>
+                            </tr>
+                            <tr>
+                                <td><strong>4. 大丸百貨心齋橋店本館 9 樓</strong></td>
+                                <td class="tax-fee-zero">僅收原 2.3%（無額外現金費）</td>
+                                <td>限該店消費、離境 21 天內、VISA/Master 擔保；<strong>未過海關或退貨罰 15%</strong></td>
+                                <td>10:00–20:00（外國遊客服務站）<br><span style="font-size:12px; color:var(--text-secondary);">※ 單價未稅 ≥100 萬日圓可能需出示保證書</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 4C. 決策懶人包 -->
+                <div class="tax-tips-grid">
+                    <div class="tax-tip-card">
+                        <strong>🎯 到底該選「機場領現」、「友都八喜」還是「退信用卡」？</strong>
+                        • <strong>有 JCB 卡</strong>：最無腦省事，直接線上/App 退回 <strong>JCB 卡</strong>（免手續費封頂煩惱、免排隊、免蝕匯率）。<br>
+                        • <strong>只有 VISA / Master 卡</strong>：大額消費領現金更划算！單筆退稅額 <strong>&gt; ¥5,000</strong> 選機場 Cash JAPAN（¥500 封頂）；<strong>&gt; ¥10,000</strong> 選友都八喜市區領現（¥500 封頂）。<br>
+                        • <strong>小額消費（如含稅 ¥11,000）</strong>：機場最低 ¥100 比友都八喜最低 ¥150 便宜；若機場現金機大排長龍，直接放棄改回港線上退 JCB 卡即可。
+                    </div>
+                    <div class="tax-tip-card">
+                        <strong>📊 實算對比（買含稅 ¥11,000，原應退 ¥1,000）</strong>
+                        • <strong>Bic Camera (0%)＋機場領現</strong>：扣 ¥100 ➔ 實拿 <strong>¥900 (9.0%)</strong><br>
+                        • <strong>友都八喜 (2.3%)＋機場領現</strong>：扣 ¥230＋¥100 ➔ 實拿 <strong>¥670 (6.7%)</strong><br>
+                        • <strong>友都八喜 (2.3%)＋市區領現</strong>：扣 ¥230＋¥150 ➔ 實拿 <strong>¥620 (6.2%)</strong><br>
+                        <span style="color:var(--text-secondary); font-size:13px;">結論：優先挑選本身 0% 手續費的店家，比省領現費更有感！</span>
+                    </div>
+                </div>
+                <p style="margin-top:12px; font-size:12px; color:var(--text-secondary); line-height:1.6;">
+                    ※ 以上 Global Blue 費率、實測案例與據點資料整理自 <a href="https://linshibi.com/?p=53059#%E5%85%8D%E9%80%80%E7%A8%85%E6%89%8B%E7%BA%8C%E8%B2%BB%E7%9A%84%E6%97%A5%E6%9C%AC%E5%95%86%E5%AE%B6%E6%95%B4%E7%90%86_116_8AM%E6%9B%B4%E6%96%B0" target="_blank" style="color:var(--apple-blue); text-decoration:none;">林氏璧（璧傳媒）日本退稅攻略</a> 及 <a href="https://www.cashjapan.com/zh-tw/" target="_blank" style="color:var(--apple-blue); text-decoration:none;">Cash JAPAN 官方網站</a>，實際規定以現場公告為準。
+                </p>
+            </div>
+
+            <!-- 5. HSBC World Debit Card 退稅實測 -->
+            <div class="store-group-container">
+                <div class="store-title" style="justify-content: space-between; flex-wrap: wrap;">
+                    <span>💳 HSBC World Debit Card 日本退稅實測紀錄</span>
+                    <span class="tax-pill-badge blue">11/3 回港 ➔ 11/9 入帳（約 6 日）</span>
+                </div>
+                <p style="font-size:14px; color:var(--text-secondary); margin-bottom:14px; line-height:1.6;">
+                    以下為香港旅客使用 <strong>HSBC World Debit Card</strong> 接收日本新制退稅款的實測入帳數據（4 間實測商店剛好全數採用 <strong>J-TaxRefund</strong> 系統），反映不同商場以「免稅適用金額（10% 稅額）」計算手續費時的實際扣減情況：
                 </p>
                 <div class="tax-store-table-wrap" style="margin-bottom:16px;">
                     <table class="tax-store-table">
                         <thead>
                             <tr>
-                                <th>消費商店</th>
+                                <th>實測商店</th>
                                 <th>免稅適用金額</th>
                                 <th>退稅入帳金額</th>
                                 <th>Cash Rebate 扣回</th>
@@ -2601,106 +2777,88 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td><strong>1. Lumine Sanrio</strong></td><td>¥620</td><td>¥470</td><td>-¥2</td><td><strong>¥468</strong></td><td class="tax-fee-high">約 24% (立牌標示 24.2%)</td></tr>
-                            <tr><td><strong>2. Lumine MUJI</strong></td><td>¥526</td><td>¥399</td><td>-¥2</td><td><strong>¥397</strong></td><td class="tax-fee-high">約 24%</td></tr>
-                            <tr><td><strong>3. Kiddy Land</strong></td><td>¥630</td><td>¥527</td><td>-¥2</td><td><strong>¥525</strong></td><td class="tax-fee-high">約 16%</td></tr>
-                            <tr><td><strong>4. Hoka</strong></td><td>¥1,500</td><td>¥1,253</td><td>-¥5</td><td><strong>¥1,248</strong></td><td class="tax-fee-high">約 16%</td></tr>
+                            <tr>
+                                <td><strong>1. Lumine Sanrio</strong></td>
+                                <td>¥620</td>
+                                <td>¥470</td>
+                                <td>-¥2</td>
+                                <td><strong>¥468</strong></td>
+                                <td class="tax-fee-high">約 24%（新宿 Lumine 標示 24.2%）</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2. Lumine MUJI</strong></td>
+                                <td>¥526</td>
+                                <td>¥399</td>
+                                <td>-¥2</td>
+                                <td><strong>¥397</strong></td>
+                                <td class="tax-fee-high">約 24%（新宿 Lumine 標示 24.2%）</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3. Kiddy Land</strong></td>
+                                <td>¥630</td>
+                                <td>¥527</td>
+                                <td>-¥2</td>
+                                <td><strong>¥525</strong></td>
+                                <td class="tax-fee-high">約 16%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>4. Hoka</strong></td>
+                                <td>¥1,500</td>
+                                <td>¥1,253</td>
+                                <td>-¥5</td>
+                                <td><strong>¥1,248</strong></td>
+                                <td class="tax-fee-high">約 16%</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="tax-tips-grid">
                     <div class="tax-tip-card">
-                        <strong>💱 直入日元戶口，免蝕匯率</strong>
-                        使用 HSBC World Debit Card 退稅會直接入帳至外幣日元戶口，完全不會蝕兌換匯差，但銀行會按比例扣回原先該筆消費已派發的 Cash Rebate。
+                        <strong>💴 直入日圓戶口免蝕匯率（但會扣回回贈）</strong>
+                        使用 HSBC World Debit Card 收取退稅會<strong>直接入落日圓戶口</strong>，完全不會蝕外幣兌換匯率，但銀行會按比例扣回該筆退款對應的 Cash Rebate。
                     </div>
                     <div class="tax-tip-card">
-                        <strong>⚠️ 注意手續費計算分母</strong>
-                        部分商場（如新宿 Lumine 標示 24.2%）的手續費是直接從「免稅適用金額（10% 稅額）」中扣除（相當於實收約 7.6% 退稅），結帳前務必看清告示。
+                        <strong>⚠️ 留意手續費分母陷阱（新宿 Lumine 達 24.2%）</strong>
+                        部分商場的手續費是以<strong>「免稅適用金額（原本 10% 稅金）」</strong>作為分母扣除，例如新宿 Lumine 現場標示 24.2%，實測確實被扣減約 24% 稅款。
                     </div>
                     <div class="tax-tip-card">
-                        <strong>⏱️ 退款入帳速度比較</strong>
-                        使用信用卡或 Debit Card 收款，處理時間（Process Date）至少需要 5 個工作天以上；根據網民普遍分享，使用「支付寶」收款到帳速度最快。
-                    </div>
-                </div>
-            </div>
-
-            <!-- 5. 2026 新制 4 步驟與新千歲機場離境指引 -->
-            <div class="store-group-container">
-                <div class="store-title">
-                    <span>✈️ 2026 免稅 4 步驟與 12/19 新千歲機場離境指引</span>
-                </div>
-                <div class="tax-infographic-wrap">
-                    <svg viewBox="0 0 880 140" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="10" y="15" width="195" height="110" rx="14" fill="#0066cc" fill-opacity="0.1" stroke="#0066cc" stroke-width="1.5"/>
-                        <text x="107" y="45" text-anchor="middle" font-size="16" font-weight="700" fill="#0066cc">1. 結帳付含稅價</text>
-                        <text x="107" y="72" text-anchor="middle" font-size="13" fill="currentColor">出示護照告知 Tax Free</text>
-                        <text x="107" y="95" text-anchor="middle" font-size="12" fill="#86868b">保留所有收據至入帳</text>
-
-                        <text x="218" y="75" text-anchor="middle" font-size="22" font-weight="700" fill="#86868b">➔</text>
-
-                        <rect x="232" y="15" width="195" height="110" rx="14" fill="#0066cc" fill-opacity="0.1" stroke="#0066cc" stroke-width="1.5"/>
-                        <text x="329" y="45" text-anchor="middle" font-size="16" font-weight="700" fill="#0066cc">2. 掃碼登記退款</text>
-                        <text x="329" y="72" text-anchor="middle" font-size="13" fill="currentColor">掃收據 QR 選信用卡/現金</text>
-                        <text x="329" y="95" text-anchor="middle" font-size="12" fill="#86868b">建議購物當日完成登記</text>
-
-                        <text x="440" y="75" text-anchor="middle" font-size="22" font-weight="700" fill="#86868b">➔</text>
-
-                        <rect x="454" y="15" width="195" height="110" rx="14" fill="#34c759" fill-opacity="0.12" stroke="#34c759" stroke-width="1.5"/>
-                        <text x="551" y="45" text-anchor="middle" font-size="16" font-weight="700" fill="#1f8a4c">3. 機場海關確認</text>
-                        <text x="551" y="72" text-anchor="middle" font-size="13" fill="currentColor">託運前掃 KIOSK 或 VJW</text>
-                        <text x="551" y="95" text-anchor="middle" font-size="12" fill="#86868b">綠燈 Complete 即過關</text>
-
-                        <text x="662" y="75" text-anchor="middle" font-size="22" font-weight="700" fill="#86868b">➔</text>
-
-                        <rect x="676" y="15" width="195" height="110" rx="14" fill="#ff9500" fill-opacity="0.12" stroke="#ff9500" stroke-width="1.5"/>
-                        <text x="773" y="45" text-anchor="middle" font-size="16" font-weight="700" fill="#c93400">4. 自動入帳 / 領現</text>
-                        <text x="773" y="72" text-anchor="middle" font-size="13" fill="currentColor">信用卡自動退 / 現金機領</text>
-                        <text x="773" y="95" text-anchor="middle" font-size="12" fill="#86868b">新千歲現金機 06:00-20:30</text>
-                    </svg>
-                </div>
-                <div class="tax-tips-grid">
-                    <div class="tax-tip-card">
-                        <strong>📶 新千歲機場免排隊密技 (VJW Wi-Fi)</strong>
-                        於國際線 3 樓出發大堂（<strong>託運行李與安檢前</strong>），連接海關專用 Wi-Fi：<br>
-                        SSID: <code>Customs_WiFi_For_TaxRefund</code><br>
-                        密碼: <code>jcustoms</code><br>
-                        登入 Visit Japan Web ➔「退稅手續」確認顯示綠色 Complete 即可直接託運行李！
+                        <strong>⏱️ 到帳速度參考：信用卡／Debit Card 需至少 5 日</strong>
+                        實測顯示經信用卡或 Debit Card 收取退稅的處理時間（Process Date）<strong>至少需要 5 日</strong>；根據網上分享，選擇退至<strong>支付寶</strong>到帳速度最快。
                     </div>
                     <div class="tax-tip-card">
-                        <strong>🚨 海關查核兩大陷阱</strong>
-                        1. <strong>消耗品不可在日本境內拆封使用</strong>（食品、飲料、化妝品等）。<br>
-                        2. <strong>整張單據一併判定</strong>：若單據中任何一件遺失或已消耗，整張單據將無法獲退稅；衣物等非消耗品可穿但需保留實物備查。
+                        <strong>💬 網民補充：J-TaxRefund 操作感想</strong>
+                        • <strong>全數 4 間均屬 J-TaxRefund</strong>，掃描護照本身非常順暢。<br>
+                        • <strong>登入略嫌繁瑣</strong>：每次登入系統都需要重新輸入驗證碼。<br>
+                        • <strong>不顯示預計匯款日</strong>：不像 JPrefund 會標示預計匯款時間，系統顯示「退稅完成」後只能自行等待入帳。
                     </div>
-                </div>
-                <div style="margin-top:18px; text-align:center;">
-                    <a class="tax-action-link" href="https://linshibi.com/?p=53059#%E5%85%8D%E9%80%80%E7%A8%85%E6%89%8B%E7%BA%8C%E8%B2%BB%E7%9A%84%E6%97%A5%E6%9C%AC%E5%95%86%E5%AE%B6%E6%95%B4%E7%90%86_116_8AM%E6%9B%B4%E6%96%B0" target="_blank">🔗 前往林氏璧原文查看最新退稅手續費更新</a>
+                    <div class="tax-tip-card">
+                        <strong>✈️ 網民補充：成田機場海關機與現金機實況</strong>
+                        • <strong>護照掃描機（海關確認）</strong>：設於 <strong>Counter A</strong> 一側，步行過去稍遠，但無需排隊、掃描僅約 <strong>2 秒</strong>完成，整體相當方便。<br>
+                        • <strong>領取現金機</strong>：位置較不顯眼、現場指示未算清晰（新制剛上路數日，預計後續指引會逐步改善）。
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- =================== 🎫 TRAVEL INFO PANEL =================== -->
         <div id="view-12" class="view-panel">
-            <!-- 1. 優惠卷專區 -->
+            <!-- 1. 日本藥妝購物優惠卷 -->
             <div class="store-group-container">
                 <div class="store-title">
-                    <span>🎟️ 日本購物優惠卷（點擊圖片可全螢幕放大縮放）</span>
+                    <span>🎟️ 日本藥妝免稅購物優惠卷（點擊圖片全螢幕放大）</span>
                 </div>
                 <div class="coupon-grid">
-                    <div class="coupon-card" onclick="openViewer('https://img.letsgojp.com/2026/10/bc_coupon_tw_2027-1838x2578.webp')">
-                        <img src="https://img.letsgojp.com/2026/10/bc_coupon_tw_2027-1838x2578.webp" alt="Bic Camera 優惠卷">
-                        <div class="coupon-card-title">Bic Camera 優惠卷 (免稅+最高7%)</div>
-                    </div>
                     <div class="coupon-card" onclick="openViewer('https://img.letsgojp.com/2026/08/satsudora2627coupon-1170x2532.webp')">
-                        <img src="https://img.letsgojp.com/2026/08/satsudora2627coupon-1170x2532.webp" alt="Satsudora 札幌藥妝優惠卷">
-                        <div class="coupon-card-title">Satsudora 札幌藥妝優惠卷</div>
+                        <img src="https://img.letsgojp.com/2026/08/satsudora2627coupon-1170x2532.webp" alt="札幌藥妝 Satsudora 優惠卷">
+                        <div class="coupon-card-title">札幌藥妝 Satsudora 優惠卷</div>
                     </div>
                     <div class="coupon-card" onclick="openViewer('https://img.letsgojp.com/2026/07/daikokucoupon202607-855x1300.webp')">
-                        <img src="https://img.letsgojp.com/2026/07/daikokucoupon202607-855x1300.webp" alt="大國藥妝優惠卷">
-                        <div class="coupon-card-title">大國藥妝優惠卷</div>
+                        <img src="https://img.letsgojp.com/2026/07/daikokucoupon202607-855x1300.webp" alt="大國藥妝 Daikoku 優惠卷">
+                        <div class="coupon-card-title">大國藥妝 Daikoku 優惠卷</div>
                     </div>
                     <div class="coupon-card" onclick="openViewer('https://img.letsgojp.com/2026/10/20261028matsuki_2026couponwhiletaxfree-855x1300-1793154656.webp')">
-                        <img src="https://img.letsgojp.com/2026/10/20261028matsuki_2026couponwhiletaxfree-855x1300-1793154656.webp" alt="松本清優惠卷">
-                        <div class="coupon-card-title">松本清優惠卷</div>
+                        <img src="https://img.letsgojp.com/2026/10/20261028matsuki_2026couponwhiletaxfree-855x1300-1793154656.webp" alt="松本清 Matsumoto Kiyoshi 優惠卷">
+                        <div class="coupon-card-title">松本清 Matsumoto Kiyoshi 優惠卷</div>
                     </div>
                 </div>
             </div>
@@ -3225,14 +3383,28 @@
 
         function filterTaxStores() {
             const searchInput = document.getElementById('tax-store-search');
+            const categorySelect = document.getElementById('tax-store-category');
             const keyword = (searchInput ? searchInput.value : '').trim().toLowerCase();
+            const selectedCategory = categorySelect ? categorySelect.value : 'all';
             const rows = document.querySelectorAll('#tax-store-tbody tr');
             let visibleCount = 0;
+
+            const categoryRules = {
+                '藥妝美妝': /藥妝|美妝/,
+                '百貨商場': /百貨|商場|Outlet/i,
+                '家電相機': /家電|相機/,
+                '服飾時裝': /時裝|服飾/,
+                '雜貨綜合': /綜合|雜貨|母嬰/,
+                '運動眼鏡': /運動|鞋履|眼鏡/,
+                '動漫': /動漫/,
+                '超市零食': /超市|零食|伴手禮/
+            };
 
             rows.forEach(row => {
                 const company = row.getAttribute('data-company') || '';
                 const isZero = row.getAttribute('data-zero') === 'true';
                 const isTrip = row.getAttribute('data-trip') === 'true';
+                const categoryCell = row.cells[1] ? row.cells[1].innerText : '';
                 const text = row.innerText.toLowerCase();
 
                 let matchFilter = true;
@@ -3240,9 +3412,14 @@
                 else if (currentTaxStoreFilter === 'zero') matchFilter = isZero;
                 else if (currentTaxStoreFilter !== 'all') matchFilter = (company === currentTaxStoreFilter);
 
+                let matchCategory = true;
+                if (selectedCategory !== 'all' && categoryRules[selectedCategory]) {
+                    matchCategory = categoryRules[selectedCategory].test(categoryCell);
+                }
+
                 const matchKeyword = !keyword || text.includes(keyword);
 
-                if (matchFilter && matchKeyword) {
+                if (matchFilter && matchCategory && matchKeyword) {
                     row.style.display = '';
                     visibleCount++;
                 } else {
